@@ -1,0 +1,31 @@
+{% if not ajax %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>{{ app_title }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Empty django project">
+
+    <link href="{{ STATIC_URL }}css/normalize.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+
+    <script src="{{ STATIC_URL }}js/jquery/jquery-1.8.2.min.js"></script>
+
+    {% block extra_css %}{% endblock %}
+
+    {% block extra_js %}{% endblock %}
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+{% endif %}
+{% block content %}{% endblock %}
+{% if not ajax %}
+    <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
+{% endif %}

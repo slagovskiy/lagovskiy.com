@@ -1,0 +1,7 @@
+﻿@charset "utf-8";
+.block_left{ float: left; margin-right: 20px; }
+.block_right{ float: right; margin-left: 20px; }
+.text_left{ text-align: left; }
+.text_right{ text-align: right; }
+.text_center{ text-align: center; }
+.clear{ clear: both; }
