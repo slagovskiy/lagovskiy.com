@@ -1,3 +1,4 @@
+{% load widgets %}
 {% if not ajax %}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,9 +24,46 @@
 </head>
 <body>
 {% endif %}
-{% block content %}{% endblock %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="span2 clearfix">
+            <a href="/"><h1 class="logo" title="Sergey Lagovskiy"></h1></a>
+            <hr class="logo_hr">
+            <ul class="nav nav-pills nav-stacked nav_main">
+                <li class="active"><a href="#">Blog</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <hr class="nav_hr">
+            {% widget_categories_menu %}
+            <hr class="nav_hr">
+            {% widget_tags_menu %}
+            <hr class="nav_hr">
+            {% widget_links_menu %}
+        </div>
+        <div class="span10 clearfix">
+            <div class="post">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom_bar">
+    <div class="container">
+        <div class="row text_center">
+            <a href="mailto:slagovskiy@gmail.com">Sergey Lagoskiy</a> &copy; 2012 &nbsp;&nbsp;
+            Οδύσσεια 1.0
+        </div>
+    </div>
+</div>
+
 {% if not ajax %}
     <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
+    <script language="javascript">
+    </script>
 </body>
 </html>
 {% endif %}
+
+
+
