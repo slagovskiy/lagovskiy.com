@@ -128,7 +128,8 @@ INSTALLED_APPS = (
 
 
     # project apps
-    'utils'
+    'utils',
+    'apps.blog',
 )
 
 # A sample logging configuration. The only tangible logging

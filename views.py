@@ -6,15 +6,17 @@ from django.contrib.auth import authenticate, login, logout
 
 def custom_proc(request):
     return {
-        'app_title': 'Empty django project',
-        'app_name': 'root',
+        'app_title': '',
+        'link_app': '',
+        'link_category': '',
+        'link_tag': '',
         'user': request.session.get('user', None),
         'ip_address': request.META['REMOTE_ADDR'],
         'ajax': request.GET.get('ajax', 0)
     }
 
 def index(request):
-    message = 'hello, world!'
+    message = ''
     t = loader.get_template('default.html')
     c = RequestContext(
         request,

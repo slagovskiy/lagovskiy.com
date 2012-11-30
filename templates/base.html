@@ -3,11 +3,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>{{ app_title }}</title>
+    <title>{{ app_title }}{% if app_title %} - {% endif %}Sergey Lagovskiy</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
     <meta name="description" content="{% block meta_description %}{% endblock %}">
-    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Empty django project">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Sergey Lagovskiy">
 
     <link href="{{ STATIC_URL }}css/normalize.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
@@ -30,9 +30,9 @@
             <a href="/"><h1 class="logo" title="Sergey Lagovskiy"></h1></a>
             <hr class="logo_hr">
             <ul class="nav nav-pills nav-stacked nav_main">
-                <li class="active"><a href="#">Blog</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">About</a></li>
+                <li{% ifequal link_app 'blog' %} class="active"{% endifequal %}><a href="/blog/">Blog</a></li>
+                <li{% ifequal link_app 'projects' %} class="active"{% endifequal %}><a href="#">Projects</a></li>
+                <li{% ifequal link_app 'about' %} class="active"{% endifequal %}><a href="#">About</a></li>
             </ul>
             <hr class="nav_hr">
             {% widget_categories_menu %}
@@ -43,6 +43,12 @@
         </div>
         <div class="span10 clearfix">
             <div class="post">
+                {% if message %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{ message }}
+                </div>
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
         </div>
@@ -51,7 +57,7 @@
 <div class="bottom_bar">
     <div class="container">
         <div class="row text_center">
-            <a href="mailto:slagovskiy@gmail.com">Sergey Lagoskiy</a> &copy; 2012 &nbsp;&nbsp;
+            <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;
             Οδύσσεια 1.0
         </div>
     </div>
