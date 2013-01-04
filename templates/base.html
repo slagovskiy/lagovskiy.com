@@ -25,43 +25,55 @@
 <body>
 {% endif %}
 <div class="container">
-    <div class="row clearfix">
-        <div class="span2 clearfix">
-            <a href="/"><h1 class="logo" title="Sergey Lagovskiy"></h1></a>
-            <hr class="logo_hr">
-            <ul class="nav nav-pills nav-stacked nav_main">
-                <li{% ifequal link_app 'blog' %} class="active"{% endifequal %}><a href="/blog/">Blog</a></li>
-                <li{% ifequal link_app 'projects' %} class="active"{% endifequal %}><a href="#">Projects</a></li>
-                <li{% ifequal link_app 'about' %} class="active"{% endifequal %}><a href="#">About</a></li>
-            </ul>
-            <hr class="nav_hr">
-            {% widget_categories_menu %}
-            <hr class="nav_hr">
-            {% widget_tags_menu %}
-            <hr class="nav_hr">
-            {% widget_links_menu %}
+    <!-- HEAD -->
+    <div>
+        <div class="row clearfix page_head">
+            <div class="span10">
+                <a href="/"><h1 class="logo" title="Sergey Lagovskiy">Sergey Lagovskiy</h1></a>
+            </div>
+            <div class="span10">
+                <ul class="menu nav nav-pills">
+                    <li class="active"{% ifequal link_app 'home' %} class="active"{% endifequal %}><a href="/">home</a></li>
+                    <li class="empty">/</li>
+                    <li><a href="/blog/"{% ifequal link_app 'blog' %} class="active"{% endifequal %}>blog</a></li>
+                    <li class="empty">/</li>
+                    <li><a href="/projects/"{% ifequal link_app 'projects' %} class="active"{% endifequal %}>projects</a></li>
+                    <li class="empty">/</li>
+                    <li><a href="/about"{% ifequal link_app 'about' %} class="active"{% endifequal %}>about & contact</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="span10 clearfix">
+    </div>
+
+    <!-- BODY -->
+    <div class="row clearfix page_body">
+        <div class="span9 content">
             <div class="post">
                 {% if message %}
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    {{ message }}
-                </div>
+                    <div class="alert alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ message }}
+                    </div>
                 {% endif %}
                 {% block content %}{% endblock %}
             </div>
         </div>
-    </div>
-</div>
-<div class="bottom_bar">
-    <div class="container">
-        <div class="row text_center">
-            <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;
-            Οδύσσεια 1.0
+        <div class="span3 panel">
+            {% widget_categories_menu %}
+
+            {% widget_tags_menu %}
+
+            {% widget_links_menu %}
         </div>
     </div>
+
+    <!-- BOTTOM -->
+    <div class="row clearfix page_bottom">
+        <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;
+        <span title="Odyssey">Οδύσσεια</span> 1.0
+    </div>
 </div>
+
 
 {% if not ajax %}
     <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
