@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{# load pytils_numeral #}
+{% block content %}
+    <div class="form_login">
+        <form class="form-horizontal">
+            <legend>Login to administration panel</legend>
+            <div class="control-group">
+                <label class="control-label" for="txtLogin">Login</label>
+                <div class="controls">
+                    <input type="text" id="txtLogin" placeholder="Login">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="txtPassword">Password</label>
+                <div class="controls">
+                    <input type="password" id="txtPassword" placeholder="Password">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <!--
+                    <label class="checkbox">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    -->
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

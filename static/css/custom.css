@@ -9,8 +9,30 @@ hr{
 }
 
 
+.admin{
 
+}
+.admin .menu{
+    margin-bottom: 0px;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: #E1E1E1;
+    padding-left: 10px;
+}
+.admin_strip{
+    background-image: url("../img/strip.gif");
+    height: 3px;
+}
+.admin_login{
+    text-align: right;
+    margin-bottom: -24px;
+    padding-right: 5px;
+}
+.admin_login .login{
 
+}
+.admin_login .login:hover{
+    text-decoration: none;
+}
 
 .page_head{
     text-transform: uppercase;
@@ -80,4 +102,25 @@ hr{
     border-top: #EEEEEE 1px solid;
     padding-bottom: 20px;
     padding-top: 20px;
+}
+
+
+
+.form_login{
+    padding-top: 20px;
+    margin: auto;
+    width: 500px;
+}
+
+
+
+
+.block_left{
+    float: left;
+}
+.block_right{
+    float: right;
+}
+.block_clear{
+    clear: both;
 }

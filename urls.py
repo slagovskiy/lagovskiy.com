@@ -11,7 +11,8 @@ from settings import *
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^djadmin/', include(admin.site.urls)),
+    url(r'^admin/', include('apps.admin.urls')),
     url(r'^blog/', include('apps.blog.urls')),
 )
 
