@@ -4,19 +4,22 @@ from django.template import loader, RequestContext
 from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 
+import logging
+
 def custom_proc(request):
     return {
         'app_title': '',
         'link_app': '',
         'link_category': '',
         'link_tag': '',
-        'user': request.session.get('user', None),
+        'user': request.user,
         'ip_address': request.META['REMOTE_ADDR'],
         'ajax': request.GET.get('ajax', 0)
     }
 
 def index(request):
     message = ''
+    logging.warning(request.user)
     t = loader.get_template('default.html')
     c = RequestContext(
         request,

@@ -2,18 +2,19 @@
 {# load pytils_numeral #}
 {% block content %}
     <div class="form_login">
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="POST" action="/admin/login_check/">
+            {% csrf_token %}
             <legend>Login to administration panel</legend>
             <div class="control-group">
                 <label class="control-label" for="txtLogin">Login</label>
                 <div class="controls">
-                    <input type="text" id="txtLogin" placeholder="Login">
+                    <input type="text" id="txtLogin" name="txtLogin" placeholder="Login">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="txtPassword">Password</label>
                 <div class="controls">
-                    <input type="password" id="txtPassword" placeholder="Password">
+                    <input type="password" id="txtPassword" name="txtPassword" placeholder="Password">
                 </div>
             </div>
             <div class="control-group">

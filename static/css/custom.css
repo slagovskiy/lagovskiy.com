@@ -14,9 +14,6 @@ hr{
 }
 .admin .menu{
     margin-bottom: 0px;
-    border-bottom: 1px solid #DDDDDD;
-    background-color: #E1E1E1;
-    padding-left: 10px;
 }
 .admin_strip{
     background-image: url("../img/strip.gif");

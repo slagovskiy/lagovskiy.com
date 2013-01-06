@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'utils',
     'apps.blog',
     'apps.admin',
+    'userprofile',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -168,3 +169,5 @@ except ImportError:
 
 if not SECRET_KEY:
     raise Exception('You must provide SECRET_KEY value in settings_local.py')
+
+AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
