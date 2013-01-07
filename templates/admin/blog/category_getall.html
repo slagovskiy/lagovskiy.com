@@ -1,0 +1,13 @@
+{
+    "message": "{{ message }}",
+    "items":
+    [{% for category in categories %}
+        {
+            "id": "{{ category.id }}",
+            "slug": "{{ category.slug }}",
+            "name": "{{ category.name }}",
+            "sort": "{{ category.sort }}",
+            "deleted": "{{ category.deleted }}"
+        }{% if not forloop.last %},{% endif %}
+    {% endfor %}]
+}

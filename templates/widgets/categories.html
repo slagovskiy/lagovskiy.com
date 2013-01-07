@@ -1,7 +1,6 @@
 <h2 class="menu_title">Categories</h2>
 <ul class="nav nav-pills nav-stacked nav_other">
-    <li class="active"><a href="#"><table width="100%"><tr><td>Админево</td><td align="right">23</td></tr></table></a></li>
-    <li><a href="#"><table width="100%"><tr><td>Разработка</td><td align="right">26</td></tr></table></a></li>
-    <li><a href="#"><table width="100%"><tr><td>Фотография</td><td align="right">12</td></tr></table></a></li>
-    <li><a href="#"><table width="100%"><tr><td>Разное</td><td align="right">12</td></tr></table></a></li>
+    {% for category in categories %}
+    <li{% ifequal link_category category.slug %} class="active"{% endifequal %}><a href="/blog/{{ category.slug }}/"><table width="100%"><tr><td>{{ category.name }}</td><td align="right">--</td></tr></table></a></li>
+    {% endfor %}
 </ul>

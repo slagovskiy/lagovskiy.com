@@ -10,9 +10,12 @@ from datetime import timedelta
 from datetime import datetime
 
 import logging
+from apps.blog.admin import CategoryAdmin
 
 from apps.blog.models import *
 from apps.blog.settings import *
+
+from apps.blog.models import Category
 
 def custom_proc(request):
     return {
@@ -68,3 +71,35 @@ def logout_action(request):
         page = '/'
     logout(request)
     return HttpResponseRedirect(page)
+
+# blog
+
+## blog: category
+
+def blog_category(request):
+    message = ''
+    t = loader.get_template('admin/blog/category.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_category_getall(request):
+    message = ''
+    categories = []
+    try:
+        categories = Category.objects.all()
+    except:
+        logging.error('Error get categories list')
+    t = loader.get_template('admin/blog/category_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'categories': categories,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

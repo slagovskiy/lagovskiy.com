@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Blog / Category</h2>
+    <div id="data"></div>
+
+    <a href="#frmCategory" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
+
+    <div id="frmCategory" class="modal fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Edit category</h3>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="txtSlug">Slug</label>
+                    <div class="controls">
+                        <input type="text" id="txtSlug" name="txtSlug" placeholder="Slug">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="txtName">Name</label>
+                    <div class="controls">
+                        <input type="text" id="txtName" name="txtName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="txtSort">Sort</label>
+                    <div class="controls">
+                        <input type="text" id="txtSort" name="txtSort" placeholder="Sort">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="checkDeleted"> Deleted
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary">Save changes</a>
+        </div>
+    </div>
+
+    <script>
+        function init()
+        {
+            loadData();
+        }
+
+        function editData(id)
+        {
+            $('#frmCategory').modal({
+                keyboard: false
+            }).show();
+        }
+
+        function loadData()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/blog/category/getall/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover">';
+                    _data += '<thead><tr>' +
+                            '<th>id</th>' +
+                            '<th>name</th>' +
+                            '<th>slug</th>' +
+                            '<th>sort</th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td>' + item.id + '</td>' +
+                                '<td><a href="/admin/blog/category/edit/' + item.id + '/" onclick="editData(1); return false;">' + (item.deleted=="True"?'<strike>':'') + item.name + (item.deleted=="True"?'</strike>':'') + '</a></td>' +
+                                '<td>' + item.slug + '</td>' +
+                                '<td>' + item.sort + '</td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load category list " + xhr);
+                }
+            });
+        }
+
+        init();
+    </script>
+{% endblock %}
