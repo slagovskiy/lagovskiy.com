@@ -1,6 +1,6 @@
 <h2 class="menu_title">Categories</h2>
 <ul class="nav nav-pills nav-stacked nav_other">
     {% for category in categories %}
-    <li{% ifequal link_category category.slug %} class="active"{% endifequal %}><a href="/blog/{{ category.slug }}/"><table width="100%"><tr><td>{{ category.name }}</td><td align="right">--</td></tr></table></a></li>
+    <li{% ifequal link_category category.slug %} class="active"{% endifequal %}><a href="/blog/category/{{ category.slug }}/"><table width="100%"><tr><td>{{ category.name }}</td><td align="right">--</td></tr></table></a></li>
     {% endfor %}
 </ul>

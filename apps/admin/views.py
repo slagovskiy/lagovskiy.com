@@ -1,3 +1,4 @@
+from django.core.context_processors import request
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -28,6 +29,18 @@ def custom_proc(request):
         'ajax': request.GET.get('ajax', 0)
     }
 
+# utils
+
+def check_access(user, access):
+    try:
+        if not getattr(user.get_profile(), access)():
+            return False
+        else:
+            return True
+    except:
+        return False
+
+
 def index(request):
     message = ''
     t = loader.get_template('admin/default.html')
@@ -38,6 +51,8 @@ def index(request):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+# login / logout
 
 def login_action(request):
     message = ''
@@ -72,11 +87,24 @@ def logout_action(request):
     logout(request)
     return HttpResponseRedirect(page)
 
+def ad(request):
+    message = ''
+    t = loader.get_template('admin/access_denied.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
 # blog
 
 ## blog: category
 
 def blog_category(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
     message = ''
     t = loader.get_template('admin/blog/category.html')
     c = RequestContext(
@@ -88,6 +116,8 @@ def blog_category(request):
     return HttpResponse(t.render(c))
 
 def blog_category_getall(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
     message = ''
     categories = []
     try:
@@ -103,3 +133,153 @@ def blog_category_getall(request):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def blog_category_edit(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    category = None
+    try:
+        if id!=0:
+            category = Category.objects.get(id=id)
+    except:
+        logging.error('Error get category item')
+    t = loader.get_template('admin/blog/category_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'category': category,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_category_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        category = None
+        tmp_id = request.POST.get('_id', 0)
+        tmp_name = request.POST.get('_name', '')
+        tmp_slug = request.POST.get('_slug', '')
+        tmp_sort = request.POST.get('_sort', 100)
+        tmp_deleted = request.POST.get('_deleted', False)
+        logging.warning(tmp_id)
+        if tmp_id!='':
+            category = Category.objects.get(id=tmp_id)
+            category.slug = tmp_slug
+            category.name = tmp_name
+            category.sort = tmp_sort
+            if tmp_deleted=="True":
+                category.deleted = True
+            else:
+                category.deleted = False
+            category.save()
+        else:
+            category = Category.objects.create(
+                slug = tmp_slug,
+                name = tmp_name,
+                sort = tmp_sort,
+            )
+            if tmp_deleted=="True":
+                category.deleted = True
+            else:
+                category.deleted = False
+            category.save()
+    except:
+        logging.exception('Error save or add category')
+    return  HttpResponseRedirect('/admin/blog/category/')
+
+
+## blog: tag
+
+def blog_tag(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    t = loader.get_template('admin/blog/tag.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_tag_getall(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    tags = []
+    try:
+        tags = Tag.objects.all()
+    except:
+        logging.error('Error get tags list')
+    t = loader.get_template('admin/blog/tag_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'tags': tags,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_tag_edit(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    tag = None
+    try:
+        if id!=0:
+            tag = Tag.objects.get(id=id)
+    except:
+        logging.error('Error get tag item')
+    t = loader.get_template('admin/blog/tag_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'tag': tag,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_tag_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        category = None
+        tmp_id = request.POST.get('_id', 0)
+        tmp_name = request.POST.get('_name', '')
+        tmp_slug = request.POST.get('_slug', '')
+        tmp_sort = request.POST.get('_sort', 100)
+        tmp_deleted = request.POST.get('_deleted', False)
+        logging.warning(tmp_id)
+        if tmp_id!='':
+            tag = Tag.objects.get(id=tmp_id)
+            tag.slug = tmp_slug
+            tag.name = tmp_name
+            tag.sort = tmp_sort
+            if tmp_deleted=="True":
+                tag.deleted = True
+            else:
+                tag.deleted = False
+            tag.save()
+        else:
+            tag = Tag.objects.create(
+                slug = tmp_slug,
+                name = tmp_name,
+                sort = tmp_sort,
+            )
+            if tmp_deleted=="True":
+                tag.deleted = True
+            else:
+                tag.deleted = False
+            tag.save()
+    except:
+        logging.exception('Error save or add tag')
+    return  HttpResponseRedirect('/admin/blog/tag/')
+

@@ -18,11 +18,11 @@ def widget_categories_menu():
 
 def widget_tags_menu():
     tags = []
-    #try:
-    #    from aquasite.apps.blog.models import Tag
-    #    tags = Tag.objects.all().order_by('name').exclude(deleted=True)
-    #except:
-    #    logging.exception('Error in widget w_tags_menu')
+    try:
+        from apps.blog.models import Tag
+        tags = Tag.objects.all().order_by('name').exclude(deleted=True)
+    except:
+        logging.exception('Error in widget widget_tags_menu')
     return {'tags': tags}
 
 def widget_links_menu():

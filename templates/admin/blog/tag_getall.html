@@ -1,0 +1,13 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for tag in tags %}
+    {
+    "id": "{{ tag.id }}",
+    "slug": "{{ tag.slug }}",
+    "name": "{{ tag.name }}",
+    "sort": "{{ tag.sort }}",
+    "deleted": "{{ tag.deleted }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}

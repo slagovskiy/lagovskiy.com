@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Blog / Category</h2>
+    <h2>Blog / Tag</h2>
     <div id="data"></div>
     <a href="#" class="btn btn-success" onclick="editData(0); return false;">Add new</a>
     <a href="#" class="btn btn-info" onclick="loadData(); return false;">Reload</a>
 
-    <div id="frmCategory" class="modal fade">
+    <div id="frmTag" class="modal fade">
         <div class="modal-body" id="window_body">
         </div>
         <div class="modal-footer" id="window_bottom">
@@ -23,11 +23,11 @@
         function editData(id)
         {
             $.ajax({
-                url: '/admin/blog/category/edit/' + id + '/?ajax=1',
+                url: '/admin/blog/tag/edit/' + id + '/?ajax=1',
                 cache: false,
                 success: function(data){
                     $('#window_body').html(data);
-                    $('#frmCategory').modal({
+                    $('#frmTag').modal({
                         keyboard: false
                     }).show();
                 },
@@ -47,12 +47,12 @@
                 cache: false,
                 data: data,
                 success: function(data){
-                    $('#frmCategory').modal('hide');
+                    $('#frmTag').modal('hide');
                     msg_info("saved","");
                     loadData();
                 },
                 error: function(e, xhr){
-                    msg_error("Error", "save category " + xhr);
+                    msg_error("Error", "save tag " + xhr);
                 }
             })
         }
@@ -61,7 +61,7 @@
         {
             _data = '';
             $.ajax({
-                url: '/admin/blog/category/getall/',
+                url: '/admin/blog/tag/getall/',
                 cache: false,
                 dataType: "json",
                 success: function(data){
@@ -79,7 +79,7 @@
                         var item = data.items[i];
                         var row = '<tr>' +
                                 '<td>' + item.id + '</td>' +
-                                '<td><a href="/admin/blog/category/edit/' + item.id + '/" onclick="editData(' + item.id + '); return false;">' + (item.deleted=="True"?'<strike>':'') + item.name + (item.deleted=="True"?'</strike>':'') + '</a></td>' +
+                                '<td><a href="/admin/blog/tag/edit/' + item.id + '/" onclick="editData(' + item.id + '); return false;">' + (item.deleted=="True"?'<strike>':'') + item.name + (item.deleted=="True"?'</strike>':'') + '</a></td>' +
                                 '<td>' + item.slug + '</td>' +
                                 '<td>' + item.sort + '</td>' +
                                 '</tr>';
@@ -89,7 +89,7 @@
                     $('#data').html(_data);
                 },
                 error: function(e, xhr){
-                    msg_error("Error","load category list " + xhr);
+                    msg_error("Error","load tag list " + xhr);
                 }
             });
         }

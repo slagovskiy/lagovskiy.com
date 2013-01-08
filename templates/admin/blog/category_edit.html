@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form-horizontal" method="POST" action="/admin/blog/category/save/">
+    {% csrf_token %}
+    <input type="hidden" name="_id" value="{{ category.id }}">
+    <legend>{% if category.id %}Edit{% else %}New{% endif %} category</legend>
+    <div class="control-group">
+        <label class="control-label" for="_slug">Key</label>
+        <div class="controls">
+            <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ category.slug }}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="_name">Name</label>
+        <div class="controls">
+            <input type="text" id="_name" name="_name" placeholder="Name" value="{{ category.name }}">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="_sort">Sort</label>
+        <div class="controls">
+            <input type="text" id="_sort" name="_sort" placeholder="Sort" value="{{ category.sort }}">
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input type="checkbox" name="_deleted"{% if category.deleted %}checked="checked"{% endif %} value="True"> Deleted
+            </label>
+        </div>
+        {% if not ajax %}
+        <input type="submit" value="Save changes" class="btn btn-primary">
+            <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/category/';">
+        {% endif %}
+    </div>
+</form>
+{% endblock %}

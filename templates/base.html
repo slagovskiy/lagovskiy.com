@@ -26,7 +26,6 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-{% endif %}
 <div class="admin">
     <div class="admin_strip"></div>
     {% if user.get_profile.canAdmin %}
@@ -35,8 +34,8 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Categories</a></li>
-                    <li><a href="#">Tags</a></li>
+                    <li><a href="/admin/blog/category/">Categories</a></li>
+                    <li><a href="/admin/blog/tag/">Tags</a></li>
                     <li><hr></li>
                     <li><a href="#">Posts</a></li>
                 </ul>
@@ -87,7 +86,11 @@
                         {{ message }}
                     </div>
                 {% endif %}
+{% endif %}
+
                 {% block content %}{% endblock %}
+
+{% if not ajax %}
             </div>
         </div>
         <div class="span3 panel">
@@ -107,7 +110,6 @@
 </div>
 
 
-{% if not ajax %}
     <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
     <script language="javascript">
     </script>
