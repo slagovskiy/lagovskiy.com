@@ -283,3 +283,24 @@ def blog_tag_save(request):
         logging.exception('Error save or add tag')
     return  HttpResponseRedirect('/admin/blog/tag/')
 
+## post
+
+def blog_post_edit(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    post = None
+    try:
+        if id!=0:
+            post = Post.objects.get(id=id)
+    except:
+        logging.error('Error get post item')
+    t = loader.get_template('admin/blog/post_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'post': post,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

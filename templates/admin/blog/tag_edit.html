@@ -3,7 +3,7 @@
     <form class="form-horizontal" method="POST" action="/admin/blog/tag/save/">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ tag.id }}">
-        <legend>{% if tag.id %}Edit{% else %}New{% endif %} category</legend>
+        <legend>{% if tag.id %}Edit{% else %}New{% endif %} tag</legend>
         <div class="control-group">
             <label class="control-label" for="_slug">Key</label>
             <div class="controls">

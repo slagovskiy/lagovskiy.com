@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-horizontal" method="POST" action="/admin/blog/tag/save/">
+        {% csrf_token %}
+        <input type="hidden" name="_id" value="{{ tag.id }}">
+        <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
+        <div class="control-group">
+            <label class="control-label" for="_title">Title</label>
+            <div class="controls">
+                <input type="text" id="_title" name="_title" placeholder="Title" value="{{ post.title }}" class="span6">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_slug">Key</label>
+            <div class="controls">
+                <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}" class="span6">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_status">Status</label>
+            <div class="controls">
+                <select id="_status" name="_status" class="chzn-select">
+                    <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
+                    <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
+                    <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
+                </select>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="control-group">
+            <label class="control-label" for="_description">Description</label>
+            <div class="controls">
+                <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="span6">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_keywords">Keywords</label>
+            <div class="controls">
+                <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="span6">
+            </div>
+        </div>
+
+
+
+    </form>
+{% endblock %}
