@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.core.context_processors import request
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, RequestContext
@@ -191,6 +192,48 @@ def blog_category_save(request):
         logging.exception('Error save or add category')
     return  HttpResponseRedirect('/admin/blog/category/')
 
+def blog_category_moveup(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        categories = Category.objects.all()
+        category = None
+        category_prev = None
+        for category in categories:
+            if category.id==int(id):
+                if category_prev:
+                    tmp = category.sort
+                    category.sort = category_prev.sort
+                    category_prev.sort = tmp
+                    category.save()
+                    category_prev.save()
+            category_prev = category
+    except:
+        logging.exception('Error move up category')
+    return  HttpResponseRedirect('/admin/blog/category/')
+
+def blog_category_movedown(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        categories = Category.objects.all()
+        category = None
+        category_prev = None
+        for category in reversed(categories):
+            if category.id==int(id):
+                if category_prev:
+                    tmp = category.sort
+                    category.sort = category_prev.sort
+                    category_prev.sort = tmp
+                    category.save()
+                    category_prev.save()
+            category_prev = category
+    except:
+        logging.exception('Error move up category')
+    return  HttpResponseRedirect('/admin/blog/category/')
+
 
 ## blog: tag
 
@@ -293,7 +336,6 @@ def blog_tag_moveup(request, id):
         tag_prev = None
         for tag in tags:
             if tag.id==int(id):
-                logging.warning('found')
                 if tag_prev:
                     tmp = tag.sort
                     tag.sort = tag_prev.sort
@@ -315,7 +357,6 @@ def blog_tag_movedown(request, id):
         tag_prev = None
         for tag in reversed(tags):
             if tag.id==int(id):
-                logging.warning('found')
                 if tag_prev:
                     tmp = tag.sort
                     tag.sort = tag_prev.sort

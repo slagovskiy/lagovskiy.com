@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     url(r'^blog/category/getall/', 'apps.admin.views.blog_category_getall'),
     url(r'^blog/category/save/', 'apps.admin.views.blog_category_save'),
     url(r'^blog/category/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_category_edit'),
+    url(r'^blog/category/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.blog_category_moveup'),
+    url(r'^blog/category/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.blog_category_movedown'),
     url(r'^blog/category/', 'apps.admin.views.blog_category'),
 
     url(r'^blog/tag/getall/', 'apps.admin.views.blog_tag_getall'),
