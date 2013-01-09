@@ -251,7 +251,7 @@ def blog_tag_save(request):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
     try:
-        category = None
+        tag = None
         tmp_id = request.POST.get('_id', 0)
         tmp_name = request.POST.get('_name', '')
         tmp_slug = request.POST.get('_slug', '')
@@ -281,6 +281,50 @@ def blog_tag_save(request):
             tag.save()
     except:
         logging.exception('Error save or add tag')
+    return  HttpResponseRedirect('/admin/blog/tag/')
+
+def blog_tag_moveup(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        tags = Tag.objects.all()
+        tag = None
+        tag_prev = None
+        for tag in tags:
+            if tag.id==int(id):
+                logging.warning('found')
+                if tag_prev:
+                    tmp = tag.sort
+                    tag.sort = tag_prev.sort
+                    tag_prev.sort = tmp
+                    tag.save()
+                    tag_prev.save()
+            tag_prev = tag
+    except:
+        logging.exception('Error move up tag')
+    return  HttpResponseRedirect('/admin/blog/tag/')
+
+def blog_tag_movedown(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        tags = Tag.objects.all()
+        tag = None
+        tag_prev = None
+        for tag in reversed(tags):
+            if tag.id==int(id):
+                logging.warning('found')
+                if tag_prev:
+                    tmp = tag.sort
+                    tag.sort = tag_prev.sort
+                    tag_prev.sort = tmp
+                    tag.save()
+                    tag_prev.save()
+            tag_prev = tag
+    except:
+        logging.exception('Error move up tag')
     return  HttpResponseRedirect('/admin/blog/tag/')
 
 ## post

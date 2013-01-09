@@ -20,7 +20,7 @@ def widget_tags_menu():
     tags = []
     try:
         from apps.blog.models import Tag
-        tags = Tag.objects.all().order_by('name').exclude(deleted=True)
+        tags = Tag.objects.all().order_by('sort', 'name').exclude(deleted=True)
     except:
         logging.exception('Error in widget widget_tags_menu')
     return {'tags': tags}

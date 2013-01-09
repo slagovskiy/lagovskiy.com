@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     url(r'^blog/tag/getall/', 'apps.admin.views.blog_tag_getall'),
     url(r'^blog/tag/save/', 'apps.admin.views.blog_tag_save'),
     url(r'^blog/tag/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_edit'),
+    url(r'^blog/tag/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_moveup'),
+    url(r'^blog/tag/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_movedown'),
     url(r'^blog/tag/', 'apps.admin.views.blog_tag'),
 
     #url(r'^blog/post/getall/', 'apps.admin.views.blog_post_getall'),
