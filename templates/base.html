@@ -25,6 +25,14 @@
     {% block extra_js %}{% endblock %}
 
     {% block extra_head %}{% endblock %}
+
+    <style type="text/css">
+        {% if user.get_profile.canAdmin %}
+        body{background-image: url("{{ STATIC_URL }}img/admin_bg.png");}
+        {% else %}
+        body{background-image: url("{{ STATIC_URL }}img/user_bg.png");}
+        {% endif %}
+    </style>
 </head>
 <body>
 <div class="admin">
@@ -47,9 +55,9 @@
     {% endif %}
     <div class="admin_login">
         {% if user.is_authenticated %}
-        {{ user.first_name }} {{ user.last_name }} <a href="/admin/logout/" class="login" title="logout"><img src="{{ STATIC_URL }}img/icon_exit.png" border="0"></a>
+        {{ user.first_name }} {{ user.last_name }} <a href="/admin/logout/" class="login" title="logout"><i class="icon-off"></i></a>
         {% else %}
-        <a href="/admin/login/" class="login" title="login"><img src="{{ STATIC_URL }}img/icon_key.png" border="0"></a>
+        <a href="/admin/login/" class="login" title="login"><i class="icon-lock"></i></a>
         {% endif %}
     </div>
 
