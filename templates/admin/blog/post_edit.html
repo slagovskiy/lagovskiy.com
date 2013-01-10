@@ -4,6 +4,9 @@
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ tag.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
+
+    main
+
         <div class="control-group">
             <label class="control-label" for="_title">Title</label>
             <div class="controls">
@@ -16,18 +19,70 @@
                 <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}" class="span6">
             </div>
         </div>
+
+        <hr>
+
+    category
+
+        <div class="control-group">
+            <label class="control-label" for="_status">Category</label>
+            <div class="controls">
+                <select id="_category" name="_category">
+                    <option value="1"{% ifequal post.category 1 %} selected="selected"{% endifequal %}></option>
+                </select>
+            </div>
+        </div>
+
+        <hr>
+
+        publication
+
         <div class="control-group">
             <label class="control-label" for="_status">Status</label>
             <div class="controls">
-                <select id="_status" name="_status" class="chzn-select">
+                <select id="_status" name="_status">
                     <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
                     <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
                     <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
                 </select>
             </div>
         </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_revision">Published revision</label>
+            <div class="controls">
+                <select id="_revision" name="_revision">
+                    <option value="1"{% ifequal post.published_revision 1 %} selected="selected"{% endifequal %}>Revision 1 2012/01/20 15:42</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_author">Author</label>
+            <div class="controls">
+                <select id="_author" name="_author">
+                {% for usr in users %}
+                    <option value="1"{% ifequal post.author usr %} selected="selected"{% endifequal %}>{{ usr.first_name }} {{ usr.last_name }}</option>
+                {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_published">Published</label>
+            <div class="controls">
+                <input type="text" id="_published" name="_published" value="{{ post.description }}" class="span2 datepicker">
+                <input type="text" id="_published_time" name="_published_time" value="10:00" class="span2">
+            </div>
+        </div>
 
         <hr>
+
+    seo
 
         <div class="control-group">
             <label class="control-label" for="_description">Description</label>
@@ -41,8 +96,47 @@
                 <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="span6">
             </div>
         </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
+                </label>
+            </div>
+        </div>
+
+        <hr>
+
+    comments
+
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="_comments_enabled"{% if post.comments_enabled %}checked="checked"{% endif %} value="True"> Comments enabled
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="_comments_moderated"{% if post.comments_moderated %}checked="checked"{% endif %} value="True"> Comments moderated
+                </label>
+            </div>
+        </div>
+
 
 
 
     </form>
+
+    <script>
+        function init()
+        {
+            $('#_published').datepicker({
+                format: 'yyyy/mm/dd'
+            });
+
+        }
+
+        init();
+    </script>
 {% endblock %}

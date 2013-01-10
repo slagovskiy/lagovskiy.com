@@ -375,7 +375,9 @@ def blog_post_edit(request, id):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
     post = None
+    users = []
     try:
+        users = User.objects.all()
         if id!=0:
             post = Post.objects.get(id=id)
     except:
@@ -386,6 +388,7 @@ def blog_post_edit(request, id):
         {
             'message': message,
             'post': post,
+            'users': users,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
