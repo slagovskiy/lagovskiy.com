@@ -135,6 +135,25 @@ def blog_category_getall(request):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def blog_category_getlist(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    categories = []
+    try:
+        categories = Category.objects.all().filter(deleted=False)
+    except:
+        logging.error('Error get categories list')
+    t = loader.get_template('admin/blog/category_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'categories': categories,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
 def blog_category_edit(request, id):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
@@ -257,6 +276,25 @@ def blog_tag_getall(request):
     tags = []
     try:
         tags = Tag.objects.all()
+    except:
+        logging.error('Error get tags list')
+    t = loader.get_template('admin/blog/tag_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'tags': tags,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_tag_getlist(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    tags = []
+    try:
+        tags = Tag.objects.all().filter(deleted=False)
     except:
         logging.error('Error get tags list')
     t = loader.get_template('admin/blog/tag_getall.html')

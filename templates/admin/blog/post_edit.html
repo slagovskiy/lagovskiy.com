@@ -40,6 +40,13 @@
                         <select id="_category" name="_category">
                             <option value="1"{% ifequal post.category 1 %} selected="selected"{% endifequal %}></option>
                         </select>
+
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="_status">Tags</label>
+                    <div class="controls">
+                        <div id="_tags"></div>
                     </div>
                 </div>
 
@@ -143,8 +150,7 @@
             </div>
 
             <div class="tab-pane span8" id="tab_action">
-
-                <div class="control-group">
+     >        <div class="control-group">
                     <div class="controls">
                         <input type="button" name="_save_post" value="Save post" class="btn btn-primary">
                     </div>
@@ -164,7 +170,7 @@
         {
             _data = '';
             $.ajax({
-                url: '/admin/blog/category/getall/',
+                url: '/admin/blog/category/getlist/',
                 cache: false,
                 dataType: "json",
                 success: function(data){
@@ -174,20 +180,51 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        if(item.deleted=='False')
+                        var row = '<option value="' + item.id +  '"';
+                        {% if post.category %}
+                        if(item.id=={{ post.category.id }})
                         {
-                            var row = '<option value="' + item.id +  '"';
-                            {% if post.category %}
-                            if(item.id=={{ post.category.id }})
-                            {
-                                row += ' selected="selected"';
-                            }
-                            {% endif %}
-                            row += '>' + item.name + '</option>';
-                            _data += row;
+                            row += ' selected="selected"';
                         }
+                        {% endif %}
+                        row += '>' + item.name + '</option>';
+                        _data += row;
                     }
                     $('#_category').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load category list " + xhr);
+                }
+            });
+        }
+
+        function loadTags()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/blog/tag/getlist/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table width="100%"><tr><td width="50%" valign="top">';
+
+                    if(data.message!='') msg_info('', data.message);
+                    var j =0;
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<label class="checkbox"><input type="checkbox" name="_tag" value="' + item.id +  '"';
+                        row += '>' + item.name + '</label>';
+                        _data += row;
+                        j++;
+                        if(j>(data.items.length/2))
+                        {
+                            _data += '</td><td width="50%" valign="top">';
+                            j=0;
+                        }
+                    }
+                    _data += '</td></tr></table>';
+                    $('#_tags').html(_data);
                 },
                 error: function(e, xhr){
                     msg_error("Error","load category list " + xhr);
@@ -202,6 +239,7 @@
             });
 
             loadCategories();
+            loadTags();
         }
 
         init();
