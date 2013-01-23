@@ -1,0 +1,11 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for revision in revisions %}
+    {
+    "id": "{{ revision.id }}",
+    "post": "{{ revision.post.id }}",
+    "created": "{{ revision.created|date:"Y/m/d H:i" }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}
