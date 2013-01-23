@@ -4,123 +4,154 @@
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ tag.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_main" data-toggle="tab">Main</a></li>
+            <li><a href="#tab_category" data-toggle="tab">Category</a></li>
+            <li><a href="#tab_publication" data-toggle="tab">Publication</a></li>
+            <li><a href="#tab_seo" data-toggle="tab">Seo</a></li>
+            <li><a href="#tab_revision" data-toggle="tab">Revision</a></li>
+            <li><a href="#tab_comment" data-toggle="tab">Comments</a></li>
+            <li><a href="#tab_action" data-toggle="tab"><i class="icon-warning-sign"></i> Action</a></li>
+        </ul>
 
-    main
+        <div class="tab-content">
+            <div class="tab-pane active span8" id="tab_main">
 
-        <div class="control-group">
-            <label class="control-label" for="_title">Title</label>
-            <div class="controls">
-                <input type="text" id="_title" name="_title" placeholder="Title" value="{{ post.title }}" class="span6">
+                <div class="control-group">
+                    <label class="control-label" for="_title">Title</label>
+                    <div class="controls">
+                        <input type="text" id="_title" name="_title" placeholder="Title" value="{{ post.title }}" class="span6">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="_slug">Key</label>
+                    <div class="controls">
+                        <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}" class="span6">
+                    </div>
+                </div>
+
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="_slug">Key</label>
-            <div class="controls">
-                <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}" class="span6">
-            </div>
-        </div>
 
-        <hr>
+            <div class="tab-pane span8" id="tab_category">
 
-    category
+                <div class="control-group">
+                    <label class="control-label" for="_status">Category</label>
+                    <div class="controls">
+                        <select id="_category" name="_category">
+                            <option value="1"{% ifequal post.category 1 %} selected="selected"{% endifequal %}></option>
+                        </select>
+                    </div>
+                </div>
 
-        <div class="control-group">
-            <label class="control-label" for="_status">Category</label>
-            <div class="controls">
-                <select id="_category" name="_category">
-                    <option value="1"{% ifequal post.category 1 %} selected="selected"{% endifequal %}></option>
-                </select>
             </div>
-        </div>
 
-        <hr>
+            <div class="tab-pane span8" id="tab_publication">
 
-        publication
+                <div class="control-group">
+                    <label class="control-label" for="_status">Status</label>
+                    <div class="controls">
+                        <select id="_status" name="_status">
+                            <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
+                            <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
+                            <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="_revision">Published revision</label>
+                    <div class="controls">
+                        <select id="_revision" name="_revision">
+                            <option value="1"{% ifequal post.published_revision 1 %} selected="selected"{% endifequal %}>Revision 1 2012/01/20 15:42</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="_author">Author</label>
+                    <div class="controls">
+                        <select id="_author" name="_author">
+                        {% for usr in users %}
+                            <option value="1"{% ifequal post.author usr %} selected="selected"{% endifequal %}>{{ usr.first_name }} {{ usr.last_name }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="_published">Published</label>
+                    <div class="controls">
+                        <input type="text" id="_published" name="_published" value="{{ post.description }}" class="span2 datepicker">
+                        <input type="text" id="_published_time" name="_published_time" value="10:00" class="span2">
+                    </div>
+                </div>
 
-        <div class="control-group">
-            <label class="control-label" for="_status">Status</label>
-            <div class="controls">
-                <select id="_status" name="_status">
-                    <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
-                    <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
-                    <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
-                </select>
             </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
-                </label>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="_revision">Published revision</label>
-            <div class="controls">
-                <select id="_revision" name="_revision">
-                    <option value="1"{% ifequal post.published_revision 1 %} selected="selected"{% endifequal %}>Revision 1 2012/01/20 15:42</option>
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="_author">Author</label>
-            <div class="controls">
-                <select id="_author" name="_author">
-                {% for usr in users %}
-                    <option value="1"{% ifequal post.author usr %} selected="selected"{% endifequal %}>{{ usr.first_name }} {{ usr.last_name }}</option>
-                {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="_published">Published</label>
-            <div class="controls">
-                <input type="text" id="_published" name="_published" value="{{ post.description }}" class="span2 datepicker">
-                <input type="text" id="_published_time" name="_published_time" value="10:00" class="span2">
-            </div>
-        </div>
 
-        <hr>
+            <div class="tab-pane span8" id="tab_seo">
 
-    seo
+                <div class="control-group">
+                    <label class="control-label" for="_description">Description</label>
+                    <div class="controls">
+                        <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="span6">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="_keywords">Keywords</label>
+                    <div class="controls">
+                        <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="span6">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
+                        </label>
+                    </div>
+                </div>
 
-        <div class="control-group">
-            <label class="control-label" for="_description">Description</label>
-            <div class="controls">
-                <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="span6">
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="_keywords">Keywords</label>
-            <div class="controls">
-                <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="span6">
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
-                </label>
-            </div>
-        </div>
 
-        <hr>
+            <div class="tab-pane span8" id="tab_revision">
 
-    comments
+                no
 
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="_comments_enabled"{% if post.comments_enabled %}checked="checked"{% endif %} value="True"> Comments enabled
-                </label>
             </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="_comments_moderated"{% if post.comments_moderated %}checked="checked"{% endif %} value="True"> Comments moderated
-                </label>
+
+
+            <div class="tab-pane span8" id="tab_comment">
+
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="_comments_enabled"{% if post.comments_enabled %}checked="checked"{% endif %} value="True"> Comments enabled
+                        </label>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <label class="checkbox">
+                            <input type="checkbox" name="_comments_moderated"{% if post.comments_moderated %}checked="checked"{% endif %} value="True"> Comments moderated
+                        </label>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="tab-pane span8" id="tab_action">
+
+                <div class="control-group">
+                    <div class="controls">
+                        <input type="button" name="_save_post" value="Save post" class="btn btn-primary">
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -129,12 +160,48 @@
     </form>
 
     <script>
+        function loadCategories()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/blog/category/getall/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<option value="-1"></option>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        if(item.deleted=='False')
+                        {
+                            var row = '<option value="' + item.id +  '"';
+                            {% if post.category %}
+                            if(item.id=={{ post.category.id }})
+                            {
+                                row += ' selected="selected"';
+                            }
+                            {% endif %}
+                            row += '>' + item.name + '</option>';
+                            _data += row;
+                        }
+                    }
+                    $('#_category').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load category list " + xhr);
+                }
+            });
+        }
+
         function init()
         {
             $('#_published').datepicker({
                 format: 'yyyy/mm/dd'
             });
 
+            loadCategories();
         }
 
         init();
