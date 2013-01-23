@@ -7,8 +7,8 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_main" data-toggle="tab">Main</a></li>
             <li><a href="#tab_category" data-toggle="tab">Category</a></li>
-            <li><a href="#tab_publication" data-toggle="tab">Publication</a></li>
             <li><a href="#tab_seo" data-toggle="tab">Seo</a></li>
+            <li><a href="#tab_publication" data-toggle="tab">Publication</a></li>
             <li><a href="#tab_revision" data-toggle="tab">Revision</a></li>
             <li><a href="#tab_comment" data-toggle="tab">Comments</a></li>
             <li><a href="#tab_action" data-toggle="tab"><i class="icon-warning-sign"></i> Action</a></li>
@@ -26,7 +26,7 @@
                 <div class="control-group">
                     <label class="control-label" for="_slug">Key</label>
                     <div class="controls">
-                        <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}" class="span6">
+                        <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ post.slug }}" class="span6">
                     </div>
                 </div>
 
@@ -37,10 +37,7 @@
                 <div class="control-group">
                     <label class="control-label" for="_status">Category</label>
                     <div class="controls">
-                        <select id="_category" name="_category">
-                            <option value="1"{% ifequal post.category 1 %} selected="selected"{% endifequal %}></option>
-                        </select>
-
+                        <div id="_categories"></div>
                     </div>
                 </div>
                 <div class="control-group">
@@ -49,7 +46,10 @@
                         <div id="_tags"></div>
                     </div>
                 </div>
-
+                <div class="control-group">
+                    <a href="#" class="btn btn-success" onclick="addCategory(0); return false;">Add new category</a>
+                    <a href="#" class="btn btn-success" onclick="addTag(0); return false;">Add new tag</a>
+                </div>
             </div>
 
             <div class="tab-pane span8" id="tab_publication">
@@ -92,8 +92,8 @@
                 <div class="control-group">
                     <label class="control-label" for="_published">Published</label>
                     <div class="controls">
-                        <input type="text" id="_published" name="_published" value="{{ post.description }}" class="span2 datepicker">
-                        <input type="text" id="_published_time" name="_published_time" value="10:00" class="span2">
+                        <input type="text" id="_published" name="_published" value="{% if post.published %}{{ post.published|date:"Y/m/d" }}{% endif %}" class="span2 datepicker">
+                        <input type="text" id="_published_time" name="_published_time" value="{% if post.published %}{{ post.published|date:"H:i" }}{% endif %}" class="span2">
                     </div>
                 </div>
 
@@ -150,7 +150,7 @@
             </div>
 
             <div class="tab-pane span8" id="tab_action">
-     >        <div class="control-group">
+             <div class="control-group">
                     <div class="controls">
                         <input type="button" name="_save_post" value="Save post" class="btn btn-primary">
                     </div>
@@ -162,35 +162,61 @@
 
 
 
-
     </form>
+
+
+    <div id="frmCategory" class="modal fade">
+        <div class="modal-body" id="window_category_body">
+        </div>
+        <div class="modal-footer" id="window_category_bottom">
+            <a href="#" class="btn btn-primary" onclick="saveCategory(); return false;">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+
+    <div id="frmTag" class="modal fade">
+        <div class="modal-body" id="window_tag_body">
+        </div>
+        <div class="modal-footer" id="window_tag_bottom">
+            <a href="#" class="btn btn-primary" onclick="saveTag(); return false;">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+
 
     <script>
         function loadCategories()
         {
-            _data = '';
+            var _data = '';
+            var _list = [{% for category in post.categories.all %}'{{ category.id }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
             $.ajax({
                 url: '/admin/blog/category/getlist/',
                 cache: false,
                 dataType: "json",
                 success: function(data){
-                    _data = '<option value="-1"></option>';
+                    _data = '<table width="100%"><tr><td width="50%" valign="top">';
 
                     if(data.message!='') msg_info('', data.message);
+                    var j =0;
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<option value="' + item.id +  '"';
-                        {% if post.category %}
-                        if(item.id=={{ post.category.id }})
+                        var row = '<label class="checkbox"><input type="checkbox" name="_category" value="' + item.id +  '"';
+                        if ($.inArray(item.id, _list)>=0)
                         {
-                            row += ' selected="selected"';
+                            row += ' checked="checked"';
                         }
-                        {% endif %}
-                        row += '>' + item.name + '</option>';
+                        row += '>' + item.name + '</label>';
                         _data += row;
+                        j++;
+                        if(j>(data.items.length/2))
+                        {
+                            _data += '</td><td width="50%" valign="top">';
+                            j=0;
+                        }
                     }
-                    $('#_category').html(_data);
+                    _data += '</td></tr></table>';
+                    $('#_categories').html(_data);
                 },
                 error: function(e, xhr){
                     msg_error("Error","load category list " + xhr);
@@ -198,9 +224,47 @@
             });
         }
 
+        function addCategory(id)
+        {
+            $.ajax({
+                url: '/admin/blog/category/edit/' + id + '/?ajax=1',
+                cache: false,
+                success: function(data){
+                    $('#window_category_body').html(data);
+                    $('#frmCategory').modal({
+                        keyboard: false
+                    }).show();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "load edit form");
+                }
+            });
+        }
+
+        function saveCategory()
+        {
+            var form = $('#window_category_body').find('form');
+            var data = form.serialize();
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                cache: false,
+                data: data,
+                success: function(data){
+                    $('#frmCategory').modal('hide');
+                    msg_info("saved","");
+                    loadCategories();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "save category " + xhr);
+                }
+            })
+        }
+
         function loadTags()
         {
-            _data = '';
+            var _data = '';
+            var _list = [{% for tag in post.tags.all %}'{{ tag.id }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
             $.ajax({
                 url: '/admin/blog/tag/getlist/',
                 cache: false,
@@ -214,6 +278,10 @@
                     {
                         var item = data.items[i];
                         var row = '<label class="checkbox"><input type="checkbox" name="_tag" value="' + item.id +  '"';
+                        if ($.inArray(item.id, _list)>=0)
+                        {
+                            row += ' checked="checked"';
+                        }
                         row += '>' + item.name + '</label>';
                         _data += row;
                         j++;
@@ -230,6 +298,43 @@
                     msg_error("Error","load category list " + xhr);
                 }
             });
+        }
+
+        function addTag(id)
+        {
+            $.ajax({
+                url: '/admin/blog/tag/edit/' + id + '/?ajax=1',
+                cache: false,
+                success: function(data){
+                    $('#window_tag_body').html(data);
+                    $('#frmTag').modal({
+                        keyboard: false
+                    }).show();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "load edit form");
+                }
+            });
+        }
+
+        function saveTag()
+        {
+            var form = $('#window_tag_body').find('form');
+            var data = form.serialize();
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                cache: false,
+                data: data,
+                success: function(data){
+                    $('#frmTag').modal('hide');
+                    msg_info("saved","");
+                    loadTags();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "save tag " + xhr);
+                }
+            })
         }
 
         function init()
