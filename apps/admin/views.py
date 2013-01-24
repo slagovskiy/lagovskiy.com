@@ -430,3 +430,26 @@ def blog_post_edit(request, id):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+## revision
+
+def blog_revision_getlist(request, post_id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    revisions = []
+    post = None
+    try:
+        post = Post.objects.get(id=post_id)
+        revisions = PostRevision.objects.all().filter(post=post).exclude(revision=-1).order_by('revision')
+    except:
+        logging.error('Error get revisions list')
+    t = loader.get_template('admin/blog/revision_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'revisions': revisions,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

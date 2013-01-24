@@ -5,6 +5,7 @@
     {
     "id": "{{ revision.id }}",
     "post": "{{ revision.post.id }}",
+    "revision": "{{ revision.revision }}",
     "created": "{{ revision.created|date:"Y/m/d H:i" }}"
     }{% if not forloop.last %},{% endif %}
 {% endfor %}]
