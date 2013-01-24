@@ -453,3 +453,41 @@ def blog_revision_getlist(request, post_id):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def blog_revision_getexcerpt(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    revision = None
+    try:
+        revision = PostRevision.objects.get(id=id)
+    except:
+        logging.error('Error get revisions list')
+    t = loader.get_template('admin/blog/data.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'data': revision.excerpt,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_revision_getcontent(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    revision = None
+    try:
+        revision = PostRevision.objects.get(id=id)
+    except:
+        logging.error('Error get revisions list')
+    t = loader.get_template('admin/blog/data.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'data': revision.content,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

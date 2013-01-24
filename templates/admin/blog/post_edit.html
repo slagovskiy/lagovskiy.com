@@ -134,18 +134,18 @@
                     <div class="control-group">
                         <label class="control-label" for="_title">Excerpt</label>
                         <div class="controls">
-                            <textarea id="_excerpt" name="_excerpt" class="span6" rows="10">{{ post.excerpt }}</textarea>
+                            <textarea id="_edit_revision_excerpt" name="_edit_revision_excerpt" class="span6" rows="10">{{ post.excerpt }}</textarea>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_slug">Content</label>
                         <div class="controls">
-                            <textarea id="_content" name="_content" class="span6" rows="15">{{ post.content }}</textarea>
+                            <textarea id="_edit_revision_content" name="_edit_revision_content" class="span6" rows="15">{{ post.content }}</textarea>
                         </div>
                     </div>
                     <div class="control-group">
-                        <a href="#" id="_edit_revision_save_temp" class="btn btn-success">Save temporary version</a>
-                        <a href="#" id="_edit_revision_save_version" class="btn btn-primary">Fix the current version</a>
+                        <a href="#" id="_edit_revision_save_temp" class="btn btn-success" onclick="return false;">Save temporary version</a>
+                        <a href="#" id="_edit_revision_save_version" class="btn btn-primary" onclick="return false;">Fix the current version</a>
                     </div>
 
                 </div>
@@ -411,6 +411,26 @@
         function editRevision(id)
         {
             $('#_edit_revision').show();
+            $.ajax({
+                url: '/admin/blog/revision/getexcerpt/' + id + '/',
+                cache: false,
+                success: function(data){
+                    $('#_edit_revision_excerpt').val(data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load revision excerpt list " + xhr);
+                }
+            });
+            $.ajax({
+                url: '/admin/blog/revision/getcontent/' + id + '/',
+                cache: false,
+                success: function(data){
+                    $('#_edit_revision_content').val(data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load revision content list " + xhr);
+                }
+            });
 
         }
 
