@@ -124,8 +124,31 @@
             </div>
 
             <div class="tab-pane span8" id="tab_revision">
+                <ul class="nav nav-pills nav-stacked" id="_revisions">
 
-                no
+                </ul>
+                <div id="_edit_revision" class="hide">
+                    <div class="control-group">
+                        <div id="_edit_revision_title">Version: 1 (2012/01/22 12:11)</div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="_title">Excerpt</label>
+                        <div class="controls">
+                            <textarea id="_excerpt" name="_excerpt" class="span6" rows="10">{{ post.excerpt }}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="_slug">Content</label>
+                        <div class="controls">
+                            <textarea id="_content" name="_content" class="span6" rows="15">{{ post.content }}</textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <a href="#" id="_edit_revision_save_temp" class="btn btn-success">Save temporary version</a>
+                        <a href="#" id="_edit_revision_save_version" class="btn btn-primary">Fix the current version</a>
+                    </div>
+
+                </div>
 
             </div>
 
@@ -351,6 +374,7 @@
         function loadRevisions()
         {
             var _data = '<option value=""></option>';
+            var __data = '';
             var _list = [{% for tag in post.tags.all %}'{{ tag.id }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
             $.ajax({
                 url: '/admin/blog/revision/getlist/{{ post.id }}/',
@@ -361,22 +385,33 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<option value="' + item.id +  '"';
-                        {% if post.revision %}
-                        if (item.id=={{ post.revision }})
+                        if(item.version!='-1')
                         {
-                            row += ' selected="selected"';
+                            var row = '<option value="' + item.id +  '"';
+                            {% if post.revision %}
+                            if (item.id=={{ post.revision }})
+                            {
+                                row += ' selected="selected"';
+                            }
+                            {% endif %}
+                            row += '>version: ' + item.revision + ' (' + item.created + ')</option>';
+                            _data += row;
                         }
-                        {% endif %}
-                        row += '>version: ' + item.revision + ' (' + item.created + ')</option>';
-                        _data += row;
+                        __data += '<li><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ' + item.revision + ' (' + item.created + ')</a></li>';
                     }
                     $('#_revision').html(_data);
+                    $('#_revisions').html(__data);
                 },
                 error: function(e, xhr){
                     msg_error("Error","load revision list " + xhr);
                 }
             });
+        }
+
+        function editRevision(id)
+        {
+            $('#_edit_revision').show();
+
         }
 
 

@@ -441,7 +441,7 @@ def blog_revision_getlist(request, post_id):
     post = None
     try:
         post = Post.objects.get(id=post_id)
-        revisions = PostRevision.objects.all().filter(post=post).exclude(revision=-1).order_by('revision')
+        revisions = PostRevision.objects.all().filter(post=post).order_by('revision')
     except:
         logging.error('Error get revisions list')
     t = loader.get_template('admin/blog/revision_getall.html')
