@@ -491,3 +491,36 @@ def blog_revision_getcontent(request, id):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def blog_revision_create(request, post_id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    post = None
+    revision = None
+    try:
+        post = Post.objects.get(id=post_id)
+        revision = PostRevision.objects.all().filter(post=post, revision=-1)
+        if len(revision)==0:
+            revision = PostRevision.objects.create(
+                post = post,
+                revision = -1,
+            )
+            revision.save()
+        else:
+            revision = revision[0]
+            revision.excerpt = ''
+            revision.content = ''
+            revision.created = datetime.now()
+            revision.save()
+    except:
+        logging.error('Error get revisions list')
+    t = loader.get_template('admin/blog/data.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'data': revision.id,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

@@ -127,9 +127,12 @@
                 <ul class="nav nav-pills nav-stacked" id="_revisions">
 
                 </ul>
+                <div class="control-group">
+                    <a href="#" id="_edit_revision_new" class="btn btn-success" onclick="createRevision(-1); return false;">Create new</a>
+                </div>
                 <div id="_edit_revision" class="hide">
                     <div class="control-group">
-                        <div id="_edit_revision_title">Version: 1 (2012/01/22 12:11)</div>
+                        <div id="_edit_revision_title"></div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_title">Excerpt</label>
@@ -397,7 +400,7 @@
                             row += '>version: ' + item.revision + ' (' + item.created + ')</option>';
                             _data += row;
                         }
-                        __data += '<li><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ' + item.revision + ' (' + item.created + ')</a></li>';
+                        __data += '<li id="_revisions_item_' + item.id + '"><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ' + item.revision + ' (' + item.created + ')</a></li>';
                     }
                     $('#_revision').html(_data);
                     $('#_revisions').html(__data);
@@ -410,6 +413,9 @@
 
         function editRevision(id)
         {
+            $('#_revisions li').removeClass('active');
+            $('#_revisions_item_'+id).addClass('active');
+            $('#_edit_revision_title').html($('#_revisions_item_'+id+' a').html());
             $('#_edit_revision').show();
             $.ajax({
                 url: '/admin/blog/revision/getexcerpt/' + id + '/',
@@ -432,6 +438,21 @@
                 }
             });
 
+        }
+
+        function createRevision(base)
+        {
+            $.ajax({
+                url: '/admin/blog/revision/create/{{ post.id }}',
+                cache: false,
+                success: function(data){
+                    loadRevisions();
+                    editRevision(data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","create new revision " + xhr);
+                }
+            });
         }
 
 
