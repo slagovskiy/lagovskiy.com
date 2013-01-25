@@ -132,9 +132,6 @@
                 </div>
                 <div id="_edit_revision" class="hide">
                     <div class="control-group">
-                        <div id="_edit_revision_title"></div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="_title">Excerpt</label>
                         <div class="controls">
                             <textarea id="_edit_revision_excerpt" name="_edit_revision_excerpt" class="span6" rows="10">{{ post.excerpt }}</textarea>
@@ -149,6 +146,12 @@
                     <div class="control-group">
                         <a href="#" id="_edit_revision_save_temp" class="btn btn-success" onclick="saveRevision(); return false;">Save temporary version</a>
                         <a href="#" id="_edit_revision_save_version" class="btn btn-primary" onclick="return false;">Fix the current version</a>
+                    </div>
+
+                    <hr>
+
+                    <div id="_revision_preview">
+
                     </div>
 
                 </div>
@@ -388,7 +391,7 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        if(item.version!='-1')
+                        if(item.revision!='-1')
                         {
                             var row = '<option value="' + item.id +  '"';
                             {% if post.revision %}
@@ -400,10 +403,19 @@
                             row += '>version: ' + item.revision + ' (' + item.created + ')</option>';
                             _data += row;
                         }
-                        __data += '<li id="_revisions_item_' + item.id + '"'
+                        __data += '<li id="_revisions_item_' + item.id + '"';
                         if(item.id==sel)
                             __data += ' class="active"';
-                        __data += '><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ' + item.revision + ' (' + item.created + ')</a></li>';
+                        __data += '><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ';
+                        if(item.revision=='-1')
+                        {
+                            __data += 'temporary';
+                        }
+                        else
+                        {
+                            __data += item.revision;
+                        }
+                        __data += ' (' + item.created + ')</a></li>';
                     }
                     $('#_revision').html(_data);
                     $('#_revisions').html(__data);
@@ -423,7 +435,6 @@
         function editRevision(id)
         {
             selectRevisionMenu(id);
-            $('#_edit_revision_title').html($('#_revisions_item_'+id+' a').html());
             $('#_edit_revision').show();
             $.ajax({
                 url: '/admin/blog/revision/getexcerpt/' + id + '/',
@@ -446,6 +457,8 @@
                 }
             });
 
+            previewRevision(id);
+
         }
 
     function createRevision()
@@ -459,6 +472,20 @@
             },
             error: function(e, xhr){
                 msg_error("Error","create new revision " + xhr);
+            }
+        });
+    }
+
+    function previewRevision(id)
+    {
+        $.ajax({
+            url: '/admin/blog/revision/preview/' + id + '/',
+            cache: false,
+            success: function(data){
+                $('#_revision_preview').html(data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","load preview " + xhr);
             }
         });
     }
@@ -477,6 +504,7 @@
             success: function(data){
                 loadRevisions(data);
                 msg_info('saved');
+                previewRevision(data);
             },
             error: function(e, xhr){
                 msg_error("Error","create new revision " + xhr);

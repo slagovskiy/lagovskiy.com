@@ -1,0 +1,6 @@
+{% load markup %}
+{{ message }}
+<h1>{{ revision.post.title }}</h1>
+{{ revision.excerpt|markdown }}
+<hr>
+{{ revision.content|markdown }}

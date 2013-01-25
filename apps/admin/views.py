@@ -441,7 +441,7 @@ def blog_revision_getlist(request, post_id):
     post = None
     try:
         post = Post.objects.get(id=post_id)
-        revisions = PostRevision.objects.all().filter(post=post).order_by('revision')
+        revisions = PostRevision.objects.all().filter(post=post).order_by('created')
     except:
         logging.error('Error get revisions list')
     t = loader.get_template('admin/blog/revision_getall.html')
@@ -556,6 +556,25 @@ def blog_revision_save(request, post_id):
         {
             'message': message,
             'data': revision.id,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_revision_preview(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    revision = None
+    try:
+        revision = PostRevision.objects.get(id=id)
+    except:
+        logging.error('Error get revisions list')
+    t = loader.get_template('admin/blog/revision_preview.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'revision': revision,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
