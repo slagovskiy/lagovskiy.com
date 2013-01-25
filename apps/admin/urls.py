@@ -33,6 +33,7 @@ urlpatterns = patterns('',
     url(r'^blog/revision/getexcerpt/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_getexcerpt'),
     url(r'^blog/revision/create/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_revision_create'),
     url(r'^blog/revision/save/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_revision_save'),
+    url(r'^blog/revision/fix/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_fix'),
     url(r'^blog/revision/preview/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_preview'),
 )
 

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <form class="form-horizontal" method="POST" action="/admin/blog/tag/save/">
+    <form class="form-horizontal" method="POST" action="/admin/blog/tag/save/" id="_edit_post">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ tag.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
@@ -144,8 +144,9 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <input type="hidden" id="_edit_revision_id" name="_edit_revision_id">
                         <a href="#" id="_edit_revision_save_temp" class="btn btn-success" onclick="saveRevision(); return false;">Save temporary version</a>
-                        <a href="#" id="_edit_revision_save_version" class="btn btn-primary" onclick="return false;">Fix the current version</a>
+                        <a href="#" id="_edit_revision_save_version" class="btn btn-primary" onclick="fixRevision(); return false;">Fix the current version</a>
                     </div>
 
                     <hr>
@@ -456,6 +457,7 @@
                     msg_error("Error","load revision content list " + xhr);
                 }
             });
+            $('#_edit_revision_id').val(id);
 
             previewRevision(id);
 
@@ -494,10 +496,32 @@
     {
         var data =
                 "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
-                "excerpt=" + encodeURIComponent($('#_edit_revision_excerpt').val()) + "&" +
-                "content=" + encodeURIComponent($('#_edit_revision_content').val());
+                        "excerpt=" + encodeURIComponent($('#_edit_revision_excerpt').val()) + "&" +
+                        "content=" + encodeURIComponent($('#_edit_revision_content').val());
         $.ajax({
             url: '/admin/blog/revision/save/{{ post.id }}/',
+            type: 'POST',
+            cache: false,
+            data: data,
+            success: function(data){
+                loadRevisions(data);
+                msg_info('saved');
+                previewRevision(data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","create new revision " + xhr);
+            }
+        });
+    }
+
+    function fixRevision()
+    {
+        var data =
+                "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
+                        "excerpt=" + encodeURIComponent($('#_edit_revision_excerpt').val()) + "&" +
+                        "content=" + encodeURIComponent($('#_edit_revision_content').val());
+        $.ajax({
+            url: '/admin/blog/revision/fix/' + $('#_edit_revision_id').val() + '/',
             type: 'POST',
             cache: false,
             data: data,

@@ -5,6 +5,7 @@ from django.template import loader, RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
+from django.db.models.aggregates import Max
 from django.contrib.auth import authenticate, login, logout
 
 from datetime import date
@@ -543,13 +544,42 @@ def blog_revision_save(request, post_id):
             revision.save()
         else:
             revision = revision[0]
-        logging.warning(revision)
         revision.excerpt = request.POST.get('excerpt', '')
         revision.content = request.POST.get('content', '')
         revision.created = datetime.now()
         revision.save()
     except:
         logging.error('Error save revision')
+    t = loader.get_template('admin/blog/data.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'data': revision.id,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_revision_fix(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    post = None
+    revision = None
+    revision_old = None
+    try:
+        revision_old = PostRevision.objects.get(id=id)
+        max = PostRevision.objects.filter(post = revision_old.post).exclude(revision=-1).aggregate(Max('revision'))['revision__max']
+        revision = PostRevision.objects.create(
+            post = revision_old.post,
+            excerpt = request.POST.get('excerpt', ''),
+            content = request.POST.get('content', ''),
+            revision = max + 1,
+            created = datetime.now()
+        )
+        revision.save()
+    except:
+        logging.error('Error fix revision')
     t = loader.get_template('admin/blog/data.html')
     c = RequestContext(
         request,
