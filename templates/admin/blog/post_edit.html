@@ -128,7 +128,7 @@
 
                 </ul>
                 <div class="control-group">
-                    <a href="#" id="_edit_revision_new" class="btn btn-success" onclick="createRevision(-1); return false;">Create new</a>
+                    <a href="#" id="_edit_revision_new" class="btn btn-success" onclick="createRevision(); return false;">Create new</a>
                 </div>
                 <div id="_edit_revision" class="hide">
                     <div class="control-group">
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <a href="#" id="_edit_revision_save_temp" class="btn btn-success" onclick="return false;">Save temporary version</a>
+                        <a href="#" id="_edit_revision_save_temp" class="btn btn-success" onclick="saveRevision(); return false;">Save temporary version</a>
                         <a href="#" id="_edit_revision_save_version" class="btn btn-primary" onclick="return false;">Fix the current version</a>
                     </div>
 
@@ -374,7 +374,7 @@
     // revision
     //
 
-        function loadRevisions()
+        function loadRevisions(sel)
         {
             var _data = '<option value=""></option>';
             var __data = '';
@@ -400,7 +400,10 @@
                             row += '>version: ' + item.revision + ' (' + item.created + ')</option>';
                             _data += row;
                         }
-                        __data += '<li id="_revisions_item_' + item.id + '"><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ' + item.revision + ' (' + item.created + ')</a></li>';
+                        __data += '<li id="_revisions_item_' + item.id + '"'
+                        if(item.id==sel)
+                            __data += ' class="active"';
+                        __data += '><a href="#" onclick="editRevision(' + item.id + '); return false;">version: ' + item.revision + ' (' + item.created + ')</a></li>';
                     }
                     $('#_revision').html(_data);
                     $('#_revisions').html(__data);
@@ -411,10 +414,15 @@
             });
         }
 
-        function editRevision(id)
+        function selectRevisionMenu(id)
         {
             $('#_revisions li').removeClass('active');
             $('#_revisions_item_'+id).addClass('active');
+        }
+
+        function editRevision(id)
+        {
+            selectRevisionMenu(id);
             $('#_edit_revision_title').html($('#_revisions_item_'+id+' a').html());
             $('#_edit_revision').show();
             $.ajax({
@@ -440,20 +448,41 @@
 
         }
 
-        function createRevision(base)
-        {
-            $.ajax({
-                url: '/admin/blog/revision/create/{{ post.id }}',
-                cache: false,
-                success: function(data){
-                    loadRevisions();
-                    editRevision(data);
-                },
-                error: function(e, xhr){
-                    msg_error("Error","create new revision " + xhr);
-                }
-            });
-        }
+    function createRevision()
+    {
+        $.ajax({
+            url: '/admin/blog/revision/create/{{ post.id }}/',
+            cache: false,
+            success: function(data){
+                loadRevisions(data);
+                editRevision(data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","create new revision " + xhr);
+            }
+        });
+    }
+
+    function saveRevision()
+    {
+        var data =
+                "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
+                "excerpt=" + encodeURIComponent($('#_edit_revision_excerpt').val()) + "&" +
+                "content=" + encodeURIComponent($('#_edit_revision_content').val());
+        $.ajax({
+            url: '/admin/blog/revision/save/{{ post.id }}/',
+            type: 'POST',
+            cache: false,
+            data: data,
+            success: function(data){
+                loadRevisions(data);
+                msg_info('saved');
+            },
+            error: function(e, xhr){
+                msg_error("Error","create new revision " + xhr);
+            }
+        });
+    }
 
 
     //
@@ -468,7 +497,7 @@
 
             loadCategories();
             loadTags();
-            loadRevisions();
+            loadRevisions(0);
         }
 
         init();
