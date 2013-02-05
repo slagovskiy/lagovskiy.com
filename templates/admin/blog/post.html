@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Blog / Post</h2>
+    <div id="data"></div>
+    <a href="#" class="btn btn-success" onclick="editData(0); return false;">Add new</a>
+    <a href="#" class="btn btn-info" onclick="loadData(); return false;">Reload</a>
+
+    <div id="frmTag" class="modal fade">
+        <div class="modal-body" id="window_body">
+        </div>
+        <div class="modal-footer" id="window_bottom">
+            <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+
+    <script>
+        function init()
+        {
+            loadData();
+        }
+
+        function editData(id)
+        {
+            location.href('/admin/blog/post/edit/' + id + '/');
+        }
+
+        function loadData()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/blog/post/getall/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover">';
+                    _data += '<thead><tr>' +
+                            '<th>id</th>' +
+                            '<th>title</th>' +
+                            '<th>status</th>' +
+                            '<th>sort</th>' +
+                            '<th></th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td>' + item.id + '</td>' +
+                                '<td><a href="/admin/blog/post/edit/' + item.id + '/" onclick="editData(' + item.id + '); return false;">' + (item.deleted=="True"?'<strike>':'') + item.title + (item.deleted=="True"?'</strike>':'') + '</a></td>' +
+                                '<td>' + item.status + '</td>' +
+                                '<td>&nbsp;</td>' +
+                                '<td>&nbsp;</td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load tag list " + xhr);
+                }
+            });
+        }
+
+        init();
+    </script>
+{% endblock %}

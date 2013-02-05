@@ -409,6 +409,38 @@ def blog_tag_movedown(request, id):
 
 ## post
 
+def blog_post(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    t = loader.get_template('admin/blog/post.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_post_getall(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    posts = []
+    try:
+        posts = Post.objects.all()
+    except:
+        logging.error('Error get post list')
+    t = loader.get_template('admin/blog/post_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'posts': posts,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
 def blog_post_edit(request, id):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
@@ -428,6 +460,56 @@ def blog_post_edit(request, id):
             'message': message,
             'post': post,
             'users': users,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_post_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    post = None
+    users = []
+    try:
+        _slug = request.POST.get('_slug', '')
+        _title = request.POST.get('_title', '')
+        _author = request.POST.get('_author', '')
+        _revision = request.POST.get('_revision', '')
+        _desription = request.POST.get('_description', '')
+        _keywords = request.POST.get('_keywords', '')
+        _status = request.POST.get('_status', '')
+        _sticked = request.POST.get('_sticked', False)
+        _comments_enabled = request.POST.get('_comments_enabled', False)
+        _comments_moderated = request.POST.get('_comments_moderated', True)
+        _do_ping = request.POST.get('_do_ping')
+        _published = request.POST.get('_published', '')
+        _published_time = request.POST.get('_published_time', '')
+        _categories = request.POST.get('_categories', '')
+        _tags = request.POST.get('_tags', '')
+
+        logging.warning(_slug)
+        logging.warning(_title)
+        logging.warning(_author)
+        logging.warning(_revision)
+        logging.warning(_desription)
+        logging.warning(_keywords)
+        logging.warning(_status)
+        logging.warning(_sticked)
+        logging.warning(_comments_enabled)
+        logging.warning(_comments_moderated)
+        logging.warning(_do_ping)
+        logging.warning(_published)
+        logging.warning(_published_time)
+        logging.warning(_categories)
+        logging.warning(_tags)
+
+    except:
+        logging.error('Error save post item')
+    t = loader.get_template('admin/blog/post.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))

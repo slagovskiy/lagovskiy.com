@@ -1,0 +1,12 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for post in posts %}
+    {
+    "id": "{{ post.id }}",
+    "slug": "{{ post.slug }}",
+    "title": "{{ post.title }}",
+    "status": "{% ifequal post.status 1 %}Draft{% endifequal %}{% ifequal post.status 2 %}Published{% endifequal %}{% ifequal post.status 3 %}Hidden{% endifequal %}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}

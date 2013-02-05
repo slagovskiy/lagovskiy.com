@@ -23,10 +23,10 @@ urlpatterns = patterns('',
     url(r'^blog/tag/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_movedown'),
     url(r'^blog/tag/', 'apps.admin.views.blog_tag'),
 
-    #url(r'^blog/post/getall/', 'apps.admin.views.blog_post_getall'),
-    #url(r'^blog/post/save/', 'apps.admin.views.blog_post_save'),
+    url(r'^blog/post/getall/', 'apps.admin.views.blog_post_getall'),
+    url(r'^blog/post/save/', 'apps.admin.views.blog_post_save'),
     url(r'^blog/post/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_post_edit'),
-    #url(r'^blog/post/', 'apps.admin.views.blog_post'),
+    url(r'^blog/post/', 'apps.admin.views.blog_post'),
 
     url(r'^blog/revision/getlist/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_revision_getlist'),
     url(r'^blog/revision/getcontent/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_getcontent'),
