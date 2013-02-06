@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <form class="form-horizontal" method="POST" action="/admin/blog/tag/save/" id="_edit_post">
+    <form class="form-horizontal" method="POST" action="/admin/blog/post/save/" id="_edit_post">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ tag.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
@@ -221,6 +221,7 @@
         function loadCategories()
         {
             var _data = '';
+            var __data = '';
             var _list = [{% for category in post.categories.all %}'{{ category.id }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
             $.ajax({
                 url: '/admin/blog/category/getlist/',
@@ -228,19 +229,24 @@
                 dataType: "json",
                 success: function(data){
                     _data = '<table width="100%"><tr><td width="50%" valign="top">';
+                    __data = '<select name="_categories" multiple="multiple" class="hide">'
 
                     if(data.message!='') msg_info('', data.message);
                     var j =0;
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<label class="checkbox"><input type="checkbox" name="_category" value="' + item.id +  '"';
+                        var row = '<label class="checkbox"><input type="checkbox" name="_category_check_' + item.id + '" id="_category_check_' + item.id + '" value="' + item.id +  '"';
+                        var row_ = '<option id="_category_' + item.id + '" value="' + item.id + '"'
                         if ($.inArray(item.id, _list)>=0)
                         {
                             row += ' checked="checked"';
+                            row_ += ' selected="selected"';
                         }
-                        row += '>' + item.name + '</label>';
+                        row += ' onclick="if ($(\'#_category_check_' + item.id + '\').attr(\'checked\')==\'checked\') { $(\'#_category_' + item.id + '\').attr(\'selected\', \'selected\'); } else { $(\'#_category_' + item.id + '\').removeAttr(\'selected\'); }">' + item.name + '</label>';
+                        row_ += '>' + item.name + '</option>';
                         _data += row;
+                        __data += row_;
                         j++;
                         if(j>(data.items.length/2))
                         {
@@ -249,7 +255,8 @@
                         }
                     }
                     _data += '</td></tr></table>';
-                    $('#_categories').html(_data);
+                    __data += '</select>';
+                    $('#_categories').html(_data + __data);
                 },
                 error: function(e, xhr){
                     msg_error("Error","load category list " + xhr);
@@ -301,6 +308,7 @@
         function loadTags()
         {
             var _data = '';
+            var __data = '';
             var _list = [{% for tag in post.tags.all %}'{{ tag.id }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
             $.ajax({
                 url: '/admin/blog/tag/getlist/',
@@ -308,19 +316,24 @@
                 dataType: "json",
                 success: function(data){
                     _data = '<table width="100%"><tr><td width="50%" valign="top">';
+                    __data = '<select name="_tags" multiple="multiple" class="hide">'
 
                     if(data.message!='') msg_info('', data.message);
                     var j =0;
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<label class="checkbox"><input type="checkbox" name="_tag" value="' + item.id +  '"';
+                        var row = '<label class="checkbox"><input type="checkbox" name="_tag_check_' + item.id + '" id="_tag_check_' + item.id + '" value="' + item.id +  '"';
+                        var row_ = '<option id="_tag_' + item.id + '" value="' + item.id + '"'
                         if ($.inArray(item.id, _list)>=0)
                         {
                             row += ' checked="checked"';
+                            row_ += ' selected="selected"';
                         }
-                        row += '>' + item.name + '</label>';
+                        row += ' onclick="if ($(\'#_tag_check_' + item.id + '\').attr(\'checked\')==\'checked\') { $(\'#_tag_' + item.id + '\').attr(\'selected\', \'selected\'); } else { $(\'#_tag_' + item.id + '\').removeAttr(\'selected\'); }">' + item.name + '</label>';
+                        row_ += '>' + item.name + '</option>';
                         _data += row;
+                        __data += row_;
                         j++;
                         if(j>(data.items.length/2))
                         {
@@ -329,7 +342,8 @@
                         }
                     }
                     _data += '</td></tr></table>';
-                    $('#_tags').html(_data);
+                    __data += '</select>';
+                    $('#_tags').html(_data + __data);
                 },
                 error: function(e, xhr){
                     msg_error("Error","load category list " + xhr);

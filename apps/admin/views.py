@@ -484,8 +484,8 @@ def blog_post_save(request):
         _do_ping = request.POST.get('_do_ping')
         _published = request.POST.get('_published', '')
         _published_time = request.POST.get('_published_time', '')
-        _categories = request.POST.get('_categories', '')
-        _tags = request.POST.get('_tags', '')
+        _categories = request.POST.getlist('_categories', '')
+        _tags = request.POST.getlist('_tags', '')
 
         logging.warning(_slug)
         logging.warning(_title)
