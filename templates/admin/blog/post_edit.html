@@ -2,7 +2,7 @@
 {% block content %}
     <form class="form-horizontal" method="POST" action="/admin/blog/post/save/" id="_edit_post">
         {% csrf_token %}
-        <input type="hidden" name="_id" value="{{ tag.id }}">
+        <input type="hidden" name="_id" value="{{ post.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_main" data-toggle="tab">Main</a></li>

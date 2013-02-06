@@ -471,48 +471,56 @@ def blog_post_save(request):
     post = None
     users = []
     try:
+        _id = request.POST.get('_id', '0')
         _slug = request.POST.get('_slug', '')
         _title = request.POST.get('_title', '')
         _author = request.POST.get('_author', '')
-        _revision = request.POST.get('_revision', '')
+        _revision = request.POST.get('_revision', 0)
+        if _revision=='': _revision = 0
         _desription = request.POST.get('_description', '')
         _keywords = request.POST.get('_keywords', '')
-        _status = request.POST.get('_status', '')
+        _status = request.POST.get('_status', '1')
         _sticked = request.POST.get('_sticked', False)
         _comments_enabled = request.POST.get('_comments_enabled', False)
         _comments_moderated = request.POST.get('_comments_moderated', True)
         _do_ping = request.POST.get('_do_ping')
         _published = request.POST.get('_published', '')
         _published_time = request.POST.get('_published_time', '')
-        _categories = request.POST.getlist('_categories', '')
-        _tags = request.POST.getlist('_tags', '')
+        _categories = request.POST.getlist('_categories', [])
+        _tags = request.POST.getlist('_tags', [])
 
-        logging.warning(_slug)
-        logging.warning(_title)
-        logging.warning(_author)
-        logging.warning(_revision)
-        logging.warning(_desription)
-        logging.warning(_keywords)
-        logging.warning(_status)
-        logging.warning(_sticked)
-        logging.warning(_comments_enabled)
-        logging.warning(_comments_moderated)
-        logging.warning(_do_ping)
-        logging.warning(_published)
-        logging.warning(_published_time)
+        post = Post.objects.get(id=_id)
+        post.slug = _slug
+        post.title = _title
+        post.author = User.objects.get(id=_author)
+        post.published_revision = _revision
+        post.desription = _desription
+        post.keywords = _keywords
+        post.status = _status
+        post.save()
+        post.sticked = _sticked
+        post.comments_enabled = _comments_enabled
+        post.comments_moderated = _comments_moderated
+        post.do_ping = _do_ping
+        post.save()
+
+        post.categories.clear()
         logging.warning(_categories)
+        for _category in _categories:
+            logging.warning(_category)
+            logging.warning(Category.objects.get(id=_category))
+            post.categories.add(Category.objects.get(id=_category))
+        post.save()
+
+        post.tags.clear()
         logging.warning(_tags)
+        for _tag in _tags:
+            post.tags.add(Tag.objects.get(id=_tag))
+        post.save()
 
     except:
         logging.error('Error save post item')
-    t = loader.get_template('admin/blog/post.html')
-    c = RequestContext(
-        request,
-        {
-            'message': message,
-            },
-        processors=[custom_proc])
-    return HttpResponse(t.render(c))
+    return HttpResponseRedirect('/admin/blog/post/')
 
 ## revision
 
