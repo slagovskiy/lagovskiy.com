@@ -13,10 +13,13 @@ from datetime import timedelta
 from datetime import datetime
 
 import logging
+import random
 from apps.blog.admin import CategoryAdmin
 
 from apps.blog.models import *
 from apps.blog.settings import *
+
+from utils import *
 
 from apps.blog.models import Category
 
@@ -41,6 +44,16 @@ def check_access(user, access):
             return True
     except:
         return False
+
+
+def random_str(size):
+    """
+    return random string
+    """
+    str = 'qwertyuiopasdfghjklzxcvbnm'
+    return ''.join([random.choice(str) for i in range(size)])
+
+
 
 
 def index(request):
@@ -449,7 +462,14 @@ def blog_post_edit(request, id):
     users = []
     try:
         users = User.objects.all()
-        if id!=0:
+        if id=='0':
+            post = Post.objects.create(
+                title = "New post",
+                slug = random_str(16),
+                author = request.user
+            )
+            post.save()
+        else:
             post = Post.objects.get(id=id)
     except:
         logging.error('Error get post item')
@@ -655,6 +675,8 @@ def blog_revision_fix(request, id):
     try:
         revision_old = PostRevision.objects.get(id=id)
         max = PostRevision.objects.filter(post = revision_old.post).exclude(revision=-1).aggregate(Max('revision'))['revision__max']
+        if not max:
+            max = 0
         revision = PostRevision.objects.create(
             post = revision_old.post,
             excerpt = request.POST.get('excerpt', ''),
