@@ -469,7 +469,6 @@ def blog_post_save(request):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
     post = None
-    users = []
     try:
         _id = request.POST.get('_id', '0')
         _slug = request.POST.get('_slug', '')
@@ -497,23 +496,19 @@ def blog_post_save(request):
         post.desription = _desription
         post.keywords = _keywords
         post.status = _status
-        post.save()
         post.sticked = _sticked
         post.comments_enabled = _comments_enabled
         post.comments_moderated = _comments_moderated
         post.do_ping = _do_ping
+        if (_published!='') and (_published_time!=''):
+            post.published = datetime.strptime(_published + ' ' + _published_time, '%Y/%m/%d %H:%M')
         post.save()
 
         post.categories.clear()
-        logging.warning(_categories)
         for _category in _categories:
-            logging.warning(_category)
-            logging.warning(Category.objects.get(id=_category))
             post.categories.add(Category.objects.get(id=_category))
-        post.save()
 
         post.tags.clear()
-        logging.warning(_tags)
         for _tag in _tags:
             post.tags.add(Tag.objects.get(id=_tag))
         post.save()

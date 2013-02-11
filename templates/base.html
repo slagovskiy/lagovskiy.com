@@ -91,19 +91,17 @@
     <!-- BODY -->
     <div class="row clearfix page_body">
         <div class="span9 content">
-            <div class="post">
-                {% if message %}
-                    <div class="alert alert-danger">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        {{ message }}
-                    </div>
-                {% endif %}
+            {% if message %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    {{ message }}
+                </div>
+            {% endif %}
 {% endif %}
 
-                {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
 
 {% if not ajax %}
-            </div>
         </div>
         <div class="span3 panel">
             {% widget_categories_menu %}

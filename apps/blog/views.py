@@ -20,15 +20,16 @@ def custom_proc(request):
         'link_app': 'blog',
         #'link_category': '',
         #'link_tag': '',
-        'user': request.session.get('user', None),
+        'user': request.user,
         'ip_address': request.META['REMOTE_ADDR'],
         'ajax': request.GET.get('ajax', 0)
     }
 
 def index(request):
-    message = 'posts list'
+    message = ''
+    posts = []
     try:
-        pass
+        posts = Post.objects.all().filter(status=2)
     except:
         logging.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
@@ -36,6 +37,7 @@ def index(request):
         request,
         {
             'message': message,
+            'posts': posts,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))

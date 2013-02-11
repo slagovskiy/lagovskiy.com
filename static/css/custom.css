@@ -8,6 +8,63 @@ hr{
     border-top: 1px solid #EEE;
 }
 
+.icon-999999,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"] {
+    background-image: url("../img/glyphicons-halflings-999999.png");
+}
+
+.icon-C0C0C0,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"] {
+    background-image: url("../img/glyphicons-halflings-C0C0C0.png");
+}
+
+.color-999999{
+    color: #999999;
+}
+
+.color-C0C0C0{
+    color: #C0C0C0;
+}
+
+.text-upper{
+    text-transform: uppercase;
+}
+
+
+.block_left{
+    float: left;
+}
+.block_right{
+    float: right;
+}
+.block_clear{
+    clear: both;
+}
+
+
+
 
 .admin{
 
@@ -33,6 +90,7 @@ hr{
 
 .page_head{
     text-transform: uppercase;
+    font-family: verdana;
 }
 
 .page_head .logo{
@@ -110,14 +168,19 @@ hr{
 }
 
 
-
-
-.block_left{
-    float: left;
+.post{
+    padding-bottom: 20px;
 }
-.block_right{
-    float: right;
+
+.post-head{
+    font-family: "Lucida Sans Unicode";
 }
-.block_clear{
-    clear: both;
+
+.post-bottom{
+    font-size: 12px;
+    border-top: 1px solid #EEE;
+    border-bottom: 1px solid #EEE;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

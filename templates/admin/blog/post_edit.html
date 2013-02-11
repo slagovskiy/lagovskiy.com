@@ -409,8 +409,8 @@
                         if(item.revision!='-1')
                         {
                             var row = '<option value="' + item.id +  '"';
-                            {% if post.revision %}
-                            if (item.id=={{ post.revision }})
+                            {% if post.published_revision %}
+                            if (item.revision=={{ post.published_revision }})
                             {
                                 row += ' selected="selected"';
                             }
