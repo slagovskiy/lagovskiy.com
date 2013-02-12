@@ -1,0 +1,12 @@
+{% load markup %}
+{% if comment %}
+        <div class="comment_title">
+            <div class="comment_date">{{ comment.published }}&nbsp;<a href="/blog/view/{{ post.slug }}/#comment{{ comment.id }}" name="comment{{ comment.id }}" id="comment_link_{{ comment.id }}">#</a></div>
+            <div class="comment_hr"></div>
+        </div>
+        <div class="comment_text">
+            {{ comment.content|escape|linebreaksbr }}
+        </div>
+        <div class="comment_reply_form" id="reply_form_{{ comment.id }}"></div>
+        <div class="comment_child" id="child_{{ comment.id }}"></div>
+{% endif %}
