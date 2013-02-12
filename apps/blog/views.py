@@ -41,3 +41,21 @@ def index(request):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+
+def post_view(request, slug):
+    message = ''
+    post = None
+    try:
+        post = Post.objects.all().filter(slug=slug)[0]
+    except:
+        logging.exception('Error get post')
+    t = loader.get_template('blog/post_view.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'post': post,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

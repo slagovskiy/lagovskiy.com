@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load markup %}
+{# load pytils_numeral #}
+{% block content %}
+    <div class="post" id="post_{{ post.id }}">
+        <div class="post-head">
+            <h2>{{ post.title }}</h2>
+        </div>
+        <hr>
+        {{ post.excerpt|markdown }}
+        <hr>
+        {{ post.content|markdown }}
+        {% include "blog/post_bottom.html" %}
+    </div>
+{% endblock %}
+
+

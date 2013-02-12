@@ -1,0 +1,13 @@
+<div class="color-999999 text-upper post-bottom">
+    <table width="100%">
+        <tr>
+            <td><i class="icon-user icon-999999"></i> {{ post.author.first_name }} {{ post.author.last_name }}&nbsp;&nbsp;</td>
+            <td><i class="icon-calendar icon-999999"></i> {{ post.published|date:"F jS, Y H:i" }}&nbsp;&nbsp;</td>
+            <td><i class="icon-comment icon-999999"></i>{{ comment_count }} comment{% ifnotequal comment_count 1 %}s{% endifnotequal %}&nbsp;&nbsp;<br></td>
+            <td><i class="icon-eye-open icon-999999"></i> 99 views</td>
+        </tr>
+        <tr>
+            <td colspan="4"><i class="icon-tags icon-999999"></i> {% for tag in post.tags.all %}<a href="/blog/tag/{{ tag.slug }}/">{{ tag.name }}</a>{% if not forloop.last %},&nbsp;&nbsp;{% endif %}{% endfor %}</td>
+        </tr>
+    </table>
+</div>
