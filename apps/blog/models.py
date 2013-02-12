@@ -73,14 +73,14 @@ class Post(models.Model):
     def excerpt(self):
         if self.published_revision > 0:
             return PostRevision.objects.filter(
-                post=self, revision=self.published_revision)[0].excerpt
+                post=self, id=self.published_revision)[0].excerpt
         else:
             return 'no revision'
 
     def content(self):
         if self.published_revision > 0:
             return PostRevision.objects.filter(
-                post=self, revision=self.published_revision)[0].content
+                post=self, id=self.published_revision)[0].content
         else:
             return 'no revision'
 

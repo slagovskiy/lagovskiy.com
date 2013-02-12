@@ -496,15 +496,15 @@ def blog_post_save(request):
         _author = request.POST.get('_author', '')
         _revision = request.POST.get('_revision', 0)
         if _revision=='': _revision = 0
-        _desription = request.POST.get('_description', '')
+        _description = request.POST.get('_description', '')
         _keywords = request.POST.get('_keywords', '')
         _status = request.POST.get('_status', '1')
         _sticked = request.POST.get('_sticked', False)
         _comments_enabled = request.POST.get('_comments_enabled', False)
         _comments_moderated = request.POST.get('_comments_moderated', True)
-        _do_ping = request.POST.get('_do_ping')
+        _do_ping = request.POST.get('_do_ping', False)
         _published = request.POST.get('_published', '')
-        _published_time = request.POST.get('_published_time', '')
+        _published_time = request.POST.get('_published_time', '00:00')
         _categories = request.POST.getlist('_categories', [])
         _tags = request.POST.getlist('_tags', [])
 
@@ -513,7 +513,7 @@ def blog_post_save(request):
         post.title = _title
         post.author = User.objects.get(id=_author)
         post.published_revision = _revision
-        post.desription = _desription
+        post.description = _description
         post.keywords = _keywords
         post.status = _status
         post.sticked = _sticked

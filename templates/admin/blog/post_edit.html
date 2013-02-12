@@ -134,13 +134,13 @@
                     <div class="control-group">
                         <label class="control-label" for="_title">Excerpt</label>
                         <div class="controls">
-                            <textarea id="_edit_revision_excerpt" name="_edit_revision_excerpt" class="span6" rows="10">{{ post.excerpt }}</textarea>
+                            <textarea id="_edit_revision_excerpt" name="_edit_revision_excerpt" class="span6" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_slug">Content</label>
                         <div class="controls">
-                            <textarea id="_edit_revision_content" name="_edit_revision_content" class="span6" rows="15">{{ post.content }}</textarea>
+                            <textarea id="_edit_revision_content" name="_edit_revision_content" class="span6" rows="15"></textarea>
                         </div>
                     </div>
                     <div class="control-group">
@@ -410,7 +410,7 @@
                         {
                             var row = '<option value="' + item.id +  '"';
                             {% if post.published_revision %}
-                            if (item.revision=={{ post.published_revision }})
+                            if (item.id=={{ post.published_revision }})
                             {
                                 row += ' selected="selected"';
                             }
