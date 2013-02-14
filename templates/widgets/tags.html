@@ -1,6 +1,6 @@
 <h2 class="menu_title">Tags</h2>
 <ul class="nav nav-pills nav-stacked nav_other">
     {% for tag in tags %}
-        <li id=tag_{{ tag.id }}><a href="/blog/tag/{{ tag.slug }}/"><table width="100%"><tr><td>{{ tag.name }}</td><td align="right">--</td></tr></table></a></li>
+        <li id=tag_{{ tag.id }}><a href="/blog/tag/{{ tag.slug }}/"><table width="100%"><tr><td>{{ tag.name }}</td><td align="right">{{ tag.post_count }}</td></tr></table></a></li>
     {% endfor %}
 </ul>

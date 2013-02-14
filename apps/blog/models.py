@@ -16,6 +16,9 @@ class Category(models.Model):
     def get_absolute_url(self):
         return '/blog/category/' + self.slug + '/'
 
+    def post_count(self):
+        return self.post_set.all().count()
+
     class Meta:
         ordering = ['sort']
         verbose_name = 'Category'
@@ -32,6 +35,9 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return '/blog/tag/' + self.slug + '/'
+
+    def post_count(self):
+        return self.post_set.all().count()
 
     class Meta:
         ordering = ['sort']
