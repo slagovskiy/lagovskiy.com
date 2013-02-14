@@ -76,13 +76,13 @@
             </div>
             <div class="span10">
                 <ul class="menu nav nav-pills">
-                    <li class="active"{% ifequal link_app 'home' %} class="active"{% endifequal %}><a href="/">home</a></li>
+                    <li{% ifequal link_app 'home' %} class="active"{% endifequal %}><a href="/">home</a></li>
                     <li class="empty">/</li>
-                    <li><a href="/blog/"{% ifequal link_app 'blog' %} class="active"{% endifequal %}>blog</a></li>
+                    <li{% ifequal link_app 'blog' %} class="active"{% endifequal %}><a href="/blog/">blog</a></li>
                     <li class="empty">/</li>
-                    <li><a href="/projects/"{% ifequal link_app 'projects' %} class="active"{% endifequal %}>projects</a></li>
+                    <li{% ifequal link_app 'projects' %} class="active"{% endifequal %}><a href="/projects/">projects</a></li>
                     <li class="empty">/</li>
-                    <li><a href="/about"{% ifequal link_app 'about' %} class="active"{% endifequal %}>about & contact</a></li>
+                    <li{% ifequal link_app 'about' %} class="active"{% endifequal %}><a href="/about">about & contact</a></li>
                 </ul>
             </div>
         </div>

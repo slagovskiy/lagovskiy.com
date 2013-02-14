@@ -9,7 +9,7 @@ import logging
 def custom_proc(request):
     return {
         'app_title': '',
-        'link_app': '',
+        'link_app': 'home',
         'link_category': '',
         'link_tag': '',
         'user': request.user,

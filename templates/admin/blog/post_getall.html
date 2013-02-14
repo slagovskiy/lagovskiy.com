@@ -6,7 +6,8 @@
     "id": "{{ post.id }}",
     "slug": "{{ post.slug }}",
     "title": "{{ post.title }}",
-    "status": "{% ifequal post.status 1 %}Draft{% endifequal %}{% ifequal post.status 2 %}Published{% endifequal %}{% ifequal post.status 3 %}Hidden{% endifequal %}"
+    "status": "{% ifequal post.status 1 %}Draft{% endifequal %}{% ifequal post.status 2 %}Published{% endifequal %}{% ifequal post.status 3 %}Hidden{% endifequal %}",
+    "sticked": "{% if post.sticked %}Yes{% else %}No{% endif %}"
     }{% if not forloop.last %},{% endif %}
 {% endfor %}]
 }

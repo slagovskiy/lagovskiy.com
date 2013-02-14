@@ -29,7 +29,7 @@ def index(request):
     message = ''
     posts = []
     try:
-        posts = Post.objects.all().filter(status=2)
+        posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-sticked', '-published')
     except:
         logging.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
@@ -38,6 +38,26 @@ def index(request):
         {
             'message': message,
             'posts': posts,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def postby_tag(request, tag):
+    message = ''
+    posts = []
+    tags = None
+    try:
+        tags = Tag.objects.get(slug=tag)
+        posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS, tags=tags).order_by('-sticked', '-published')
+    except:
+        logging.exception('Error get posts list')
+    t = loader.get_template('blog/default.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'posts': posts,
+            'link_tag': tag,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))

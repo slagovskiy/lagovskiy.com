@@ -48,6 +48,14 @@ hr{
     color: #C0C0C0;
 }
 
+.color-green{
+    color: #408140;
+}
+
+.color-green:hover{
+    color: #387038;
+}
+
 .text-upper{
     text-transform: uppercase;
 }

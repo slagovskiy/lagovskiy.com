@@ -38,7 +38,7 @@
                             '<th>id</th>' +
                             '<th>title</th>' +
                             '<th>status</th>' +
-                            '<th></th>' +
+                            '<th>sticked</th>' +
                             '<th></th>' +
                             '</tr></thead><tbody>';
 
@@ -50,7 +50,7 @@
                                 '<td>' + item.id + '</td>' +
                                 '<td><a href="/admin/blog/post/edit/' + item.id + '/" onclick="editData(' + item.id + '); return false;">' + (item.deleted=="True"?'<strike>':'') + item.title + (item.deleted=="True"?'</strike>':'') + '</a></td>' +
                                 '<td>' + item.status + '</td>' +
-                                '<td>&nbsp;</td>' +
+                                '<td>' + item.sticked + '</td>' +
                                 '<td>&nbsp;</td>' +
                                 '</tr>';
                         _data += row;

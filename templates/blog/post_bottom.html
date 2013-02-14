@@ -3,7 +3,7 @@
         <tr>
             <td><i class="icon-user icon-999999"></i> {{ post.author.first_name }} {{ post.author.last_name }}&nbsp;&nbsp;</td>
             <td><i class="icon-calendar icon-999999"></i> {{ post.published|date:"F jS, Y H:i" }}&nbsp;&nbsp;</td>
-            <td><i class="icon-comment icon-999999"></i>{{ comment_count }} comment{% ifnotequal comment_count 1 %}s{% endifnotequal %}&nbsp;&nbsp;<br></td>
+            <td><i class="icon-comment icon-999999"></i> {{ post.comment_count }} comment{% ifnotequal post.comment_count 1 %}s{% endifnotequal %}&nbsp;&nbsp;<br></td>
             <td><i class="icon-eye-open icon-999999"></i> 99 views</td>
         </tr>
         <tr>
