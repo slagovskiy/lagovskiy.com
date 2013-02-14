@@ -10,8 +10,8 @@ def custom_proc(request):
     return {
         'app_title': '',
         'link_app': 'home',
-        'link_category': '',
-        'link_tag': '',
+        #'link_category': '',
+        #'link_tag': '',
         'user': request.user,
         'ip_address': request.META['REMOTE_ADDR'],
         'ajax': request.GET.get('ajax', 0)

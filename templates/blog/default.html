@@ -13,6 +13,10 @@
             {% include "blog/post_bottom.html" %}
         </div>
     {% endfor %}
+
+    <script>
+        $('#tag_{{ tags.id }}').addClass('active');
+    </script>
 {% endblock %}
 
 

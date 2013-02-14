@@ -28,8 +28,14 @@ def custom_proc(request):
 def index(request):
     message = ''
     posts = []
+    page = int(request.GET.get('page', 1))
     try:
         posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-sticked', '-published')
+        paginator = Paginator(posts, PAGE_SIZE)
+        if page<=0:
+            page = 1
+        if page>paginator.num_pages:
+            page = paginator.num_pages
     except:
         logging.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
@@ -37,7 +43,7 @@ def index(request):
         request,
         {
             'message': message,
-            'posts': posts,
+            'posts': paginator.page(page),
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
@@ -46,9 +52,15 @@ def postby_tag(request, tag):
     message = ''
     posts = []
     tags = None
+    page = int(request.GET.get('page', 1))
     try:
         tags = Tag.objects.get(slug=tag)
         posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS, tags=tags).order_by('-sticked', '-published')
+        paginator = Paginator(posts, PAGE_SIZE)
+        if page<=0:
+            page = 1
+        if page>paginator.num_pages:
+            page = paginator.num_pages
     except:
         logging.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
@@ -56,8 +68,35 @@ def postby_tag(request, tag):
         request,
         {
             'message': message,
-            'posts': posts,
-            'link_tag': tag,
+            'posts': paginator.page(page),
+            'tags': tags,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+
+def postby_category(request, category):
+    message = ''
+    posts = []
+    categories = None
+    page = int(request.GET.get('page', 1))
+    try:
+        categories = Category.objects.get(slug=category)
+        posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS, categories=categories).order_by('-sticked', '-published')
+        paginator = Paginator(posts, PAGE_SIZE)
+        if page<=0:
+            page = 1
+        if page>paginator.num_pages:
+            page = paginator.num_pages
+    except:
+        logging.exception('Error get posts list')
+    t = loader.get_template('blog/default.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'posts': paginator.page(page),
+            'link_category': categories,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
