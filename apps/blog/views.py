@@ -50,12 +50,17 @@ def post_view(request, slug):
         post = Post.objects.all().filter(slug=slug)[0]
     except:
         logging.exception('Error get post')
-    t = loader.get_template('blog/post_view.html')
-    c = RequestContext(
-        request,
-        {
-            'message': message,
-            'post': post,
-            },
-        processors=[custom_proc])
-    return HttpResponse(t.render(c))
+    if post:
+        if post.status==Post.HIDDEN_STATUS or post.status==Post.PUBLISHED_STATUS:
+            t = loader.get_template('blog/post_view.html')
+            c = RequestContext(
+                request,
+                {
+                    'message': message,
+                    'post': post,
+                    },
+                processors=[custom_proc])
+            return HttpResponse(t.render(c))
+        else:
+            HttpResponseRedirect('/blog/')
+    return HttpResponseRedirect('/blog/')
