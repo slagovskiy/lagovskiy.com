@@ -26,8 +26,16 @@
             {% endif %}
         </span>
     </div>
+    {{ group }}
     <script>
-        $('#tag_{{ tags.id }}').addClass('active');
+        $(document).ready(function() {
+            {% ifequal group 'tag' %}
+            $('#tag_{{ tags.id }}').addClass('active');
+            {% endifequal %}
+            {% ifequal group 'category' %}
+            $('#category_{{ categories.id }}').addClass('active');
+            {% endifequal %}
+        });
     </script>
 {% endblock %}
 

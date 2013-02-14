@@ -69,6 +69,7 @@ def postby_tag(request, tag):
         {
             'message': message,
             'posts': paginator.page(page),
+            'group': 'tag',
             'tags': tags,
             },
         processors=[custom_proc])
@@ -96,7 +97,8 @@ def postby_category(request, category):
         {
             'message': message,
             'posts': paginator.page(page),
-            'link_category': categories,
+            'group': 'category',
+            'categories': categories,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
