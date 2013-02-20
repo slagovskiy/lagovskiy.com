@@ -10,7 +10,7 @@
         <hr>
         {{ post.content|markdown }}
         {% include "blog/post_bottom.html" %}
-        <ul>{% for comment in comments %}
+        <ul>{% for comment in post.comments %}
             {% if comment.allowed or user.get_profile.canCommentAllow or show_not_allowed %}<li id="comment_body_{{ comment.id }}"{% if comment.allowed %} style="padding-left: {{ comment.level }}px;"{% else %} style="padding-left: {{ comment.level|add:5 }}px;" class="notallowed"{% endif %}>
                 {% include "blog/comment_item.html" %}
                 </li>{% endif %}

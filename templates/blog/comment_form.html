@@ -1,5 +1,6 @@
 <div class="comment-form" id="comment_form">
-    <form class="well span4">
+    <form class="well span4" action="/blog/comment/save/{{ post.id }}/" method="post">
+        {% csrf_token %}
         <div class="control-group">
             <label class="control-label" for="_description">Name<sup>*</sup></label>
             <div class="controls">
@@ -30,8 +31,8 @@
         </div>
 
         <div class="control-group">
-            <input type="hidden" id="_parent" name="_parent" value="0">
-            <a href="#" id="_save" class="btn btn-success" onclick="return false;">Save comment</a>
+            <input type="hidden" id="_reply" name="_reply" value="0">
+            <input type="submit" id="_save" name="_save" class="btn btn-success" value="Save comment">
             <a href="#" id="_clear" class="btn" onclick="return false;">Clear form</a>
         </div>
 

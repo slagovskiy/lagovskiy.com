@@ -93,6 +93,9 @@ class Post(models.Model):
     def comment_count(self):
         return self.comment_set.all().exclude(allowed=False).count()
 
+    def comments(self):
+        return self.comment_set.all()
+
     class Meta:
         ordering = ['status', 'slug']
 
