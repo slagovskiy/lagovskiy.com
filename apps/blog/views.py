@@ -176,7 +176,7 @@ def comment_save(request, id):
                         subscribe.active = True
                         subscribe.save()
                 if not post.comments_moderated:
-                    for subscribe in SubscribePost.objects.all().filter(post=post, ative=True):
+                    for subscribe in SubscribePost.objects.all().filter(post=post, active=True):
                         mq = CommentMessageQueue.objects.create(
                             subscribe = subscribe,
                             comment = comment,
@@ -199,7 +199,7 @@ def comment_save(request, id):
     except:
         report = u'Error adding comment'
         logging.exception(u'Error adding comment')
-    t = loader.get_template('blog/ajax.html')
+    t = loader.get_template('ajax.html')
     c = RequestContext(
         request,
         {

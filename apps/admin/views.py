@@ -501,7 +501,7 @@ def blog_post_save(request):
         _status = request.POST.get('_status', '1')
         _sticked = request.POST.get('_sticked', False)
         _comments_enabled = request.POST.get('_comments_enabled', False)
-        _comments_moderated = request.POST.get('_comments_moderated', True)
+        _comments_moderated = request.POST.get('_comments_moderated', False)
         _do_ping = request.POST.get('_do_ping', False)
         _published = request.POST.get('_published', '')
         _published_time = request.POST.get('_published_time', '00:00')
