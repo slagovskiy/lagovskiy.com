@@ -143,3 +143,11 @@ class SubscribePost(models.Model):
     post = models.ForeignKey(Post)
     email = models.CharField(max_length=255, default='', verbose_name=u'Email',)
     active = models.BooleanField(default=True, verbose_name=u'Active subscribe',)
+
+class CommentMessageQueue(models.Model):
+    subscribe = models.ForeignKey(SubscribePost)
+    comment = models.ForeignKey(Comment)
+    added = models.DateTimeField(auto_now_add=True,)
+    sended = models.DateTimeField(null=True, blank=True,)
+    active = models.BooleanField(default=False,)
+
