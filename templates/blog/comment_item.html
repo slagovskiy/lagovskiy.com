@@ -1,8 +1,8 @@
 {% load markup %}
 {% if comment %}
         <div class="comment_title">
-            <div class="comment_date">{{ comment.published }}&nbsp;<a href="/blog/view/{{ post.slug }}/#comment{{ comment.id }}" name="comment{{ comment.id }}" id="comment_link_{{ comment.id }}">#</a></div>
-            <div class="comment_hr"></div>
+            <div>{{ comment.name }}</div>
+            <div>{{ comment.published }}&nbsp;<a href="/blog/view/{{ post.slug }}/#comment{{ comment.id }}" name="comment{{ comment.id }}" id="comment_link_{{ comment.id }}">#</a></div>
         </div>
         <div class="comment_text">
             {{ comment.content|escape|linebreaksbr }}
