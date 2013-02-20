@@ -138,3 +138,8 @@ class Comment(MPTTModel):
 
     class Meta:
         ordering = ['tree_id', 'lft']
+
+class SubscribePost(models.Model):
+    post = models.ForeignKey(Post)
+    email = models.CharField(max_length=255, default='', verbose_name=u'Email',)
+    active = models.BooleanField(default=True, verbose_name=u'Active subscribe',)
