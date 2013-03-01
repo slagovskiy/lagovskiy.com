@@ -101,7 +101,6 @@ def postby_category(request, category):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
-
 def post_view(request, slug):
     message = ''
     post = None
@@ -123,6 +122,26 @@ def post_view(request, slug):
         else:
             HttpResponseRedirect('/blog/')
     return HttpResponseRedirect('/blog/')
+
+def comment_count(request, post_id):
+    message = ''
+    count = 0
+    post = None
+    try:
+        post = Post.objects.get(id=post_id)
+        if post:
+            count = post.comment_count()
+    except:
+        logging.exception('Error get comments count')
+    t = loader.get_template('ajax.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'data': count,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
 
 def comment_save(request, id):
     report = ''
