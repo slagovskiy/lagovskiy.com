@@ -199,6 +199,9 @@ def blog_category_save(request):
         tmp_slug = request.POST.get('_slug', '')
         tmp_sort = request.POST.get('_sort', 100)
         tmp_deleted = request.POST.get('_deleted', False)
+        if (tmp_name==''): tmp_name = 'qwerty'
+        if (tmp_slug==''): tmp_slug = 'qwerty'
+        if (tmp_sort==''): tmp_sort = 1000
         logging.warning(tmp_id)
         if tmp_id!='':
             category = Category.objects.get(id=tmp_id)
