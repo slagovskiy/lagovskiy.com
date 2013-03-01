@@ -281,6 +281,18 @@ hr{
     font-weight: bold;
 }
 
+.comment-count {
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 35px;
+    padding-bottom: 15px;
+}
+
+.comment-link {
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .comment-form{
     padding-top: 20px;
 }

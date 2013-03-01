@@ -1,8 +1,9 @@
 {% load markup %}
 {% if comment %}
     <div class="comment-title">
-        {{ comment.name }}&nbsp
-        <span class="comment-title-date">{{ comment.published }}</span>
+        {{ comment.name }}&nbsp;
+        <span class="comment-title-date">{{ comment.published }}</span>&nbsp;
+        <a href="#comment{{ comment.id }}" name="comment{{ comment.id }}" class="comment-link">#</a>
     </div>
     <div class="comment-text">
         {{ comment.content|escape|linebreaksbr }}
