@@ -40,12 +40,73 @@ hr{
     background-image: url("../img/glyphicons-halflings-C0C0C0.png");
 }
 
-.color-999999{
+.icon-0088CC,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"] {
+    background-image: url("../img/glyphicons-halflings-0088CC.png");
+}
+
+.icon-FF0000,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"] {
+    background-image: url("../img/glyphicons-halflings-FF0000.png");
+}
+
+.icon-387038,
+.nav-pills > .active > a > [class^="icon-"],
+.nav-pills > .active > a > [class*=" icon-"],
+.nav-list > .active > a > [class^="icon-"],
+.nav-list > .active > a > [class*=" icon-"],
+.navbar-inverse .nav > .active > a > [class^="icon-"],
+.navbar-inverse .nav > .active > a > [class*=" icon-"],
+.dropdown-menu > li > a:hover > [class^="icon-"],
+.dropdown-menu > li > a:hover > [class*=" icon-"],
+.dropdown-menu > .active > a > [class^="icon-"],
+.dropdown-menu > .active > a > [class*=" icon-"],
+.dropdown-submenu:hover > a > [class^="icon-"],
+.dropdown-submenu:hover > a > [class*=" icon-"] {
+    background-image: url("../img/glyphicons-halflings-387038.png");
+}
+
+
+.color-999999, .color-999999:hover{
     color: #999999;
 }
 
-.color-C0C0C0{
+.color-C0C0C0, .color-C0C0C0:hover{
     color: #C0C0C0;
+}
+
+.color-0088CC, .color-0088CC:hover{
+    color: #0088CC;
+}
+
+.color-387038, .color-387038:hover{
+    color: #387038;
+}
+
+.color-FF0000, .color-FF0000:hover{
+    color: #FF0000;
 }
 
 .color-green{
@@ -191,6 +252,33 @@ hr{
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.comment-title{
+    font-size: 18px;
+    text-transform: uppercase;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    font-weight: bold;
+}
+
+.comment-title-date{
+    font-size: 14px;
+    color: #999999;
+    font-weight: normal;
+}
+
+.comment-item{
+    list-style: none;
+    padding-bottom: 20px;
+}
+
+.comment-text {
+    padding-bottom: 15px;
+}
+
+.comment-action {
+    font-weight: bold;
 }
 
 .comment-form{
