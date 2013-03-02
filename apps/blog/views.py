@@ -116,8 +116,9 @@ def post_view(request, slug):
                 {
                     'message': message,
                     'post': post,
+                    'comments': request.session.get('sended_comments', [])
                     },
-                processors=[custom_proc])
+                processors=[custom_proc],)
             return HttpResponse(t.render(c))
         else:
             HttpResponseRedirect('/blog/')
@@ -182,6 +183,14 @@ def comment_save(request, id):
                     allowed = not post.comments_moderated,
                     )
                 comment.save()
+                try:
+                    sended_comments = []
+                    if request.session.get('sended_comments', [])!=None:
+                        sended_comments = request.session.get('sended_comments', [])
+                    sended_comments.append(comment.id)
+                    request.session['sended_comments']=sended_comments
+                except:
+                    logging.exception('Error add comment to session var')
                 if (_subscribe=='1') & (_email!=''):
                     if SubscribePost.objects.all().filter(post=post, email=_email).count()==0:
                         subscribe = SubscribePost.objects.create(

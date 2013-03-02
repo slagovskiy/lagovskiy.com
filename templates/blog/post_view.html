@@ -14,17 +14,7 @@
         <div class="comment-count">{{ post.comment_count }} comment{% ifnotequal post.comment_count 1 %}s{% endifnotequal %}</div>
         <hr>
         <ul>{% for comment in post.comments %}
-            {% if comment.allowed or user.get_profile.canCommentAllow %}
-                <li
-                    id="comment_body_{{ comment.id }}"
-                    {% if comment.allowed %}
-                        style="padding-left: {{ comment.level|mul:30 }}px;" class="comment-item"
-                    {% else %}
-                        style="padding-left: {{ comment.level|mul:30|add:5 }}px;" class="comment-notallowed comment-item"
-                    {% endif %}
-                >
-                {% include "blog/comment_item.html" %}
-                </li>{% endif %}
+            {% include "blog/comment_item.html" %}
         {% endfor %}</ul>
         <ul>
             <div class="comment_action">
