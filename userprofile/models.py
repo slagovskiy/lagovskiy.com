@@ -43,6 +43,12 @@ class UserProfile(models.Model):
     def canAdmin(self):
         return ((self.access&1)==1)
 
+    def canCommentAllow(self):
+        return ((self.access&1)==1)
+
+    def canCommentDelete(self):
+        return ((self.access&1)==1)
+
 def create_profile(sender, **kwargs):
     user = kwargs['instance']
     if kwargs["created"]:

@@ -91,7 +91,7 @@ class Post(models.Model):
             return 'no revision'
 
     def comment_count(self):
-        return self.comment_set.all().exclude(allowed=False, deleted=True).count()
+        return self.comment_set.all().exclude(allowed=False).exclude(deleted=True).count()
 
     def comments(self):
         return self.comment_set.all()

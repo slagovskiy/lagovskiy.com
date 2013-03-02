@@ -293,6 +293,11 @@ hr{
     cursor: pointer;
 }
 
+.comment-notallowed {
+    border-left: 3px solid #0088CC;
+    background-color: #EFEFEF;
+}
+
 .comment-form{
     padding-top: 20px;
 }
