@@ -20,17 +20,25 @@
         <ul>
             <div class="comment_action">
                 <div class="comment_child" id="child_0"></div>
-                {% if post.comments_enabled %}<h3><a name="add_comment" title="Leave a comment" onclick="move_form(0);return false;" style="cursor: pointer;">Leave comment</a></h3>{% endif %}
-                <div class="comment_reply_form hide" id="reply_form_0"></div>
+                {% if post.comments_enabled %}<h3><a name="add_comment" title="Leave a comment" onclick="moveForm(0);return false;" style="cursor: pointer;">Leave comment</a></h3>{% endif %}
+                <div class="comment-reply-form hide" id="reply_form_0"></div>
             </div>
         </ul>
         {% if post.comments_enabled %}{% include "blog/comment_form.html" %}{% endif %}
     </div>
 
     <script>
+        function moveForm(id)
+        {
+            $('.comment-reply-form').html('');
+            $('#reply_form_'+id).html($('#comment_form').html());
+            $('#reply_form_'+id).show();
+            $('#comment_form').hide();
+        }
+
         function init()
         {
-
+            moveForm(0);
         }
 
         init();
