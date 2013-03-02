@@ -1,18 +1,22 @@
 {% load markup %}
 {% if comment %}
-    <div class="comment-title">
-        {{ comment.name }}&nbsp;
-        <span class="comment-title-date">{{ comment.published }}</span>&nbsp;
-        <a href="#comment{{ comment.id }}" name="comment{{ comment.id }}" class="comment-link">#</a>
-    </div>
-    <div class="comment-text">
-        {{ comment.content|escape|linebreaksbr }}
-    </div>
-    <div class="comment-actions">
-        <i class="icon-share-alt icon-0088CC"></i> <a href="#" class="color-0088CC" onclick="moveForm({{ comment.id }});return false;">Reply</a>&nbsp;&nbsp;&nbsp;
-        {% if not comment.allowed and user.get_profile.canCommentAllow %}<i class="icon-check icon-387038"></i> <a href="#" class="color-387038">Allow</a>&nbsp;&nbsp;&nbsp;{% endif %}
-        {% if user.get_profile.canCommentAllow %}<i class="icon-remove icon-FF0000"></i> <a href="#" class="color-FF0000">Delete</a>&nbsp;&nbsp;&nbsp;{% endif %}
-    </div>
-    <div class="comment-reply-form" id="reply_form_{{ comment.id }}"></div>
-    <div class="comment-child" id="child_{{ comment.id }}"></div>
+    {% if comment.deleted %}
+        <span class="comment-title-date">Комментарий был удален администратором</span>
+    {% else %}
+        <div class="comment-title">
+            {{ comment.name }}&nbsp;
+            <span class="comment-title-date">{{ comment.published }}</span>&nbsp;
+            <a href="#comment{{ comment.id }}" name="comment{{ comment.id }}" class="comment-link">#</a>
+        </div>
+        <div class="comment-text">
+            {{ comment.content|escape|linebreaksbr }}
+        </div>
+        <div class="comment-actions">
+            <i class="icon-share-alt icon-0088CC"></i> <a href="#" class="color-0088CC" onclick="moveForm({{ comment.id }});return false;">Reply</a>&nbsp;&nbsp;&nbsp;
+            {% if not comment.allowed and user.get_profile.canCommentAllow %}<i class="icon-check icon-387038"></i> <a href="#" class="color-387038">Allow</a>&nbsp;&nbsp;&nbsp;{% endif %}
+            {% if user.get_profile.canCommentAllow %}<i class="icon-remove icon-FF0000"></i> <a href="#" class="color-FF0000">Delete</a>&nbsp;&nbsp;&nbsp;{% endif %}
+        </div>
+        <div class="comment-reply-form" id="reply_form_{{ comment.id }}"></div>
+        <div class="comment-child" id="child_{{ comment.id }}"></div>
+    {% endif %}
 {% endif %}
