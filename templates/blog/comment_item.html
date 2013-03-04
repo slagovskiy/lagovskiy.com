@@ -3,7 +3,7 @@
 {% if comment %}
     {% if comment.deleted %}
         <li class="comment-item">
-            <span class="comment-deleted">Комментарий был удален администратором / Comment was deleted by the administrator</span>
+            <span class="comment-deleted">Comment was deleted by the administrator / Комментарий был удален администратором <a href="#comment{{ comment.id }}" name="comment{{ comment.id }}" class="comment-link">#</a></span>
         </li>
     {% else %}
         {% if comment.allowed or user.get_profile.canCommentAllow %}
@@ -26,7 +26,7 @@
                 <div class="comment-actions">
                     {% if comment.allowed %}<i class="icon-share-alt icon-0088CC"></i> <a href="#" class="color-0088CC" onclick="moveForm({{ comment.id }});return false;">Reply</a>&nbsp;&nbsp;&nbsp;{% endif %}
                     {% if not comment.allowed and user.get_profile.canCommentAllow %}<i class="icon-check icon-387038"></i> <a href="#" class="color-387038">Allow</a>&nbsp;&nbsp;&nbsp;{% endif %}
-                    {% if user.get_profile.canCommentDelete %}<i class="icon-remove icon-FF0000"></i> <a href="#" class="color-FF0000">Delete</a>&nbsp;&nbsp;&nbsp;{% endif %}
+                    {% if user.get_profile.canCommentDelete %}<i class="icon-remove icon-FF0000"></i> <a href="/admin/blog/comment/delete/{{ comment.id }}/?backlink=/blog/view/{{ post.slug }}/#comment{{ comment.id }}" class="color-FF0000">Delete</a>&nbsp;&nbsp;&nbsp;{% endif %}
                 </div>
             </li>
         {% else %}
@@ -41,7 +41,7 @@
                         {{ comment.content|escape|linebreaksbr }}
                     </div>
                     <div class="comment-actions">
-                        <div class="comment-warning">Комментарий будет опубликован после проверки / Comments will be published after validation</div>
+                        <div class="comment-warning">Comments will be published after validation / Комментарий будет опубликован после проверки</div>
                     </div>
                 </li>
             {% endif %}

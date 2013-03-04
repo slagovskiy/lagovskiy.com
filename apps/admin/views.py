@@ -721,3 +721,23 @@ def blog_revision_preview(request, id):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+## comment
+
+def blog_comment_delete(request, id):
+    if not check_access(request.user, 'canCommentDelete'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    comment = None
+    backlink = ''
+    try:
+        backlink = request.GET.get('backlink', '')
+        comment = Comment.objects.get(id=id)
+        comment.deleted = True
+        comment.save()
+    except:
+        logging.error('Error get comment for delete')
+    if backlink!='':
+        return HttpResponseRedirect(backlink)
+    else:
+        return HttpResponseRedirect('/')
