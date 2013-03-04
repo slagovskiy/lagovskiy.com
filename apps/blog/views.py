@@ -191,7 +191,7 @@ def comment_save(request, id):
                     request.session['sended_comments']=sended_comments
                 except:
                     logging.exception('Error add comment to session var')
-                if (_subscribe=='1') & (_email!=''):
+                if (_subscribe=='True') & (_email!=''):
                     if SubscribePost.objects.all().filter(post=post, email=_email).count()==0:
                         subscribe = SubscribePost.objects.create(
                             post = post,
