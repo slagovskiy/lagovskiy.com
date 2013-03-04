@@ -1,4 +1,10 @@
 <div id="comment_form">
+    {% if formmessage %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            {{ formmessage }}
+        </div>
+    {% endif %}
     <div class="container comment-form">
         <form class="well span4" action="/blog/comment/save/{{ post.id }}/" method="post">
             {% csrf_token %}

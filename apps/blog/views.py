@@ -103,9 +103,11 @@ def postby_category(request, category):
 
 def post_view(request, slug):
     message = ''
+    formmessage = ''
     post = None
     try:
         post = Post.objects.all().filter(slug=slug)[0]
+        formmessage = request.GET.get('formmessage', '')
     except:
         logging.exception('Error get post')
     if post:
@@ -116,7 +118,8 @@ def post_view(request, slug):
                 {
                     'message': message,
                     'post': post,
-                    'comments': request.session.get('sended_comments', [])
+                    'comments': request.session.get('sended_comments', []),
+                    'formmessage': formmessage,
                     },
                 processors=[custom_proc],)
             return HttpResponse(t.render(c))
@@ -223,7 +226,7 @@ def comment_save(request, id):
                 if ajax=='1':
                     report = 'cheat:'
                 else:
-                    return HttpResponseRedirect('/blog/view/'+post.slug+'/#add_comment')
+                    return HttpResponseRedirect('/blog/view/'+post.slug+'/'+u'?formmessage=You can not add more than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute.#add_comment')
     except:
         report = u'Error adding comment'
         logging.exception(u'Error adding comment')
