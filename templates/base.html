@@ -3,10 +3,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>{{ app_title }}{% if app_title %} - {% endif %}Sergey Lagovskiy</title>
+    <title>{% if custom_title %}{{ custom_title }} - {% else %}{{ app_title }}{% if app_title %} - {% endif %}{% endif %}Sergey Lagovskiy</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
-    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="keywords" content="{{ meta_keywords }}">
+    <meta name="description" content="{{ meta_description }}">
     <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Sergey Lagovskiy">
 
     <link href="{{ STATIC_URL }}css/normalize.min.css" rel="stylesheet">
