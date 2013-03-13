@@ -25,7 +25,7 @@
                 </div>
                 <div class="comment-actions">
                     {% if comment.allowed %}<i class="icon-share-alt icon-0088CC"></i> <a href="#" class="color-0088CC" onclick="moveForm({{ comment.id }});return false;">Reply</a>&nbsp;&nbsp;&nbsp;{% endif %}
-                    {% if not comment.allowed and user.get_profile.canCommentAllow %}<i class="icon-check icon-387038"></i> <a href="#" class="color-387038">Allow</a>&nbsp;&nbsp;&nbsp;{% endif %}
+                    {% if not comment.allowed and user.get_profile.canCommentAllow %}<i class="icon-check icon-387038"></i> <a href="/admin/blog/comment/allow/{{ comment.id }}/?backlink=/blog/view/{{ post.slug }}/#comment{{ comment.id }}" class="color-387038">Allow</a>&nbsp;&nbsp;&nbsp;{% endif %}
                     {% if user.get_profile.canCommentDelete %}<i class="icon-remove icon-FF0000"></i> <a href="/admin/blog/comment/delete/{{ comment.id }}/?backlink=/blog/view/{{ post.slug }}/#comment{{ comment.id }}" class="color-FF0000">Delete</a>&nbsp;&nbsp;&nbsp;{% endif %}
                 </div>
             </li>

@@ -202,13 +202,13 @@ def comment_save(request, id):
                         subscribe = SubscribePost.objects.create(
                             post = post,
                             email = _email,
-                            active = True
+                            active = not post.comments_moderated
                         )
                         subscribe.save()
-                    else:
-                        subscribe = SubscribePost.objects.all().filter(post=post, email=_email)[0]
-                        subscribe.active = True
-                        subscribe.save()
+                    #else:
+                    #    subscribe = SubscribePost.objects.all().filter(post=post, email=_email)[0]
+                    #    subscribe.active = True
+                    #    subscribe.save()
                 if not post.comments_moderated:
                     for subscribe in SubscribePost.objects.all().filter(post=post, active=True):
                         mq = CommentMessageQueue.objects.create(

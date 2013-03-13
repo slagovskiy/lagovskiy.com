@@ -741,3 +741,37 @@ def blog_comment_delete(request, id):
         return HttpResponseRedirect(backlink)
     else:
         return HttpResponseRedirect('/')
+
+def blog_comment_allow(request, id):
+    if not check_access(request.user, 'canCommentDelete'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    comment = None
+    user = None
+    backlink = ''
+    subscribe = []
+    try:
+        comment = Comment.objects.get(id=id)
+        backlink = request.GET.get('backlink', '')
+        if comment:
+            comment.allowed = True
+            comment.save()
+            subscribe = SubscribePost.objects.all().filter(post=comment.post, email=comment.email)
+            if subscribe.count()>0:
+                tmp = subscribe[0]
+                tmp.active = True
+                tmp.save()
+            for subscribe in SubscribePost.objects.all().filter(post=comment.post, active=True):
+                mq = CommentMessageQueue.objects.create(
+                    subscribe = subscribe,
+                    comment = comment,
+                    active = True
+                )
+                mq.save()
+    except:
+        report = u'Error allowing comment'
+        logging.exception(u'Error allowing comment')
+    if backlink!='':
+        return HttpResponseRedirect(backlink)
+    else:
+        return HttpResponseRedirect('/')
