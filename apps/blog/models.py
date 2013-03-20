@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.aggregates import Max
 from mptt.models import MPTTModel
 
+from apps.statistic.models import visitor_count
+
 
 class Category(models.Model):
     slug = models.SlugField(max_length=255, verbose_name=u'Key', unique=True,)
@@ -73,7 +75,7 @@ class Post(models.Model):
         return self.slug
 
     def get_absolute_url(self):
-        return '/blog/post/' + self.slug + '/'
+        return '/blog/view/' + self.slug + '/'
 
 
     def excerpt(self):
@@ -92,6 +94,9 @@ class Post(models.Model):
 
     def comment_count(self):
         return self.comment_set.all().exclude(allowed=False).exclude(deleted=True).count()
+
+    def visitor_count(self):
+        return visitor_count(self.get_absolute_url())
 
     def comments(self):
         return self.comment_set.all()
