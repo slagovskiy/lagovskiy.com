@@ -101,6 +101,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
+    # statistic
+    'apps.statistic.middleware.StatisticMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -133,6 +136,7 @@ INSTALLED_APPS = (
     'utils',
     'apps.blog',
     'apps.admin',
+    'apps.statistic',
     'userprofile',
 )
 
