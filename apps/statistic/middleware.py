@@ -21,7 +21,7 @@ class StatisticMiddleware:
 
         agent = request.META.get('HTTP_USER_AGENT', '')
         ip = get_ip(request)
-        session_key = ''
+        session_key = request.session.session_key
         referer = request.META.get('HTTP_REFERER')
 
         if Visitor.objects.filter(
