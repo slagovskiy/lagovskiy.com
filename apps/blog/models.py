@@ -159,3 +159,24 @@ class CommentMessageQueue(models.Model):
     sended = models.DateTimeField(null=True, blank=True,)
     active = models.BooleanField(default=False,)
 
+class PostImage(models.Model):
+    post = models.ForeignKey(Post)
+    img_xxs = models.CharField(max_length=255, default='', verbose_name=u'XXS')
+    img_xs = models.CharField(max_length=255, default='', verbose_name=u'XS')
+    img_s = models.CharField(max_length=255, default='', verbose_name=u'S')
+    img_m = models.CharField(max_length=255, default='', verbose_name=u'M')
+    img_l = models.CharField(max_length=255, default='', verbose_name=u'L')
+    img_xl = models.CharField(max_length=255, default='', verbose_name=u'XL')
+    img_xxl = models.CharField(max_length=255, default='', verbose_name=u'XXL')
+    img_xxxl = models.CharField(max_length=255, default='', verbose_name=u'XXXL')
+    img_orig = models.CharField(max_length=255, default='', verbose_name=u'ORIG')
+
+    def __unicode__(self):
+        return self.img_l
+
+    def get_absolute_url(self):
+        return self.img_l
+
+    class Meta:
+        pass
+
