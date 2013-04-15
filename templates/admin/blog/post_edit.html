@@ -132,6 +132,13 @@
                 </div>
                 <div id="_edit_revision" class="hide">
                     <div class="control-group">
+                        <label class="control-label" for="_title">Images</label>
+                        <div class="controls">
+                            <div><a href="#" class="btn btn-mini btn-info">add image</a></div>
+                            <div id="postimage"></div>
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label" for="_title">Excerpt</label>
                         <div class="controls">
                             <textarea id="_edit_revision_excerpt" name="_edit_revision_excerpt" class="span6" rows="10"></textarea>
@@ -441,7 +448,22 @@
             });
         }
 
-        function selectRevisionMenu(id)
+    function loadImages(post)
+        {
+            $.ajax({
+                url: '/admin/blog/postimages/' + post + '/',
+                cache: false,
+                success: function(data){
+                    $('#postimages').html(data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load revision content list " + xhr);
+                }
+            });
+        }
+
+
+    function selectRevisionMenu(id)
         {
             $('#_revisions li').removeClass('active');
             $('#_revisions_item_'+id).addClass('active');
@@ -471,6 +493,7 @@
                     msg_error("Error","load revision content list " + xhr);
                 }
             });
+            loadImages(id);
             $('#_edit_revision_id').val(id);
 
             previewRevision(id);

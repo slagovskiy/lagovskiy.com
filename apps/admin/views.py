@@ -775,3 +775,26 @@ def blog_comment_allow(request, id):
         return HttpResponseRedirect(backlink)
     else:
         return HttpResponseRedirect('/')
+
+## images
+
+def blog_postimage_list(request, post_id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    post = None
+    images = []
+    try:
+        post = Post.objects.get(id=post_id)
+        images = PostImage.objects.filter(post=post)
+    except:
+        logging.exception(u'Error get PostImage list')
+    t = loader.get_template('admin/blog/postimage_list.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'images': images,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
