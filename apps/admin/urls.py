@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     url(r'^blog/post/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_post_edit'),
     url(r'^blog/post/', 'apps.admin.views.blog_post'),
 
+
+    url(r'^blog/postimage/save/', 'apps.admin.views.blog_postimage_save'),
     url(r'^blog/postimage/edit/(?P<post_id>[-\w]+)/(?P<id>[-\w]+)', 'apps.admin.views.blog_postimage_edit'),
     url(r'^blog/postimage/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_postimage_list'),
 

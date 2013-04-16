@@ -135,7 +135,12 @@
                         <label class="control-label" for="_title">Images</label>
                         <div class="controls">
                             <div><a href="#" class="btn btn-mini btn-info" onclick="addImage({{ post.id }}); return false;">add image</a></div>
-                            <div id="postimage"></div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="_title"></label>
+                        <div class="controls">
+                            <div id="postimages"></div>
                         </div>
                     </div>
                     <div class="control-group">
@@ -408,10 +413,10 @@
     // images
     //
 
-    function loadImages(post)
+    function loadImages()
     {
         $.ajax({
-            url: '/admin/blog/postimages/' + post + '/',
+            url: '/admin/blog/postimage/{{ post.id }}/',
             cache: false,
             success: function(data){
                 $('#postimages').html(data);
@@ -439,6 +444,25 @@
         });
     }
 
+    function saveImage()
+    {
+        var form = $('#window_image_body').find('form');
+        var data = form.serialize();
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            cache: false,
+            data: data,
+            success: function(data){
+                $('#frmImage').modal('hide');
+                msg_info("saved","");
+                loadImages();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "save image " + xhr);
+            }
+        })
+    }
 
     //
     // revision
@@ -523,7 +547,7 @@
                     msg_error("Error","load revision content list " + xhr);
                 }
             });
-            loadImages(id);
+            loadImages();
             $('#_edit_revision_id').val(id);
 
             previewRevision(id);

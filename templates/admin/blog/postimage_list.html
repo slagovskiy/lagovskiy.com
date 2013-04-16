@@ -1,4 +1,18 @@
 {{ message }}
-<ul>
-    {% for image in images %}<li><a href="#"></a></li>{% endfor %}
-</ul>
+<div style="display: inline;">
+    {% for image in images %}
+        <table style="display: inline-table;">
+            <tr>
+                <td>
+                    <span style="position: absolute; background: url('{{ STATIC_URL }}img/white_a150.png'); width: 100%; padding-left: 3px;">
+                        <a href="#" class=""><i class="icon-pencil"></i></a>
+                        <a href="#" class=""><i class="icon-check"></i></a>
+                        <a href="#" class=""><i class="icon-remove"></i></a>
+                        <a href="#" class=""><i class="icon-search"></i></a>
+                    </span>
+                    <img src="{{ image.img_xxs }}" border="0" title="{{ image.description }}">
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+</div>
