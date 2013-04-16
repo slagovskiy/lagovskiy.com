@@ -161,6 +161,7 @@ class CommentMessageQueue(models.Model):
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post)
+    description = models.CharField(max_length=255, default='', verbose_name=u'Description')
     img_xxs = models.CharField(max_length=255, default='', verbose_name=u'XXS')
     img_xs = models.CharField(max_length=255, default='', verbose_name=u'XS')
     img_s = models.CharField(max_length=255, default='', verbose_name=u'S')

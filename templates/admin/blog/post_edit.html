@@ -134,7 +134,7 @@
                     <div class="control-group">
                         <label class="control-label" for="_title">Images</label>
                         <div class="controls">
-                            <div><a href="#" class="btn btn-mini btn-info">add image</a></div>
+                            <div><a href="#" class="btn btn-mini btn-info" onclick="addImage({{ post.id }}); return false;">add image</a></div>
                             <div id="postimage"></div>
                         </div>
                     </div>
@@ -216,6 +216,15 @@
         </div>
         <div class="modal-footer" id="window_tag_bottom">
             <a href="#" class="btn btn-primary" onclick="saveTag(); return false;">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+
+    <div id="frmImage" class="modal fade">
+        <div class="modal-body" id="window_image_body">
+        </div>
+        <div class="modal-footer" id="window_image_bottom">
+            <a href="#" class="btn btn-primary" onclick="saveImage(); return false;">Save changes</a>
             <a href="#" class="btn" data-dismiss="modal">Close</a>
         </div>
     </div>
@@ -396,6 +405,42 @@
         }
 
     //
+    // images
+    //
+
+    function loadImages(post)
+    {
+        $.ajax({
+            url: '/admin/blog/postimages/' + post + '/',
+            cache: false,
+            success: function(data){
+                $('#postimages').html(data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","load revision content list " + xhr);
+            }
+        });
+    }
+
+    function addImage(id)
+    {
+        $.ajax({
+            url: '/admin/blog/postimage/edit/' + id + '/0/?ajax=1',
+            cache: false,
+            success: function(data){
+                $('#window_image_body').html(data);
+                $('#frmImage').modal({
+                    keyboard: false
+                }).show();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "load edit form");
+            }
+        });
+    }
+
+
+    //
     // revision
     //
 
@@ -447,21 +492,6 @@
                 }
             });
         }
-
-    function loadImages(post)
-        {
-            $.ajax({
-                url: '/admin/blog/postimages/' + post + '/',
-                cache: false,
-                success: function(data){
-                    $('#postimages').html(data);
-                },
-                error: function(e, xhr){
-                    msg_error("Error","load revision content list " + xhr);
-                }
-            });
-        }
-
 
     function selectRevisionMenu(id)
         {

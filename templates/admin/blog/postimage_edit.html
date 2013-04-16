@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-horizontal" method="POST" action="/admin/blog/postimage/save/">
+        {% csrf_token %}
+        <input type="hidden" name="_id" value="{{ image.id }}">
+        <input type="hidden" name="_post_id" value="{{ post_id }}">
+        <legend>{% if image.id %}Edit{% else %}New{% endif %} image</legend>
+        <div class="control-group">
+            <label class="control-label" for="add_image_link"><span style="color: red">Я</span>ндекс</label>
+            <div class="controls">
+                <input type="text" id="add_image_link" name="add_image_link" placeholder="Link on Yandex fotki" value="" onchange="addYandex();">
+                <div id="add_image_preview" style="padding-top: 3px;"></div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_description">Description</label>
+            <div class="controls">
+                <input type="text" id="_description" name="_description" placeholder="Description" value="{{ image.description }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_xxs">XXS</label>
+            <div class="controls">
+                <input type="text" id="_img_xxs" name="_img_xxs" placeholder="XXS 75x75" value="{{ image.img_xxs }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_xxs">XS</label>
+            <div class="controls">
+                <input type="text" id="_img_xs" name="_img_xs" placeholder="XS 100x***" value="{{ image.img_xs }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_xxs">S</label>
+            <div class="controls">
+                <input type="text" id="_img_s" name="_img_s" placeholder="S 150x***" value="{{ image.img_s }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_M">M</label>
+            <div class="controls">
+                <input type="text" id="_img_m" name="_img_m" placeholder="M 300x***" value="{{ image.img_m }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_l">L</label>
+            <div class="controls">
+                <input type="text" id="_img_l" name="_img_l" placeholder="L 50x***" value="{{ image.img_l }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_xl">XL</label>
+            <div class="controls">
+                <input type="text" id="_img_xl" name="_img_xl" placeholder="XL 800x***" value="{{ image.img_xl }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_xxl">XXL</label>
+            <div class="controls">
+                <input type="text" id="_img_xxl" name="_img_xxl" placeholder="XXL 1024x***" value="{{ image.img_xxl }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_xxxl">XXXL</label>
+            <div class="controls">
+                <input type="text" id="_img_xxxl" name="_img_xxxl" placeholder="XXXL 1280x***   " value="{{ image.img_xxxl }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_img_orig">ORIG</label>
+            <div class="controls">
+                <input type="text" id="_img_orig" name="_img_orig" placeholder="Original" value="{{ image.img_orig }}">
+            </div>
+        </div>
+        <div class="control-group">
+            {% if not ajax %}
+                <input type="submit" value="Save changes" class="btn btn-primary">
+                <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/tag/';">
+            {% endif %}
+        </div>
+    </form>
+    <script>
+    function addYandex()
+    {
+        var link = $( '#add_image_link' ).val();
+        if (link.length > 0)
+        {
+            $('#_img_xxs').val(link.substr(0, link.lastIndexOf('_')) + '_XXS.jpg');
+            $('#_img_xs').val(link.substr(0, link.lastIndexOf('_')) + '_XS.jpg');
+            $('#_img_s').val(link.substr(0, link.lastIndexOf('_')) + '_S.jpg');
+            $('#_img_m').val(link.substr(0, link.lastIndexOf('_')) + '_M.jpg');
+            $('#_img_l').val(link.substr(0, link.lastIndexOf('_')) + '_L.jpg');
+            $('#_img_xl').val(link.substr(0, link.lastIndexOf('_')) + '_XL.jpg');
+            $('#_img_xxl').val(link.substr(0, link.lastIndexOf('_')) + '_XXL.jpg');
+            $('#_img_xxxl').val(link.substr(0, link.lastIndexOf('_')) + '_XXXL.jpg');
+            $('#_img_orig').val(link.substr(0, link.lastIndexOf('_')) + '_orig.jpg');
+            $('#add_image_preview').html('<img src="' + $( '#_img_xxs' ).val() + '" border="0">');
+        }
+    }
+    </script>
+{% endblock %}
