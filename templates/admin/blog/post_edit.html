@@ -134,7 +134,7 @@
                     <div class="control-group">
                         <label class="control-label" for="_title">Images</label>
                         <div class="controls">
-                            <div><a href="#" class="btn btn-mini btn-info" onclick="addImage({{ post.id }}); return false;">add image</a></div>
+                            <div><a href="#" class="btn btn-mini btn-info" onclick="addImage(); return false;">add image</a></div>
                         </div>
                     </div>
                     <div class="control-group">
@@ -427,10 +427,27 @@
         });
     }
 
-    function addImage(id)
+    function addImage()
     {
         $.ajax({
-            url: '/admin/blog/postimage/edit/' + id + '/0/?ajax=1',
+            url: '/admin/blog/postimage/edit/{{ post.id }}/0/?ajax=1',
+            cache: false,
+            success: function(data){
+                $('#window_image_body').html(data);
+                $('#frmImage').modal({
+                    keyboard: false
+                }).show();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "load edit form");
+            }
+        });
+    }
+
+    function editImage(id)
+    {
+        $.ajax({
+            url: '/admin/blog/postimage/edit/{{ post.id }}/' + id + '/?ajax=1',
             cache: false,
             success: function(data){
                 $('#window_image_body').html(data);
