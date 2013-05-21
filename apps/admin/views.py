@@ -138,7 +138,7 @@ def blog_category_getall(request):
     try:
         categories = Category.objects.all()
     except:
-        logging.error('Error get categories list')
+        logging.exception('Error get categories list')
     t = loader.get_template('admin/blog/category_getall.html')
     c = RequestContext(
         request,
@@ -157,7 +157,7 @@ def blog_category_getlist(request):
     try:
         categories = Category.objects.all().filter(deleted=False)
     except:
-        logging.error('Error get categories list')
+        logging.exception('Error get categories list')
     t = loader.get_template('admin/blog/category_getall.html')
     c = RequestContext(
         request,
@@ -177,7 +177,7 @@ def blog_category_edit(request, id):
         if id!=0:
             category = Category.objects.get(id=id)
     except:
-        logging.error('Error get category item')
+        logging.exception('Error get category item')
     t = loader.get_template('admin/blog/category_edit.html')
     c = RequestContext(
         request,
@@ -294,7 +294,7 @@ def blog_tag_getall(request):
     try:
         tags = Tag.objects.all()
     except:
-        logging.error('Error get tags list')
+        logging.exception('Error get tags list')
     t = loader.get_template('admin/blog/tag_getall.html')
     c = RequestContext(
         request,
@@ -313,7 +313,7 @@ def blog_tag_getlist(request):
     try:
         tags = Tag.objects.all().filter(deleted=False)
     except:
-        logging.error('Error get tags list')
+        logging.exception('Error get tags list')
     t = loader.get_template('admin/blog/tag_getall.html')
     c = RequestContext(
         request,
@@ -333,7 +333,7 @@ def blog_tag_edit(request, id):
         if id!=0:
             tag = Tag.objects.get(id=id)
     except:
-        logging.error('Error get tag item')
+        logging.exception('Error get tag item')
     t = loader.get_template('admin/blog/tag_edit.html')
     c = RequestContext(
         request,
@@ -449,7 +449,7 @@ def blog_post_getall(request):
     try:
         posts = Post.objects.all()
     except:
-        logging.error('Error get post list')
+        logging.exception('Error get post list')
     t = loader.get_template('admin/blog/post_getall.html')
     c = RequestContext(
         request,
@@ -478,7 +478,7 @@ def blog_post_edit(request, id):
         else:
             post = Post.objects.get(id=id)
     except:
-        logging.error('Error get post item')
+        logging.exception('Error get post item')
     t = loader.get_template('admin/blog/post_edit.html')
     c = RequestContext(
         request,
@@ -540,7 +540,7 @@ def blog_post_save(request):
         post.save()
 
     except:
-        logging.error('Error save post item')
+        logging.exception('Error save post item')
     return HttpResponseRedirect('/admin/blog/post/')
 
 ## revision
@@ -555,7 +555,7 @@ def blog_revision_getlist(request, post_id):
         post = Post.objects.get(id=post_id)
         revisions = PostRevision.objects.all().filter(post=post).order_by('created')
     except:
-        logging.error('Error get revisions list')
+        logging.exception('Error get revisions list')
     t = loader.get_template('admin/blog/revision_getall.html')
     c = RequestContext(
         request,
@@ -574,7 +574,7 @@ def blog_revision_getexcerpt(request, id):
     try:
         revision = PostRevision.objects.get(id=id)
     except:
-        logging.error('Error get revisions list')
+        logging.exception('Error get revisions list')
     t = loader.get_template('admin/blog/data.html')
     c = RequestContext(
         request,
@@ -593,7 +593,7 @@ def blog_revision_getcontent(request, id):
     try:
         revision = PostRevision.objects.get(id=id)
     except:
-        logging.error('Error get revisions list')
+        logging.exception('Error get revisions list')
     t = loader.get_template('admin/blog/data.html')
     c = RequestContext(
         request,
@@ -626,7 +626,7 @@ def blog_revision_create(request, post_id):
             revision.created = datetime.now()
             revision.save()
     except:
-        logging.error('Error create revision')
+        logging.exception('Error create revision')
     t = loader.get_template('admin/blog/data.html')
     c = RequestContext(
         request,
@@ -660,7 +660,7 @@ def blog_revision_save(request, post_id):
         revision.created = datetime.now()
         revision.save()
     except:
-        logging.error('Error save revision')
+        logging.exception('Error save revision')
     t = loader.get_template('admin/blog/data.html')
     c = RequestContext(
         request,
@@ -692,7 +692,7 @@ def blog_revision_fix(request, id):
         )
         revision.save()
     except:
-        logging.error('Error fix revision')
+        logging.exception('Error fix revision')
     t = loader.get_template('admin/blog/data.html')
     c = RequestContext(
         request,
@@ -711,7 +711,7 @@ def blog_revision_preview(request, id):
     try:
         revision = PostRevision.objects.get(id=id)
     except:
-        logging.error('Error get revisions list')
+        logging.exception('Error get revisions list')
     t = loader.get_template('admin/blog/revision_preview.html')
     c = RequestContext(
         request,
@@ -736,7 +736,7 @@ def blog_comment_delete(request, id):
         comment.deleted = True
         comment.save()
     except:
-        logging.error('Error get comment for delete')
+        logging.exception('Error get comment for delete')
     if backlink!='':
         return HttpResponseRedirect(backlink)
     else:
@@ -808,7 +808,7 @@ def blog_postimage_edit(request, post_id, id):
         if id!=0:
             image = PostImage.objects.get(id=id)
     except:
-        logging.error('Error get postimage item')
+        logging.exception('Error get postimage item')
     t = loader.get_template('admin/blog/postimage_edit.html')
     c = RequestContext(
         request,
