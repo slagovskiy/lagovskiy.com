@@ -145,24 +145,65 @@ INSTALLED_APPS = (
 # the site admins on every HTTP 500 error.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+LOGGING_DATE_FORMAT_FULL = '%Y-%m-%d %H:%M:%S'
+LOGGING_DATE_FORMAT_MINI = '%H:%M:%S'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(levelname)-7s %(asctime)s %(funcName)s, line %(lineno)d %(name)s: %(message)s',
+            'datefmt': LOGGING_DATE_FORMAT_MINI,
+        },
+        'error': {
+            'format': '%(levelname)-7s %(asctime)s file %(filename)s, line %(lineno)d, in %(module)s.%(funcName)s %(name)s: %(message)s',
+            'datefmt': LOGGING_DATE_FORMAT_FULL,
+        },
+    },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+        'null': {
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level':'INFO',
+            'class':'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'error':{
+            'level':'ERROR',
+            #'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.handlers.TimedRotatingFileHandler',
+            'formatter':'error',
+            'when': 'midnight',
+            'filename':op.join(
+                PROJECT_ROOT, op.join('logs', 'error.log')
+                )
+        },
+        'info':{
+            'level':'INFO',
+            #'class':'logging.handlers.RotatingFileHandler',
+            'class':'logging.handlers.TimedRotatingFileHandler',
+            'formatter':'error',
+            'when': 'midnight',
+            'filename':op.join(
+                PROJECT_ROOT, op.join('logs', 'info.log')
+                )
+        },
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
+        'django': {
+            'handlers':['null'],
             'propagate': True,
+            'level':'INFO',
         },
+        '': {
+            'handlers': ['info', 'error'],
+            'propagate': True,
+            'level': 'DEBUG',
+        }
     }
 }
-
 try:
     from settings_local import *
 except ImportError:
