@@ -218,3 +218,26 @@ if not SECRET_KEY:
     raise Exception('You must provide SECRET_KEY value in settings_local.py')
 
 AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
+
+'''
+Example for settings_local.py
+
+import os.path as op
+from settings import PROJECT_ROOT
+
+DB_PATH = op.join(PROJECT_ROOT, 'db')
+
+# Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'DATABASE_NAME',
+        'USER': 'USERNAME',
+        'PASSWORD': 'PASSWORD',
+        'HOST': '',
+        'PORT': '',
+        }
+}
+
+SECRET_KEY = '9@-a*+c1ms+25b6h836jkym=qs$mtd65i!aq4zd$b2o5(3mky+'
+'''
