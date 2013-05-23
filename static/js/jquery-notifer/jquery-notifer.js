@@ -123,7 +123,13 @@
 					var style = $("<style></style>");
 
 					skin	= !notice.skin ? ['base', 'box'] : ('base,box,' + notice.skin).split(",");
-					for(var n = 0; n < skin.length; n++){css		+= this.skins[skin[n]].replace(/#_/g, "#" + this.defaults.core).replace(/#-/g, "#" + notice.id);}
+					//for(var n = 0; n < skin.length; n++){css		+= this.skins[skin[n]].replace(/#_/g, "#" + this.defaults.core).replace(/#-/g, "#" + notice.id);}
+					for(var n = 0; n < skin.length; n++){
+						//css+= this.skins[skin[n]]; 
+						if(this.skins[skin[n]]!=undefined)
+							css+= this.skins[skin[n]].replace(/#_/g, "#" + this.defaults.core).replace(/#-/g, "#" + notice.id);
+					}
+					//for(var n = 0; n < skin.length; n++){css		+= this.skins[skin[n]].replace(/#_/g, "#" + this.defaults.core);}
 					$("#" + this.defaults.core).prepend(style.append(css));
 				},
 
