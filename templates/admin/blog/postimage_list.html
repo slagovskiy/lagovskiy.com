@@ -8,7 +8,7 @@
                         <a href="#" class=""><i class="icon-pencil" onclick="editImage({{ image.id }}); return false;"></i></a>
                         <a href="#" class=""><i class="icon-check"></i></a>
                         <a href="#" class=""><i class="icon-remove"></i></a>
-                        <a href="#" class=""><i class="icon-search"></i></a>
+                        <a href="{{ image.img_l }}" class="img" title="{{ image.description }}" rel="gallery"><i class="icon-search"></i></a>
                     </span>
                     <img src="{{ image.img_xxs }}" border="0" title="{{ image.description }}">
                 </td>
