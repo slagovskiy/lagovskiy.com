@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-horizontal" method="POST" action="/admin/blog/postimage/save/">
+        {% csrf_token %}
+        <input type="hidden" name="_id" value="{{ image.id }}">
+        <input type="hidden" name="_post_id" value="{{ post_id }}">
+        <legend>Insert image</legend>
+        <table>
+        <tr><td>
+        <div class="control-group" style="text-align: center;">
+            <a href="{{ image.img_orig }}" class="img" title="{{ image.description }}"><img src="{{ image.img_s }}" border="0"></a>
+        </div>
+        </td><td>
+        <div class="control-group">
+            <label class="control-label" for="_align">Align</label>
+            <div class="controls">
+                <div class="btn-group" data-toggle-name="is_private" data-toggle="buttons-radio" >
+                    <button type="button" value="left" class="btn active" data-toggle="button" onclick="setLeft();">Left</button>
+                    <button type="button" value="middle" class="btn" data-toggle="button" onclick="setMiddle();">Middle</button>
+                    <button type="button" value="right" class="btn" data-toggle="button" onclick="setRight();">Right</button>
+                </div>
+                <input type="hidden" id="image_align" value="0">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_small">Small</label>
+            <div class="controls">
+                <select id="image_small">
+                    <option value="{{ image.img_xxs }}">XXS 75*75</option>
+                    <option value="{{ image.img_xs }}">XS 100*</option>
+                    <option value="{{ image.img_s }}">S 150*</option>
+                    <option value="{{ image.img_m }}">M 300*</option>
+                    <option value="{{ image.img_l }}" selected="selected">L 500*</option>
+                    <option value="{{ image.img_xl }}">XL 800*</option>
+                    <option value="{{ image.img_xxl }}">XXL 1024*</option>
+                    <option value="{{ image.img_xxxl }}">XXXL 1280*</option>
+                    <option value="{{ image.img_orig }}">ORIGINAL</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_small">Big</label>
+            <div class="controls">
+                <select id="image_big">
+                    <option value="{{ image.img_xxs }}">XXS 75*75</option>
+                    <option value="{{ image.img_xs }}">XS 100*</option>
+                    <option value="{{ image.img_s }}">S 150*</option>
+                    <option value="{{ image.img_m }}">M 300*</option>
+                    <option value="{{ image.img_l }}">L 500*</option>
+                    <option value="{{ image.img_xl }}">XL 800*</option>
+                    <option value="{{ image.img_xxl }}">XXL 1024*</option>
+                    <option value="{{ image.img_xxxl }}">XXXL 1280*</option>
+                    <option value="{{ image.img_orig }}" selected="selected">ORIGINAL</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            {% if not ajax %}
+                <input type="submit" value="Save changes" class="btn btn-primary">
+                <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/tag/';">
+            {% endif %}
+        </div>
+        </td></tr></table>
+        <div class="control-group">
+            <label class="control-label" for="_small">Code</label>
+            <div class="controls">
+                <input type="text" class="span3" id="image_code">
+            </div>
+        </div>
+    </form>
+    <script>
+    $('#image_align').val('left');
+    reloadString();
+    function reloadString()
+    {
+        var desc = '{{ image.description }}';
+        var str = '<a href="' + $('#image_big').val() + '" title="{{ image.description }}" class="img" rel="gallery"><img src="' + $('#image_small').val() + '" border="0"></a>';
+        str = str + '<span>' + desc + '</span>';
+        $('#image_code').val(str);
+    }
+    function setLeft() { $('#image_align').val('left'); reloadString(); }
+    function setMiddle() { $('#image_align').val('middle'); reloadString(); }
+    function setRight() { $('#image_align').val('right'); reloadString(); }
+    </script>
+{% endblock %}

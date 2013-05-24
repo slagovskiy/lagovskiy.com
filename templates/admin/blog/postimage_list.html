@@ -6,7 +6,7 @@
                 <td>
                     <span style="position: absolute; background: url('{{ STATIC_URL }}img/white_a150.png'); width: 75px; padding-left: 3px;">
                         <a href="#" class=""><i class="icon-pencil" onclick="editImage({{ image.id }}); return false;"></i></a>
-                        <a href="#" class=""><i class="icon-check"></i></a>
+                        <a href="#" class="" onclick="insertImage('{{ image.id }}'); return false;"><i class="icon-check"></i></a>
                         <a href="#" class="" onclick="deleteImage('{{ image.id }}'); return false;"><i class="icon-remove"></i></a>
                         <a href="{{ image.img_l }}" class="img" title="{{ image.description }}" rel="gallery"><i class="icon-search"></i></a>
                     </span>
@@ -16,24 +16,3 @@
         </table>
     {% endfor %}
 </div>
-<script>
-    function deleteImage(id)
-    {
-        if (confirm('Delete image?'))
-        {
-            $.ajax({
-                    url: '/admin/blog/postimage/delete/' + id + '/',
-                    cache: false,
-                    success: function(data){
-                        loadImages();
-                    },
-                    error: function(e, xhr){
-                        msg_error("Error","delete image " + xhr);
-                    }
-                }
-            )
-        }
-    }
-
-
-</script>

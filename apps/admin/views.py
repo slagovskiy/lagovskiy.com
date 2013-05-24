@@ -820,6 +820,41 @@ def blog_postimage_edit(request, post_id, id):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def blog_postimage_insert(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    image = None
+    try:
+        if id!=0:
+            image = PostImage.objects.get(id=id)
+    except:
+        logging.exception('Error get postimage item')
+    t = loader.get_template('admin/blog/postimage_insert.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'image': image,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def blog_postimage_delete(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    image = None
+    tmp_post_id = 0
+    try:
+        if id!=0:
+            image = PostImage.objects.get(id=id)
+            tmp_post_id = image.post_id
+            image.delete()
+    except:
+        logging.exception('Error delete postimage item')
+    return  HttpResponseRedirect('/admin/blog/post/edit/' + str(tmp_post_id) + '/')
+
 def blog_postimage_save(request):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')

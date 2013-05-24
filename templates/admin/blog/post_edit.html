@@ -234,6 +234,15 @@
         </div>
     </div>
 
+    <div id="frmImageInsert" class="modal fade">
+        <div class="modal-body" id="window_image_insert_body">
+        </div>
+        <div class="modal-footer" id="window_image_insert_bottom">
+            <!--<a href="#" class="btn btn-primary" onclick="saveImage(); return false;">Save changes</a>-->
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+
 
     <script>
     //
@@ -479,6 +488,41 @@
                 msg_error("Error", "save image " + xhr);
             }
         })
+    }
+
+    function deleteImage(id)
+    {
+        if (confirm('Delete image?'))
+        {
+            $.ajax({
+                    url: '/admin/blog/postimage/delete/' + id + '/',
+                    cache: false,
+                    success: function(data){
+                        loadImages();
+                    },
+                    error: function(e, xhr){
+                        msg_error("Error","delete image " + xhr);
+                    }
+                }
+            )
+        }
+    }
+
+    function insertImage(id)
+    {
+        $.ajax({
+            url: '/admin/blog/postimage/insert/' + id + '/?ajax=1',
+            cache: false,
+            success: function(data){
+                $('#window_image_insert_body').html(data);
+                $('#frmImageInsert').modal({
+                    keyboard: false
+                }).show();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "load insert form");
+            }
+        });
     }
 
     //

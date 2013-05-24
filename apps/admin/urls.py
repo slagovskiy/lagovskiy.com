@@ -30,6 +30,8 @@ urlpatterns = patterns('',
 
 
     url(r'^blog/postimage/save/', 'apps.admin.views.blog_postimage_save'),
+    url(r'^blog/postimage/delete/(?P<id>[-\w]+)', 'apps.admin.views.blog_postimage_delete'),
+    url(r'^blog/postimage/insert/(?P<id>[-\w]+)', 'apps.admin.views.blog_postimage_insert'),
     url(r'^blog/postimage/edit/(?P<post_id>[-\w]+)/(?P<id>[-\w]+)', 'apps.admin.views.blog_postimage_edit'),
     url(r'^blog/postimage/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_postimage_list'),
 
