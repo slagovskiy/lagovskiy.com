@@ -64,19 +64,26 @@
         <div class="control-group">
             <label class="control-label" for="_small">Code</label>
             <div class="controls">
-                <input type="text" class="span3" id="image_code">
+                <input type="text" class="span3" id="copy_code{{ image.id }}">
+                <button id="copy_btn{{ image.id }}" class="btn" title="copy" onclick="return false;"><i class="icon-leaf"></i></button>
             </div>
         </div>
     </form>
     <script>
     $('#image_align').val('left');
+    $('#copy_btn{{ image.id }}').zclip({
+        path: "{{ STATIC_URL }}js/zclip/ZeroClipboard.swf",
+        copy: function(){ return $(this).prev().val(); },
+        afterCopy: function(){ msg_info("","coped"); return false;}
+    });
     reloadString();
     function reloadString()
     {
+        // todo: need global copy button
         var desc = '{{ image.description }}';
         var str = '<a href="' + $('#image_big').val() + '" title="{{ image.description }}" class="img" rel="gallery"><img src="' + $('#image_small').val() + '" border="0"></a>';
         str = str + '<span>' + desc + '</span>';
-        $('#image_code').val(str);
+        $('#copy_code{{ image.id }}').val(str);
     }
     function setLeft() { $('#image_align').val('left'); reloadString(); }
     function setMiddle() { $('#image_align').val('middle'); reloadString(); }
