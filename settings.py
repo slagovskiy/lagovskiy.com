@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'apps.blog',
     'apps.admin',
     'apps.statistic',
+    'apps.robot',
     'userprofile',
 )
 
