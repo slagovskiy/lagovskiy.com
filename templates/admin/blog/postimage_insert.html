@@ -8,7 +8,8 @@
         <table>
         <tr><td>
         <div class="control-group" style="text-align: center;">
-            <a href="{{ image.img_orig }}" class="img" title="{{ image.description }}"><img src="{{ image.img_s }}" border="0"></a>
+            <a href="{{ image.img_orig }}" class="img" title="{{ image.description }}"><img src="{{ image.img_s }}" border="0"></a><br>
+            <div class="image-note">{{ image.description }}</div>
         </div>
         </td><td>
         <div class="control-group">
@@ -25,7 +26,7 @@
         <div class="control-group">
             <label class="control-label" for="_small">Small</label>
             <div class="controls">
-                <select id="image_small">
+                <select id="image_small" onchange="reloadString();">
                     <option value="{{ image.img_xxs }}">XXS 75*75</option>
                     <option value="{{ image.img_xs }}">XS 100*</option>
                     <option value="{{ image.img_s }}">S 150*</option>
@@ -41,7 +42,7 @@
         <div class="control-group">
             <label class="control-label" for="_small">Big</label>
             <div class="controls">
-                <select id="image_big">
+                <select id="image_big" onchange="reloadString();">
                     <option value="{{ image.img_xxs }}">XXS 75*75</option>
                     <option value="{{ image.img_xs }}">XS 100*</option>
                     <option value="{{ image.img_s }}">S 150*</option>
@@ -63,27 +64,29 @@
         </td></tr></table>
         <div class="control-group">
             <label class="control-label" for="_small">Code</label>
-            <div class="controls">
+            <div class="controls" id="code">
                 <input type="text" class="span3" id="copy_code{{ image.id }}">
-                <button id="copy_btn{{ image.id }}" class="btn" title="copy" onclick="return false;"><i class="icon-leaf"></i></button>
             </div>
         </div>
     </form>
     <script>
     $('#image_align').val('left');
-    $('#copy_btn{{ image.id }}').zclip({
-        path: "{{ STATIC_URL }}js/zclip/ZeroClipboard.swf",
-        copy: function(){ return $(this).prev().val(); },
-        afterCopy: function(){ msg_info("","coped"); return false;}
-    });
     reloadString();
+    $('#copy_code{{ image.id }}').select();
     function reloadString()
     {
         // todo: need global copy button
         var desc = '{{ image.description }}';
-        var str = '<a href="' + $('#image_big').val() + '" title="{{ image.description }}" class="img" rel="gallery"><img src="' + $('#image_small').val() + '" border="0"></a>';
-        str = str + '<span>' + desc + '</span>';
+        var str = '<!-- IMAGE START --><div';
+        if ($('#image_align').val()=='middle') { str += " style=\"text-align: center; padding: 20px;\""; }
+        if ($('#image_align').val()=='left') { str += " style=\"float: left; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;\""; }
+        if ($('#image_align').val()=='right') { str += " style=\"float: right; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;\""; }
+        str += '>';
+        str += '<a href="' + $('#image_big').val() + '" title="{{ image.description }}" class="img" rel="gallery"><img src="' + $('#image_small').val() + '" border="0"></a>';
+        str += '<div class="image-note">' + desc + '</div>';
+        str += '</div><!-- IMAGE END -->';
         $('#copy_code{{ image.id }}').val(str);
+        $('#copy_code{{ image.id }}').select();
     }
     function setLeft() { $('#image_align').val('left'); reloadString(); }
     function setMiddle() { $('#image_align').val('middle'); reloadString(); }

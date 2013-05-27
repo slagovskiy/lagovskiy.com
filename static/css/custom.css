@@ -90,6 +90,11 @@ hr{
     background-image: url("../img/glyphicons-halflings-387038.png");
 }
 
+.icon-clipboard {
+  background-image: url("../img/stock_slide_duplicate_12.png");
+  background-position: center center;
+}
+
 
 .color-999999, .color-999999:hover{
     color: #999999;
@@ -248,6 +253,18 @@ hr{
     font-size: 16px;
     line-height: 25px;
     padding-bottom: 25px;
+}
+
+.post .image-note {
+    font-size: 10px;
+    font-style: italic;
+    text-align: center;
+}
+
+.image-note {
+    font-size: 10px;
+    font-style: italic;
+    text-align: center;
 }
 
 .post-head{
