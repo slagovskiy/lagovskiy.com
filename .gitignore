@@ -21,6 +21,7 @@ settings_local.py
 # Logs and databases #
 ######################
 *.log
+logs/*.log.*
 *.sql
 *.sqlite
 *.db
