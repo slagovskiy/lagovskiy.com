@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+{{ page_title }}
+date  |  passed  |  server  |  message
+{% for item in report %}{{ item.0 }}  |  {{ item.1 }}  |  {{ item.2 }}  |  {{ item.3|safe }}
+{% endfor %}

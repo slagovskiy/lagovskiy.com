@@ -1,9 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<h1>{{ page_title }}</h1>
+<table>
+    <thead>
+    <tr>
+        <td>date</td>
+        <td>passed</td>
+        <td>server</td>
+        <td>message</td>
+    </tr>
+    </thead>
+    <tbody>{% for item in report %}
+    <tr>
+        <td>{{ item.0 }}</td>
+        <td>{{ item.1 }}</td>
+        <td>{{ item.2 }}</td>
+        <td>{{ item.3|safe }}</td>
+    </tr>
+    {% endfor %}</tbody>
+</table>
