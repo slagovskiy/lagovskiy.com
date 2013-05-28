@@ -24,9 +24,8 @@ class Command(NoArgsCommand):
     def handle_noargs(self, **options):
         report = []
         for p in Post.objects.all().filter(do_ping=True):
-            logging.info(p)
             for s in PingServer.objects.all().filter(deleted=False):
-                logging.info(s)
+                logging.info(DOMAIN_NAME + p.get_absolute_url())
                 try:
                     rpc = xmlrpclib.Server(s.address)
                     r = rpc.weblogUpdates.ping(p.title, DOMAIN_NAME + p.get_absolute_url())
@@ -52,7 +51,7 @@ class Command(NoArgsCommand):
                     pr.save()
                     report.append([pr.date, pr.passed, pr.pingserver, pr.message])
                     logging.exception('Error send ping')
-        if report.count()>0:
+        if len(report)>0:
             for adm in ADMINS:
                 try:
                     msg = MIMEMultipart('alternative')
