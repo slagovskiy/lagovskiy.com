@@ -20,8 +20,8 @@ class PingServer(models.Model):
 
 class PingResult(models.Model):
     date = models.DateTimeField(auto_now=True, auto_now_add=True)
-    pingserver = models.ForeignKey(PingServer)
-    post = models.ForeignKey(Post)
+    pingserver = models.ForeignKey(PingServer, null=True, blank=True)
+    post = models.ForeignKey(Post, null=True, blank=True)
     passed = models.BooleanField(default=False)
     message = models.CharField(max_length=255, default='')
 
