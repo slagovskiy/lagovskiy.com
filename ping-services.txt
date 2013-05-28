@@ -248,3 +248,16 @@ http://xping.pubsub.com/ping
 http://xping.pubsub.com/ping/
 http://zhuaxia.com/rpc/server.php
 http://zing.zingfast.com
+http://blogpeople.net/servlet/weblogUpdates
+http://ping.kutsulog.net
+http://ping.fc2.com
+http://ping.blogoon.net
+http://mod-pubsub.org/kn_apps/blogchatter/ping.php
+http://newsisfree.com/xmlrpctest.php
+http://ping.blogmura.jp/rpc
+http://blogsearch.google.com/pingRPC2
+http://blogsearch.google.com/pingRPC2nd
+http://blogsearch.google.us/pingRPC2
+http://focuslook.com/ping.php
+http://weblogalot.com/ping
+http://focuslook.com/ping
