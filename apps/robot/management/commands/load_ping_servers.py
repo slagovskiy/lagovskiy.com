@@ -15,7 +15,7 @@ class Command(BaseCommand):
             for line in lines:
                 _ping = PingServer.objects.all().filter(address=line)
                 if _ping.count()==0:
-                    ping = PingServer.objects.create(address=line)
+                    ping = PingServer.objects.create(address=line.replace('\n', ''))
                     ping.save()
                     try:
                         logging.info('Adding server ' + line + ' - ok')
