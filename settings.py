@@ -269,4 +269,6 @@ DATABASES = {
 }
 
 SECRET_KEY = '9@-a*+c1ms+25b6h836jkym=qs$mtd65i!aq4zd$b2o5(3mky+'
+
+DOMAIN_NAME = 'http://qwertyuiop.com'
 '''
