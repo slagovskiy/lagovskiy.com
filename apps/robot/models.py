@@ -19,7 +19,8 @@ class PingServer(models.Model):
         ordering = ['address']
 
 class PingResult(models.Model):
-    date = models.DateTimeField(auto_now=True, auto_now_add=True)
+    date = models.DateField(auto_now=True, auto_now_add=True)
+    time = models.TimeField(auto_now=True, auto_now_add=True)
     pingserver = models.ForeignKey(PingServer, null=True, blank=True)
     post = models.ForeignKey(Post, null=True, blank=True)
     passed = models.BooleanField(default=False)
