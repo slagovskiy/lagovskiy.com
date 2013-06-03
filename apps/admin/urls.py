@@ -7,6 +7,10 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'apps.admin.views.logout_action'),
     url(r'^login_check/$', 'apps.admin.views.login_check'),
 
+
+    ####################################################
+    #  blog
+    ####################################################
     url(r'^blog/category/getall/', 'apps.admin.views.blog_category_getall'),
     url(r'^blog/category/getlist/', 'apps.admin.views.blog_category_getlist'),
     url(r'^blog/category/save/', 'apps.admin.views.blog_category_save'),
@@ -45,6 +49,15 @@ urlpatterns = patterns('',
     url(r'^blog/revision/save/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_revision_save'),
     url(r'^blog/revision/fix/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_fix'),
     url(r'^blog/revision/preview/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_preview'),
+
+    ####################################################
+    #  robot
+    ####################################################
+    url(r'^robot/pingserver/getall/', 'apps.admin.views.robot_pingserver_getall'),
+    url(r'^robot/pingserver/save/', 'apps.admin.views.robot_pingserver_save'),
+    url(r'^robot/pingserver/edit/(?P<id>[-\w]+)/', 'apps.admin.views.robot_pingserver_edit'),
+    url(r'^robot/pingserver/', 'apps.admin.views.robot_pingserver'),
+
 )
 
 

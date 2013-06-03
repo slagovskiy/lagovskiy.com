@@ -17,7 +17,8 @@ import random
 from apps.blog.admin import CategoryAdmin
 
 from apps.blog.models import *
-from apps.blog.settings import *
+
+from apps.robot.models import *
 
 from utils import *
 
@@ -910,3 +911,93 @@ def blog_postimage_save(request):
     except:
         logging.exception('Error save or add postimage')
     return  HttpResponseRedirect('/admin/blog/post/edit/' + tmp_post_id + '/')
+
+
+## robot: pingserver
+
+def robot_pingserver(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    t = loader.get_template('admin/robot/pingserver.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingserver_getall(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    pingservers = []
+    try:
+        pingservers = PingServer.objects.all()
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingserver_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'pingservers': pingservers,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingserver_edit(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    pingserver = None
+    try:
+        if id!=0:
+            pingserver = PingServer.objects.get(id=id)
+    except:
+        logging.exception('Error get ping server item')
+    t = loader.get_template('admin/robot/pingserver_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'pingserver': pingserver,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingserver_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        pingserver = None
+        tmp_id = request.POST.get('_id', 0)
+        tmp_address = request.POST.get('_address', '')
+        tmp_type = request.POST.get('_type', '')
+        tmp_deleted = request.POST.get('_deleted', False)
+        if (tmp_address==''): tmp_address = 'http://none'
+        if (tmp_type==''): tmp_type = 1
+        if tmp_id!='':
+            pingserver = PingServer.objects.get(id=tmp_id)
+            pingserver.address = tmp_address
+            pingserver.type = tmp_type
+            if tmp_deleted=="True":
+                pingserver.deleted = True
+            else:
+                pingserver.deleted = False
+            pingserver.save()
+        else:
+            pingserver = PingServer.objects.create(
+                address = tmp_address,
+                type = tmp_type,
+            )
+            if tmp_deleted=="True":
+                pingserver.deleted = True
+            else:
+                pingserver.deleted = False
+            pingserver.save()
+    except:
+        logging.exception('Error save or add pingserver')
+    return  HttpResponseRedirect('/admin/robot/pingserver/')
