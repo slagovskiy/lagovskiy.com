@@ -1,9 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+    <form class="form-horizontal" method="POST" action="/admin/robot/pingserver/save/">
+        {% csrf_token %}
+        <input type="hidden" name="_id" value="{{ pingserver.id }}">
+        <legend>{% if pingserver.id %}Edit{% else %}New{% endif %} ping server</legend>
+        <div class="control-group">
+            <label class="control-label" for="_name">Address</label>
+            <div class="controls">
+                <input type="text" id="_address" name="_address" placeholder="Address" value="{{ pingserver.address }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_type">Type</label>
+            <div class="controls">
+                <select id="_type" name="_type">
+                    <option{% ifequal pingserver.type 1 %} selected="selected"{% endifequal %}{% if not pingserver.id %} selected="selected"{% endif %} value="1">Page</option>
+                    <option{% ifequal pingserver.type 2 %} selected="selected"{% endifequal %} value="2">RSS</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="_deleted"{% if pingserver.deleted %}checked="checked"{% endif %} value="True"> Deleted
+                </label>
+            </div>
+            {% if not ajax %}
+                <input type="submit" value="Save changes" class="btn btn-primary">
+                <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/robot/pingserver/';">
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
