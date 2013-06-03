@@ -1,9 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+{
+"message": "{{ message }}",
+"items":
+[{% for item in items %}
+    {
+    "date": "{{ item.date|date:"Y.m.d" }}",
+    "post": "{{ item.post }}",
+    "post_title": "{{ item.post__title }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}
