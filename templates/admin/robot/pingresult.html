@@ -1,9 +1,86 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
+    <h2>Robot / Ring result</h2>
+    <div id="data_date"></div>
+    <div id="data_post"></div>
+    <a href="#" class="btn btn-info" onclick="loadData(); return false;">Reload</a>
 
-</body>
-</html>
+    <div id="frmPS" class="modal fade">
+        <div class="modal-body" id="window_body">
+        </div>
+        <div class="modal-footer" id="window_bottom">
+            <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        </div>
+    </div>
+
+    <script>
+        function init()
+        {
+            loadData();
+        }
+
+        function loadData()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/robot/pingresult/date/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover">';
+                    _data += '<thead><tr>' +
+                            '<th>date</th>' +
+                            '<th></th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td><a href="/admin/robot/pingresult/bydate/' + item.date + '/">' + item.date + '</a></td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data_date').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load date list " + xhr);
+                }
+            });
+
+            $.ajax({
+                url: '/admin/robot/pingresult/post/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover">';
+                    _data += '<thead><tr>' +
+                            '<th>post</th>' +
+                            '<th></th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td><a href="/admin/robot/pingresult/bypost/' + item.post + '/">' + item.post_title + '</a></td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data_post').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load date list " + xhr);
+                }
+            });
+
+        }
+
+        init();
+    </script>
+{% endblock %}
