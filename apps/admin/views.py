@@ -5,7 +5,7 @@ from django.template import loader, RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
-from django.db.models.aggregates import Max
+from django.db.models.aggregates import Max, Count, Avg
 from django.contrib.auth import authenticate, login, logout
 
 from datetime import date
@@ -1001,3 +1001,57 @@ def robot_pingserver_save(request):
     except:
         logging.exception('Error save or add pingserver')
     return  HttpResponseRedirect('/admin/robot/pingserver/')
+
+
+## robot: pingresult
+
+def robot_pingresult(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    t = loader.get_template('admin/robot/pingresult.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingresult_date(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    items = []
+    try:
+        items = PingResult.objects.values('date').annotate(name=Avg('date'))
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingresult_getby.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'items': items,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingresult_post(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    items = []
+    try:
+        items = PingResult.objects.values('post__title', 'post').annotate(name=Avg('post'))
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingresult_getby.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'items': items,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

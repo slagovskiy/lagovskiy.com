@@ -58,6 +58,10 @@ urlpatterns = patterns('',
     url(r'^robot/pingserver/edit/(?P<id>[-\w]+)/', 'apps.admin.views.robot_pingserver_edit'),
     url(r'^robot/pingserver/', 'apps.admin.views.robot_pingserver'),
 
+    url(r'^robot/pingresult/date/', 'apps.admin.views.robot_pingresult_date'),
+    url(r'^robot/pingresult/post/', 'apps.admin.views.robot_pingresult_post'),
+    url(r'^robot/pingresult/', 'apps.admin.views.robot_pingresult'),
+
 )
 
 
