@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+{
+"message": "{{ message }}",
+"items":
+[{% for pingserver in pingservers %}
+    {
+    "id": "{{ pingserver.id }}",
+    "address": "{{ pingserver.address }}",
+    "type": "{% ifequal pingserver.type 1 %}Page{% endifequal %}{% ifequal pingserver.type 2 %}RSS{% endifequal %}",
+    "deleted": "{{ pingserver.deleted }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}
