@@ -3,6 +3,7 @@
 "items":
 [{% for item in items %}
     {
+    "name": "{{ item.name }}",
     "date": "{{ item.date|date:"Y.m.d" }}",
     "post": "{{ item.post }}",
     "post_title": "{{ item.post__title }}"

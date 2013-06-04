@@ -1,8 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>Robot / Ring result</h2>
-    <div id="data_date"></div>
-    <div id="data_post"></div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_date" data-toggle="tab">By date</a></li>
+        <li><a href="#tab_post" data-toggle="tab">By post</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active span8" id="tab_date">
+            <div id="data_date"></div>
+        </div>
+
+        <div class="tab-pane span8" id="tab_post">
+            <div id="data_post"></div>
+        </div>
+    </div>
+
     <a href="#" class="btn btn-info" onclick="loadData(); return false;">Reload</a>
 
     <div id="frmPS" class="modal fade">
@@ -31,7 +44,6 @@
                     _data = '<table class="table table-hover">';
                     _data += '<thead><tr>' +
                             '<th>date</th>' +
-                            '<th></th>' +
                             '</tr></thead><tbody>';
 
                     if(data.message!='') msg_info('', data.message);
@@ -39,7 +51,9 @@
                     {
                         var item = data.items[i];
                         var row = '<tr>' +
-                                '<td><a href="/admin/robot/pingresult/bydate/' + item.date + '/">' + item.date + '</a></td>' +
+                                '<td><a href="/admin/robot/pingresult/bydate/' + item.date + '/" onclick="loadDate(\'' + item.date + '\'); return false;">' + item.date + '</a>' +
+                                '<i></i>' +
+                                '<div id="data_' + item.date.replace('.', '').replace('.', '') + '" style="padding-left: 30px;"></div></td>' +
                                 '</tr>';
                         _data += row;
                     }
@@ -59,7 +73,6 @@
                     _data = '<table class="table table-hover">';
                     _data += '<thead><tr>' +
                             '<th>post</th>' +
-                            '<th></th>' +
                             '</tr></thead><tbody>';
 
                     if(data.message!='') msg_info('', data.message);
@@ -67,7 +80,9 @@
                     {
                         var item = data.items[i];
                         var row = '<tr>' +
-                                '<td><a href="/admin/robot/pingresult/bypost/' + item.post + '/">' + item.post_title + '</a></td>' +
+                                '<td><a href="/admin/robot/pingresult/bypost/' + item.post + '/" onclick="loadPost(\'' + item.post + '\'); return false;">' + item.post_title + '</a>' +
+                                '<i></i>' +
+                                '<div id="data_' + item.post + '" style="padding-left: 30px;"></div></td>' +
                                 '</tr>';
                         _data += row;
                     }
@@ -78,6 +93,123 @@
                     msg_error("Error","load date list " + xhr);
                 }
             });
+
+        }
+
+        function loadDate(_date)
+        {
+            $.ajax({
+                url: '/admin/robot/pingresult/date/' + _date + '/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover" style="">';
+                    _data += '<thead><tr>' +
+                            '<th>post</th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td><a href="/admin/robot/pingresult/bypost/' + item.post + '/" onclick="loadDatePost(\'' + _date + '\', \'' + item.post + '\'); return false;">' + item.post_title + '</a>' +
+                                '<i class=""></i>' +
+                                '<div id="subdata_' + item.post + '" style="padding-left: 30px;"></div></td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data_' + _date.replace('.', '').replace('.', '')).html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load date list " + xhr);
+                }
+            });
+        }
+
+        function loadPost(_post)
+        {
+            $.ajax({
+                url: '/admin/robot/pingresult/post/' + _post + '/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover" style="">';
+                    _data += '<thead><tr>' +
+                            '<th>date</th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td><a href="/admin/robot/pingresult/bydate/' + item.date + '/" onclick="loadPostDate(\'' + _post + '\', \'' + item.date + '\'); return false;">' + item.date + '</a>' +
+                                '<i class=""></i>' +
+                                '<div id="subdata_' + item.date + '" style="padding-left: 30px;"></div></td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data_' + _post).html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load date list " + xhr);
+                }
+            });
+        }
+
+        function loadDatePost(_date, _post)
+        {
+            $.ajax({
+                url: '/admin/robot/pingresult/date/' + _date + '/' + _post + '/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover" style="">';
+                    _data += '<thead><tr>' +
+                            '<th>time</th>' +
+                            '<th>address</th>' +
+                            '<th>passed</th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>'
+                        if (item.passed == 'False')
+                        {
+                            row += '<td style="color: red;">' + item.time + '</td>' +
+                                   '<td style="color: red;">' + item.address + '</td>' +
+                                   '<td style="color: red;">' + item.passed + '</td>' +
+                                   '</tr>';
+                        }
+                        else
+                        {
+                            row += '<td>' + item.time + '</td>' +
+                                   '<td>' + item.address + '</td>' +
+                                   '<td>' + item.passed + '</td>' +
+                                   '</tr>';
+                        }
+                        row += '<td>' + item.time + '</td>' +
+                               '<td>' + item.address + '</td>' +
+                               '<td>' + item.passed + '</td>' +
+                               '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#subdata_' + _post).html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load date list " + xhr);
+                }
+            });
+        }
+
+        function loadPostDate(_post, _date)
+        {
 
         }
 

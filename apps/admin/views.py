@@ -1055,3 +1055,62 @@ def robot_pingresult_post(request):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def robot_pingresult_subpost(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    items = []
+    try:
+        items = PingResult.objects.filter(post_id=id).values('date').annotate(name=Avg('date'))
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingresult_getby.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'items': items,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingresult_subdate(request, d_y, d_m, d_d):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    items = []
+    filter_date = date(int(d_y), int(d_m), int(d_d))
+    try:
+        items = PingResult.objects.filter(date=filter_date).values('post__title', 'post').annotate(name=Avg('post'))
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingresult_getby.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'items': items,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def robot_pingresult_subdatepost(request, d_y, d_m, d_d, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    items = []
+    filter_date = date(int(d_y), int(d_m), int(d_d))
+    try:
+        items = PingResult.objects.filter(date=filter_date, post=id)
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingresult_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'items': items,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

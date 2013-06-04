@@ -58,7 +58,10 @@ urlpatterns = patterns('',
     url(r'^robot/pingserver/edit/(?P<id>[-\w]+)/', 'apps.admin.views.robot_pingserver_edit'),
     url(r'^robot/pingserver/', 'apps.admin.views.robot_pingserver'),
 
+    url(r'^robot/pingresult/date/(?P<d_y>[-\w]+).(?P<d_m>[-\w]+).(?P<d_d>[-\w]+)/(?P<id>[-\w]+)/', 'apps.admin.views.robot_pingresult_subdatepost'),
+    url(r'^robot/pingresult/date/(?P<d_y>[-\w]+).(?P<d_m>[-\w]+).(?P<d_d>[-\w]+)/', 'apps.admin.views.robot_pingresult_subdate'),
     url(r'^robot/pingresult/date/', 'apps.admin.views.robot_pingresult_date'),
+    url(r'^robot/pingresult/post/(?P<id>[-\w]+)/', 'apps.admin.views.robot_pingresult_subpost'),
     url(r'^robot/pingresult/post/', 'apps.admin.views.robot_pingresult_post'),
     url(r'^robot/pingresult/', 'apps.admin.views.robot_pingresult'),
 
