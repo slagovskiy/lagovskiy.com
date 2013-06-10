@@ -1114,3 +1114,23 @@ def robot_pingresult_subdatepost(request, d_y, d_m, d_d, id):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def robot_pingresult_subpostdate(request, id, d_y, d_m, d_d):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    items = []
+    filter_date = date(int(d_y), int(d_m), int(d_d))
+    try:
+        items = PingResult.objects.filter(date=filter_date, post=id)
+    except:
+        logging.exception('Error get pingserver list')
+    t = loader.get_template('admin/robot/pingresult_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'items': items,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
