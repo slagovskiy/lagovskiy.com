@@ -179,24 +179,25 @@
                     {
                         var item = data.items[i];
                         var row = '<tr>'
-                        if (item.passed == 'False')
+                        row += '<td>' + item.time + '</td>';
+                        if (item.ping_deleted=='True')
                         {
-                            row += '<td style="color: red;">' + item.time + '</td>' +
-                                   '<td style="color: red;">' + item.address + '</td>' +
-                                   '<td style="color: red;">' + item.passed + '</td>' +
-                                   '</tr>';
+                            row += '<td><a href="#" onclick="editData(' + item.ping_id + '); return false;"><strike>' + item.address + '</strike></td>';
                         }
                         else
                         {
-                            row += '<td>' + item.time + '</td>' +
-                                   '<td>' + item.address + '</td>' +
-                                   '<td>' + item.passed + '</td>' +
-                                   '</tr>';
+                            row += '<td><a href="#" onclick="editData(' + item.ping_id + '); return false;">' + item.address + '</td>';
                         }
-                        row += '<td>' + item.time + '</td>' +
-                               '<td>' + item.address + '</td>' +
-                               '<td>' + item.passed + '</td>' +
-                               '</tr>';
+                        if (item.passed == 'False')
+                        {
+                                   row += '<td style="color: red;">' + item.passed + '</td>' +
+                                          '</tr>';
+                        }
+                        else
+                        {
+                                   row += '<td>' + item.passed + '</td>' +
+                                          '</tr>';
+                        }
                         _data += row;
                     }
                     _data += "</tbody></table>";
@@ -226,25 +227,25 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<tr>'
-                        if (item.passed == 'False')
+                        row += '<td>' + item.time + '</td>';
+                        if (item.ping_deleted=='True')
                         {
-                            row += '<td style="color: red;">' + item.time + '</td>' +
-                                   '<td style="color: red;">' + item.address + '</td>' +
-                                   '<td style="color: red;">' + item.passed + '</td>' +
-                                   '</tr>';
+                            row += '<td><a href="#" onclick="editData(' + item.ping_id + '); return false;"><strike>' + item.address + '</strike></td>';
                         }
                         else
                         {
-                            row += '<td>' + item.time + '</td>' +
-                                   '<td>' + item.address + '</td>' +
-                                   '<td>' + item.passed + '</td>' +
-                                   '</tr>';
+                            row += '<td><a href="#" onclick="editData(' + item.ping_id + '); return false;">' + item.address + '</td>';
                         }
-                        row += '<td>' + item.time + '</td>' +
-                               '<td>' + item.address + '</td>' +
-                               '<td>' + item.passed + '</td>' +
-                               '</tr>';
+                        if (item.passed == 'False')
+                        {
+                                   row += '<td style="color: red;">' + item.passed + '</td>' +
+                                          '</tr>';
+                        }
+                        else
+                        {
+                                   row += '<td>' + item.passed + '</td>' +
+                                          '</tr>';
+                        }
                         _data += row;
                     }
                     _data += "</tbody></table>";
@@ -255,6 +256,43 @@
                 }
             });
         }
+
+        function editData(id)
+        {
+            $.ajax({
+                url: '/admin/robot/pingserver/edit/' + id + '/?ajax=1',
+                cache: false,
+                success: function(data){
+                    $('#window_body').html(data);
+                    $('#frmPS').modal({
+                        keyboard: false
+                    }).show();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "load edit form");
+                }
+            });
+        }
+
+        function saveData()
+        {
+            var form = $('#window_body').find('form');
+            var data = form.serialize();
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                cache: false,
+                data: data,
+                success: function(data){
+                    $('#frmPS').modal('hide');
+                    msg_info("saved","");
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "save ping server " + xhr);
+                }
+            })
+        }
+
 
         init();
     </script>
