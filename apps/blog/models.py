@@ -78,10 +78,10 @@ class Post(models.Model):
         return '/blog/view/' + self.slug + '/'
 
 
-    def excerpt(self):
+    def teaser(self):
         if self.published_revision > 0:
             return PostRevision.objects.filter(
-                post=self, id=self.published_revision)[0].excerpt
+                post=self, id=self.published_revision)[0].teaser
         else:
             return 'no revision'
 
@@ -107,7 +107,7 @@ class Post(models.Model):
 class PostRevision(models.Model):
     post = models.ForeignKey(Post)
     revision = models.IntegerField(default=1, verbose_name=u'Version of post',)
-    excerpt = models.TextField(default='', verbose_name=u'Excerpt')
+    teaser = models.TextField(default='', verbose_name=u'Teaser')
     content = models.TextField(default='', verbose_name=u'Content',)
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'Created',)
 
