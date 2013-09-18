@@ -1,6 +1,10 @@
-<h2 class="menu_title">Categories</h2>
-<ul class="nav nav-pills nav-stacked nav_other">
-    {% for category in categories %}
-    <li id="category_{{ category.id }}"><a href="/blog/category/{{ category.slug }}/"><table width="100%"><tr><td>{{ category.name }}</td><td align="right">{{ category.post_count }}</td></tr></table></a></li>
-    {% endfor %}
-</ul>
+<section id="categories">
+    <h3>Categories</h3>
+    <ul>
+        {% for category in categories %}
+        <li><a href="{{ category.get_absolute_url }}" class="active">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+
+
