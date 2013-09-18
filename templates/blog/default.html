@@ -3,39 +3,41 @@
 {# load pytils_numeral #}
 {% block content %}
     {% for post in posts %}
-        <div class="post" id="post_{{ post.id }}">
-            <div class="post-head">
-                <h1><a href="/blog/view/{{ post.slug }}/" class="color-green">{{ post.title }}</a></h1>
-            </div>
-            <hr>
-            {{ post.excerpt|markdown }}
-            <a href="/blog/view/{{ post.slug }}/" class="btn">Read more</a>
-            {% include "blog/post_bottom.html" %}
-        </div>
+        <article>
+            <time datetime="{{ post.published|date:"F jS, Y H:i" }}">{{ post.published|date:"F jS, Y H:i" }}</time>
+            <header>
+                <h2><a href="{{ post.absolute_url }}">{{ post.title }}</a></h2>
+            </header>
+
+            <p>{{ post.teaser|markdown }}</p>
+
+            <div class="reading"><a href="{{ post.absolute_url }}" class="reading">Continue reading</a></div>
+
+        </article>
     {% endfor %}
+
     {% ifnotequal posts.paginator.num_pages 1 %}
-    <div class="pagination">
-        <span>
-            {% if posts.has_previous %}
-                <a href="?page={{ posts.previous_page_number }}">previous</a>
-            {% endif %}
-            <span class="current">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
-            </span>
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">next</a>
-            {% endif %}
-        </span>
-    </div>
+        <nav id="pagination" class="pagination">
+            <ul>
+                {% if posts.has_previous %}
+                <li class="older"><a href="">&laquo; Older posts</a></li>
+                {% endif %}
+                {% if posts.has_next %}
+                <li class="newer"><a href="#">Newer posts &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     {% endifnotequal %}
     <script>
         $(document).ready(function() {
+        /*
             {% ifequal group 'tag' %}
             $('#tag_{{ tags.id }}').addClass('active');
             {% endifequal %}
             {% ifequal group 'category' %}
             $('#category_{{ categories.id }}').addClass('active');
             {% endifequal %}
+        */
         });
     </script>
 {% endblock %}
