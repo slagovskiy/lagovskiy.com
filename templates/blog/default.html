@@ -30,14 +30,12 @@
     {% endifnotequal %}
     <script>
         $(document).ready(function() {
-        /*
             {% ifequal group 'tag' %}
-            $('#tag_{{ tags.id }}').addClass('active');
+            $('#tag_{{ group_id }}').addClass('active');
             {% endifequal %}
             {% ifequal group 'category' %}
-            $('#category_{{ categories.id }}').addClass('active');
+            $('#category_{{ group_id }}').addClass('active');
             {% endifequal %}
-        */
         });
     </script>
 {% endblock %}
