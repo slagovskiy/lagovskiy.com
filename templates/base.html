@@ -1,32 +1,32 @@
 {% load widgets %}
-{% if not ajax %}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{% if custom_title %}{{ custom_title }} - {% else %}{{ app_title }}{% if app_title %} - {% endif %}{% endif %}Sergey Lagovskiy</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="keywords" content="{{ meta_keywords }}">
-    <meta name="description" content="{{ meta_description }}">
-    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Sergey Lagovskiy">
+    <meta name="keywords" content="{{ meta_keywords }}" />
+    <meta name="description" content="{{ meta_description }}" />
+    <meta name="author" content="Sergey Lagovskiy" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Sergey Lagovskiy" />
 
-    <link href="{{ STATIC_URL }}css/normalize.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+    <!-- css -->
+    <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}css/normalize.min.css" rel="stylesheet" />
 
-    <script src="{{ STATIC_URL }}js/jquery/jquery-1.8.2.min.js"></script>
+    <!-- scripts -->
+    <script src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
 
-    <script src="{{ STATIC_URL }}js/jquery-notifer/jquery-notifer.js"></script>
+    <script src="{{ STATIC_URL }}js/fancybox/jquery.fancybox.pack.js"></script>
+    <link href="{{ STATIC_URL }}js/fancybox/jquery.fancybox.css" rel="stylesheet" />
 
-    <script src="{{ STATIC_URL }}js/datepicker/bootstrap-datepicker.js"></script>
-    <link href="{{ STATIC_URL }}js/datepicker/datepicker.css" rel="stylesheet">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/syntaxhighlighter/scripts/shCore.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/syntaxhighlighter/scripts/shAutoloader.js"></script>
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/syntaxhighlighter/styles/shCore.css" />
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/syntaxhighlighter/styles/shCoreDefault.css" />
 
-	<script type="text/javascript" src="{{ STATIC_URL }}js/fancybox/jquery.fancybox.pack.js"></script>
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/fancybox/jquery.fancybox.css" media="screen" />
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/zclip/jquery.zclip.min.js"></script>
-
-    <script src="{{ STATIC_URL }}js/lagovskiy.com.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.corner.js"></script>
+    <script src="{{ STATIC_URL }}js/scripts.js"></script>
 
     {% block extra_css %}{% endblock %}
 
@@ -34,6 +34,7 @@
 
     {% block extra_head %}{% endblock %}
 
+    <!-- ADMIN ADMIN ADMIN
     <style type="text/css">
         {% if user.get_profile.canAdmin %}
         body{background-image: url("{{ STATIC_URL }}img/admin_bg.gif");}
@@ -41,105 +42,143 @@
         body{background-image: url("{{ STATIC_URL }}img/user_bg.png");}
         {% endif %}
     </style>
+    -->
 </head>
 <body>
-<div class="admin">
-    <div class="admin_strip"></div>
-    {% if user.get_profile.canAdmin %}
-    <div class="container">
-        <ul class="menu nav nav-pills">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/admin/blog/category/">Categories</a></li>
-                    <li><a href="/admin/blog/tag/">Tags</a></li>
-                    <li><hr></li>
-                    <li><a href="/admin/blog/post/">Posts</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Robot<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="/admin/robot/pingserver/">Ping servers</a></li>
-                    <li><a href="/admin/robot/pingresult/">Ping result</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Statistic</a></li>
-        </ul>
+    <div class="page">
+        <header role="banner">
+            <section class="container">
+                <h1><a href="/" title="Return to the main page."><b>S</b>ergey<b>L</b>agovskiy</a></h1>
+
+                <nav>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/projects/">Projects</a></li>
+                        <li><a href="/about/">About</a></li>
+                    </ul>
+                </nav>
+            </section>
+        </header>
+        <div class="hr"></div>
+        <section class="container">
+            <section class="content">
+                {% block content %}{% endblock %}
+            </section>
+
+            <aside class="sidebar">
+                {% widget_categories_menu %}
+
+                {% widget_tags_menu %}
+
+                {% widget_links_menu %}
+
+                <section id="categories">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#" class="active">Администрирование</a></li>
+                        <li><a href="#">Разработка</a></li>
+                        <li><a href="#">Фотография</a></li>
+                        <li><a href="#">Разное</a></li>
+                    </ul>
+                </section>
+
+                <section id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        <li><a href="#">mikrotik</a></li>
+                        <li><a href="#">lomography</a></li>
+                        <li><a href="#">windows</a></li>
+                        <li><a href="#">c sharp</a></li>
+                        <li><a href="#">sql</a></li>
+                    </ul>
+                </section>
+
+                <section id="about">
+                    <h3>Last posts</h3>
+                    <ul>
+                        <li><a href="#">Распределение трафика между двумя провайдерами</a></li>
+                        <li><a href="#">GPO in Windows 2012 server</a></li>
+                        <li><a href="#">Обзор фотоаппарата Зенит ЕТ</a></li>
+                        <li><a href="#">Mikrotik - что за зверь такой?</a></li>
+                    </ul>
+                </section>
+
+
+            </aside>
+        </section>
+        <div class="hr"></div>
+        <footer role="footer">
+            <section class="container">
+                <p><a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 1.0</p>
+            </section>
+        </footer>
     </div>
-    {% endif %}
-    <div class="admin_login">
-        {% if user.is_authenticated %}
-        {{ user.first_name }} {{ user.last_name }} <a href="/admin/logout/" class="login" title="logout"><i class="icon-off"></i></a>
-        {% else %}
-        <a href="/admin/login/" class="login" title="login"><i class="icon-lock"></i></a>
-        {% endif %}
-    </div>
+    <script>
+        $(document).ready(function(){
+            $('#subform0').hide();
+            $('#subform1').hide();
+            $('#subform2').hide();
+            $('#comments-text, #comments-name, #comments-email, #comments-submit').corner("5px");
+        });
 
-    <div class="block_clear"></div>
-</div>
-<div class="container">
+        $('a.img').fancybox();
+        SyntaxHighlighter.autoloader(
+            'applescript            js/syntaxhighlighter/scripts/shBrushAppleScript.js',
+            'actionscript3 as3      js/syntaxhighlighter/scripts/shBrushAS3.js',
+            'bash shell             js/syntaxhighlighter/scripts/shBrushBash.js',
+            'coldfusion cf          js/syntaxhighlighter/scripts/shBrushColdFusion.js',
+            'cpp c                  js/syntaxhighlighter/scripts/shBrushCpp.js',
+            'c# c-sharp csharp      js/syntaxhighlighter/scripts/shBrushCSharp.js',
+            'css                    js/syntaxhighlighter/scripts/shBrushCss.js',
+            'delphi pascal          js/syntaxhighlighter/scripts/shBrushDelphi.js',
+            'diff patch pas         js/syntaxhighlighter/scripts/shBrushDiff.js',
+            'erl erlang             js/syntaxhighlighter/scripts/shBrushErlang.js',
+            'groovy                 js/syntaxhighlighter/scripts/shBrushGroovy.js',
+            'java                   js/syntaxhighlighter/scripts/shBrushJava.js',
+            'jfx javafx             js/syntaxhighlighter/scripts/shBrushJavaFX.js',
+            'js jscript javascript  js/syntaxhighlighter/scripts/shBrushJScript.js',
+            'perl pl                js/syntaxhighlighter/scripts/shBrushPerl.js',
+            'php                    js/syntaxhighlighter/scripts/shBrushPhp.js',
+            'text plain             js/syntaxhighlighter/scripts/shBrushPlain.js',
+            'py python              js/syntaxhighlighter/scripts/shBrushPython.js',
+            'ruby rails ror rb      js/syntaxhighlighter/scripts/shBrushRuby.js',
+            'sass scss              js/syntaxhighlighter/scripts/shBrushSass.js',
+            'scala                  js/syntaxhighlighter/scripts/shBrushScala.js',
+            'sql                    js/syntaxhighlighter/scripts/shBrushSql.js',
+            'vb vbnet               js/syntaxhighlighter/scripts/shBrushVb.js',
+            'xml xhtml xslt html    js/syntaxhighlighter/scripts/shBrushXml.js'
+        );
+        // !!! replace < to &lt;
+        SyntaxHighlighter.all();
 
-    <!-- HEAD -->
-    <div>
-        <div class="row clearfix page_head">
-            <div class="span10">
-                <a href="/"><h1 class="logo" title="Sergey Lagovskiy">Sergey Lagovskiy</h1></a>
-            </div>
-            <div class="span10">
-                <ul class="menu nav nav-pills">
-                    <li{% ifequal link_app 'home' %} class="active"{% endifequal %}><a href="/">home</a></li>
-                    <li class="empty">/</li>
-                    <li{% ifequal link_app 'blog' %} class="active"{% endifequal %}><a href="/blog/">blog</a></li>
-                    <li class="empty">/</li>
-                    <li{% ifequal link_app 'projects' %} class="active"{% endifequal %}><a href="/projects/">projects</a></li>
-                    <li class="empty">/</li>
-                    <li{% ifequal link_app 'about' %} class="active"{% endifequal %}><a href="/about">about & contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+        function openForm1()
+        {
+            $('#comments-text').animate({
+                'height': '100px'
+                }, 500);
+            $('#subform0').fadeIn("slow");
+            $('#subform1').fadeIn("slow");
+        }
 
-    <!-- BODY -->
-    <div class="row clearfix page_body">
-        <div class="span9 content">
-            {% if message %}
-                <div class="alert alert-danger">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    {{ message }}
-                </div>
-            {% endif %}
-{% endif %}
+        function openForm2()
+        {
+            $('#subform2').fadeIn("slow");
+        }
 
-            {% block content %}{% endblock %}
+        function moveReply(id)
+        {
+            $('#comments-text').css({
+                'height': '100px'
+            });
+            $('#subform0').show();
+            $('#subform1').show();
+            $('#subform2').show();
+            $('.reply').html('');
+            $('#reply_'+id).html($('#comments-form').html());
+            $('#comments-form').hide();
+        }
 
-{% if not ajax %}
-        </div>
-        <div class="span3 panel">
-            {% widget_categories_menu %}
-
-            {% widget_tags_menu %}
-
-            {% widget_links_menu %}
-        </div>
-    </div>
-
-    <!-- BOTTOM -->
-    <div class="row clearfix page_bottom">
-        <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;
-        <span title="Odyssey">Οδύσσεια</span> 1.0
-    </div>
-</div>
-
-
-    <script src="{{ STATIC_URL }}js/bootstrap/bootstrap.min.js"></script>
-    <script language="javascript">$('a.img').fancybox();</script>
-    <script language="javascript">
-        //
     </script>
 </body>
 </html>
-{% endif %}
-
-
-
