@@ -6,12 +6,12 @@
         <article>
             <time datetime="{{ post.published|date:"F jS, Y H:i" }}">{{ post.published|date:"F jS, Y H:i" }}</time>
             <header>
-                <h2><a href="{{ post.absolute_url }}">{{ post.title }}</a></h2>
+                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
             </header>
 
             <p>{{ post.teaser|markdown }}</p>
 
-            <div class="reading"><a href="{{ post.absolute_url }}" class="reading">Continue reading</a></div>
+            <div class="reading"><a href="{{ post.get_absolute_url }}" class="reading">Continue reading</a></div>
 
         </article>
     {% endfor %}
