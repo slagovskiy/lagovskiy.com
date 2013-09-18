@@ -2,7 +2,7 @@
     <h3>Tags</h3>
     <ul>
         {% for tag in tags %}
-        <li><a href="{{ tag.get_absolute_url }}" id="{{ tag.id }}">{{ tag.name }}</a></li>
+        <li><a href="{{ tag.get_absolute_url }}" id="tag_{{ tag.id }}">{{ tag.name }}</a></li>
         {% endfor %}
     </ul>
 </section>

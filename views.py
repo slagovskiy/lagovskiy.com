@@ -19,7 +19,6 @@ def custom_proc(request):
 
 def index(request):
     message = ''
-    logging.warning(request.user)
     t = loader.get_template('default.html')
     c = RequestContext(
         request,
