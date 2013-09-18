@@ -18,6 +18,10 @@ class PostAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,  {'fields': ['slug', 'title', 'author']}),
         ('Status', {'fields': ['status', 'published'], 'classes': ['collapse']}),
+        ('Catalog', {'fields': ['categories', 'tags'], 'classes': ['collapse']}),
+        ('Publication', {'fields': ['published_revision', 'description', 'keywords', 'sticked'], 'classes': ['collapse']}),
+        ('SEO', {'fields': ['do_ping'], 'classes': ['collapse']}),
+        ('Comments', {'fields': ['comments_enabled', 'comments_moderated'], 'classes': ['collapse']}),
     ]
     inlines = [PostRevisionInline]
     list_display = ('slug', 'title', 'status')
