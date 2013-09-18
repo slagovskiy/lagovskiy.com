@@ -1,6 +1,8 @@
-<h2 class="menu_title">Tags</h2>
-<ul class="nav nav-pills nav-stacked nav_other">
-    {% for tag in tags %}
-        <li id=tag_{{ tag.id }}><a href="/blog/tag/{{ tag.slug }}/"><table width="100%"><tr><td>{{ tag.name }}</td><td align="right">{{ tag.post_count }}</td></tr></table></a></li>
-    {% endfor %}
-</ul>
+<section id="tags">
+    <h3>Tags</h3>
+    <ul>
+        {% for tag in tags %}
+        <li><a href="{{ tag.absolute_url }}">{{ tag.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
