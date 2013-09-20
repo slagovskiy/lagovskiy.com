@@ -77,6 +77,8 @@ class Post(models.Model):
     def get_absolute_url(self):
         return '/blog/view/' + self.slug + '/'
 
+    def get_comment_save_url(self):
+        return '/blog/comment/save/' + str(self.id) + '/'
 
     def teaser(self):
         if self.published_revision > 0:
@@ -129,8 +131,8 @@ class Comment(MPTTModel):
     post = models.ForeignKey(Post)
     user = models.ForeignKey(User, null=True, blank=True, verbose_name=u'User',)
     name = models.CharField(max_length=50, default='', verbose_name=u'Name for anonymous',)
-    email = models.CharField(max_length=50, default='', verbose_name=u'Email for anonymous',)
-    web = models.CharField(max_length=255, default='', verbose_name=u'Web site',)
+    email = models.CharField(max_length=50, default='', verbose_name=u'Email for anonymous', blank=True,)
+    web = models.CharField(max_length=255, default='', verbose_name=u'Web site', blank=True,)
     content = models.TextField(verbose_name=u'Content',)
     published = models.DateTimeField(auto_now_add=True, verbose_name=u'Published',)
     allowed = models.BooleanField(default=False, verbose_name=u'Allowed',)
