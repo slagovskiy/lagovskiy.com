@@ -265,6 +265,13 @@ section[role="comments"] ul li h5 time
     margin-left: 30px;
 }
 
+section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
+{
+    font-size: 10px;
+    margin-left: 10px;
+    border: none;
+}
+
 .comments-title
 {
     font-size: 24px;
