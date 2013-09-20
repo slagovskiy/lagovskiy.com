@@ -166,11 +166,11 @@ def comment_save(request, id):
             _subscribe = ''
             ajax = '0'
             _id = '-1'
-            _reply = request.POST.get('_reply', '0')
-            _name = request.POST.get('_name', 'guest')
-            _email = request.POST.get('_email', '')
-            _message = request.POST.get('_message', '')
-            _subscribe = request.POST.get('_subscribe', False)
+            _reply = request.POST.get('comment_reply', '0')
+            _name = request.POST.get('comment_name', 'guest')
+            _email = request.POST.get('comment_email', '')
+            _message = request.POST.get('comment_content', '')
+            _subscribe = request.POST.get('comment_subscribe', False)
             ajax = request.POST.get('ajax', '0')
             if _reply!='0':
                 root = Comment.objects.get(id=int(_reply))
