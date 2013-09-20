@@ -27,90 +27,71 @@
                 {% endfor %}</span>
             </td></tr>
         </table>
+
         <section role="comments">
             <div class="comments-title">{{ post.comment_count }} comment{% ifnotequal post.comment_count 1 %}s{% endifnotequal %}</div>
-            <a href="#" onclick="moveReply(0); return false;" class="comments-subtitle">Leave comment</a><div id="reply_0" class="reply comments-form"></div>
-            <div class="comments-form" id="comments-form">
-                <form>
+            <a href="#" onclick="moveReply(0); return false;" class="comments-subtitle">Leave comment</a><div id="reply_0" class="reply comment-form"></div>
+            <div id="testetst"></div>
+            <div class="comment-form" id="comment_form">
+                <form method="post" action="{{ post.get_comment_save_url }}">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_reply" value="0">
                     <table>
-                        <tr><td colspan="2"><textarea rows="1" id="comments-text" name="comments-text" placeholder="Leave comments here" class="input-full" onfocus="openForm1()"></textarea></td></tr>
-                        <tr id="subform1"><td class="label">Name</td><td><input type="text" id="comments-name" name="comments-name" placeholder="Your name" class="input-with-text" onfocus="openForm2()"></td></tr>
-                        <tr id="subform2"><td class="label">E-mail</td><td><input type="text" id="comments-email" name="comments-email" placeholder="Your email" class="input-with-text"></td></tr>
-                        <tr id="subform0"><td colspan="2"><input type="submit" id="comments-submit" name="comments-submit" class="input-button" value="Send"></td></tr>
+                        <tr><td colspan="2"><textarea rows="1" id="comment_content" name="comment_content" placeholder="Leave comments here" class="input-full" onfocus="openForm1()"></textarea></td></tr>
+                        <tr id="subform1"><td class="label">Name</td><td><input type="text" id="comment_name" name="comment_name" placeholder="Your name" class="input-with-text" onfocus="openForm2()"></td></tr>
+                        <tr id="subform2"><td class="label">E-mail</td><td><input type="text" id="comment_email" name="comment_email" placeholder="Your email" class="input-with-text"></td></tr>
+                        <tr id="subform3"><td class="label" colspan="2"><input type="checkbox" name="comment_subscribe" id="comment_subscribe"> <label for="comment_subscribe">Track replies</label></td></tr>
+                        <tr id="subform0"><td colspan="2">{% if post.comments_moderated %}<p>Comments will be published after validation<p>{% endif %}<input type="submit" id="comment_submit" name="comment_submit" class="input-button" value="Send"></td></tr>
                     </table>
                 </form>
             </div>
             <ul>
                 {% for comment in post.comments %}
-                <li>
-                    <h5>Sergey Lagovskiy <time datetime="10 мая 2012" class="icon-date_8">10 мая 2013</time></h5>
-                    <p>В программу благоустройства попали места, не подходящие для прогулок, но призванные украсить город. Так, на оживленных развязках Бердского шоссе появились «объекты вертикального озеленения» — крестообразные клумбы с петуньями. Корреспондент НГС.НОВОСТИ увидела в них сходство с этакими зелеными пауками, которые разбежались по необъятному зеленому газону.</p>
-                    <span class="icon-reply_16"><a href="#" onclick="moveReply(1); return false;">Reply</a></span><div id="reply_1" class="reply comments-form"></div>
-                </li>
+                    <li id="comment_{{ comment.id }}" style="padding-left: {{ comment.level|mul:30 }}px;">
+                    {% if comment.deleted %}
+                            <p>Comment was deleted by the administrator</p>
+                    {% else %}
+                        {% if comment.allowed %}
+                                <h5>{{ comment.name }}&nbsp;<time datetime="{{ comment.published|date:"F jS, Y H:i" }}">{{ comment.published|date:"F jS, Y H:i" }}</time>&nbsp;<a href="#comment{{ comment.id }}" name="comment{{ comment.id }}">#</a></h5>
+                                <p>{{ comment.content|escape|linebreaksbr }}</p>
+                                {% if comment.allowed %}<span class="icon-reply_16"><a href="#" onclick="moveReply({{ comment.id }}); return false;">Reply</a></span><div id="reply_{{ comment.id }}" class="reply comment-form"></div>{% endif %}
+                        {% endif %}
+                    {% endif %}
+                    </li>
                 {% endfor %}
-                <li style="padding-left: 30px;">
-                    <h5>Sergey Lagovskiy <time datetime="10 мая 2012" class="icon-date_8">10 мая 2013</time></h5>
-                    <p>В программу благоустройства попали места, не подходящие для прогулок, но призванные украсить город. Так, на оживленных развязках Бердского шоссе появились «объекты вертикального озеленения» — крестообразные клумбы с петуньями. Корреспондент НГС.НОВОСТИ увидела в них сходство с этакими зелеными пауками, которые разбежались по необъятному зеленому газону.</p>
-                    <span class="icon-reply_16"><a href="#" onclick="moveReply(2); return false;">Reply</a></span><div id="reply_2" class="reply comments-form"></div>
-                </li>
-                <li style="padding-left: 60px;">
-                    <h5>Sergey Lagovskiy <time datetime="10 мая 2012" class="icon-date_8">10 мая 2013</time></h5>
-                    <p>В программу благоустройства попали места, не подходящие для прогулок, но призванные украсить город. Так, на оживленных развязках Бердского шоссе появились «объекты вертикального озеленения» — крестообразные клумбы с петуньями. Корреспондент НГС.НОВОСТИ увидела в них сходство с этакими зелеными пауками, которые разбежались по необъятному зеленому газону.</p>
-                    <span class="icon-reply_16"><a href="#" onclick="moveReply(3); return false;">Reply</a></span><div id="reply_3" class="reply comments-form"></div>
-                </li>
-                <li>
-                    <h5>Sergey Lagovskiy <time datetime="10 мая 2012" class="icon-date_8">10 мая 2013</time></h5>
-                    <p>В программу благоустройства попали места, не подходящие для прогулок, но призванные украсить город. Так, на оживленных развязках Бердского шоссе появились «объекты вертикального озеленения» — крестообразные клумбы с петуньями. Корреспондент НГС.НОВОСТИ увидела в них сходство с этакими зелеными пауками, которые разбежались по необъятному зеленому газону.</p>
-                    <span class="icon-reply_16"><a href="#" onclick="moveReply(4); return false;">Reply</a></span><div id="reply_4" class="reply comments-form"></div>
-                </li>
             </ul>
         </section>
 
-        <ul>{% for comment in post.comments %}
-            {% include "blog/comment_item.html" %}
-        {% endfor %}</ul>
-        <ul>
-            <div class="comment_action">
-                <div class="comment_child" id="child_0"></div>
-                {% if post.comments_enabled %}<h3><a name="add_comment" title="Leave a comment" onclick="moveForm(0);return false;" style="cursor: pointer;">Leave comment</a></h3>{% endif %}
-                <div class="comment-reply-form hide" id="reply_form_0"></div>
-            </div>
-        </ul>
-        {% if post.comments_enabled %}{% include "blog/comment_form.html" %}{% endif %}
     </article>
     <script>
-        $(document).ready(function(){
-            $('#subform0').hide();
-            $('#subform1').hide();
-            $('#subform2').hide();
-            $('#comments-text, #comments-name, #comments-email, #comments-submit').corner("5px");
-        });
+       $(document).ready(function(){
+           $( "#subform0, #subform1, #subform2, #subform3" ).hide();
+           $("#comment_content, #comment_name, #comment_email, #comment_submit").corner("5px");
+       });
 
-        function openForm1()
+       function openForm1()
         {
-            $('#comments-text').animate({
+            $("#comment_content").animate({
                 'height': '100px'
                 }, 500);
-            $('#subform0').fadeIn("slow");
-            $('#subform1').fadeIn("slow");
+            $("#subform0, #subform1").fadeIn("slow");
         }
 
         function openForm2()
         {
-            $('#subform2').fadeIn("slow");
+            $("#subform2, #subform3").fadeIn("slow");
         }
 
         function moveReply(id)
         {
-            $('#comments-text').css({
+            $("#comment_content").css({
                 'height': '100px'
             });
-            $('#subform0').show();
-            $('#subform1').show();
-            $('#subform2').show();
-            $('.reply').html('');
-            $('#reply_'+id).html($('#comments-form').html());
-            $('#comments-form').hide();
+            $("#subform0, #subform1, #subform2, #subform3").show();
+            $(".reply").html('');
+            $("#reply_"+id).html($("#comment_form").html());
+            $("#reply_"+id).find("form").find("input[name='comment_reply']").val(id);
+            $("#comment_form").hide();
         }
     </script>
 {% endblock %}

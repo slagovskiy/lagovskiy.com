@@ -278,15 +278,15 @@ section[role="comments"] ul li h5 time
     font-weight: bold;
 }
 
-.comments-form table
+.comment-form table
 {
     width: 100%;
 }
-.comments-form table.label
+.comment-form table.label
 {
     width: 150px;
 }
-.comments-form .input-full
+.comment-form .input-full
 {
     width: 100%;
     font-size: 16px;
@@ -295,12 +295,17 @@ section[role="comments"] ul li h5 time
     border: 2px solid rgba(0,0,0,0.5);
 }
 
-.comments-form .label
+.comment-form .label
 {
     width: 100px;
 }
 
-.comments-form .input-with-text
+.comment-form p
+{
+    font-size: 12px;
+}
+
+.comment-form .input-with-text
 {
     width: 100%;
     font-size: 16px;
@@ -309,7 +314,7 @@ section[role="comments"] ul li h5 time
     border: 2px solid rgba(0,0,0,0.5);
 }
 
-.comments-form .input-button
+.comment-form .input-button
 {
     width: 200px;
     font-size: 16px;

@@ -82,13 +82,6 @@
         </footer>
     </div>
     <script>
-        $(document).ready(function(){
-            $('#subform0').hide();
-            $('#subform1').hide();
-            $('#subform2').hide();
-            $('#comments-text, #comments-name, #comments-email, #comments-submit').corner("5px");
-        });
-
         $('a.img').fancybox();
         SyntaxHighlighter.autoloader(
             'applescript            js/syntaxhighlighter/scripts/shBrushAppleScript.js',
@@ -118,34 +111,6 @@
         );
         // !!! replace < to &lt;
         SyntaxHighlighter.all();
-
-        function openForm1()
-        {
-            $('#comments-text').animate({
-                'height': '100px'
-                }, 500);
-            $('#subform0').fadeIn("slow");
-            $('#subform1').fadeIn("slow");
-        }
-
-        function openForm2()
-        {
-            $('#subform2').fadeIn("slow");
-        }
-
-        function moveReply(id)
-        {
-            $('#comments-text').css({
-                'height': '100px'
-            });
-            $('#subform0').show();
-            $('#subform1').show();
-            $('#subform2').show();
-            $('.reply').html('');
-            $('#reply_'+id).html($('#comments-form').html());
-            $('#comments-form').hide();
-        }
-
     </script>
 </body>
 </html>
