@@ -40,7 +40,7 @@
                         <tr><td colspan="2"><textarea rows="1" id="comment_content" name="comment_content" placeholder="Leave comments here" class="input-full" onfocus="openForm1()"></textarea></td></tr>
                         <tr id="subform1"><td class="label">Name</td><td><input type="text" id="comment_name" name="comment_name" placeholder="Your name" class="input-with-text" onfocus="openForm2()"></td></tr>
                         <tr id="subform2"><td class="label">E-mail</td><td><input type="text" id="comment_email" name="comment_email" placeholder="Your email" class="input-with-text"></td></tr>
-                        <tr id="subform3"><td class="label" colspan="2"><input type="checkbox" name="comment_subscribe" id="comment_subscribe"> <label for="comment_subscribe">Track replies</label></td></tr>
+                        <tr id="subform3"><td class="label" colspan="2"><input type="checkbox" name="comment_subscribe" id="comment_subscribe" class="checkbox"> <label for="comment_subscribe">Track replies</label></td></tr>
                         <tr id="subform0"><td colspan="2">{% if post.comments_moderated %}<p>Comments will be published after validation<p>{% endif %}<input type="submit" id="comment_submit" name="comment_submit" class="input-button" value="Send"></td></tr>
                     </table>
                 </form>
