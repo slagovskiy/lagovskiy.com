@@ -25,6 +25,10 @@
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/syntaxhighlighter/styles/shCore.css" />
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/syntaxhighlighter/styles/shCoreDefault.css" />
 
+	<script type="text/javascript" src="{{ STATIC_URL }}js/checkbox/jquery.checkbox.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/checkbox/jquery.checkbox.css" />
+
+
     <script src="{{ STATIC_URL }}js/jquery.corner.js"></script>
     <script src="{{ STATIC_URL }}js/scripts.js"></script>
 
@@ -82,7 +86,8 @@
         </footer>
     </div>
     <script>
-        $('a.img').fancybox();
+        $(".checkbox").checkbox();
+        $("a.img").fancybox();
         SyntaxHighlighter.autoloader(
             'applescript            js/syntaxhighlighter/scripts/shBrushAppleScript.js',
             'actionscript3 as3      js/syntaxhighlighter/scripts/shBrushAS3.js',
