@@ -1,0 +1,9 @@
+.jquery-checkbox {display: inline; font-size: 20px; line-height: 20px; cursor: pointer; cursor: hand;}
+.jquery-checkbox .mark {display: inline;}
+.jquery-checkbox img {vertical-align: middle; width: 20px; height: 16px; background: url(checkbox_1.gif) no-repeat;}
+.jquery-checkbox img {background: url(checkbox_1.gif) no-repeat;}
+.jquery-checkbox-hover img {background: url(checkbox_3.gif) no-repeat;}
+.jquery-checkbox-checked img {background: url(checkbox_2.gif) no-repeat;}
+.jquery-checkbox-checked .jquery-checkbox-hover img {background: url(checkbox_2.gif) no-repeat;}
+.jquery-checkbox-disabled img {background: url(checkbox_1.gif) no-repeat;}
+.jquery-checkbox-checked .jquery-checkbox-disabled img {background: url(checkbox_4.gif) no-repeat;}
