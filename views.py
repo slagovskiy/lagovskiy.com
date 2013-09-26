@@ -19,6 +19,14 @@ def custom_proc(request):
 
 def index(request):
     message = ''
+
+    log = logging.getLogger('odyssey')
+    log.debug("it's debug")
+    log.info("it's info")
+    log.warn("it's warn")
+    log.error("it's error")
+    logging.debug('1234567')
+
     t = loader.get_template('default.html')
     c = RequestContext(
         request,

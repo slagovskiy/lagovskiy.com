@@ -155,59 +155,91 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'console': {
-            'format': '%(levelname)-7s %(asctime)s %(funcName)s, line %(lineno)d %(name)s: %(message)s',
-            'datefmt': LOGGING_DATE_FORMAT_MINI,
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
         },
-        'error': {
-            'format': '%(levelname)-7s %(asctime)s file %(filename)s, line %(lineno)d, in %(module)s.%(funcName)s %(name)s: %(message)s',
-            'datefmt': LOGGING_DATE_FORMAT_FULL,
+        'db': {
+            'format' : "[%(asctime)s] %(levelname)s %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'request': {
+            'format' : "[%(asctime)s] %(levelname)s %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
         },
     },
     'handlers': {
-        'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
-        },
-        'console':{
-            'level':'INFO',
-            'class':'logging.StreamHandler',
-            'formatter': 'console'
-        },
-        'error':{
-            'level':'ERROR',
-            #'class':'logging.handlers.RotatingFileHandler',
+        'info': {
             'class':'logging.handlers.TimedRotatingFileHandler',
-            'formatter':'error',
-            'when': 'midnight',
-            'filename':op.join(
-                PROJECT_ROOT, op.join('logs', 'error.log')
-                )
-        },
-        'info':{
-            'level':'INFO',
-            #'class':'logging.handlers.RotatingFileHandler',
-            'class':'logging.handlers.TimedRotatingFileHandler',
-            'formatter':'error',
-            'when': 'midnight',
-            'filename':op.join(
+            'filename': op.join(
                 PROJECT_ROOT, op.join('logs', 'info.log')
-                )
+                ),
+            'when': 'midnight',
+            'backupCount': 10,
+            'formatter': 'verbose'
+        },
+        'db': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': op.join(
+                PROJECT_ROOT, op.join('logs', 'db.log')
+                ),
+            'maxBytes': 1024*1024*10,
+            'backupCount': 5,
+            'formatter': 'db',
+        },
+        'request': {
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': op.join(
+                PROJECT_ROOT, op.join('logs', 'request.log')
+                ),
+            'maxBytes': 1024*1024*10,
+            'backupCount': 5,
+            'formatter': 'request',
+        },
+        'error': {
+            'class':'logging.handlers.TimedRotatingFileHandler',
+            'filename': op.join(
+                PROJECT_ROOT, op.join('logs', 'error.log')
+                ),
+            'when': 'midnight',
+            'backupCount': 10,
+            'formatter': 'verbose',
+        },
+        'console': {
+            'class':'logging.StreamHandler',
+            'formatter': 'simple'
         },
     },
     'loggers': {
         'django': {
-            'handlers':['null'],
+            'handlers':['info'],
             'propagate': True,
-            'level':'INFO',
+            'level':'DEBUG',
+        },
+        'django.db.backends': {
+            'handlers': ['db'],
+            'propagate': False,
+            'level': 'DEBUG',
+        },
+        'django.request': {
+            'handlers': ['request'],
+            'propagate': False,
+            'level': 'DEBUG',
         },
         '': {
-            'handlers': ['info', 'error'],
-            'propagate': True,
+            'handlers': ['info', 'console'],
             'level': 'DEBUG',
-        }
+        },
+	'': {
+	    'handlers': ['error'],
+	    'level': 'ERROR',
+	},
     }
 }
+
 try:
     from settings_local import *
 except ImportError:
