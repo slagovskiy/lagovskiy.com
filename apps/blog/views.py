@@ -191,14 +191,14 @@ def comment_save(request, id):
                     allowed = not post.comments_moderated,
                     )
                 comment.save()
-                try:
-                    sended_comments = []
-                    if request.session.get('sended_comments', [])!=None:
-                        sended_comments = request.session.get('sended_comments', [])
-                    sended_comments.append(comment.id)
-                    request.session['sended_comments']=sended_comments
-                except:
-                    logging.exception('Error add comment to session var')
+                #try:
+                #    sended_comments = []
+                #    if request.session.get('sended_comments', [])!=None:
+                #        sended_comments = request.session.get('sended_comments', [])
+                #    sended_comments.append(comment.id)
+                #    request.session['sended_comments']=sended_comments
+                #except:
+                #    logging.exception('Error add comment to session var')
                 if (_subscribe=='True') & (_email!=''):
                     if SubscribePost.objects.all().filter(post=post, email=_email).count()==0:
                         subscribe = SubscribePost.objects.create(
@@ -223,15 +223,9 @@ def comment_save(request, id):
                 if root:
                     comment.parent = root
                     comment.save()
-                if ajax=='1':
-                    report = 'ok:'+str(comment_id)
-                else:
-                    return HttpResponseRedirect('/blog/view/'+post.slug+'/#comment'+str(comment.id))
+                return HttpResponseRedirect('/blog/view/'+post.slug+'/#comment'+str(comment.id))
             else:
-                if ajax=='1':
-                    report = 'cheat:'
-                else:
-                    return HttpResponseRedirect('/blog/view/'+post.slug+'/'+u'?formmessage=You can not add more than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute.#add_comment')
+                return HttpResponseRedirect('/blog/view/'+post.slug+'/'+u'?formmessage=You can not add more than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute.#add_comment')
     except:
         report = u'Error adding comment'
         logging.exception(u'Error adding comment')
