@@ -247,6 +247,16 @@ section[role="comments"]
     padding-top: 30px;
 }
 
+section[role="comments"] .message-error
+{
+    border: 1px solid #FF0000;
+    background-color: #FFDDDD;
+    color: #FF0000;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
 section[role="comments"] ul
 {
     list-style: none;

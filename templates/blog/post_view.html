@@ -30,7 +30,10 @@
 
         <section role="comments">
             <div class="comments-title">{{ post.comment_count }} comment{% ifnotequal post.comment_count 1 %}s{% endifnotequal %}</div>
-            <a href="#" onclick="moveReply(0); return false;" class="comments-subtitle">Leave comment</a><div id="reply_0" class="reply comment-form"></div>
+            <a href="#" name="add_comment" onclick="moveReply(0); return false;" class="comments-subtitle">Leave comment</a><div id="reply_0" class="reply comment-form"></div>
+            {% if formmessage %}
+                <div class="message-error">{{ formmessage }}</div>
+            {% endif %}
             <div id="testetst"></div>
             <div class="comment-form" id="comment_form">
                 <form method="post" action="{{ post.get_comment_save_url }}">

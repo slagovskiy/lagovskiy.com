@@ -120,7 +120,7 @@ def post_view(request, slug):
                 {
                     'message': message,
                     'post': post,
-                    'comments': request.session.get('sended_comments', []),
+                    #'comments': request.session.get('sended_comments', []),
                     'formmessage': formmessage,
                     'custom_title': post.title,
                     'meta_keywords': post.keywords,
