@@ -173,15 +173,17 @@ LOGGING = {
     },
     'handlers': {
         'info': {
+            'level': 'DEBUG',
             'class':'logging.handlers.TimedRotatingFileHandler',
             'filename': op.join(
                 PROJECT_ROOT, op.join('logs', 'info.log')
                 ),
             'when': 'midnight',
-            'backupCount': 10,
+            'backupCount': 5,
             'formatter': 'verbose'
         },
         'db': {
+            'level': 'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
             'filename': op.join(
                 PROJECT_ROOT, op.join('logs', 'db.log')
@@ -191,15 +193,17 @@ LOGGING = {
             'formatter': 'db',
         },
         'request': {
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class':'logging.handlers.TimedRotatingFileHandler',
             'filename': op.join(
                 PROJECT_ROOT, op.join('logs', 'request.log')
                 ),
-            'maxBytes': 1024*1024*10,
-            'backupCount': 5,
+            'when': 'midnight',
+            'backupCount': 15,
             'formatter': 'request',
         },
         'error': {
+            'level': 'ERROR',
             'class':'logging.handlers.TimedRotatingFileHandler',
             'filename': op.join(
                 PROJECT_ROOT, op.join('logs', 'error.log')
@@ -209,6 +213,7 @@ LOGGING = {
             'formatter': 'verbose',
         },
         'console': {
+            'level': 'DEBUG',
             'class':'logging.StreamHandler',
             'formatter': 'simple'
         },
@@ -230,13 +235,9 @@ LOGGING = {
             'level': 'DEBUG',
         },
         '': {
-            'handlers': ['info', 'console'],
+            'handlers': ['info', 'console', 'error'],
             'level': 'DEBUG',
         },
-	'': {
-	    'handlers': ['error'],
-	    'level': 'ERROR',
-	},
     }
 }
 
