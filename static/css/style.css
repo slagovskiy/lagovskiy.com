@@ -55,6 +55,11 @@ a.active
     display: none;
 }
 
+.hand
+{
+    cursor: pointer;
+}
+
 div.hr
 {
     border-top: 1px solid rgba(0,0,0,0.1);
@@ -466,4 +471,51 @@ footer p
 {
     background: url("../img/icon/black/undo_icon_16.png") left no-repeat;
     padding-left: 24px;
+}
+
+
+/* checkbox style */
+.checkbox {
+	width: 25px;
+	margin-right: 20px;
+	position: relative;
+}
+
+.checkbox label {
+	cursor: pointer;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 0;
+  	left: 0;
+	background: #eee;
+	border:1px solid #ddd;
+}
+
+.checkbox label:after {
+	opacity: 0.2;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background: transparent;
+	top: 6px;
+	left: 7px;
+	border: 3px solid #333;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.checkbox label:hover::after {
+	opacity: 0.5;
+}
+
+.checkbox input[type=checkbox]:checked + label:after {
+	opacity: 1;
 }

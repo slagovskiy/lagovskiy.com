@@ -40,7 +40,7 @@
                         <tr><td colspan="2"><textarea rows="1" id="comment_content" name="comment_content" placeholder="Leave comments here" class="input-full" onfocus="openForm1()"></textarea></td></tr>
                         <tr id="subform1"><td class="label">Name</td><td><input type="text" id="comment_name" name="comment_name" placeholder="Your name" class="input-with-text" onfocus="openForm2()"></td></tr>
                         <tr id="subform2"><td class="label">E-mail</td><td><input type="text" id="comment_email" name="comment_email" placeholder="Your email" class="input-with-text"></td></tr>
-                        <tr id="subform3"><td class="label" colspan="2"><input type="checkbox" name="comment_subscribe" id="comment_subscribe" class="checkbox"> <label for="comment_subscribe">Track replies</label></td></tr>
+                        <tr id="subform3"><td class="label" colspan="2"><span class="checkbox"><input type="checkbox" name="comment_subscribe" id="comment_subscribe"> <label for="comment_subscribe" name="comment_subscribe_hlabel"></label></span> <label for="comment_subscribe" name="comment_subscribe_label" class="hand">Track replies</label></td></tr>
                         <tr id="subform0"><td colspan="2">{% if post.comments_moderated %}<p>Comments will be published after validation<p>{% endif %}<input type="submit" id="comment_submit" name="comment_submit" class="input-button" value="Send"></td></tr>
                     </table>
                 </form>
@@ -66,7 +66,7 @@
     <script>
        $(document).ready(function(){
            $( "#subform0, #subform1, #subform2, #subform3" ).hide();
-           $("#comment_content, #comment_name, #comment_email, #comment_submit").corner("5px");
+           $("#comment_content, #comment_name, #comment_email, #comment_submit, label[name='comment_subscribe_hlabel']").corner("5px");
        });
 
        function openForm1()
@@ -91,6 +91,9 @@
             $(".reply").html('');
             $("#reply_"+id).html($("#comment_form").html());
             $("#reply_"+id).find("form").find("input[name='comment_reply']").val(id);
+            $("#reply_"+id).find("form").find("input[name='comment_subscribe']").attr("id", "comment_subscribe_" + id);
+            $("#reply_"+id).find("form").find("label[name='comment_subscribe_label']").attr("for", "comment_subscribe_" + id);
+            $("#reply_"+id).find("form").find("label[name='comment_subscribe_hlabel']").attr("for", "comment_subscribe_" + id);
             $("#comment_form").hide();
         }
     </script>
