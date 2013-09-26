@@ -225,6 +225,7 @@ def comment_save(request, id):
                     comment.save()
                 return HttpResponseRedirect('/blog/view/'+post.slug+'/#comment'+str(comment.id))
             else:
+                logging.info('More than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute')
                 return HttpResponseRedirect('/blog/view/'+post.slug+'/'+u'?formmessage=You can not add more than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute.#add_comment')
     except:
         report = u'Error adding comment'
