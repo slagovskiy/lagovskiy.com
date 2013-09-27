@@ -153,6 +153,7 @@ def comment_count(request, post_id):
     return HttpResponse(t.render(c))
 
 def comment_save(request, id):
+    log = logging.getLogger('blog.comment')
     report = ''
     user = None
     root = None
@@ -171,6 +172,7 @@ def comment_save(request, id):
             _email = request.POST.get('comment_email', '')
             _message = request.POST.get('comment_content', '')
             _subscribe = request.POST.get('comment_subscribe', False)
+            if _subscribe!= False: _subscribe = True
             ajax = request.POST.get('ajax', '0')
             if _reply!='0':
                 root = Comment.objects.get(id=int(_reply))
@@ -191,6 +193,7 @@ def comment_save(request, id):
                     allowed = not post.comments_moderated,
                     )
                 comment.save()
+                log.info(u'Saved new comment #' + str(comment.id) + ' in post #' + str(post.id))
                 #try:
                 #    sended_comments = []
                 #    if request.session.get('sended_comments', [])!=None:
@@ -199,7 +202,8 @@ def comment_save(request, id):
                 #    request.session['sended_comments']=sended_comments
                 #except:
                 #    logging.exception('Error add comment to session var')
-                if (_subscribe=='True') & (_email!=''):
+
+                if (_subscribe==True) & (_email!=''):
                     if SubscribePost.objects.all().filter(post=post, email=_email).count()==0:
                         subscribe = SubscribePost.objects.create(
                             post = post,
@@ -207,10 +211,7 @@ def comment_save(request, id):
                             active = not post.comments_moderated
                         )
                         subscribe.save()
-                    #else:
-                    #    subscribe = SubscribePost.objects.all().filter(post=post, email=_email)[0]
-                    #    subscribe.active = True
-                    #    subscribe.save()
+                        log.info(u'Added new subscribe ' + _email + ' on post #' + str(post.id))
                 if not post.comments_moderated:
                     for subscribe in SubscribePost.objects.all().filter(post=post, active=True):
                         mq = CommentMessageQueue.objects.create(
@@ -219,7 +220,7 @@ def comment_save(request, id):
                             active = True
                         )
                         mq.save()
-                comment_id = comment.id
+                        log.info(u'Added new message on queue for ' + subscribe.email + ' comment #' + str(comment.id))
                 if root:
                     comment.parent = root
                     comment.save()
@@ -228,11 +229,11 @@ def comment_save(request, id):
                 else:
                     return HttpResponseRedirect('/blog/view/'+post.slug+'/#comment'+str(comment.id))
             else:
-                logging.info('More than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute')
+                log.warn('More than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute from ' + request.META['REMOTE_ADDR'])
                 return HttpResponseRedirect('/blog/view/'+post.slug+'/'+u'?formmessage=You can not add more than one comment for ' + str(COMMENT_MINUTES_LIMIT) + ' minute.#add_comment')
     except:
         report = u'Error adding comment'
-        logging.exception(u'Error adding comment')
+        log.exception(u'Error adding comment')
     t = loader.get_template('ajax.html')
     c = RequestContext(
         request,
