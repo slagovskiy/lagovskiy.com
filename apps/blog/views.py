@@ -133,6 +133,7 @@ def post_view(request, slug):
     return HttpResponseRedirect('/blog/')
 
 def comment_count(request, post_id):
+    log = logging.getLogger('blog.comment')
     message = ''
     count = 0
     post = None
@@ -141,7 +142,7 @@ def comment_count(request, post_id):
         if post:
             count = post.comment_count()
     except:
-        logging.exception('Error get comments count')
+        log.exception('Error get comments count for post #' + str(post_id))
     t = loader.get_template('ajax.html')
     c = RequestContext(
         request,
