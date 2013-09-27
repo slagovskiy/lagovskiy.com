@@ -167,6 +167,10 @@ LOGGING = {
             'format' : "[%(asctime)s] %(levelname)s %(message)s",
             'datefmt' : "%d/%b/%Y %H:%M:%S"
         },
+        'blog': {
+            'format' : "[%(asctime)s] %(levelname)s %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
         'simple': {
             'format': '%(levelname)s %(message)s'
         },
@@ -202,6 +206,16 @@ LOGGING = {
             'backupCount': 15,
             'formatter': 'request',
         },
+        'comment': {
+            'level': 'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': op.join(
+                PROJECT_ROOT, op.join('logs', 'comment.log')
+                ),
+            'maxBytes': 1024*1024*10,
+            'backupCount': 10,
+            'formatter': 'blog',
+        },
         'error': {
             'level': 'ERROR',
             'class':'logging.handlers.TimedRotatingFileHandler',
@@ -231,6 +245,11 @@ LOGGING = {
         },
         'django.request': {
             'handlers': ['request'],
+            'propagate': False,
+            'level': 'DEBUG',
+        },
+        'blog.comment': {
+            'handlers': ['comment'],
             'propagate': False,
             'level': 'DEBUG',
         },
