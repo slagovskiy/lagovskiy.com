@@ -24,6 +24,7 @@ def custom_proc(request):
     }
 
 def index(request):
+    log = logging.getLogger('blog.page')
     message = ''
     posts = []
     page = int(request.GET.get('page', 1))
@@ -35,7 +36,7 @@ def index(request):
         if page>paginator.num_pages:
             page = paginator.num_pages
     except:
-        logging.exception('Error get posts list')
+        log.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
     c = RequestContext(
         request,
@@ -47,6 +48,7 @@ def index(request):
     return HttpResponse(t.render(c))
 
 def postby_tag(request, tag):
+    log = logging.getLogger('blog.page')
     message = ''
     posts = []
     tags = None
@@ -60,7 +62,7 @@ def postby_tag(request, tag):
         if page>paginator.num_pages:
             page = paginator.num_pages
     except:
-        logging.exception('Error get posts list')
+        log.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
     c = RequestContext(
         request,
@@ -76,6 +78,7 @@ def postby_tag(request, tag):
 
 
 def postby_category(request, category):
+    log = logging.getLogger('blog.page')
     message = ''
     posts = []
     categories = None
@@ -89,7 +92,7 @@ def postby_category(request, category):
         if page>paginator.num_pages:
             page = paginator.num_pages
     except:
-        logging.exception('Error get posts list')
+        log.exception('Error get posts list')
     t = loader.get_template('blog/default.html')
     c = RequestContext(
         request,
@@ -104,6 +107,7 @@ def postby_category(request, category):
     return HttpResponse(t.render(c))
 
 def post_view(request, slug):
+    log = logging.getLogger('blog.view')
     message = ''
     formmessage = ''
     post = None
@@ -111,7 +115,7 @@ def post_view(request, slug):
         post = Post.objects.all().filter(slug=slug)[0]
         formmessage = request.GET.get('formmessage', '')
     except:
-        logging.exception('Error get post')
+        log.exception('Error get post ' + slug)
     if post:
         if post.status==Post.HIDDEN_STATUS or post.status==Post.PUBLISHED_STATUS:
             t = loader.get_template('blog/post_view.html')
