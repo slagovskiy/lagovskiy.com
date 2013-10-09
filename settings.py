@@ -277,29 +277,6 @@ AUTH_PROFILE_MODULE = 'userprofile.UserProfile'
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-DEBUG_TOOLBAR_PANELS = (
-    'debug_toolbar.panels.version.VersionDebugPanel',
-    'debug_toolbar.panels.timer.TimerDebugPanel',
-    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
-    'debug_toolbar.panels.headers.HeaderDebugPanel',
-    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-    'debug_toolbar.panels.template.TemplateDebugPanel',
-    'debug_toolbar.panels.sql.SQLDebugPanel',
-    'debug_toolbar.panels.signals.SignalDebugPanel',
-    'debug_toolbar.panels.logger.LoggingPanel',
-)
-
-def custom_show_toolbar(request):
-    return True
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-    'HIDE_DJANGO_SQL': False,
-    'TAG': 'body',
-    'ENABLE_STACKTRACES' : True,
-}
-
 '''
 Example for settings_local.py
 
@@ -324,6 +301,7 @@ SECRET_KEY = '9@-a*+c1ms+25b6h836jkym=qs$mtd65i!aq4zd$b2o5(3mky+'
 
 DOMAIN_NAME = 'http://qwertyuiop.com'
 
+# email
 DEFAULT_FROM_EMAIL = 'noreply@server.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.server.com'
@@ -331,4 +309,28 @@ EMAIL_PORT = '25'
 EMAIL_HOST_USER = 'noreply@server.com'
 EMAIL_HOST_PASSWORD = '123qwe'
 EMAIL_SUBJECT_PREFIX = 'qwertyuiop.com'
+
+# debug toolbar
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
+)
+
+def custom_show_toolbar(request):
+    return True
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    'HIDE_DJANGO_SQL': False,
+    'TAG': 'body',
+    'ENABLE_STACKTRACES' : True,
+}
 '''
