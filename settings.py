@@ -323,4 +323,12 @@ DATABASES = {
 SECRET_KEY = '9@-a*+c1ms+25b6h836jkym=qs$mtd65i!aq4zd$b2o5(3mky+'
 
 DOMAIN_NAME = 'http://qwertyuiop.com'
+
+DEFAULT_FROM_EMAIL = 'noreply@server.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.server.com'
+EMAIL_PORT = '25'
+EMAIL_HOST_USER = 'noreply@server.com'
+EMAIL_HOST_PASSWORD = '123qwe'
+EMAIL_SUBJECT_PREFIX = 'qwertyuiop.com'
 '''
