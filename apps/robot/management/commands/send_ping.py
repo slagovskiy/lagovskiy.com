@@ -18,6 +18,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+from django.core.mail import send_mail
+
 class Command(NoArgsCommand):
     help = 'sending ping to search server'
 
@@ -56,7 +58,7 @@ class Command(NoArgsCommand):
                 try:
                     msg = MIMEMultipart('alternative')
                     msg['Subject'] = u'[' + DOMAIN_NAME + '] Ping report'
-                    msg['From'] = ROBOT_EMAIL
+                    msg['From'] = DEFAULT_FROM_EMAIL
                     msg['To'] = adm[1]
 
                     c = Context(
@@ -77,10 +79,7 @@ class Command(NoArgsCommand):
                     msg.attach(part1)
                     msg.attach(part2)
 
-                    s = smtplib.SMTP(ROBOT_SMTP)
-                    s.login(ROBOT_LOGIN, ROBOT_PASSWORD)
-                    s.sendmail(ROBOT_EMAIL, adm[1], msg.as_string())
-                    s.quit()
+                    send_mail('ping report', msg.as_string(), DEFAULT_FROM_EMAIL, adm[1])
                     logging.info('ping report sended')
                 except:
                     logging.exception('Error send ping report')
