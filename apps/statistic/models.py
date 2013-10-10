@@ -22,10 +22,8 @@ class Visitor(models.Model):
 
 def visitor_count(point):
     c = 0
-    logging.warning(point)
     try:
         c = Visitor.objects.filter(point=point).aggregate(Count('id'))['id__count']
-        logging.warning(c)
     except:
         logging.exception('Error get count of visitors')
     return c
