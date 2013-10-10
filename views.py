@@ -18,14 +18,8 @@ def custom_proc(request):
     }
 
 def index(request):
+    '''
     message = ''
-
-    logging.debug("it's debug")
-    logging.info("it's info")
-    logging.warn("it's warn")
-    logging.error("it's error")
-    logging.debug('1234567')
-
     t = loader.get_template('default.html')
     c = RequestContext(
         request,
@@ -35,3 +29,5 @@ def index(request):
         processors=[custom_proc]
     )
     return HttpResponse(t.render(c))
+    '''
+    return HttpResponseRedirect('/blog/')
