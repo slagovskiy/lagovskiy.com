@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     # project apps
     'utils',
     'apps.blog',
+    'apps.about',
     'apps.admin',
     'apps.statistic',
     'apps.robot',

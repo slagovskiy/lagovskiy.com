@@ -11,9 +11,12 @@ from settings import *
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index'),
+    url(r'^blog/', include('apps.blog.urls')),
+    #url(r'^projects/', include('apps.project.urls')),
+    url(r'^about/', include('apps.about.urls')),
+
     url(r'^djadmin/', include(admin.site.urls)),
     url(r'^admin/', include('apps.admin.urls')),
-    url(r'^blog/', include('apps.blog.urls')),
 )
 
 # static urls will be disabled in production mode
