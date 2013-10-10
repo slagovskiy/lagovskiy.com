@@ -11,6 +11,8 @@ from settings import *
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index'),
+    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
+
     url(r'^blog/', include('apps.blog.urls')),
     url(r'^projects/', include('apps.projects.urls')),
     url(r'^about/', include('apps.about.urls')),
