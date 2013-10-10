@@ -22,6 +22,8 @@ urlpatterns = patterns('',
 
     url(r'^djadmin/', include(admin.site.urls)),
     url(r'^admin/', include('apps.admin.urls')),
+
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 )
 
 # static urls will be disabled in production mode
