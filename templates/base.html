@@ -52,10 +52,10 @@
 
                 <nav>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/blog/">Blog</a></li>
-                        <li><a href="/projects/">Projects</a></li>
-                        <li><a href="/about/">About</a></li>
+                        <li><a href="/"{% ifequal link_app "home" %} class="active"{% endifequal %}>Home</a></li>
+                        <li><a href="/blog"{% ifequal link_app "blog" %} class="active"{% endifequal %}>Blog</a></li>
+                        <li><a href="/projects/"{% ifequal link_app "projects" %} class="active"{% endifequal %}>Projects</a></li>
+                        <li><a href="/about/"{% ifequal link_app "about" %} class="active"{% endifequal %}>About</a></li>
                     </ul>
                 </nav>
             </section>

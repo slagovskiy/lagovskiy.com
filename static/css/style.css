@@ -118,6 +118,12 @@ header nav li a:hover
     color: #F52A0E;
 }
 
+header nav li a.active
+{
+    color: #F52A0E;
+    background: none;
+}
+
 /* Articles
  *************************************/
 
