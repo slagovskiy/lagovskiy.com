@@ -83,14 +83,14 @@ class Post(models.Model):
     def teaser(self):
         if self.published_revision > 0:
             return PostRevision.objects.filter(
-                post=self, id=self.published_revision)[0].teaser
+                post=self, revision=self.published_revision)[0].teaser
         else:
             return 'no revision'
 
     def content(self):
         if self.published_revision > 0:
             return PostRevision.objects.filter(
-                post=self, id=self.published_revision)[0].content
+                post=self, revision=self.published_revision)[0].content
         else:
             return 'no revision'
 
