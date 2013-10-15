@@ -133,15 +133,6 @@ article
     font-size: 16px;
 }
 
-article time
-{
-    font-family: sans-serif;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: .6;
-}
-
 article header h2
 {
     font-family: Tahoma, Geneva, sans-serif;
@@ -279,6 +270,16 @@ section[role="comments"] ul li h5
     font-size: 14px;
     margin-bottom: 0px;
 }
+
+section[role="comments"] ul li h5 span
+{
+    font-family: sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: .6;
+}
+
 
 section[role="comments"] ul li h5 time
 {

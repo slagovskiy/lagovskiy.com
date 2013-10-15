@@ -55,7 +55,7 @@
                             <p>Comment was deleted by the administrator</p>
                     {% else %}
                         {% if comment.allowed %}
-                                <h5>{{ comment.name }}&nbsp;<time datetime="{{ comment.published|date:"F jS, Y H:i" }}" class="icon-date_8">{{ comment.published|date:"F jS, Y H:i" }}</time>&nbsp;<a href="#comment{{ comment.id }}" name="comment{{ comment.id }}">#</a></h5>
+                                <h5>{{ comment.name }}&nbsp;<span><time datetime="{{ comment.published|date:"F jS, Y H:i" }}" class="icon-date_8">{{ comment.published|date:"F jS, Y H:i" }}</time>&nbsp;<a href="#comment{{ comment.id }}" name="comment{{ comment.id }}">#</a></span></h5>
                                 <p>{{ comment.content|escape|linebreaksbr }}</p>
                                 {% if comment.allowed %}<span class="icon-reply_16"><a href="#" onclick="moveReply({{ comment.id }}); return false;">Reply</a></span><div id="reply_{{ comment.id }}" class="reply comment-form"></div>{% endif %}
                         {% endif %}
