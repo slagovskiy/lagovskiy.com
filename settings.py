@@ -5,7 +5,7 @@ import os.path as op
 PROJECT_ROOT = op.dirname(op.realpath(__file__))
 sys.path.insert(0, op.join(PROJECT_ROOT, 'apps'))
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
