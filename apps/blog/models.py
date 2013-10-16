@@ -5,6 +5,8 @@ from mptt.models import MPTTModel
 
 from apps.statistic.models import visitor_count
 
+from settings import *
+from settings_local import *
 
 class Category(models.Model):
     slug = models.SlugField(max_length=255, verbose_name=u'Key', unique=True,)
@@ -144,7 +146,7 @@ class Comment(MPTTModel):
         return u'%s %s' % (self.post.slug, self.published)
 
     def get_absolute_url(self):
-        return '/blog/post/' + self.post.slug + '/#' + self.id
+        return '/blog/post/' + self.post.slug + '/#' + str(self.id)
 
     class Meta:
         ordering = ['tree_id', 'lft']
