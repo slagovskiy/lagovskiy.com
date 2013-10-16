@@ -17,7 +17,8 @@ urlpatterns = patterns('',
     url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 
     url(r'^blog/', include('apps.blog.urls')),
-    url(r'^rss/', include('apps.rss.urls')),
+    url(r'^rss/', include('apps.rss.urls_rss')),
+    url(r'^atom/', include('apps.rss.urls_atom')),
     url(r'^projects/', include('apps.projects.urls')),
     url(r'^about/', include('apps.about.urls')),
 
