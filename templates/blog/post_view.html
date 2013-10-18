@@ -1,6 +1,14 @@
 {% extends "base.html" %}
 {% load markup %}
 {% load mathitils %}
+
+{% block extra_head %}
+{% if post %}
+    <link title="commentary - on posts" type="application/rss+xml" rel="alternate" href="/rss/comments/{{ post.slug }}/">
+    <link title="commentary - on posts" type="application/atom+xml" rel="alternate" href="/atom/comments/{{ post.slug }}/">
+{% endif %}
+{% endblock %}
+
 {% block content %}
     <article>
         <header>

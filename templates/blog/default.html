@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% load markup %}
 {# load pytils_numeral #}
+
+{% block extra_head %}
+{% ifequal group "tag" %}
+    <link title="blog - last posts by tag" type="application/rss+xml" rel="alternate" href="/rss/tag/{{ filter }}/">
+    <link title="blog - last posts by tag" type="application/atom+xml" rel="alternate" href="/atom/tag/{{ filter }}/">
+{% endifequal %}
+{% ifequal group "category" %}
+    <link title="blog - last posts" type="application/rss+xml" rel="alternate" href="/rss/category/{{ filter }}/">
+    <link title="blog - last posts" type="application/atom+xml" rel="alternate" href="/atom/category/{{ filter }}/">
+{% endifequal %}
+{% endblock %}
+
 {% block content %}
     {% for post in posts %}
         <article>
