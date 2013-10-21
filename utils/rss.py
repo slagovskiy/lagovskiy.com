@@ -36,7 +36,7 @@ class DefaultRSS(Feed):
         return items
 
     def items(self):
-        return Post.objects.all().order_by('-published')[:POST_COUNT]
+        return Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')[:POST_COUNT]
 
     def item_title(self, item):
         return '<![CDATA[ %s ]]>' % item.title
