@@ -7,6 +7,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.views.generic.simple import direct_to_template
 
+from utils.rss import *
+
 admin.autodiscover()
 
 from settings import *
@@ -16,9 +18,19 @@ urlpatterns = patterns('',
     url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
     url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 
+    # RSS
+    url(r'^rss/', DefaultRSS()),
+    url(r'^rss/tag/(?P<tag>[-\w]+)/$', TagRSS()),
+    url(r'^rss/category/(?P<category>[-\w]+)/$', CategoryRSS()),
+    url(r'^rss/comments/(?P<post>[-\w]+)/$', CommentsRSS()),
+
+    # ATOM
+    url(r'^atom/', DefaultAtom()),
+    url(r'^atom/tag/(?P<tag>[-\w]+)/$', TagAtom()),
+    url(r'^atom/category/(?P<category>[-\w]+)/$', CategoryAtom()),
+    url(r'^atom/comments/(?P<post>[-\w]+)/$', CommentsAtom()),
+
     url(r'^blog/', include('apps.blog.urls')),
-    url(r'^rss/', include('apps.rss.urls_rss')),
-    url(r'^atom/', include('apps.rss.urls_atom')),
     url(r'^projects/', include('apps.projects.urls')),
     url(r'^about/', include('apps.about.urls')),
 
