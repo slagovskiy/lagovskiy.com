@@ -8,10 +8,15 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.simple import direct_to_template
 
 from utils.rss import *
+from utils.sitemap import *
 
 admin.autodiscover()
 
 from settings import *
+
+sitemaps= {
+    'pages' : BlogSitemap()
+}
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index'),
@@ -29,6 +34,8 @@ urlpatterns = patterns('',
     url(r'^atom/tag/(?P<tag>[-\w]+)/$', TagAtom()),
     url(r'^atom/category/(?P<category>[-\w]+)/$', CategoryAtom()),
     url(r'^atom/comments/(?P<post>[-\w]+)/$', CommentsAtom()),
+
+    (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
     url(r'^blog/', include('apps.blog.urls')),
     url(r'^projects/', include('apps.projects.urls')),
