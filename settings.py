@@ -106,7 +106,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 
     # 3rd party middleware
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     # statistic
     'apps.statistic.middleware.StatisticMiddleware',
@@ -132,10 +132,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'django.contrib.markup',
+
+    # 'django.contrib.markup',
 
     # 3rd party libs
-    'debug_toolbar',
+    # 'debug_toolbar',
 
 
     # project apps
