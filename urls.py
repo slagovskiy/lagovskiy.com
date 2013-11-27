@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.conf import settings
 
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-from django.views.generic.simple import direct_to_template
 
 from utils.rss import *
 from utils.sitemap import *
@@ -20,8 +18,8 @@ sitemaps= {
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index'),
-    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
-    url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
+    #url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 
     # RSS
     url(r'^rss/', DefaultRSS()),
@@ -44,7 +42,7 @@ urlpatterns = patterns('',
     url(r'^djadmin/', include(admin.site.urls)),
     url(r'^admin/', include('apps.admin.urls')),
 
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    #url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 )
 
 # static urls will be disabled in production mode
