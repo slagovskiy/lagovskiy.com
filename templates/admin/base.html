@@ -23,7 +23,6 @@
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/syntaxhighlighter/styles/shCoreDefault.css" />
 
     <script src="{{ STATIC_URL }}js/jquery.corner.js"></script>
-    <script src="{{ STATIC_URL }}js/scripts.js"></script>
 
     <!-- bootstrap -->
     <script src="{{ STATIC_URL }}css/bootstrap/js/bootstrap.min.js"></script>
@@ -38,9 +37,7 @@
     <script src="{{ STATIC_URL }}js/ui/js/jquery-ui-1.10.3.custom.min.js"></script>
     <link href="{{ STATIC_URL }}js/ui/css/smoothness/jquery-ui-1.10.3.custom.min.css" rel="stylesheet" />
 
-    <!-- ui -->
-    <script src="{{ STATIC_URL }}js/jquery-notify/jquery.notify.min.js"></script>
-    <link href="{{ STATIC_URL }}js/jquery-notify/ui.notify.css" rel="stylesheet" />
+    <script src="{{ STATIC_URL }}js/scripts.js"></script>
 
     <!-- feeds -->
     <link title="blog - last posts" type="application/rss+xml" rel="alternate" href="/rss/">
@@ -102,6 +99,7 @@
         </footer>
     </div>
     <script>
+        $container = $("#container").notify();
         $("a.img").fancybox();
         SyntaxHighlighter.autoloader(
             'applescript            js/syntaxhighlighter/scripts/shBrushAppleScript.js',
