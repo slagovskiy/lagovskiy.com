@@ -21,6 +21,16 @@ a
     padding-bottom: 3px;
 }
 
+a:hover
+{
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 a.active
 {
     background: #fff4cc;
@@ -567,4 +577,15 @@ footer p
 
 .page404 div a {
     border-bottom: 1px dashed rgba(0,0,0,0.5);
+}
+
+/** bootstrap fix ***********************************/
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    line-height: inherit;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-weight: bold;
+}
+.container {
+    padding-right: 0;
+    padding-left: 0;
 }
