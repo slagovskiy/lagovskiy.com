@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <form class="form-horizontal" method="POST" action="/admin/blog/post/save/" id="_edit_post">
+    <form role="form" method="POST" action="/admin/blog/post/save/" id="_edit_post">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ post.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
@@ -17,17 +17,13 @@
         <div class="tab-content">
             <div class="tab-pane active span8" id="tab_main">
 
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_title">Title</label>
-                    <div class="controls">
-                        <input type="text" id="_title" name="_title" placeholder="Title" value="{{ post.title }}" class="span6">
-                    </div>
+                    <input type="text" id="_title" name="_title" placeholder="Title" value="{{ post.title }}" class="form-control">
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_slug">Key</label>
-                    <div class="controls">
-                        <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ post.slug }}" class="span6">
-                    </div>
+                    <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ post.slug }}" class="form-control">
                 </div>
 
             </div>
@@ -36,15 +32,11 @@
 
                 <div class="control-group">
                     <label class="control-label" for="_status">Category</label>
-                    <div class="controls">
-                        <div id="_categories"></div>
-                    </div>
+                    <div id="_categories"></div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="_status">Tags</label>
-                    <div class="controls">
-                        <div id="_tags"></div>
-                    </div>
+                    <div id="_tags"></div>
                 </div>
                 <div class="control-group">
                     <a href="#" class="btn btn-success" onclick="addCategory(0); return false;">Add new category</a>
@@ -56,45 +48,35 @@
 
                 <div class="control-group">
                     <label class="control-label" for="_status">Status</label>
-                    <div class="controls">
-                        <select id="_status" name="_status">
-                            <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
-                            <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
-                            <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
-                        </select>
-                    </div>
+                    <select id="_status" name="_status">
+                        <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
+                        <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
+                        <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
+                    </select>
                 </div>
                 <div class="control-group">
-                    <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
-                        </label>
-                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" name="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
+                    </label>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="_revision">Published revision</label>
-                    <div class="controls">
-                        <select id="_revision" name="_revision">
+                    <select id="_revision" name="_revision">
 
-                        </select>
-                    </div>
+                    </select>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="_author">Author</label>
-                    <div class="controls">
-                        <select id="_author" name="_author">
-                        {% for usr in users %}
-                            <option value="1"{% ifequal post.author usr %} selected="selected"{% endifequal %}>{{ usr.first_name }} {{ usr.last_name }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
+                    <select id="_author" name="_author">
+                    {% for usr in users %}
+                        <option value="1"{% ifequal post.author usr %} selected="selected"{% endifequal %}>{{ usr.first_name }} {{ usr.last_name }}</option>
+                    {% endfor %}
+                    </select>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="_published">Published</label>
-                    <div class="controls">
-                        <input type="text" id="_published" name="_published" value="{% if post.published %}{{ post.published|date:"Y/m/d" }}{% endif %}" class="span2 datepicker">
-                        <input type="text" id="_published_time" name="_published_time" value="{% if post.published %}{{ post.published|date:"H:i" }}{% endif %}" class="span2">
-                    </div>
+                    <input type="text" id="_published" name="_published" value="{% if post.published %}{{ post.published|date:"Y/m/d" }}{% endif %}" class="form-control datepicker">
+                    <input type="text" id="_published_time" name="_published_time" value="{% if post.published %}{{ post.published|date:"H:i" }}{% endif %}" class="form-control">
                 </div>
 
             </div>
@@ -103,22 +85,16 @@
 
                 <div class="control-group">
                     <label class="control-label" for="_description">Description</label>
-                    <div class="controls">
-                        <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="span6">
-                    </div>
+                    <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="form-control">
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="_keywords">Keywords</label>
-                    <div class="controls">
-                        <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="span6">
-                    </div>
+                    <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="form-control">
                 </div>
                 <div class="control-group">
-                    <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
-                        </label>
-                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" name="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
+                    </label>
                 </div>
 
             </div>
@@ -133,27 +109,19 @@
                 <div id="_edit_revision" class="hide">
                     <div class="control-group">
                         <label class="control-label" for="_title">Images</label>
-                        <div class="controls">
-                            <div><a href="#" class="btn btn-mini btn-info" onclick="addImage(); return false;">add image</a></div>
-                        </div>
+                        <div><a href="#" class="btn btn-mini btn-info" onclick="addImage(); return false;">add image</a></div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_title"></label>
-                        <div class="controls">
-                            <div id="postimages"></div>
-                        </div>
+                        <div id="postimages"></div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="_title">Excerpt</label>
-                        <div class="controls">
-                            <textarea id="_edit_revision_excerpt" name="_edit_revision_excerpt" class="span6" rows="10"></textarea>
-                        </div>
+                        <label class="control-label" for="_title">Teaser</label>
+                        <textarea id="_edit_revision_teaser" name="_edit_revision_teaser" class="form-control" rows="10"></textarea>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="_slug">Content</label>
-                        <div class="controls">
-                            <textarea id="_edit_revision_content" name="_edit_revision_content" class="span6" rows="15"></textarea>
-                        </div>
+                        <textarea id="_edit_revision_content" name="_edit_revision_content" class="form-control" rows="15"></textarea>
                     </div>
                     <div class="control-group">
                         <input type="hidden" id="_edit_revision_id" name="_edit_revision_id">
@@ -589,13 +557,13 @@
             selectRevisionMenu(id);
             $('#_edit_revision').show();
             $.ajax({
-                url: '/admin/blog/revision/getexcerpt/' + id + '/',
+                url: '/admin/blog/revision/getteaser/' + id + '/',
                 cache: false,
                 success: function(data){
-                    $('#_edit_revision_excerpt').val(data);
+                    $('#_edit_revision_teaser').val(data);
                 },
                 error: function(e, xhr){
-                    msg_error("Error","load revision excerpt list " + xhr);
+                    msg_error("Error","load revision teaser list " + xhr);
                 }
             });
             $.ajax({
@@ -648,7 +616,7 @@
     {
         var data =
                 "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
-                        "excerpt=" + encodeURIComponent($('#_edit_revision_excerpt').val()) + "&" +
+                        "excerpt=" + encodeURIComponent($('#_edit_revision_teaser').val()) + "&" +
                         "content=" + encodeURIComponent($('#_edit_revision_content').val());
         $.ajax({
             url: '/admin/blog/revision/save/{{ post.id }}/',
@@ -670,7 +638,7 @@
     {
         var data =
                 "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
-                        "excerpt=" + encodeURIComponent($('#_edit_revision_excerpt').val()) + "&" +
+                        "excerpt=" + encodeURIComponent($('#_edit_revision_teaser').val()) + "&" +
                         "content=" + encodeURIComponent($('#_edit_revision_content').val());
         $.ajax({
             url: '/admin/blog/revision/fix/' + $('#_edit_revision_id').val() + '/',

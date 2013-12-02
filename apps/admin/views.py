@@ -567,7 +567,7 @@ def blog_revision_getlist(request, post_id):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
-def blog_revision_getexcerpt(request, id):
+def blog_revision_getteaser(request, id):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
@@ -581,7 +581,7 @@ def blog_revision_getexcerpt(request, id):
         request,
         {
             'message': message,
-            'data': revision.excerpt,
+            'data': revision.teaser,
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
@@ -656,7 +656,7 @@ def blog_revision_save(request, post_id):
             revision.save()
         else:
             revision = revision[0]
-        revision.excerpt = request.POST.get('excerpt', '')
+        revision.excerpt = request.POST.get('teaser', '')
         revision.content = request.POST.get('content', '')
         revision.created = datetime.now()
         revision.save()
@@ -686,7 +686,7 @@ def blog_revision_fix(request, id):
             max = 0
         revision = PostRevision.objects.create(
             post = revision_old.post,
-            excerpt = request.POST.get('excerpt', ''),
+            excerpt = request.POST.get('teaser', ''),
             content = request.POST.get('content', ''),
             revision = max + 1,
             created = datetime.now()
