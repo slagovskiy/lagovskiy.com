@@ -28,6 +28,10 @@ def widget_tags_menu():
 def widget_links_menu():
     return {}
 
+def widget_admin_menu():
+    return {}
+
 register.inclusion_tag('widgets/categories.html')(widget_categories_menu)
 register.inclusion_tag('widgets/tags.html')(widget_tags_menu)
 register.inclusion_tag('widgets/links.html')(widget_links_menu)
+register.inclusion_tag('widgets/admin.html')(widget_admin_menu)
