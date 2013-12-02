@@ -6,11 +6,15 @@
     <a href="#" class="btn btn-info" onclick="loadData(); return false;">Reload</a>
 
     <div id="frmCategory" class="modal fade">
-        <div class="modal-body" id="window_body">
-        </div>
-        <div class="modal-footer" id="window_bottom">
-            <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_body">
+                </div>
+                <div class="modal-footer" id="window_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
+                    <a href="#" class="btn" data-dismiss="modal">Close</a>
+                </div>
+            </div>
         </div>
     </div>
 
