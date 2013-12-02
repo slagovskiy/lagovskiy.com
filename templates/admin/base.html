@@ -23,6 +23,7 @@
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}js/syntaxhighlighter/styles/shCoreDefault.css" />
 
     <script src="{{ STATIC_URL }}js/jquery.corner.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery-notifer.js"></script>
 
     <!-- bootstrap -->
     <script src="{{ STATIC_URL }}css/bootstrap/js/bootstrap.min.js"></script>
@@ -99,7 +100,6 @@
         </footer>
     </div>
     <script>
-        $container = $("#container").notify();
         $("a.img").fancybox();
         SyntaxHighlighter.autoloader(
             'applescript            js/syntaxhighlighter/scripts/shBrushAppleScript.js',
