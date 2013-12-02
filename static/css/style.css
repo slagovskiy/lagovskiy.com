@@ -422,6 +422,11 @@ section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
     font-size: 14px;
 }
 
+.sidebar section li.sub
+{
+    padding-left: 15px;
+}
+
 .sidebar section li a:hover
 {
     background: #fff4cc;
