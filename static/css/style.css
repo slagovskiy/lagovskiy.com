@@ -1,251 +1,6 @@
-/* Basic
- *************************************/
-
-body
-{
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 14px;
-    line-height: 200%;
-    vertical-align: baseline;
-    color: #18191a;
-    background-color: #FAFAFA;
-}
-
-a
-{
-    cursor: pointer;
-    color: #000;
-    text-decoration: none;
-
-    padding-top: 3px;
-    padding-bottom: 3px;
-}
-
-a:hover
-{
-    cursor: pointer;
-    color: #000;
-    text-decoration: none;
-}
-
-a.active
-{
-    background: #fff4cc;
-}
-
-.container
-{
-    overflow: hidden;
-    width: 1000px;
-    margin: 0 auto;
-}
-
-.content
-{
-    float: left;
-    width: 770px;
-}
-
-.sidebar
-{
-    float: right;
-    width: 200px;
-}
-
-.clear
-{
-    clear: both;
-}
-
-.hide
-{
-    display: none;
-}
-
-.hand
-{
-    cursor: pointer;
-}
-
-div.hr
-{
-    border-top: 1px solid rgba(0,0,0,0.1);
-    padding-bottom: 20px;
-}
-
-/* Header
- *************************************/
-header[role="banner"]
-{
-    line-height: 90px;
-    margin: 0;
-}
-
-header[role="banner"] h1
-{
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 35px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-    float: left;
-    margin: 0;
-}
-header[role="banner"] h1 a b
-{
-    color: #F52A0E;
-}
-
-header nav
-{
-    float: right;
-    text-align: right;
-}
-
-header nav ul
-{
-    list-style: none;
-    margin: 0;
-}
-header nav li
-{
-    font-family: Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    display: block;
-    padding-left: 50px;
-    float: left;
-    opacity: .6;
-}
-
-header nav li a:hover
-{
-    color: #F52A0E;
-}
-
-header nav li a.active
-{
-    color: #F52A0E;
-    background: none;
-}
-
-/* Articles
- *************************************/
-
-article
-{
-    padding-bottom: 50px;
-    font-size: 16px;
-}
-
-article header h2
-{
-    font-family: Tahoma, Geneva, sans-serif;
-    font-weight: normal;
-    font-size: 36px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    line-height: 50px;
-}
-
-article header h2 a
-{
-    border: 0px;
-}
-
-article header h2 a:hover
-{
-    background: #fff4cc;
-    border: 0px;
-}
-
-article a
-{
-    text-decoration: none;
-    border-bottom: 1px dashed rgba(0,0,0,0.5);
-}
-
-article a:hover
-{
-    background: #fff4cc;
-    border-bottom: 1px solid rgba(0,0,0,0.5);
-}
-
-article div.reading
-{
-    padding-bottom: 30px;
-}
-article div.reading a
-{
-    border-bottom: 1px solid rgba(0,0,0,0.5);
-}
-
-article a.reading:hover
-{
-    border-bottom: 0px;
-}
-
-article .imgcenter {
-    text-align: center;
-}
-
-article .imgleft {
-    float: left;
-    padding-right: 10px;
-}
-
-article .imgright {
-    float: right;
-    padding-left: 10px;
-}
-
-article a.img img {
-    border: 1px solid rgba(0,0,0,0.5);
-    padding: 5px;
-}
-
-article a.img {
-    border: 0px;
-}
-
-article a.img:hover {
-    border: 0px;
-    background: none;
-}
-
-.postinfo
-{
-    width: 100%;
-}
-.postinfo time
-{
-    font-size: 12px;
-    text-transform: uppercase;
-    opacity: 1;
-    letter-spacing: 0px;
-}
-
-.postinfo span
-{
-    font-size: 12px;
-    font-family: sans-serif;
-    text-transform: uppercase;
-    color: rgba(0,0,0,1);
-    letter-spacing: 1px;
-    height: 16px;
-    padding-right: 20px;
-    opacity: .5;
-}
-
-.postinfo span a
-{
-    border: 0px;
-}
-
 /* Comments
  *************************************/
+/*
 section[role="comments"]
 {
     padding-top: 30px;
@@ -365,9 +120,10 @@ section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
 .reply{
     padding-top: 10px;
 }
-
+*/
 /* Pagination
  *************************************/
+/*
 .pagination
 {
     font-size: 16px;
@@ -395,59 +151,319 @@ section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
 {
     background: #fff4cc;
 }
+*/
 
-/* Sidebar
- *************************************/
-.sidebar section
-{
-    padding-bottom: 20px;
+
+
+/* checkbox style */
+/*
+.checkbox {
+	width: 25px;
+	margin-right: 20px;
+	position: relative;
 }
 
-.sidebar section h3
-{
-    font-size: 18px;
-    margin: 0;
-    padding-bottom: 10px;
+.checkbox label {
+	cursor: pointer;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	top: 0;
+  	left: 0;
+	background: #eee;
+	border:1px solid #ddd;
 }
 
-.sidebar section ul
-{
-    margin: 0;
-    padding-left: 0px;
-    list-style: none;
+.checkbox label:after {
+	opacity: 0.2;
+	content: '';
+	position: absolute;
+	width: 9px;
+	height: 5px;
+	background: transparent;
+	top: 6px;
+	left: 7px;
+	border: 3px solid #333;
+	border-top: none;
+	border-right: none;
+
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 
-.sidebar section li
+.checkbox label:hover::after {
+	opacity: 0.5;
+}
+
+.checkbox input[type=checkbox]:checked + label:after {
+	opacity: 1;
+}
+*/
+/** 404 *********************************************/
+/*
+.page404 {
+    width: 700px;
+    height: 500px;
+    background-image: url("../img/homer_simpson.png");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.page404 div.header {
+    font-size: 70px;
+    line-height: 100px;
+    position: absolute;
+    padding-top: 100px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.page404 div {
+    width: 400px;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    position: absolute;
+    padding-top: 230px;
+}
+
+.page404 div a {
+    border-bottom: 1px dashed rgba(0,0,0,0.5);
+}
+*/
+/** bootstrap fix ***********************************/
+/*
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    line-height: inherit;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-weight: bold;
+}
+.container {
+    padding-right: 0;
+    padding-left: 0;
+}
+*/
+
+body
 {
+    background-image: url("../img/grid.gif");
+    background-position: center top;
+
+    color: #18191a;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 14px;
+    line-height: 200%;
+    vertical-align: baseline;
 }
 
-.sidebar section li.sub
+a
 {
-    padding-left: 15px;
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
 }
 
-.sidebar section li a:hover
+a:hover
+{
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+
+a.active
 {
     background: #fff4cc;
 }
 
-.sidebar section li a
+.border-bottom
 {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.border-top
+{
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+header[role="banner"]
+{
+    line-height: 90px;
+}
+
+header[role="banner"] a
+{
+    color: #000000;
+}
+
+.logo
+{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 35px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+.logo a b
+{
+    color: #F52A0E;
+}
+
+header[role="banner"] nav li
+{
+    font-family: Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding-left: 40px;
+    opacity: .6;
+    text-align: right;
+    list-style: none;
+    margin-top: 6px;
+    margin-bottom: -6px;
+}
+
+header[role="banner"] nav li a:hover
+{
+    color: #F52A0E;
+}
+
+header[role="banner"] nav li a.active
+{
+    color: #F52A0E;
+    background: none;
 }
 
 
-/* Footer
- *************************************/
-footer p
+footer[role="footer"]
 {
+    line-height: 90px;
     text-align: center;
-    padding-bottom: 20px;
     font-size: 14px;
 }
 
+footer[role="footer"] a:hover
+{
+    text-decoration: none;
+    background: #fff4cc;
+}
+
+article
+{
+    padding-bottom: 50px;
+    font-size: 16px;
+}
+
+article header h2
+{
+    font-family: Tahoma, Geneva, sans-serif;
+    font-weight: normal;
+    font-size: 36px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 45px;
+}
+
+article header h2 a
+{
+    border: 0px;
+}
+
+article header h2 a:hover
+{
+    background: #fff4cc;
+    border: 0px;
+}
+
+article a
+{
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(0,0,0,0.5);
+}
+
+article a:hover
+{
+    background: #fff4cc;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+article div.reading
+{
+    padding-bottom: 30px;
+}
+article div.reading a
+{
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+article a.reading:hover
+{
+    border-bottom: 0px;
+}
+
+article .imgcenter {
+    text-align: center;
+}
+
+article .imgleft {
+    float: left;
+    padding-right: 10px;
+}
+
+article .imgright {
+    float: right;
+    padding-left: 10px;
+}
+
+article a.img img {
+    border: 1px solid rgba(0,0,0,0.5);
+    padding: 5px;
+}
+
+article a.img {
+    border: 0px;
+}
+
+article a.img:hover {
+    border: 0px;
+    background: none;
+}
+
+.postinfo
+{
+    width: 100%;
+}
+.postinfo time
+{
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 1;
+    letter-spacing: 0px;
+}
+
+.postinfo span
+{
+    font-size: 12px;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    color: rgba(0,0,0,1);
+    letter-spacing: 1px;
+    height: 16px;
+    padding-right: 20px;
+}
+
+.postinfo span a
+{
+    border: 0px;
+}
+
+
 /* Icon
  *************************************/
+
 .icon-user_12
 {
     background: url("../img/icon/black/user_icon_12.png") left no-repeat;
@@ -500,94 +516,4 @@ footer p
 {
     background: url("../img/icon/black/undo_icon_16.png") left no-repeat;
     padding-left: 24px;
-}
-
-
-/* checkbox style */
-.checkbox {
-	width: 25px;
-	margin-right: 20px;
-	position: relative;
-}
-
-.checkbox label {
-	cursor: pointer;
-	position: absolute;
-	width: 25px;
-	height: 25px;
-	top: 0;
-  	left: 0;
-	background: #eee;
-	border:1px solid #ddd;
-}
-
-.checkbox label:after {
-	opacity: 0.2;
-	content: '';
-	position: absolute;
-	width: 9px;
-	height: 5px;
-	background: transparent;
-	top: 6px;
-	left: 7px;
-	border: 3px solid #333;
-	border-top: none;
-	border-right: none;
-
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	transform: rotate(-45deg);
-}
-
-.checkbox label:hover::after {
-	opacity: 0.5;
-}
-
-.checkbox input[type=checkbox]:checked + label:after {
-	opacity: 1;
-}
-
-/** 404 *********************************************/
-
-.page404 {
-    width: 700px;
-    height: 500px;
-    background-image: url("../img/homer_simpson.png");
-    background-repeat: no-repeat;
-    background-position: right;
-}
-
-.page404 div.header {
-    font-size: 70px;
-    line-height: 100px;
-    position: absolute;
-    padding-top: 100px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.page404 div {
-    width: 400px;
-    font-size: 20px;
-    line-height: 25px;
-    text-align: center;
-    position: absolute;
-    padding-top: 230px;
-}
-
-.page404 div a {
-    border-bottom: 1px dashed rgba(0,0,0,0.5);
-}
-
-/** bootstrap fix ***********************************/
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    line-height: inherit;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-weight: bold;
-}
-.container {
-    padding-right: 0;
-    padding-left: 0;
 }

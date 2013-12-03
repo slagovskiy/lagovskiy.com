@@ -42,7 +42,6 @@
             {% if formmessage %}
                 <div class="message-error">{{ formmessage }}</div>
             {% endif %}
-            <div id="testetst"></div>
             <div class="comment-form" id="comment_form">
                 <form method="post" action="{{ post.get_comment_save_url }}">
                     {% csrf_token %}

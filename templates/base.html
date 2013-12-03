@@ -9,7 +9,7 @@
     <meta name="keywords" content="{{ meta_keywords }}" />
     <meta name="description" content="{{ meta_description }}" />
     <meta name="author" content="Sergey Lagovskiy" />
-    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" title="Sergey Lagovskiy" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" title="Sergey Lagovskiy" />
 
     <!-- scripts -->
     <script src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
@@ -25,12 +25,10 @@
     <script src="{{ STATIC_URL }}js/jquery.corner.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-notifer.js"></script>
 
-    {% if user.get_profile.canAdmin %}
     <!-- bootstrap -->
     <script src="{{ STATIC_URL }}css/bootstrap/js/bootstrap.min.js"></script>
     <link href="{{ STATIC_URL }}css/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="{{ STATIC_URL }}css/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
-    {% endif %}
 
     <!-- css -->
     <link href="{{ STATIC_URL }}css/normalize.min.css" rel="stylesheet" />
@@ -56,13 +54,13 @@
 
 </head>
 <body>
-    <div class="page">
+    <div class="navbar navbar-static-top border-bottom">
         <header role="banner">
             <section class="container">
-                <h1><a href="/" title="Return to the main page."><b>S</b>ergey<b>L</b>agovskiy</a></h1>
+                <h1 class="navbar-brand logo"><a href="/" title="Return to the main page." onclick="$('body').css('background-image', 'none'); return false;"><b>S</b>ergey<b>L</b>agovskiy</a></h1>
 
                 <nav>
-                    <ul>
+                    <ul class="navbar-nav navbar-right">
                         <li><a href="/"{% ifequal link_app "home" %} class="active"{% endifequal %}>Home</a></li>
                         <li><a href="/blog"{% ifequal link_app "blog" %} class="active"{% endifequal %}>Blog</a></li>
                         <li><a href="/projects/"{% ifequal link_app "projects" %} class="active"{% endifequal %}>Projects</a></li>
@@ -72,14 +70,15 @@
             </section>
         </header>
         <div class="hr"></div>
-        <section class="container">
-            <section class="content">
+    </div>
+    <div class="container">
+            <section class="col-xs-12 col-sm-6 col-md-9">
 {% endif %}
                 {% block content %}{% endblock %}
 {% if not ajax %}
             </section>
 
-            <aside class="sidebar">
+            <aside class="col-xs-6 col-md-3">
                 {% if user.get_profile.canAdmin %}{% widget_admin_menu %}{% endif %}
 
                 {% widget_categories_menu %}
@@ -88,14 +87,12 @@
 
                 {% widget_links_menu %}
             </aside>
-        </section>
-        <div class="hr"></div>
-        <footer role="footer">
-            <section class="container">
-                <p><a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.1</p>
-            </section>
-        </footer>
     </div>
+    <footer role="footer" class="border-top">
+        <section class="container">
+            <p><a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %} &nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.1</p>
+        </section>
+    </footer>
     <script>
         $("a.img").fancybox();
         SyntaxHighlighter.autoloader(
