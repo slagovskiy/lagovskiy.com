@@ -40,19 +40,42 @@
             <div class="comments-title">{{ post.comment_count }} comment{% ifnotequal post.comment_count 1 %}s{% endifnotequal %}</div>
             <a href="#" name="add_comment" onclick="moveReply(0); return false;" class="comments-subtitle">Leave comment</a><div id="reply_0" class="reply comment-form"></div>
             {% if formmessage %}
-                <div class="message-error">{{ formmessage }}</div>
+                <div class="alert alert-danger">{{ formmessage }}</div>
             {% endif %}
             <div class="comment-form" id="comment_form">
-                <form method="post" action="{{ post.get_comment_save_url }}">
+                <form method="post" action="{{ post.get_comment_save_url }}" class="form-horizontal" role="form">
                     {% csrf_token %}
                     <input type="hidden" name="comment_reply" value="0">
-                    <table>
-                        <tr><td colspan="2"><textarea rows="1" id="comment_content" name="comment_content" placeholder="Leave comments here" class="input-full" onfocus="openForm1()"></textarea></td></tr>
-                        <tr id="subform1"><td class="label">Name</td><td><input type="text" id="comment_name" name="comment_name" placeholder="Your name" class="input-with-text" onfocus="openForm2()"></td></tr>
-                        <tr id="subform2"><td class="label">E-mail</td><td><input type="text" id="comment_email" name="comment_email" placeholder="Your email" class="input-with-text"></td></tr>
-                        <tr id="subform3"><td class="label" colspan="2"><span class="checkbox"><input type="checkbox" name="comment_subscribe" id="comment_subscribe"> <label for="comment_subscribe" name="comment_subscribe_hlabel"></label></span> <label for="comment_subscribe" name="comment_subscribe_label" class="hand">Track replies</label></td></tr>
-                        <tr id="subform0"><td colspan="2">{% if post.comments_moderated %}<p>Comments will be published after validation<p>{% endif %}<input type="submit" id="comment_submit" name="comment_submit" class="input-button" value="Send"></td></tr>
-                    </table>
+                    <div class="form-group comment-content">
+                        <textarea rows="1" id="comment_content" name="comment_content" placeholder="Leave comments here" class="form-control" onfocus="openForm1()"></textarea>
+                    </div>
+                    <div id="subform1" class="form-group">
+                        <label for="comment_name" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="comment_name" name="comment_name" placeholder="Your name" class="form-control" onfocus="openForm2()">
+                        </div>
+                    </div>
+                    <div id="subform2" class="form-group">
+                        <label for="comment_email" class="col-sm-2 control-label">E-mail</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="comment_email" name="comment_email" placeholder="Your email" class="form-control">
+                        </div>
+                    </div>
+                    <div id="subform3" class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="">
+                                <label for="comment_subscribe" name="comment_subscribe_label" class="control-label">
+                                    <input type="checkbox" name="comment_subscribe" id="comment_subscribe"> Track replies
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="subform0" class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            {% if post.comments_moderated %}<label>Comments will be published after validation</label>{% endif %}
+                            <input type="submit" id="comment_submit" name="comment_submit" class="btn btn-default" value="Send">
+                        </div>
+                    </div>
                 </form>
             </div>
             <ul>

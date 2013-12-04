@@ -272,7 +272,7 @@ header[role="banner"] nav li
     text-transform: uppercase;
     letter-spacing: 3px;
     padding-left: 40px;
-    opacity: .6;
+    opacity: .8;
     text-align: right;
     list-style: none;
     margin-top: 9px;
@@ -413,6 +413,35 @@ article a.img:hover {
     border: 0px;
 }
 
+section[role="comments"]
+{
+    padding-top: 30px;
+}
+
+section[role="comments"] .alert
+{
+    margin-top: 20px;
+}
+
+.comments-title
+{
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+section[role="comments"] input[type="radio"], input[type="checkbox"]
+{
+    float: none;
+    padding-right: 20px;
+}
+
+section[role="comments"] .comment-content
+{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 10px;
+}
 /* Sidebar
  *************************************/
 
@@ -432,6 +461,7 @@ article a.img:hover {
     font-size: 10px;
     border-radius: 5px;
     font-weight: normal;
+    margin-top: 5px;
 }
 .sidebar .sub
 {
@@ -523,51 +553,4 @@ article a.img:hover {
 {
     background: url("../img/icon/bs.png") left no-repeat !important;
     padding-left: 20px !important;
-}
-
-/* checkbox style */
-
-.checkbox {
-	width: 25px;
-	margin-right: 20px;
-	position: relative;
-}
-
-.checkbox label {
-	cursor: pointer;
-	position: absolute;
-	width: 25px;
-	height: 25px;
-	top: 0;
-  	left: 0;
-	background: #eee;
-	border:1px solid #ddd;
-}
-
-.checkbox label:after {
-	opacity: 0.2;
-	content: '';
-	position: absolute;
-	width: 9px;
-	height: 5px;
-	background: transparent;
-	top: 6px;
-	left: 7px;
-	border: 3px solid #333;
-	border-top: none;
-	border-right: none;
-
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
-	-ms-transform: rotate(-45deg);
-	transform: rotate(-45deg);
-}
-
-.checkbox label:hover::after {
-	opacity: 0.5;
-}
-
-.checkbox input[type=checkbox]:checked + label:after {
-	opacity: 1;
 }
