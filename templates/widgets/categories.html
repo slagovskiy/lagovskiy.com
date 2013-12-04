@@ -1,8 +1,8 @@
 <section id="categories">
     <h3>Categories</h3>
-    <ul>
+    <ul class="list-group">
         {% for category in categories %}
-        <li><a href="{{ category.get_absolute_url }}" id="category_{{ category.id }}">{{ category.name }}</a></li>
+        <li class="list-group-item"><a href="{{ category.get_absolute_url }}" id="category_{{ category.id }}">{{ category.name }}</a><span class="badge">{{ category.post_count }}</span></li>
         {% endfor %}
     </ul>
 </section>

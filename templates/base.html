@@ -57,7 +57,9 @@
     <div class="navbar navbar-static-top border-bottom">
         <header role="banner">
             <section class="container">
-                <h1 class="navbar-brand logo"><a href="/" title="Return to the main page." onclick="$('body').css('background-image', 'none'); return false;"><b>S</b>ergey<b>L</b>agovskiy</a></h1>
+                <h1 class="navbar-brand logo"><a href="/" title="Return to the main page." onclick="$('body').css('background-image', 'none'); return false;">
+                    <!--<b>S</b>ergey<b>L</b>agovskiy</a>--><img src="{{ STATIC_URL }}img/logo.png">
+                </h1>
 
                 <nav>
                     <ul class="navbar-nav navbar-right">
@@ -78,7 +80,7 @@
 {% if not ajax %}
             </section>
 
-            <aside class="col-xs-6 col-md-3">
+            <aside class="col-xs-6 col-md-3 sidebar">
                 {% if user.get_profile.canAdmin %}{% widget_admin_menu %}{% endif %}
 
                 {% widget_categories_menu %}

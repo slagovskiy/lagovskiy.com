@@ -1,8 +1,8 @@
 <section id="tags">
     <h3>Tags</h3>
-    <ul>
+    <ul class="list-group">
         {% for tag in tags %}
-        <li><a href="{{ tag.get_absolute_url }}" id="tag_{{ tag.id }}">{{ tag.name }}</a></li>
+        <li class="list-group-item"><a href="{{ tag.get_absolute_url }}" id="tag_{{ tag.id }}">{{ tag.name }}</a><span class="badge">{{ tag.post_count }}</span></li>
         {% endfor %}
     </ul>
 </section>
