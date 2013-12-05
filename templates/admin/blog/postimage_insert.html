@@ -1,72 +1,64 @@
 {% extends "base.html" %}
 {% block content %}
-    <form class="form-horizontal" method="POST" action="/admin/blog/postimage/save/">
+    <form class="form" method="POST" action="/admin/blog/postimage/save/">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ image.id }}">
         <input type="hidden" name="_post_id" value="{{ post_id }}">
         <legend>Insert image</legend>
-        <table>
+        <table style="width: 100%">
         <tr><td>
-        <div class="control-group" style="text-align: center;">
+        <div class="form-group" style="text-align: center;">
             <a href="{{ image.img_orig }}" class="img" title="{{ image.description }}"><img src="{{ image.img_s }}" border="0"></a><br>
             <div class="image-note">{{ image.description }}</div>
         </div>
         </td><td>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="_align">Align</label>
-            <div class="controls">
-                <div class="btn-group" data-toggle-name="is_private" data-toggle="buttons-radio" >
-                    <button type="button" value="left" class="btn active" data-toggle="button" onclick="setLeft();">Left</button>
-                    <button type="button" value="middle" class="btn" data-toggle="button" onclick="setMiddle();">Middle</button>
-                    <button type="button" value="right" class="btn" data-toggle="button" onclick="setRight();">Right</button>
-                </div>
-                <input type="hidden" id="image_align" value="0">
+            <div class="btn-group" data-toggle-name="is_private" data-toggle="buttons-radio" >
+                <button type="button" value="left" id="image_align_left" class="btn btn-default active" data-toggle="button" onclick="setLeft();">Left</button>
+                <button type="button" value="middle" id="image_align_middle" class="btn btn-default" data-toggle="button" onclick="setMiddle();">Middle</button>
+                <button type="button" value="right" id="image_align_right" class="btn btn-default" data-toggle="button" onclick="setRight();">Right</button>
             </div>
+            <input type="hidden" id="image_align" value="0">
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="_small">Small</label>
-            <div class="controls">
-                <select id="image_small" onchange="reloadString();">
-                    <option value="{{ image.img_xxs }}">XXS 75*75</option>
-                    <option value="{{ image.img_xs }}">XS 100*</option>
-                    <option value="{{ image.img_s }}">S 150*</option>
-                    <option value="{{ image.img_m }}">M 300*</option>
-                    <option value="{{ image.img_l }}" selected="selected">L 500*</option>
-                    <option value="{{ image.img_xl }}">XL 800*</option>
-                    <option value="{{ image.img_xxl }}">XXL 1024*</option>
-                    <option value="{{ image.img_xxxl }}">XXXL 1280*</option>
-                    <option value="{{ image.img_orig }}">ORIGINAL</option>
-                </select>
-            </div>
+            <select id="image_small" onchange="reloadString();" class="form-control">
+                <option value="{{ image.img_xxs }}">XXS 75*75</option>
+                <option value="{{ image.img_xs }}">XS 100*</option>
+                <option value="{{ image.img_s }}">S 150*</option>
+                <option value="{{ image.img_m }}">M 300*</option>
+                <option value="{{ image.img_l }}" selected="selected">L 500*</option>
+                <option value="{{ image.img_xl }}">XL 800*</option>
+                <option value="{{ image.img_xxl }}">XXL 1024*</option>
+                <option value="{{ image.img_xxxl }}">XXXL 1280*</option>
+                <option value="{{ image.img_orig }}">ORIGINAL</option>
+            </select>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="_small">Big</label>
-            <div class="controls">
-                <select id="image_big" onchange="reloadString();">
-                    <option value="{{ image.img_xxs }}">XXS 75*75</option>
-                    <option value="{{ image.img_xs }}">XS 100*</option>
-                    <option value="{{ image.img_s }}">S 150*</option>
-                    <option value="{{ image.img_m }}">M 300*</option>
-                    <option value="{{ image.img_l }}">L 500*</option>
-                    <option value="{{ image.img_xl }}">XL 800*</option>
-                    <option value="{{ image.img_xxl }}">XXL 1024*</option>
-                    <option value="{{ image.img_xxxl }}">XXXL 1280*</option>
-                    <option value="{{ image.img_orig }}" selected="selected">ORIGINAL</option>
-                </select>
-            </div>
+            <select id="image_big" onchange="reloadString();" class="form-control">
+                <option value="{{ image.img_xxs }}">XXS 75*75</option>
+                <option value="{{ image.img_xs }}">XS 100*</option>
+                <option value="{{ image.img_s }}">S 150*</option>
+                <option value="{{ image.img_m }}">M 300*</option>
+                <option value="{{ image.img_l }}">L 500*</option>
+                <option value="{{ image.img_xl }}">XL 800*</option>
+                <option value="{{ image.img_xxl }}">XXL 1024*</option>
+                <option value="{{ image.img_xxxl }}">XXXL 1280*</option>
+                <option value="{{ image.img_orig }}" selected="selected">ORIGINAL</option>
+            </select>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             {% if not ajax %}
                 <input type="submit" value="Save changes" class="btn btn-primary">
                 <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/tag/';">
             {% endif %}
         </div>
         </td></tr></table>
-        <div class="control-group">
+        <div class="form-group">
             <label class="control-label" for="_small">Code</label>
-            <div class="controls" id="code">
-                <input type="text" class="span3" id="copy_code{{ image.id }}">
-            </div>
+            <textarea class="form-control" id="copy_code{{ image.id }}" rows="6"></textarea>
         </div>
     </form>
     <script>
@@ -78,9 +70,27 @@
         // todo: need global copy button
         var desc = '{{ image.description }}';
         var str = '<!-- IMAGE START --><div';
-        if ($('#image_align').val()=='middle') { str += " style=\"text-align: center; padding: 20px;\""; }
-        if ($('#image_align').val()=='left') { str += " style=\"float: left; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;\""; }
-        if ($('#image_align').val()=='right') { str += " style=\"float: right; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;\""; }
+        if ($('#image_align').val()=='middle')
+        {
+            str += " style=\"text-align: center; padding: 20px;\"";
+            $('#image_align_left').removeClass('active');
+            $('#image_align_midle').addClass('active');
+            $('#image_align_right').removeClass('active');
+        }
+        if ($('#image_align').val()=='left')
+        {
+            str += " style=\"float: left; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;\"";
+            $('#image_align_left').addClass('active');
+            $('#image_align_midle').removeClass('active');
+            $('#image_align_right').removeClass('active');
+        }
+        if ($('#image_align').val()=='right')
+        {
+            str += " style=\"float: right; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;\"";
+            $('#image_align_left').removeClass('active');
+            $('#image_align_midle').removeClass('active');
+            $('#image_align_right').addClass('active');
+        }
         str += '>';
         str += '<a href="' + $('#image_big').val() + '" title="{{ image.description }}" class="img" rel="gallery"><img src="' + $('#image_small').val() + '" border="0"></a>';
         str += '<div class="image-note">' + desc + '</div>';

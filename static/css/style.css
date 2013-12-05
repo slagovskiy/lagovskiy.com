@@ -317,6 +317,12 @@ article .imgright {
     padding-left: 10px;
 }
 
+article .image-note
+{
+    font-size: 12px;
+    text-align: center;
+}
+
 article a.img img {
     border: 1px solid rgba(0,0,0,0.5);
     padding: 5px;

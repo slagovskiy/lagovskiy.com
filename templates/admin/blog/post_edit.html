@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <form role="form" method="POST" action="/admin/blog/post/save/" id="_edit_post">
+    <form role="form" method="POST" action="/admin/blog/post/save/" id="_edit_post" class="form">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ post.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} post</legend>
@@ -11,10 +11,10 @@
             <li><a href="#tab_publication" data-toggle="tab">Publication</a></li>
             <li><a href="#tab_revision" data-toggle="tab">Revision</a></li>
             <li><a href="#tab_comment" data-toggle="tab">Comments</a></li>
-            <li><a href="#tab_action" data-toggle="tab"><i class="icon-warning-sign"></i> Action</a></li>
         </ul>
 
         <div class="tab-content">
+
             <div class="tab-pane active span8" id="tab_main">
 
                 <div class="form-group">
@@ -30,103 +30,107 @@
 
             <div class="tab-pane span8" id="tab_category">
 
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_status">Category</label>
                     <div id="_categories"></div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_status">Tags</label>
                     <div id="_tags"></div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <a href="#" class="btn btn-success" onclick="addCategory(0); return false;">Add new category</a>
                     <a href="#" class="btn btn-success" onclick="addTag(0); return false;">Add new tag</a>
                 </div>
             </div>
 
+            <div class="tab-pane span8" id="tab_seo">
+
+                <div class="form-group">
+                    <label class="control-label" for="_description">Description</label>
+                    <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="_keywords">Keywords</label>
+                    <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="_do_ping">
+                        <input type="checkbox" name="_do_ping" id="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
+                    </label>
+                </div>
+
+            </div>
+
             <div class="tab-pane span8" id="tab_publication">
 
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_status">Status</label>
-                    <select id="_status" name="_status">
+                    <select id="_status" name="_status" class="form-control">
                         <option value="1"{% ifequal post.status 1 %} selected="selected"{% endifequal %}>Draft</option>
                         <option value="2"{% ifequal post.status 2 %} selected="selected"{% endifequal %}>Published</option>
                         <option value="3"{% ifequal post.status 3 %} selected="selected"{% endifequal %}>Hidden</option>
                     </select>
                 </div>
-                <div class="control-group">
-                    <label class="checkbox">
-                        <input type="checkbox" name="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
+                <div class="form-group">
+                    <label for="_sticked">
+                        <input type="checkbox" name="_sticked" id="_sticked"{% if post.sticked %}checked="checked"{% endif %} value="True"> Sticked
                     </label>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_revision">Published revision</label>
-                    <select id="_revision" name="_revision">
+                    <select id="_revision" name="_revision" class="form-control">
 
                     </select>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="_author">Author</label>
-                    <select id="_author" name="_author">
+                    <select id="_author" name="_author" class="form-control">
                     {% for usr in users %}
                         <option value="1"{% ifequal post.author usr %} selected="selected"{% endifequal %}>{{ usr.first_name }} {{ usr.last_name }}</option>
                     {% endfor %}
                     </select>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label" for="_published">Published</label>
                     <input type="text" id="_published" name="_published" value="{% if post.published %}{{ post.published|date:"Y/m/d" }}{% endif %}" class="form-control datepicker">
+                </div>
+                <div class="form-group">
                     <input type="text" id="_published_time" name="_published_time" value="{% if post.published %}{{ post.published|date:"H:i" }}{% endif %}" class="form-control">
                 </div>
 
             </div>
 
-            <div class="tab-pane span8" id="tab_seo">
-
-                <div class="control-group">
-                    <label class="control-label" for="_description">Description</label>
-                    <input type="text" id="_description" name="_description" placeholder="Description" value="{{ post.description }}" class="form-control">
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="_keywords">Keywords</label>
-                    <input type="text" id="_keywords" name="_keywords" placeholder="Keywords" value="{{ post.keywords }}" class="form-control">
-                </div>
-                <div class="control-group">
-                    <label class="checkbox">
-                        <input type="checkbox" name="_do_ping"{% if post.do_ping %}checked="checked"{% endif %} value="True"> Do ping
-                    </label>
-                </div>
-
-            </div>
-
             <div class="tab-pane span8" id="tab_revision">
-                <ul class="nav nav-pills nav-stacked" id="_revisions">
+                <div class="form-group">
+                    <ul class="nav nav-pills nav-stacked" id="_revisions">
 
-                </ul>
-                <div class="control-group">
+                    </ul>
+                </div>
+
+                <div class="form-group">
                     <a href="#" id="_edit_revision_new" class="btn btn-success" onclick="createRevision(); return false;">Create new</a>
                 </div>
-                <div id="_edit_revision" class="hide">
-                    <div class="control-group">
+                <div id="_edit_revision">
+                    <div class="form-group">
                         <label class="control-label" for="_title">Images</label>
                         <div><a href="#" class="btn btn-mini btn-info" onclick="addImage(); return false;">add image</a></div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="_title"></label>
+                    <div class="form-group">
                         <div id="postimages"></div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="_title">Teaser</label>
-                        <textarea id="_edit_revision_teaser" name="_edit_revision_teaser" class="form-control" rows="10"></textarea>
+                    <div class="form-group">
+                        <label class="control-label" for="_edit_revision_teaser">Teaser</label>
+                        <textarea id="_edit_revision_teaser" name="_edit_revision_teaser" id="_edit_revision_teaser" class="form-control" rows="10"></textarea>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="_slug">Content</label>
-                        <textarea id="_edit_revision_content" name="_edit_revision_content" class="form-control" rows="15"></textarea>
+                    <div class="form-group">
+                        <label class="control-label" for="_edit_revision_content">Content</label>
+                        <textarea id="_edit_revision_content" name="_edit_revision_content" id="_edit_revision_content" class="form-control" rows="15"></textarea>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <input type="hidden" id="_edit_revision_id" name="_edit_revision_id">
-                        <a href="#" id="_edit_revision_save_temp" class="btn btn-success" onclick="saveRevision(); return false;">Save temporary version</a>
-                        <a href="#" id="_edit_revision_save_version" class="btn btn-primary" onclick="fixRevision(); return false;">Fix the current version</a>
+                        <a href="#" id="_edit_revision_save_temp" class="btn btn-primary" onclick="saveRevision(); return false;">Save temporary version</a>
+                        <a href="#" id="_edit_revision_save_version" class="btn btn-danger" onclick="fixRevision(); return false;">Fix the current version</a>
                     </div>
 
                     <hr>
@@ -142,72 +146,76 @@
 
             <div class="tab-pane span8" id="tab_comment">
 
-                <div class="control-group">
-                    <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="_comments_enabled"{% if post.comments_enabled %}checked="checked"{% endif %} value="True"> Comments enabled
-                        </label>
-                    </div>
+                <div class="form-group">
+                    <label  for="_comments_enabled">
+                        <input type="checkbox" name="_comments_enabled" id="_comments_enabled"{% if post.comments_enabled %}checked="checked"{% endif %} value="True"> Comments enabled
+                    </label>
                 </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <label class="checkbox">
-                            <input type="checkbox" name="_comments_moderated"{% if post.comments_moderated %}checked="checked"{% endif %} value="True"> Comments moderated
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="tab-pane span8" id="tab_action">
-             <div class="control-group">
-                    <div class="controls">
-                        <input type="submit" name="_save_post" value="Save post" class="btn btn-primary">
-                    </div>
+                <div class="form-group">
+                    <label for="_comments_moderated">
+                        <input type="checkbox" name="_comments_moderated" id="_comments_moderated"{% if post.comments_moderated %}checked="checked"{% endif %} value="True"> Comments moderated
+                    </label>
                 </div>
 
             </div>
 
         </div>
-
-
+        <hr>
+        <div class="form-group">
+            <input type="submit" name="_save_post" value="Save post" class="btn btn-primary">
+        </div>
 
     </form>
 
 
     <div id="frmCategory" class="modal fade">
-        <div class="modal-body" id="window_category_body">
-        </div>
-        <div class="modal-footer" id="window_category_bottom">
-            <a href="#" class="btn btn-primary" onclick="saveCategory(); return false;">Save changes</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_category_body">
+                </div>
+                <div class="modal-footer" id="window_category_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveCategory(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="frmTag" class="modal fade">
-        <div class="modal-body" id="window_tag_body">
-        </div>
-        <div class="modal-footer" id="window_tag_bottom">
-            <a href="#" class="btn btn-primary" onclick="saveTag(); return false;">Save changes</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_tag_body">
+                </div>
+                <div class="modal-footer" id="window_tag_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveTag(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="frmImage" class="modal fade">
-        <div class="modal-body" id="window_image_body">
-        </div>
-        <div class="modal-footer" id="window_image_bottom">
-            <a href="#" class="btn btn-primary" onclick="saveImage(); return false;">Save changes</a>
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_image_body">
+                </div>
+                <div class="modal-footer" id="window_image_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveImage(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
         </div>
     </div>
 
     <div id="frmImageInsert" class="modal fade">
-        <div class="modal-body" id="window_image_insert_body">
-        </div>
-        <div class="modal-footer" id="window_image_insert_bottom">
-            <!--<a href="#" class="btn btn-primary" onclick="saveImage(); return false;">Save changes</a>-->
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-body" id="window_image_insert_body">
+            </div>
+            <div class="modal-footer" id="window_image_insert_bottom">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+            </div>
+            </div>
         </div>
     </div>
 
@@ -234,14 +242,14 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<label class="checkbox"><input type="checkbox" name="_category_check_' + item.id + '" id="_category_check_' + item.id + '" value="' + item.id +  '"';
+                        var row = '<div class="from-group"><label for="_category_check_' + item.id + '"><input type="checkbox" name="_category_check_' + item.id + '" id="_category_check_' + item.id + '" value="' + item.id +  '"';
                         var row_ = '<option id="_category_' + item.id + '" value="' + item.id + '"'
                         if ($.inArray(item.id, _list)>=0)
                         {
                             row += ' checked="checked"';
                             row_ += ' selected="selected"';
                         }
-                        row += ' onclick="if ($(\'#_category_check_' + item.id + '\').attr(\'checked\')==\'checked\') { $(\'#_category_' + item.id + '\').attr(\'selected\', \'selected\'); } else { $(\'#_category_' + item.id + '\').removeAttr(\'selected\'); }">' + item.name + '</label>';
+                        row += ' onclick="if ($(\'#_category_check_' + item.id + '\').attr(\'checked\')==\'checked\') { $(\'#_category_' + item.id + '\').attr(\'selected\', \'selected\'); } else { $(\'#_category_' + item.id + '\').removeAttr(\'selected\'); }"> ' + item.name + '</label></div>';
                         row_ += '>' + item.name + '</option>';
                         _data += row;
                         __data += row_;
@@ -321,14 +329,14 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<label class="checkbox"><input type="checkbox" name="_tag_check_' + item.id + '" id="_tag_check_' + item.id + '" value="' + item.id +  '"';
+                        var row = '<div class="from-group"><label for="_tag_check_' + item.id + '"><input type="checkbox" name="_tag_check_' + item.id + '" id="_tag_check_' + item.id + '" value="' + item.id +  '"';
                         var row_ = '<option id="_tag_' + item.id + '" value="' + item.id + '"'
                         if ($.inArray(item.id, _list)>=0)
                         {
                             row += ' checked="checked"';
                             row_ += ' selected="selected"';
                         }
-                        row += ' onclick="if ($(\'#_tag_check_' + item.id + '\').attr(\'checked\')==\'checked\') { $(\'#_tag_' + item.id + '\').attr(\'selected\', \'selected\'); } else { $(\'#_tag_' + item.id + '\').removeAttr(\'selected\'); }">' + item.name + '</label>';
+                        row += ' onclick="if ($(\'#_tag_check_' + item.id + '\').attr(\'checked\')==\'checked\') { $(\'#_tag_' + item.id + '\').attr(\'selected\', \'selected\'); } else { $(\'#_tag_' + item.id + '\').removeAttr(\'selected\'); }"> ' + item.name + '</label></div>';
                         row_ += '>' + item.name + '</option>';
                         _data += row;
                         __data += row_;
@@ -513,9 +521,9 @@
                         var item = data.items[i];
                         if(item.revision!='-1')
                         {
-                            var row = '<option value="' + item.id +  '"';
+                            var row = '<option value="' + item.revision +  '"';
                             {% if post.published_revision %}
-                            if (item.id=={{ post.published_revision }})
+                            if (item.revision=={{ post.published_revision }})
                             {
                                 row += ' selected="selected"';
                             }
@@ -552,7 +560,7 @@
             $('#_revisions_item_'+id).addClass('active');
         }
 
-        function editRevision(id)
+    function editRevision(id)
         {
             selectRevisionMenu(id);
             $('#_edit_revision').show();
@@ -578,9 +586,7 @@
             });
             loadImages();
             $('#_edit_revision_id').val(id);
-
             previewRevision(id);
-
         }
 
     function createRevision()
@@ -616,7 +622,7 @@
     {
         var data =
                 "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
-                        "excerpt=" + encodeURIComponent($('#_edit_revision_teaser').val()) + "&" +
+                        "teaser=" + encodeURIComponent($('#_edit_revision_teaser').val()) + "&" +
                         "content=" + encodeURIComponent($('#_edit_revision_content').val());
         $.ajax({
             url: '/admin/blog/revision/save/{{ post.id }}/',
@@ -638,7 +644,7 @@
     {
         var data =
                 "csrfmiddlewaretoken=" + encodeURIComponent($('[name="csrfmiddlewaretoken"]').val()) + "&" +
-                        "excerpt=" + encodeURIComponent($('#_edit_revision_teaser').val()) + "&" +
+                        "teaser=" + encodeURIComponent($('#_edit_revision_teaser').val()) + "&" +
                         "content=" + encodeURIComponent($('#_edit_revision_content').val());
         $.ajax({
             url: '/admin/blog/revision/fix/' + $('#_edit_revision_id').val() + '/',
@@ -666,6 +672,7 @@
             $('#_published').datepicker({
                 format: 'yyyy/mm/dd'
             });
+            $('#_edit_revision').hide();
 
             loadCategories();
             loadTags();

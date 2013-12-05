@@ -622,7 +622,7 @@ def blog_revision_create(request, post_id):
             revision.save()
         else:
             revision = revision[0]
-            revision.excerpt = ''
+            revision.teaser = ''
             revision.content = ''
             revision.created = datetime.now()
             revision.save()
@@ -656,7 +656,7 @@ def blog_revision_save(request, post_id):
             revision.save()
         else:
             revision = revision[0]
-        revision.excerpt = request.POST.get('teaser', '')
+        revision.teaser = request.POST.get('teaser', '')
         revision.content = request.POST.get('content', '')
         revision.created = datetime.now()
         revision.save()
@@ -686,7 +686,7 @@ def blog_revision_fix(request, id):
             max = 0
         revision = PostRevision.objects.create(
             post = revision_old.post,
-            excerpt = request.POST.get('teaser', ''),
+            teaser = request.POST.get('teaser', ''),
             content = request.POST.get('content', ''),
             revision = max + 1,
             created = datetime.now()
