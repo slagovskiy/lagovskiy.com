@@ -1,73 +1,7 @@
 /* Comments
  *************************************/
 /*
-section[role="comments"]
-{
-    padding-top: 30px;
-}
 
-section[role="comments"] .message-error
-{
-    border: 1px solid #FF0000;
-    background-color: #FFDDDD;
-    color: #FF0000;
-    padding: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
-section[role="comments"] ul
-{
-    list-style: none;
-    padding: 0;
-}
-
-section[role="comments"] ul li
-{
-    padding-bottom: 10px;
-}
-
-section[role="comments"] ul li h5
-{
-    font-size: 14px;
-    margin-bottom: 0px;
-}
-
-section[role="comments"] ul li h5 span
-{
-    font-family: sans-serif;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: .6;
-}
-
-
-section[role="comments"] ul li h5 time
-{
-    font-size: 10px;
-    margin-left: 30px;
-}
-
-section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
-{
-    font-size: 10px;
-    margin-left: 10px;
-    border: none;
-}
-
-.comments-title
-{
-    font-size: 24px;
-    font-weight: bold;
-    padding-bottom: 20px;
-}
-
-.comments-subtitle
-{
-    font-size: 24px;
-    font-weight: bold;
-}
 
 .comment-form table
 {
@@ -202,9 +136,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 body
 {
-    background-image: url("../img/grid.gif");
-    background-position: center top;
-
+    /*background-image: url("../img/grid.gif");
+    background-position: center top;*/
+    background-color: #FCFCFC;
     color: #18191a;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 14px;
@@ -435,6 +369,10 @@ section[role="comments"] input[type="radio"], input[type="checkbox"]
     float: none;
     padding-right: 20px;
 }
+section[role="comments"] .comment-form
+{
+    padding-bottom: 15px;
+}
 
 section[role="comments"] .comment-content
 {
@@ -442,6 +380,66 @@ section[role="comments"] .comment-content
     margin-right: 0px;
     padding-top: 10px;
 }
+
+section[role="comments"]
+{
+    padding-top: 30px;
+}
+
+section[role="comments"] ul
+{
+    list-style: none;
+    padding: 0;
+}
+
+section[role="comments"] ul li
+{
+    padding-bottom: 10px;
+}
+
+section[role="comments"] ul li h5
+{
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+section[role="comments"] ul li h5 span
+{
+    font-family: sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: .6;
+}
+
+
+section[role="comments"] ul li h5 time
+{
+    font-size: 10px;
+    margin-left: 30px;
+}
+
+section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
+{
+    font-size: 10px;
+    margin-left: 10px;
+    border: none;
+}
+
+.comments-title
+{
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.comments-subtitle
+{
+    font-size: 24px;
+    font-weight: bold;
+}
+
 /* Sidebar
  *************************************/
 
