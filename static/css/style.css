@@ -185,6 +185,18 @@ header[role="banner"] a
     color: #000000;
 }
 
+input[type="radio"]
+{
+    float: none;
+    padding-right: 20px;
+}
+
+input[type="checkbox"]
+{
+    float: none;
+    padding-right: 20px;
+}
+
 .logo
 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -364,11 +376,6 @@ section[role="comments"] .alert
     padding-bottom: 20px;
 }
 
-section[role="comments"] input[type="radio"], input[type="checkbox"]
-{
-    float: none;
-    padding-right: 20px;
-}
 section[role="comments"] .comment-form
 {
     padding-bottom: 15px;

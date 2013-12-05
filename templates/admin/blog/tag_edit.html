@@ -1,33 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-    <form class="form-horizontal" method="POST" action="/admin/blog/tag/save/">
+    <form class="form" method="POST" action="/admin/blog/tag/save/">
         {% csrf_token %}
         <input type="hidden" name="_id" value="{{ tag.id }}">
         <legend>{% if tag.id %}Edit{% else %}New{% endif %} tag</legend>
-        <div class="control-group">
-            <label class="control-label" for="_slug">Key</label>
-            <div class="controls">
-                <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}">
-            </div>
+        <div class="form-group">
+            <label for="_slug">Key</label>
+            <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ tag.slug }}" class="form-control">
         </div>
-        <div class="control-group">
-            <label class="control-label" for="_name">Name</label>
-            <div class="controls">
-                <input type="text" id="_name" name="_name" placeholder="Name" value="{{ tag.name }}">
-            </div>
+        <div class="form-group">
+            <label for="_name">Name</label>
+            <input type="text" id="_name" name="_name" placeholder="Name" value="{{ tag.name }}" class="form-control">
         </div>
-        <div class="control-group">
-            <label class="control-label" for="_sort">Sort</label>
-            <div class="controls">
-                <input type="text" id="_sort" name="_sort" placeholder="Sort" value="{{ tag.sort }}">
-            </div>
+        <div class="form-group">
+            <label for="_sort">Sort</label>
+            <input type="text" id="_sort" name="_sort" placeholder="Sort" value="{{ tag.sort }}" class="form-control">
         </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="_deleted"{% if tag.deleted %}checked="checked"{% endif %} value="True"> Deleted
-                </label>
-            </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="_deleted"{% if tag.deleted %}checked="checked"{% endif %} value="True"> Deleted
+            </label>
             {% if not ajax %}
                 <input type="submit" value="Save changes" class="btn btn-primary">
                 <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/tag/';">
