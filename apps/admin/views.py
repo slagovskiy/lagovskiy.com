@@ -744,6 +744,26 @@ def blog_revision_preview(request, id):
 
 ## comment
 
+def blog_comment_getlist(request, id):
+    if not check_access(request.user, 'canCommentDelete'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    post = None
+    backlink = ''
+    try:
+        post = Post.objects.get(id=id)
+    except:
+        logging.exception('Error get comments list')
+    t = loader.get_template('admin/blog/comment_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'post': post,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
 def blog_comment_delete(request, id):
     if not check_access(request.user, 'canCommentDelete'):
         return HttpResponseRedirect('/admin/ad/')

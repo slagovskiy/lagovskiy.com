@@ -36,7 +36,7 @@
             </td></tr>
         </table>
 
-        <section role="comments">
+        <section role="comments" id="comments">
             <div class="comments-title">{{ post.comment_count }} comment{% ifnotequal post.comment_count 1 %}s{% endifnotequal %}</div>
             <a href="#" name="add_comment" onclick="moveReply(0); return false;" class="comments-subtitle">Leave comment</a><div id="reply_0" class="reply comment-form"></div>
             {% if formmessage %}

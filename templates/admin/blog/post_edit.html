@@ -321,10 +321,10 @@
         function loadComments()
         {
             $.ajax({
-                url: '/admin/blog/comments/getlist/{{ post.id }}/',
+                url: '/admin/blog/comment/getlist/{{ post.id }}/',
                 cache: false,
                 success: function(data){
-                    $('comments').html(data);
+                    $('#comments').html(data);
                 },
                 error: function(e, xhr){
                     msg_error("Error","load comments list " + xhr);
@@ -700,6 +700,7 @@
             loadCategories();
             loadTags();
             loadRevisions(0);
+            loadComments();
 
         }
 
