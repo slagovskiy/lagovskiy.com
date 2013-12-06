@@ -17,6 +17,7 @@
             <div class="btn-group" data-toggle-name="is_private" data-toggle="buttons-radio" >
                 <button type="button" value="left" id="image_align_left" class="btn btn-default active" data-toggle="button" onclick="setLeft();">Left</button>
                 <button type="button" value="middle" id="image_align_middle" class="btn btn-default" data-toggle="button" onclick="setMiddle();">Middle</button>
+                <button type="button" value="stack" id="image_align_stack" class="btn btn-default" data-toggle="button" onclick="setStack();">Stack</button>
                 <button type="button" value="right" id="image_align_right" class="btn btn-default" data-toggle="button" onclick="setRight();">Right</button>
             </div>
             <input type="hidden" id="image_align" value="0">
@@ -69,37 +70,53 @@
     {
         // todo: need global copy button
         var desc = '{{ image.description }}';
-        var str = '<!-- IMAGE START --><div';
+        var str = '';
+        str += '<!-- IMAGE START --><div';
         if ($('#image_align').val()=='middle')
         {
-            str += " style=\"text-align: center; padding: 20px;\"";
+            str += " class=\"imgcenter\"";
             $('#image_align_left').removeClass('active');
             $('#image_align_midle').addClass('active');
             $('#image_align_right').removeClass('active');
+            $('#image_align_right').removeClass('stack');
+        }
+        if ($('#image_align').val()=='stack')
+        {
+            str += " class=\"imgstack\"";
+            $('#image_align_left').removeClass('active');
+            $('#image_align_midle').removeClass('active');
+            $('#image_align_right').removeClass('active');
+            $('#image_align_right').addClass('stack');
         }
         if ($('#image_align').val()=='left')
         {
-            str += " style=\"float: left; padding-right: 20px; padding-top: 20px; padding-bottom: 20px;\"";
+            str += " class=\"imgleft\"";
             $('#image_align_left').addClass('active');
             $('#image_align_midle').removeClass('active');
             $('#image_align_right').removeClass('active');
+            $('#image_align_right').removeClass('stack');
         }
         if ($('#image_align').val()=='right')
         {
-            str += " style=\"float: right; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;\"";
+            str += " class=\"imgright\"";
             $('#image_align_left').removeClass('active');
             $('#image_align_midle').removeClass('active');
             $('#image_align_right').addClass('active');
+            $('#image_align_right').removeClass('stack');
         }
         str += '>';
         str += '<a href="' + $('#image_big').val() + '" title="{{ image.description }}" class="img" rel="gallery"><img src="' + $('#image_small').val() + '" border="0"></a>';
-        str += '<div class="image-note">' + desc + '</div>';
+        if ($('#image_align').val()!='stack')
+        {
+            str += '<div class="image-note">' + desc + '</div>';
+        }
         str += '</div><!-- IMAGE END -->';
         $('#copy_code{{ image.id }}').val(str);
         $('#copy_code{{ image.id }}').select();
     }
     function setLeft() { $('#image_align').val('left'); reloadString(); }
     function setMiddle() { $('#image_align').val('middle'); reloadString(); }
+    function setStack() { $('#image_align').val('stack'); reloadString(); }
     function setRight() { $('#image_align').val('right'); reloadString(); }
     </script>
 {% endblock %}

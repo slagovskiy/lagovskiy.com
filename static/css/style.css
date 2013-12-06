@@ -305,6 +305,11 @@ article a.reading:hover
 
 article .imgcenter {
     text-align: center;
+    padding: 5px;
+}
+
+article .imgstack {
+    display: inline;
 }
 
 article .imgleft {
@@ -321,6 +326,11 @@ article .image-note
 {
     font-size: 12px;
     text-align: center;
+}
+
+article a.img img {
+    margin-left: 3px;
+    margin-bottom: 10px;
 }
 
 article a.img img {

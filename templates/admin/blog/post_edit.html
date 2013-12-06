@@ -135,9 +135,9 @@
 
                     <hr>
 
-                    <div id="_revision_preview" class="post">
+                    <article id="_revision_preview" class="post">
 
-                    </div>
+                    </article>
 
                 </div>
 
@@ -242,7 +242,7 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<div class="from-group"><label for="_category_check_' + item.id + '"><input type="checkbox" name="_category_check_' + item.id + '" id="_category_check_' + item.id + '" value="' + item.id +  '"';
+                        var row = '<div class="from-group"><label for="_category_check_' + item.id + '"><input type="checkbox" name="_categories" id="_category_check_' + item.id + '" value="' + item.id +  '"';
                         var row_ = '<option id="_category_' + item.id + '" value="' + item.id + '"'
                         if ($.inArray(item.id, _list)>=0)
                         {
@@ -329,7 +329,7 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<div class="from-group"><label for="_tag_check_' + item.id + '"><input type="checkbox" name="_tag_check_' + item.id + '" id="_tag_check_' + item.id + '" value="' + item.id +  '"';
+                        var row = '<div class="from-group"><label for="_tag_check_' + item.id + '"><input type="checkbox" name="_tags" id="_tag_check_' + item.id + '" value="' + item.id +  '"';
                         var row_ = '<option id="_tag_' + item.id + '" value="' + item.id + '"'
                         if ($.inArray(item.id, _list)>=0)
                         {
@@ -669,9 +669,7 @@
 
         function init()
         {
-            $('#_published').datepicker({
-                format: 'yyyy/mm/dd'
-            });
+            $('#_published').datepicker({dateFormat: "yy/mm/dd"});
             $('#_edit_revision').hide();
 
             loadCategories();

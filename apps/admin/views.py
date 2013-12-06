@@ -515,6 +515,25 @@ def blog_post_save(request):
         _categories = request.POST.getlist('_categories', [])
         _tags = request.POST.getlist('_tags', [])
 
+        logging.warning('====================================')
+        logging.warning(request.POST.get('_id', '0'))
+        logging.warning(request.POST.get('_slug', ''))
+        logging.warning(request.POST.get('_title', ''))
+        logging.warning(request.POST.get('_author', ''))
+        logging.warning(request.POST.get('_revision', 0))
+        logging.warning(request.POST.get('_description', ''))
+        logging.warning(request.POST.get('_keywords', ''))
+        logging.warning(request.POST.get('_status', '1'))
+        logging.warning(request.POST.get('_sticked', False))
+        logging.warning(request.POST.get('_comments_enabled', False))
+        logging.warning(request.POST.get('_comments_moderated', False))
+        logging.warning(request.POST.get('_do_ping', False))
+        logging.warning(request.POST.get('_published', ''))
+        logging.warning(request.POST.get('_published_time', '00:00'))
+        logging.warning(request.POST.getlist('_categories', []))
+        logging.warning(request.POST.getlist('_tags', []))
+        logging.warning('====================================')
+
         post = Post.objects.get(id=_id)
         post.slug = _slug
         post.title = _title
