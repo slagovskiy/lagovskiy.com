@@ -12,9 +12,9 @@
                 {% endif %}
             {% endif %}
             <p>{{ comment.content|escape|linebreaksbr }}</p>
-            <a href="#" onclick="return false;"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>&nbsp;&nbsp;&nbsp;
-            <a href="#" onclick="return false;"><i class="glyphicon glyphicon-ok"></i> Allow</a>&nbsp;&nbsp;&nbsp;
-            <a href="#" onclick="return false;"><i class="glyphicon glyphicon-remove"></i> Delete</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="loadComments(); return false;"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="loadComments(); return false;"><i class="glyphicon glyphicon-ok"></i> Allow</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="deleteComments({{ comment.id }}); return false;"><i class="glyphicon glyphicon-remove"></i> Delete</a>&nbsp;&nbsp;&nbsp;
         </li>
     {% endfor %}
 </ul>

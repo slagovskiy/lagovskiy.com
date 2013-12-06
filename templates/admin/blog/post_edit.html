@@ -318,7 +318,7 @@
     // comments
     //
 
-        function loadComments()
+    function loadComments()
         {
             $.ajax({
                 url: '/admin/blog/comment/getlist/{{ post.id }}/',
@@ -332,6 +332,19 @@
             });
         }
 
+    function deleteComments(id)
+        {
+            $.ajax({
+                url: '/admin/blog/comment/delete/' + id + '/',
+                cache: false,
+                success: function(data){
+                    loadComments;
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load comments list " + xhr);
+                }
+            });
+        }
     //
     // tag
     //
