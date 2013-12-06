@@ -375,6 +375,16 @@ article a.img:hover {
     border: 0px;
 }
 
+.pager .previous
+{
+    float: left;
+}
+
+.pager .next
+{
+    float: right;
+}
+
 section[role="comments"]
 {
     padding-top: 30px;

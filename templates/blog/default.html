@@ -29,16 +29,13 @@
     {% endfor %}
 
     {% ifnotequal posts.paginator.num_pages 1 %}
-        <nav id="pagination" class="pagination">
-            <ul>
-                {% if posts.has_previous %}
-                <li class="older"><a href="">&laquo; Older posts</a></li>
-                {% endif %}
-                {% if posts.has_next %}
-                <li class="newer"><a href="#">Newer posts &raquo;</a></li>
-                {% endif %}
-            </ul>
-        </nav>
+        <ul class="pager">
+            {% if posts.has_previous %}
+            <li class="previous"><a href="?page={{ posts.previous_page_number }}">&larr; Older</a></li>
+            {% endif %}
+            {% if posts.has_next %}
+            <li class="next"><a href="?page={{ posts.next_page_number }}">Newer &rarr;</a></li>
+        {% endif %}
     {% endifnotequal %}
     <script>
         $(document).ready(function() {

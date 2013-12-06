@@ -21,7 +21,7 @@ class Category(models.Model):
         return '/blog/category/' + self.slug + '/'
 
     def post_count(self):
-        return self.post_set.all().count()
+        return self.post_set.all().filter(status=2).count()
 
     class Meta:
         ordering = ['sort']
@@ -41,7 +41,7 @@ class Tag(models.Model):
         return '/blog/tag/' + self.slug + '/'
 
     def post_count(self):
-        return self.post_set.all().count()
+        return self.post_set.all().filter(status=2).count()
 
     class Meta:
         ordering = ['sort']
@@ -57,7 +57,8 @@ class Post(models.Model):
         (DRAFT_STATUS, 'Draft'),
         (PUBLISHED_STATUS, 'Public'),
         (HIDDEN_STATUS, 'Hidden'),
-        )
+    )
+
     slug = models.SlugField(max_length=255, verbose_name=u'Key',)
     title = models.TextField(max_length=255, verbose_name=u'Title',)
     author = models.ForeignKey(User, blank=True, null=True,)
