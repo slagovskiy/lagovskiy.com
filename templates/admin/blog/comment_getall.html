@@ -1,0 +1,20 @@
+{% load mathitils %}
+<ul>
+    {% for comment in post.comments %}
+        <li id="comment_{{ comment.id }}" style="padding-left: {{ comment.level|mul:30 }}px;">
+            <h5>{{ comment.name }}&nbsp;<span><time datetime="{{ comment.published|date:"F jS, Y H:i" }}" class="icon-date_8">{{ comment.published|date:"F jS, Y H:i" }}</time>&nbsp;<a href="#comment{{ comment.id }}" name="comment{{ comment.id }}">#</a></span></h5>
+            {% if comment.deleted %}
+                <p class="info">Comment was deleted by the administrator</p>
+            {% endif %}
+            {% if post.comments_moderated %}
+                {% if comment.allowed %}
+                    <p class="info">Comment was not allowed</p>
+                {% endif %}
+            {% endif %}
+            <p>{{ comment.content|escape|linebreaksbr }}</p>
+            <a href="#" onclick="return false;"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="return false;"><i class="glyphicon glyphicon-ok"></i> Allow</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="return false;"><i class="glyphicon glyphicon-remove"></i> Delete</a>&nbsp;&nbsp;&nbsp;
+        </li>
+    {% endfor %}
+</ul>

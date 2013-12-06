@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load mathitils %}
+
 {% block content %}
     <form role="form" method="POST" action="/admin/blog/post/save/" id="_edit_post" class="form">
         {% csrf_token %}
@@ -15,7 +17,7 @@
 
         <div class="tab-content">
 
-            <div class="tab-pane active span8" id="tab_main">
+            <div class="tab-pane active" id="tab_main">
 
                 <div class="form-group">
                     <label class="control-label" for="_title">Title</label>
@@ -28,7 +30,7 @@
 
             </div>
 
-            <div class="tab-pane span8" id="tab_category">
+            <div class="tab-pane" id="tab_category">
 
                 <div class="form-group">
                     <label class="control-label" for="_status">Category</label>
@@ -44,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane span8" id="tab_seo">
+            <div class="tab-pane" id="tab_seo">
 
                 <div class="form-group">
                     <label class="control-label" for="_description">Description</label>
@@ -62,7 +64,7 @@
 
             </div>
 
-            <div class="tab-pane span8" id="tab_publication">
+            <div class="tab-pane" id="tab_publication">
 
                 <div class="form-group">
                     <label class="control-label" for="_status">Status</label>
@@ -101,7 +103,7 @@
 
             </div>
 
-            <div class="tab-pane span8" id="tab_revision">
+            <div class="tab-pane" id="tab_revision">
                 <div class="form-group">
                     <ul class="nav nav-pills nav-stacked" id="_revisions">
 
@@ -144,8 +146,7 @@
             </div>
 
 
-            <div class="tab-pane span8" id="tab_comment">
-
+            <div class="tab-pane" id="tab_comment">
                 <div class="form-group">
                     <label  for="_comments_enabled">
                         <input type="checkbox" name="_comments_enabled" id="_comments_enabled"{% if post.comments_enabled %}checked="checked"{% endif %} value="True"> Comments enabled
@@ -156,6 +157,11 @@
                         <input type="checkbox" name="_comments_moderated" id="_comments_moderated"{% if post.comments_moderated %}checked="checked"{% endif %} value="True"> Comments moderated
                     </label>
                 </div>
+
+
+                <section role="comments" id="comments">
+
+                </section>
 
             </div>
 
@@ -305,6 +311,25 @@
                     msg_error("Error", "save category " + xhr);
                 }
             })
+        }
+
+
+    //
+    // comments
+    //
+
+        function loadComments()
+        {
+            $.ajax({
+                url: '/admin/blog/comments/getlist/{{ post.id }}/',
+                cache: false,
+                success: function(data){
+                    $('comments').html(data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load comments list " + xhr);
+                }
+            });
         }
 
     //
@@ -675,6 +700,7 @@
             loadCategories();
             loadTags();
             loadRevisions(0);
+
         }
 
         init();

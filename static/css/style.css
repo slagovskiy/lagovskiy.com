@@ -390,6 +390,11 @@ section[role="comments"]
     padding-top: 30px;
 }
 
+section[role="comments"] p.info
+{
+    color: red;
+}
+
 section[role="comments"] .alert
 {
     margin-top: 20px;
