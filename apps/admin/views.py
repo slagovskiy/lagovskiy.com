@@ -782,6 +782,24 @@ def blog_comment_delete(request, id):
     else:
         return HttpResponseRedirect('/')
 
+def blog_comment_restore(request, id):
+    if not check_access(request.user, 'canCommentDelete'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    comment = None
+    backlink = ''
+    try:
+        backlink = request.GET.get('backlink', '')
+        comment = Comment.objects.get(id=id)
+        comment.deleted = False
+        comment.save()
+    except:
+        logging.exception('Error get comment for restore')
+    if backlink!='':
+        return HttpResponseRedirect(backlink)
+    else:
+        return HttpResponseRedirect('/')
+
 def blog_comment_allow(request, id):
     if not check_access(request.user, 'canCommentDelete'):
         return HttpResponseRedirect('/admin/ad/')

@@ -7,14 +7,20 @@
                 <p class="info">Comment was deleted by the administrator</p>
             {% endif %}
             {% if post.comments_moderated %}
-                {% if comment.allowed %}
+                {% if not comment.allowed %}
                     <p class="info">Comment was not allowed</p>
                 {% endif %}
             {% endif %}
             <p>{{ comment.content|escape|linebreaksbr }}</p>
-            <a href="#" onclick="loadComments(); return false;"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>&nbsp;&nbsp;&nbsp;
-            <a href="#" onclick="loadComments(); return false;"><i class="glyphicon glyphicon-ok"></i> Allow</a>&nbsp;&nbsp;&nbsp;
+            <!--<a href="#" onclick="loadComments(); return false;"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>&nbsp;&nbsp;&nbsp;-->
+            {% if post.comments_moderated %}{% if not comment.allowed %}
+            <a href="#" onclick="allowComments({{ comment.id }}); return false;"><i class="glyphicon glyphicon-ok"></i> Allow</a>&nbsp;&nbsp;&nbsp;
+            {% endif %}{% endif %}
+            {% if comment.deleted %}
+            <a href="#" onclick="restoreComments({{ comment.id }}); return false;"><i class="glyphicon glyphicon-remove"></i> Restore</a>&nbsp;&nbsp;&nbsp;
+            {% else %}
             <a href="#" onclick="deleteComments({{ comment.id }}); return false;"><i class="glyphicon glyphicon-remove"></i> Delete</a>&nbsp;&nbsp;&nbsp;
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

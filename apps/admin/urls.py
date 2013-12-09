@@ -41,6 +41,7 @@ urlpatterns = patterns('',
 
     url(r'^blog/comment/getlist/(?P<id>[-\w]+)/', 'apps.admin.views.blog_comment_getlist'),
     url(r'^blog/comment/delete/(?P<id>[-\w]+)/', 'apps.admin.views.blog_comment_delete'),
+    url(r'^blog/comment/restore/(?P<id>[-\w]+)/', 'apps.admin.views.blog_comment_restore'),
     url(r'^blog/comment/allow/(?P<id>[-\w]+)/', 'apps.admin.views.blog_comment_allow'),
 
     url(r'^blog/revision/getlist/(?P<post_id>[-\w]+)/', 'apps.admin.views.blog_revision_getlist'),

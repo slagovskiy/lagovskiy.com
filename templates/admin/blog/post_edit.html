@@ -338,7 +338,35 @@
                 url: '/admin/blog/comment/delete/' + id + '/',
                 cache: false,
                 success: function(data){
-                    loadComments;
+                    loadComments();
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load comments list " + xhr);
+                }
+            });
+        }
+
+    function allowComments(id)
+        {
+            $.ajax({
+                url: '/admin/blog/comment/allow/' + id + '/',
+                cache: false,
+                success: function(data){
+                    loadComments();
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load comments list " + xhr);
+                }
+            });
+        }
+
+    function restoreComments(id)
+        {
+            $.ajax({
+                url: '/admin/blog/comment/restore/' + id + '/',
+                cache: false,
+                success: function(data){
+                    loadComments();
                 },
                 error: function(e, xhr){
                     msg_error("Error","load comments list " + xhr);
