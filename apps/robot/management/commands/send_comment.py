@@ -32,7 +32,7 @@ class Command(NoArgsCommand):
                 if task.subscribe.active:
                     c = Context(
                             {
-                            'comment': task.comment,
+                            'task': task
                             }
                     )
 
