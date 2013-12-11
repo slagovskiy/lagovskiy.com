@@ -1,6 +1,7 @@
 {% load markup %}
-<p>{{ comment.name }} add new comment for <a href="http://lagovskiy.com{{ comment.post.get_absolute_url }}">{{ comment.post.title }}</a>.</p>
+{% load strutils %}
+<p>{{ task.comment.name }} add new comment for <a href="http://lagovskiy.com{{ task.comment.post.get_absolute_url }}">{{ task.comment.post.title }}</a>.</p>
 
-<p>{{ comment.content|escape|linebreaksbr }}</p>
+<p>{{ task.comment.content|escape|linebreaksbr }}</p>
 
-<p><small>Sended by lagovskiy.com {{ comment.published }}. Please do not reply directly to this email. You have received this email because you have registered on our site and asked to receive our email notifications. If you prefer not to receive emails from lagovskiy.com, please <a href="http://lagovskiy.com/blog/unsubscribe/">unsubscribe</a>.</small></p>
+<p><small>Sended by lagovskiy.com {{ task.comment.published }}. Please do not reply directly to this email. You have received this email because you have registered on our site and asked to receive our email notifications. If you prefer not to receive emails from lagovskiy.com, please <a href="http://lagovskiy.com/blog/unsubscribe/{{ task.subscribe.id }}-{{ task.subscribe.email|sha224f }}/">unsubscribe</a>.</small></p>
