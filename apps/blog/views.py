@@ -10,6 +10,7 @@ from datetime import timedelta
 from datetime import datetime
 
 import logging
+import hashlib
 
 from apps.blog.models import *
 from apps.blog.settings import *
@@ -247,3 +248,27 @@ def comment_save(request, id):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def unsubscribe(request, hash):
+    log = logging.getLogger('blog.unsubscribe')
+    message = ''
+    try:
+        id = str(hash).split('-')[0]
+        email = str(hash).split('-')[1].replace(':', '')
+        s = SubscribePost.objects.get(id=id)
+        if s:
+            if hashlib.sha224(s.email).hexdigest() == email:
+                s.active = False
+                s.save()
+                message = 'You unsubscribed from ' + s.post.title
+    except:
+        log.exception('Error unsubscribe')
+    t = loader.get_template('message.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+

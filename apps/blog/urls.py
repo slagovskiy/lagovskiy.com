@@ -7,5 +7,6 @@ urlpatterns = patterns('',
     url(r'^view/(?P<slug>[-\w]+)/$', 'apps.blog.views.post_view'),
     url(r'^comment/count/(?P<post_id>[-\w]+)/$', 'apps.blog.views.comment_count'),
     url(r'^comment/save/(?P<id>[-\w]+)/$', 'apps.blog.views.comment_save'),
+    url(r'^unsubscribe/(?P<hash>[-:\w]+)/$', 'apps.blog.views.unsubscribe'),
 )
 
