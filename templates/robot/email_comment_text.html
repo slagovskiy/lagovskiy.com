@@ -1,0 +1,6 @@
+{% load markup %}
+{{ comment.name }} add new comment for {{ comment.post.title }} [http://lagovskiy.com{{ comment.post.get_absolute_url }}].
+
+{{ comment.content|escape|linebreaksbr }}
+
+Sended by lagovskiy.com {{ comment.published }}. Please do not reply directly to this email. You have received this email because you have registered on our site and asked to receive our email notifications. If you prefer not to receive emails from lagovskiy.com, please unsubscribe [http://lagovskiy.com/blog/unsubscribe/].

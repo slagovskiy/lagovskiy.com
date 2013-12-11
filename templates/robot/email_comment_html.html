@@ -1,0 +1,6 @@
+{% load markup %}
+<p>{{ comment.name }} add new comment for <a href="http://lagovskiy.com{{ comment.post.get_absolute_url }}">{{ comment.post.title }}</a>.</p>
+
+<p>{{ comment.content|escape|linebreaksbr }}</p>
+
+<p><small>Sended by lagovskiy.com {{ comment.published }}. Please do not reply directly to this email. You have received this email because you have registered on our site and asked to receive our email notifications. If you prefer not to receive emails from lagovskiy.com, please <a href="http://lagovskiy.com/blog/unsubscribe/">unsubscribe</a>.</small></p>
