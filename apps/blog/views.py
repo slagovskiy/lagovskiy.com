@@ -263,11 +263,15 @@ def unsubscribe(request, hash):
                 message = 'You unsubscribed from ' + s.post.title
     except:
         log.exception('Error unsubscribe')
+    return HttpResponseRedirect('/blog/message/?m=' + message)
+
+def message(request):
+    log = logging.getLogger('blog.message')
     t = loader.get_template('message.html')
     c = RequestContext(
         request,
         {
-            'message': message,
+            'message': request.GET.get('m', ''),
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
