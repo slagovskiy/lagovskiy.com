@@ -4,3 +4,67 @@ function isValidEmailAddress(emailAddress)
     return pattern.test(emailAddress);
 }
 
+
+function validateCommentForm(item)
+{
+    var e;
+    var ret = true;
+    e = item.find('#comment_content');
+    if (e.val()=='')
+    {
+        e.css({backgroundColor: '#f2dede'});
+        ret = false;
+    }
+    else
+    {
+        e.css({backgroundColor: ''});
+    }
+    e = item.find('#comment_name');
+    if(e.val()=='')
+    {
+        e.css({backgroundColor: '#f2dede'});
+        ret = false;
+    }
+    else
+    {
+        e.css({backgroundColor: ''});
+    }
+    e = item.find('#comment_email');
+    if(e.val()!='')
+    {
+        if (!isValidEmailAddress(e.val()))
+        {
+            e.css({backgroundColor: '#f2dede'});
+            ret = false;
+        }
+        else
+        {
+            e.css({backgroundColor: ''});
+        }
+    }
+    else
+    {
+        e.css({backgroundColor: ''});
+    }
+    if(item.find('input[name=comment_subscribe]').prop('checked'))
+    {
+        if(e.val()=='')
+        {
+            e.css({backgroundColor: '#f2dede'});
+            ret = false;
+        }
+         else
+        {
+            if (!isValidEmailAddress(e.val()))
+            {
+                e.css({backgroundColor: '#f2dede'});
+                ret = false;
+            }
+            else
+            {
+                e.css({backgroundColor: ''});
+            }
+        }
+   }
+    return ret;
+}

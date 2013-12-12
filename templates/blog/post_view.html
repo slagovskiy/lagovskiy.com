@@ -72,8 +72,8 @@
                     </div>
                     <div id="subform0" class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            {% if post.comments_moderated %}<label>Comments will be published after validation</label>{% endif %}
-                            <input type="submit" id="comment_submit" name="comment_submit" class="btn btn-default" value="Send">
+                            {% if post.comments_moderated %}<label>Comments will be published after validation</label>&nbsp;&nbsp;{% endif %}
+                            <input type="submit" id="comment_submit" name="comment_submit" class="btn btn-default" value="Send" onclick="if(!validateCommentForm($(this).closest('form'))) return false;">
                         </div>
                     </div>
                 </form>
