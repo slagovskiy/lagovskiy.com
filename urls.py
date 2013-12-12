@@ -22,16 +22,16 @@ urlpatterns = patterns('',
     #url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 
     # RSS
-    url(r'^rss/', DefaultRSS()),
     url(r'^rss/tag/(?P<tag>[-\w]+)/$', TagRSS()),
     url(r'^rss/category/(?P<category>[-\w]+)/$', CategoryRSS()),
     url(r'^rss/comments/(?P<post>[-\w]+)/$', CommentsRSS()),
+    url(r'^rss/', DefaultRSS()),
 
     # ATOM
-    url(r'^atom/', DefaultAtom()),
     url(r'^atom/tag/(?P<tag>[-\w]+)/$', TagAtom()),
     url(r'^atom/category/(?P<category>[-\w]+)/$', CategoryAtom()),
     url(r'^atom/comments/(?P<post>[-\w]+)/$', CommentsAtom()),
+    url(r'^atom/', DefaultAtom()),
 
     (r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
