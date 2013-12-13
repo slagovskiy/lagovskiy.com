@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Banners</h2>
+    <div id="data"></div>
+    <a href="#" class="btn btn-success" onclick="editData(0); return false;">Add new</a>
+    <a href="#" class="btn btn-success" onclick="loadData(); return false;">Reload</a>
+
+    <div id="frmBanner" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_body">
+                </div>
+                <div class="modal-footer" id="window_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function init()
+        {
+            loadData();
+        }
+
+        function editData(id)
+        {
+            $.ajax({
+                url: '/admin/banner/edit/' + id + '/?ajax=1',
+                cache: false,
+                success: function(data){
+                    $('#window_body').html(data);
+                    $('#frmBanner').modal({
+                        keyboard: false
+                    }).show();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "load edit form");
+                }
+            });
+        }
+
+        function saveData()
+        {
+            var form = $('#window_body').find('form');
+            var data = form.serialize();
+            $.ajax({
+                url: form.attr('action'),
+                type: form.attr('method'),
+                cache: false,
+                data: data,
+                success: function(data){
+                    $('#frmBanner').modal('hide');
+                    msg_info("saved","");
+                    loadData();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "save banner " + xhr);
+                }
+            })
+        }
+
+        function moveUp(id)
+        {
+            $.ajax({
+                url: '/admin/banner/moveup/' + id + '/',
+                cache: false,
+                success: function(data){
+                    msg_info("saved","");
+                    loadData();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "move up " + xhr);
+                }
+            })
+        }
+
+        function moveDown(id)
+        {
+            $.ajax({
+                url: '/admin/banner/movedown/' + id + '/',
+                cache: false,
+                success: function(data){
+                    msg_info("saved","");
+                    loadData();
+                },
+                error: function(e, xhr){
+                    msg_error("Error", "move down " + xhr);
+                }
+            })
+        }
+
+        function loadData()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/banner/getall/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover">';
+                    _data += '<thead><tr>' +
+                            '<th>id</th>' +
+                            '<th>name</th>' +
+                            '<th>hidden</th>' +
+                            '<th>sort</th>' +
+                            '<th></th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td>' + item.id + '</td>' +
+                                '<td><a href="/admin/banner/edit/' + item.id + '/" onclick="editData(' + item.id + '); return false;">' + (item.deleted=="True"?'<strike>':'') + item.name + (item.deleted=="True"?'</strike>':'') + '</a></td>' +
+                                '<td>' + item.hidden + '</td>' +
+                                '<td>' + item.sort + '</td>' +
+                                '<td><a href="#" class="glyphicon glyphicon-arrow-up" onclick="moveUp(' + item.id + '); return false;"></a><a href="#" class="glyphicon glyphicon-arrow-down" onclick="moveDown(' + item.id + '); return false;"></a></td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load category list " + xhr);
+                }
+            });
+        }
+
+        init();
+    </script>
+{% endblock %}

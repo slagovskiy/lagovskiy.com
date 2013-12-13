@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="form" method="POST" action="/admin/banner/save/">
+    {% csrf_token %}
+    <input type="hidden" name="_id" value="{{ category.id }}">
+    <legend>{% if banner.id %}Edit{% else %}New{% endif %} banner</legend>
+    <div class="form-group">
+        <label class="control-label" for="_slug">Key</label>
+        <input type="text" id="_slug" name="_slug" placeholder="Key" value="{{ banner.slug }}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="_name">Name</label>
+        <input type="text" id="_name" name="_name" placeholder="Name" value="{{ banner.name }}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="_sort">Sort</label>
+        <input type="text" id="_sort" name="_sort" placeholder="Sort" value="{{ banner.sort }}" class="form-control">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="_sort">Code</label>
+        <textarea id="_code" name="_code" placeholder="Code" class="form-control" rows="5">{{ banner.code }}</textarea>
+    </div>
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="_hidden"{% if banner.hidden %}checked="checked"{% endif %} value="True"> Hidden
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            <input type="checkbox" name="_deleted"{% if banner.deleted %}checked="checked"{% endif %} value="True"> Deleted
+        </label>
+    </div>
+    <div class="form-group">
+        {% if not ajax %}
+        <input type="submit" value="Save changes" class="btn btn-primary">
+            <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/category/';">
+        {% endif %}
+    </div>
+</form>
+{% endblock %}

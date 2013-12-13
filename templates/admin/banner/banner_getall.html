@@ -1,0 +1,14 @@
+{
+    "message": "{{ message }}",
+    "items":
+    [{% for banner in banners %}
+        {
+            "id": "{{ banner.id }}",
+            "slug": "{{ banner.slug }}",
+            "name": "{{ banner.name }}",
+            "sort": "{{ banner.sort }}",
+            "hidden": "{{ banner.hidden }}"
+            "deleted": "{{ banner.deleted }}"
+        }{% if not forloop.last %},{% endif %}
+    {% endfor %}]
+}
