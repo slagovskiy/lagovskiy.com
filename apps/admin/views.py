@@ -20,6 +20,8 @@ from apps.blog.models import *
 
 from apps.robot.models import *
 
+from apps.banner.models import *
+
 from utils import *
 
 from apps.blog.models import Category
@@ -122,7 +124,7 @@ def blog_category(request):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
-    t = loader.get_template('admin/blog/category.html')
+    t = loader.get_template('admin/blog/default.html')
     c = RequestContext(
         request,
         {
@@ -179,7 +181,7 @@ def blog_category_edit(request, id):
             category = Category.objects.get(id=id)
     except:
         logging.exception('Error get category item')
-    t = loader.get_template('admin/blog/category_edit.html')
+    t = loader.get_template('admin/blog/banner_edit.html')
     c = RequestContext(
         request,
         {
@@ -1191,3 +1193,161 @@ def robot_pingresult_subpostdate(request, id, d_y, d_m, d_d):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+
+
+## banners
+
+def banner(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    t = loader.get_template('admin/banner/default.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def banner_getall(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    banners = []
+    try:
+        banners = Banner.objects.all()
+    except:
+        logging.exception('Error get categories list')
+    t = loader.get_template('admin/banner/banner_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'banners': banners,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def banner_getlist(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    banners = []
+    try:
+        banners = Banner.objects.all().filter(deleted=False)
+    except:
+        logging.exception('Error get banners list')
+    t = loader.get_template('admin/banner/banner_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'banners': banners,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def banner_edit(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    banner = None
+    try:
+        if id!=0:
+            banner = Banner.objects.get(id=id)
+    except:
+        logging.exception('Error get category item')
+    t = loader.get_template('admin/banner/banner_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'banner': banner,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
+def banner_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        category = None
+        tmp_id = request.POST.get('_id', 0)
+        tmp_name = request.POST.get('_name', '')
+        tmp_slug = request.POST.get('_slug', '')
+        tmp_sort = request.POST.get('_sort', 100)
+        tmp_deleted = request.POST.get('_deleted', False)
+        if (tmp_name==''): tmp_name = 'qwerty'
+        if (tmp_slug==''): tmp_slug = 'qwerty'
+        if (tmp_sort==''): tmp_sort = 1000
+        logging.warning(tmp_id)
+        if tmp_id!='':
+            category = Category.objects.get(id=tmp_id)
+            category.slug = tmp_slug
+            category.name = tmp_name
+            category.sort = tmp_sort
+            if tmp_deleted=="True":
+                category.deleted = True
+            else:
+                category.deleted = False
+            category.save()
+        else:
+            category = Category.objects.create(
+                slug = tmp_slug,
+                name = tmp_name,
+                sort = tmp_sort,
+                )
+            if tmp_deleted=="True":
+                category.deleted = True
+            else:
+                category.deleted = False
+            category.save()
+    except:
+        logging.exception('Error save or add category')
+    return  HttpResponseRedirect('/admin/blog/category/')
+
+def banner_moveup(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        categories = Category.objects.all()
+        category = None
+        category_prev = None
+        for category in categories:
+            if category.id==int(id):
+                if category_prev:
+                    tmp = category.sort
+                    category.sort = category_prev.sort
+                    category_prev.sort = tmp
+                    category.save()
+                    category_prev.save()
+            category_prev = category
+    except:
+        logging.exception('Error move up category')
+    return  HttpResponseRedirect('/admin/blog/category/')
+
+def banner_movedown(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        categories = Category.objects.all()
+        category = None
+        category_prev = None
+        for category in reversed(categories):
+            if category.id==int(id):
+                if category_prev:
+                    tmp = category.sort
+                    category.sort = category_prev.sort
+                    category_prev.sort = tmp
+                    category.save()
+                    category_prev.save()
+            category_prev = category
+    except:
+        logging.exception('Error move up category')
+    return  HttpResponseRedirect('/admin/blog/category/')
+
