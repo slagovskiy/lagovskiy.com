@@ -51,6 +51,14 @@ urlpatterns = patterns('',
     url(r'^blog/revision/fix/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_fix'),
     url(r'^blog/revision/preview/(?P<id>[-\w]+)/', 'apps.admin.views.blog_revision_preview'),
 
+    url(r'^banner/getall/', 'apps.admin.views.banner_getall'),
+    url(r'^banner/getlist/', 'apps.admin.views.banner_getlist'),
+    url(r'^banner/save/', 'apps.admin.views.banner_save'),
+    url(r'^banner/edit/(?P<id>[-\w]+)/', 'apps.admin.views.banner_edit'),
+    url(r'^banner/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.banner_moveup'),
+    url(r'^banner/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.banner_movedown'),
+    url(r'^banner/', 'apps.admin.views.banner'),
+
     ####################################################
     #  robot
     ####################################################
