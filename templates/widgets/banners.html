@@ -1,0 +1,7 @@
+<section id="banners">
+{% for banner in banners %}
+    <div{% if banner.hidden %} style="display: none;"{% endif %}>
+        {{ banner.code|safe }}
+    </div>
+{% endfor %}
+</section>
