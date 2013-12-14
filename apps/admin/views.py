@@ -1198,7 +1198,7 @@ def robot_pingresult_subpostdate(request, id, d_y, d_m, d_d):
 
 ## banners
 
-def banner(request):
+def banner_index(request):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
@@ -1274,40 +1274,53 @@ def banner_save(request):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
     try:
-        category = None
+        banner = None
         tmp_id = request.POST.get('_id', 0)
         tmp_name = request.POST.get('_name', '')
         tmp_slug = request.POST.get('_slug', '')
+        tmp_code = request.POST.get('_code', '')
         tmp_sort = request.POST.get('_sort', 100)
         tmp_deleted = request.POST.get('_deleted', False)
+        tmp_hidden = request.POST.get('_hidden', False)
+        logging.warning(tmp_deleted)
+        logging.warning(tmp_hidden)
         if (tmp_name==''): tmp_name = 'qwerty'
         if (tmp_slug==''): tmp_slug = 'qwerty'
         if (tmp_sort==''): tmp_sort = 1000
-        logging.warning(tmp_id)
         if tmp_id!='':
-            category = Category.objects.get(id=tmp_id)
-            category.slug = tmp_slug
-            category.name = tmp_name
-            category.sort = tmp_sort
+            banner = Banner.objects.get(id=tmp_id)
+            banner.slug = tmp_slug
+            banner.name = tmp_name
+            banner.code = tmp_code
+            banner.sort = tmp_sort
             if tmp_deleted=="True":
-                category.deleted = True
+                banner.deleted = True
             else:
-                category.deleted = False
-            category.save()
+                banner.deleted = False
+            if tmp_hidden=="True":
+                banner.hidden = True
+            else:
+                banner.hidden = False
+            banner.save()
         else:
-            category = Category.objects.create(
+            banner = Banner.objects.create(
                 slug = tmp_slug,
                 name = tmp_name,
+                code = tmp_code,
                 sort = tmp_sort,
                 )
             if tmp_deleted=="True":
-                category.deleted = True
+                banner.deleted = True
             else:
-                category.deleted = False
-            category.save()
+                banner.deleted = False
+            if tmp_hidden=="True":
+                banner.hidden = True
+            else:
+                banner.hidden = False
+            banner.save()
     except:
-        logging.exception('Error save or add category')
-    return  HttpResponseRedirect('/admin/blog/category/')
+        logging.exception('Error save or add banner')
+    return  HttpResponseRedirect('/admin/banner/')
 
 def banner_moveup(request, id):
     if not check_access(request.user, 'canAdmin'):

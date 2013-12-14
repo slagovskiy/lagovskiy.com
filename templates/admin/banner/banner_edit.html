@@ -2,7 +2,7 @@
 {% block content %}
 <form class="form" method="POST" action="/admin/banner/save/">
     {% csrf_token %}
-    <input type="hidden" name="_id" value="{{ category.id }}">
+    <input type="hidden" name="_id" value="{{ banner.id }}">
     <legend>{% if banner.id %}Edit{% else %}New{% endif %} banner</legend>
     <div class="form-group">
         <label class="control-label" for="_slug">Key</label>
