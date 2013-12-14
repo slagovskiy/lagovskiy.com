@@ -271,24 +271,20 @@ article a.img:hover {
     border: 0px;
 }
 
-.share{float:left;overflow: hidden;margin-left:19px;}
+.share{float:left;overflow: hidden;margin-left:16px;}
 .twitter{float:left;margin-right:5px;padding:5px 0;}
 .twitter{margin-left: 0;}
-.twitter a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll -42px 0 transparent;}
-.twitter a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat -42px -21px;}
-.twitter a:active{opacity:1;background:url("../img/share.icons.png") no-repeat -42px -42px;}
+.twitter a{display:block;width:16px;height:16px;background:url("../img/icon/twitter_bw.png") no-repeat transparent;}
+.twitter a:hover{background:url("../img/icon/twitter.png") no-repeat;}
 .facebook{float:left;margin-right:5px;padding:5px 0;}
-.facebook a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll 0 0 transparent;}
-.facebook a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat 0px -21px;}
-.facebook a:active{opacity:1;background:url("../img/share.icons.png") no-repeat 0px -42px;}
+.facebook a{display:block;width:16px;height:16px;background:url("../img/icon/facebook_bw.png") no-repeat transparent;}
+.facebook a:hover{background:url("../img/icon/facebook.png") no-repeat}
 .vkontakte{float:left;margin-right:5px;padding:5px 0;}
-.vkontakte a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll -21px 0 transparent;}
-.vkontakte a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat -21px -21px;}
-.vkontakte a:active{opacity:1;background:url("../img/share.icons.png") no-repeat -21px -42px;}
+.vkontakte a{display:block;width:16px;height:16px;background:url("../img/icon/vk_bw.png") no-repeat transparent;}
+.vkontakte a:hover{background:url("../img/icon/vk.png") no-repeat;}
 .googleplus{float:left;padding:5px 0;margin-right:0;}
-.googleplus a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll -63px 0 transparent;}
-.googleplus a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat -63px -21px;}
-.googleplus a:active{opacity:1;background:url("../img/share.icons.png") no-repeat -63px -42px;}
+.googleplus a{display:block;width:16px;height:16px;background:url("../img/icon/g+_bw.png") no-repeat transparent;}
+.googleplus a:hover{background:url("../img/icon/g+.png") no-repeat;}
 
 .pager .previous
 {
