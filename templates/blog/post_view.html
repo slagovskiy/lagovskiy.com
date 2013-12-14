@@ -25,8 +25,24 @@
                 <td><span class="icon-user_12"><a href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a></span></td>
                 <td><span class="icon-view_12">{{ post.visitor_count }}</span></td>
                 <td><span class="icon-comment_12">{{ post.comment_count }}</span></td>
+                <td>
+                    <div class="share">
+                        <div class="twitter">
+                            <a href="http://twitter.com/intent/tweet?text={{ post.title }}+http://lagovskiy.com{{ post.get_absolute_url }}" title="Опубликовать ссылку в Twitter" target="_blank"></a>
+                        </div>
+                        <div class="vkontakte">
+                            <a href="http://vk.com/share.php?url=http://lagovskiy.com{{ post.get_absolute_url }}" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+                        </div>
+                        <div class="facebook">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=http://lagovskiy.com{{ post.get_absolute_url }}" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+                        </div>
+                        <div class="googleplus">
+                            <a href="https://plus.google.com/share?url=http://lagovskiy.com{{ post.get_absolute_url }}" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, 'Опубликовать ссылку в Google Plus', 'width=800,height=300'); return false"></a>
+                        </div>
+                    </div>
+                </td>
             </tr>
-            <tr><td colspan="4">
+            <tr><td colspan="5">
                 <span class="icon-category_12">{% for category in post.categories.all %}
                 <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}, {% endif %}
                 {% endfor %}</span>

@@ -271,36 +271,24 @@ article a.img:hover {
     border: 0px;
 }
 
-.post .infopanel .share{float:left;overflow: hidden;margin-left:19px;}
-
-.post .infopanel .twitter{float:left;margin-right:5px;padding:5px 0;}
-.post .infopanel_sandbox .twitter{margin-left: 0;}
-.post .infopanel .twitter a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll -42px 0 transparent;}
-.post .infopanel .twitter a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -42px -21px;}
-.post .infopanel .twitter a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -42px -42px;}
-
-
-.post .infopanel .facebook{float:left;margin-right:5px;padding:5px 0;}
-.post .infopanel .facebook a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll 0 0 transparent;}
-.post .infopanel .facebook a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat 0px -21px;}
-.post .infopanel .facebook a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat 0px -42px;}
-
-.post .infopanel .vkontakte{float:left;margin-right:5px;padding:5px 0;}
-.post .infopanel .vkontakte a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll -21px 0 transparent;}
-.post .infopanel .vkontakte a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -21px -21px;}
-.post .infopanel .vkontakte a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -21px -42px;}
-
-.post .infopanel .googleplus{float:left;padding:5px 0;margin-right:0;}
-.post .infopanel .googleplus a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll -63px 0 transparent;}
-.post .infopanel .googleplus a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -63px -21px;}
-.post .infopanel .googleplus a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -63px -42px;}
-
-.post .infopanel .author{position:relative;float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("/images/bg-user2.gif") no-repeat scroll 0 7px transparent;padding-left: 17px;}
-.post .infopanel .author a{font-size:9px;color:#CF0000;text-decoration:none;}
-.post .infopanel .author a:hover{color:#f17d7d;}
-.post .infopanel .author .rating{font-size:9px;color:#C6C;font-weight: bold;cursor: help;position:relative;top:-5px;left:0;white-space: nowrap;}
-.post .infopanel .author a.googleplus_profile{color:#eee;}
-.post .infopanel .author a.googleplus_profile:hover{color:blue;}
+.share{float:left;overflow: hidden;margin-left:19px;}
+.twitter{float:left;margin-right:5px;padding:5px 0;}
+.twitter{margin-left: 0;}
+.twitter a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll -42px 0 transparent;}
+.twitter a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat -42px -21px;}
+.twitter a:active{opacity:1;background:url("../img/share.icons.png") no-repeat -42px -42px;}
+.facebook{float:left;margin-right:5px;padding:5px 0;}
+.facebook a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll 0 0 transparent;}
+.facebook a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat 0px -21px;}
+.facebook a:active{opacity:1;background:url("../img/share.icons.png") no-repeat 0px -42px;}
+.vkontakte{float:left;margin-right:5px;padding:5px 0;}
+.vkontakte a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll -21px 0 transparent;}
+.vkontakte a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat -21px -21px;}
+.vkontakte a:active{opacity:1;background:url("../img/share.icons.png") no-repeat -21px -42px;}
+.googleplus{float:left;padding:5px 0;margin-right:0;}
+.googleplus a{opacity: 0.5;display:block;width:19px;height:19px;background:url("../img/share.icons.png") no-repeat scroll -63px 0 transparent;}
+.googleplus a:hover{opacity:1;background:url("../img/share.icons.png") no-repeat -63px -21px;}
+.googleplus a:active{opacity:1;background:url("../img/share.icons.png") no-repeat -63px -42px;}
 
 .pager .previous
 {
