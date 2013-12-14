@@ -1,94 +1,3 @@
-/* Comments
- *************************************/
-/*
-
-
-.comment-form table
-{
-    width: 100%;
-}
-.comment-form table.label
-{
-    width: 150px;
-}
-.comment-form .input-full
-{
-    width: 100%;
-    font-size: 16px;
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(0,0,0,0.5);
-}
-
-.comment-form .label
-{
-    width: 100px;
-    padding-bottom: 10px;
-}
-
-.comment-form p
-{
-    font-size: 12px;
-}
-
-.comment-form .input-with-text
-{
-    width: 100%;
-    font-size: 16px;
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(0,0,0,0.5);
-}
-
-.comment-form .input-button
-{
-    width: 200px;
-    font-size: 16px;
-    padding: 5px;
-    margin-bottom: 10px;
-    border: 2px solid rgba(0,0,0,0.5);
-    background-color: rgba(0,0,0,0.5);
-    color: rgba(255,255,255,1);
-}
-
-.reply{
-    padding-top: 10px;
-}
-*/
-/* Pagination
- *************************************/
-/*
-.pagination
-{
-    font-size: 16px;
-}
-
-.pagination ul
-{
-    list-style: none;
-    padding-left: 0px;
-}
-
-.pagination ul li.older
-{
-    float: left;
-    padding-bottom: 30px;
-}
-
-.pagination ul li.newer
-{
-    float: right;
-    padding-bottom: 30px;
-}
-
-.pagination ul li a:hover
-{
-    background: #fff4cc;
-}
-*/
-
-
-
 /** 404 *********************************************/
 /*
 .page404 {
@@ -121,19 +30,6 @@
     border-bottom: 1px dashed rgba(0,0,0,0.5);
 }
 */
-/** bootstrap fix ***********************************/
-/*
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    line-height: inherit;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-weight: bold;
-}
-.container {
-    padding-right: 0;
-    padding-left: 0;
-}
-*/
-
 body
 {
     /*background-image: url("../img/grid.gif");
@@ -375,6 +271,37 @@ article a.img:hover {
     border: 0px;
 }
 
+.post .infopanel .share{float:left;overflow: hidden;margin-left:19px;}
+
+.post .infopanel .twitter{float:left;margin-right:5px;padding:5px 0;}
+.post .infopanel_sandbox .twitter{margin-left: 0;}
+.post .infopanel .twitter a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll -42px 0 transparent;}
+.post .infopanel .twitter a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -42px -21px;}
+.post .infopanel .twitter a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -42px -42px;}
+
+
+.post .infopanel .facebook{float:left;margin-right:5px;padding:5px 0;}
+.post .infopanel .facebook a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll 0 0 transparent;}
+.post .infopanel .facebook a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat 0px -21px;}
+.post .infopanel .facebook a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat 0px -42px;}
+
+.post .infopanel .vkontakte{float:left;margin-right:5px;padding:5px 0;}
+.post .infopanel .vkontakte a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll -21px 0 transparent;}
+.post .infopanel .vkontakte a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -21px -21px;}
+.post .infopanel .vkontakte a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -21px -42px;}
+
+.post .infopanel .googleplus{float:left;padding:5px 0;margin-right:0;}
+.post .infopanel .googleplus a{opacity: 0.5;display:block;width:19px;height:19px;background:url("/images/share.icons.png?r=1") no-repeat scroll -63px 0 transparent;}
+.post .infopanel .googleplus a:hover{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -63px -21px;}
+.post .infopanel .googleplus a:active{opacity:1;background:url("/images/share.icons.png?r=1") no-repeat -63px -42px;}
+
+.post .infopanel .author{position:relative;float:left;line-height:27px;margin-left:19px;font-weight: 700;background: url("/images/bg-user2.gif") no-repeat scroll 0 7px transparent;padding-left: 17px;}
+.post .infopanel .author a{font-size:9px;color:#CF0000;text-decoration:none;}
+.post .infopanel .author a:hover{color:#f17d7d;}
+.post .infopanel .author .rating{font-size:9px;color:#C6C;font-weight: bold;cursor: help;position:relative;top:-5px;left:0;white-space: nowrap;}
+.post .infopanel .author a.googleplus_profile{color:#eee;}
+.post .infopanel .author a.googleplus_profile:hover{color:blue;}
+
 .pager .previous
 {
     float: left;
@@ -502,6 +429,17 @@ section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
 .sidebar .sub
 {
     padding-left: 20px;
+}
+
+.banners a
+{
+    font-size: 12px;
+}
+
+.banners div div
+{
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 /* Icon

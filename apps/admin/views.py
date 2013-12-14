@@ -124,7 +124,7 @@ def blog_category(request):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
-    t = loader.get_template('admin/blog/default.html')
+    t = loader.get_template('admin/blog/category.html')
     c = RequestContext(
         request,
         {
@@ -181,7 +181,7 @@ def blog_category_edit(request, id):
             category = Category.objects.get(id=id)
     except:
         logging.exception('Error get category item')
-    t = loader.get_template('admin/blog/banner_edit.html')
+    t = loader.get_template('admin/blog/category_edit.html')
     c = RequestContext(
         request,
         {

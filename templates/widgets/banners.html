@@ -1,7 +1,10 @@
-<section id="banners">
+<section id="banners" class="banners">
+<a href="#" onclick="$('#banners_block').css({display: 'block'}); $(this).hide(); return false;">Counters</a>
+<div id="banners_block" style="display: none;">
 {% for banner in banners %}
     <div{% if banner.hidden %} style="display: none;"{% endif %}>
         {{ banner.code|safe }}
     </div>
 {% endfor %}
+</div>
 </section>
