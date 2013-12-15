@@ -22,7 +22,9 @@ from apps.robot.models import *
 
 from apps.banner.models import *
 
-from utils import *
+from apps.statistic.models import *
+
+from urllib2 import unquote
 
 from apps.blog.models import Category
 
@@ -1364,3 +1366,21 @@ def banner_movedown(request, id):
         logging.exception('Error move up category')
     return  HttpResponseRedirect('/admin/blog/category/')
 
+def visitors_by_point(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    visitors = []
+    try:
+        visitors = Visitor.objects.all().filter(point=unquote(request.GET.get('p', '')))
+    except:
+        logging.exception('Error get visitors list')
+    t = loader.get_template('admin/statistic/visitors_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'visitors': visitors,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))

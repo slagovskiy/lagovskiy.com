@@ -13,6 +13,7 @@
             <li><a href="#tab_publication" data-toggle="tab">Publication</a></li>
             <li><a href="#tab_revision" data-toggle="tab">Revision</a></li>
             <li><a href="#tab_comment" data-toggle="tab">Comments</a></li>
+            <li><a href="#tab_visitors" data-toggle="tab">Visitors</a></li>
         </ul>
 
         <div class="tab-content">
@@ -164,6 +165,16 @@
                 </section>
 
             </div>
+
+            <div class="tab-pane" id="tab_visitors" style="padding-top: 20px;">
+                <div class="form-group">
+                    <input type="button" name="_reload_visitors" id="_reload_visitors" value="Realod" class="btn btn-success">
+                </div>
+                <div id="_visitors_data">
+                    {{ post.get_absolute_url|urlencode:"" }}
+                </div>
+            </div>
+
 
         </div>
         <hr>

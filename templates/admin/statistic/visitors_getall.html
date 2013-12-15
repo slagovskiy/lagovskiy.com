@@ -1,0 +1,13 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for visitor in visitors %}
+    {
+    "date": "{{ visitor.date|date:"Y/m/d" }}",
+    "time": "{{ visitor.date|date:"h:i:s" }}",
+    "user_agent": "{{ visitor.user_agent }}",
+    "ip_address": "{{ visitor.ip_address }}",
+    "referer": "{{ visitor.referor }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}

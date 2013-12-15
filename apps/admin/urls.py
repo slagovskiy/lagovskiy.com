@@ -54,9 +54,11 @@ urlpatterns = patterns('',
     url(r'^banner/getall/', 'apps.admin.views.banner_getall'),
     url(r'^banner/save/', 'apps.admin.views.banner_save'),
     url(r'^banner/edit/(?P<id>[-\w]+)/', 'apps.admin.views.banner_edit'),
-    url(r'^banner/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.banner_moveup'),
-    url(r'^banner/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.banner_movedown'),
+    #url(r'^banner/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.banner_moveup'),
+    #url(r'^banner/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.banner_movedown'),
     url(r'^banner/', 'apps.admin.views.banner_index'),
+
+    url(r'^visitors/', 'apps.admin.views.visitors_by_point'),
 
     ####################################################
     #  robot
