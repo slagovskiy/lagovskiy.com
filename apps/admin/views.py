@@ -1426,3 +1426,23 @@ def blog_subscribe_getlist(request, id):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def blog_subscribe_edit(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    subscribe = None
+    try:
+        if id!=0:
+            subscribe = SubscribePost.objects.get(id=id)
+    except:
+        logging.exception('Error get subscribe item')
+    t = loader.get_template('admin/blog/subscribe_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'subscribe': subscribe,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+

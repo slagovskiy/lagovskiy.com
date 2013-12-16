@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form" method="POST" action="/admin/blog/subscribe/save/">
+        {% csrf_token %}
+        <input type="hidden" name="_id" value="{{ subscribe.id }}">
+        <legend>{% if subscribe.id %}Edit{% else %}New{% endif %} subscribe</legend>
+        <div class="form-group">
+            <label for="_slug">Email</label>
+            <input type="text" id="_email" name="_email" placeholder="Email" value="{{ subscribe.email }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="_active"{% if subscribe.active %}checked="checked"{% endif %} value="True"> Active
+            </label>
+            {% if not ajax %}
+                <input type="submit" value="Save changes" class="btn btn-primary">
+                <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/post/';">
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
