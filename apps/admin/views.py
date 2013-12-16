@@ -1405,3 +1405,24 @@ def visitors_dates(request):
             },
         processors=[custom_proc])
     return HttpResponse(t.render(c))
+
+def blog_subscribe_getlist(request, id):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    subscribs = []
+    try:
+        post = Post.objects.get(id=id)
+        subscribs = SubscribePost.objects.all().filter(post=post)
+    except:
+        logging.exception('Error get subscribe list')
+    t = loader.get_template('admin/blog/subscribe_getall.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'subscribs': subscribs,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
