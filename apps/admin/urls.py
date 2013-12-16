@@ -58,6 +58,7 @@ urlpatterns = patterns('',
     #url(r'^banner/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.banner_movedown'),
     url(r'^banner/', 'apps.admin.views.banner_index'),
 
+    url(r'^visitors/date/', 'apps.admin.views.visitors_dates'),
     url(r'^visitors/', 'apps.admin.views.visitors_by_point'),
 
     ####################################################

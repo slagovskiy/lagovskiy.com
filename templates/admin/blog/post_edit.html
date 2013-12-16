@@ -168,10 +168,10 @@
 
             <div class="tab-pane" id="tab_visitors" style="padding-top: 20px;">
                 <div class="form-group">
-                    <input type="button" name="_reload_visitors" id="_reload_visitors" value="Realod" class="btn btn-success">
+                    <input type="button" name="_reload_visitors" id="_reload_visitors" value="Realod" class="btn btn-success" onclick="loadVisitors('{{ post.get_absolute_url|urlencode:"" }}');">
                 </div>
                 <div id="_visitors_data">
-                    {{ post.get_absolute_url|urlencode:"" }}
+
                 </div>
             </div>
 
@@ -472,6 +472,81 @@
         }
 
     //
+    // visitors
+    //
+
+    function loadVisitors(point)
+    {
+        var _data = '';
+        $.ajax({
+            url: '/admin/visitors/date/?p='+point,
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                _data = '';
+
+                if(data.message!='') msg_info('', data.message);
+                var j=0;
+                for(var i in data.items)
+                {
+                    var item = data.items[i];
+                    _data += '<div><a href="#" onclick="loadVisitor(\'' + point + '\', \'' + item.day + '\', \'' + j + '\'); return false;">' + item.day + '</a><div id="_vsitor_' + j + '"></div></div>';
+                    j++;
+                }
+                $('#_visitors_data').html(_data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","load visitors date " + xhr);
+            }
+        });
+    }
+
+    function loadVisitor(point, date, id)
+    {
+        var _data = '';
+        $.ajax({
+            url: '/admin/visitors/?d=' + date + '&p='+point,
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                _data = '<table class="table table-hover">';
+                _data += '<thead><tr>';
+                _data += '<th>time</th>';
+                _data += '<th>ip</th>';
+                _data += '<th>browser</th>';
+                _data += '<th>os</th>';
+                _data += '<th>mobile</th>';
+                _data += '<th>tablet</th>';
+                _data += '<th>pc</th>';
+                _data += '<th>bot</th>';
+                _data += '</tr></thead>';
+                if(data.message!='') msg_info('', data.message);
+                var j=0;
+                for(var i in data.items)
+                {
+                    var item = data.items[i];
+                    _data += '<tr>';
+                    _data += '<td>' + item.time + '</td>';
+                    _data += '<td>' + item.ip_address + '</td>';
+                    _data += '<td>' + item.browser_family + '</td>';
+                    _data += '<td>' + item.os_family + '</td>';
+                    _data += '<td>' + item.is_mobile + '</td>';
+                    _data += '<td>' + item.is_tablet + '</td>';
+                    _data += '<td>' + item.is_pc + '</td>';
+                    _data += '<td>' + item.is_bot + '</td>';
+                    _data += '</tr>';
+                    j++;
+                }
+                _data += '</table>';
+                $('#_vsitor_'+id).html(_data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","load visitors date " + xhr);
+            }
+        });
+    }
+
+    //
     // images
     //
 
@@ -753,7 +828,7 @@
             loadTags();
             loadRevisions(0);
             loadComments();
-
+            loadVisitors('{{ post.get_absolute_url|urlencode:"" }}');
         }
 
         init();
