@@ -1410,6 +1410,7 @@ def blog_subscribe_getlist(request, id):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
+    post = None
     subscribs = []
     try:
         post = Post.objects.get(id=id)
@@ -1446,3 +1447,32 @@ def blog_subscribe_edit(request, id):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def blog_subscribe_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    try:
+        subscribe = None
+        tmp_id = request.POST.get('_id', 0)
+        tmp_email = request.POST.get('_email', '')
+        tmp_active = request.POST.get('_active', False)
+        if tmp_id!='':
+            subscribe = SubscribePost.objects.get(id=tmp_id)
+            subscribe.email = tmp_email
+            if tmp_active=="True":
+                subscribe.active = True
+            else:
+                subscribe.active = False
+            subscribe.save()
+        else:
+            subscribe = SubscribePost.objects.create(
+                email = tmp_email
+                )
+            if tmp_active=="True":
+                subscribe.active = True
+            else:
+                subscribe.active = False
+            subscribe.save()
+    except:
+        logging.exception('Error save or add subscribe')
+    return  HttpResponseRedirect('/admin/blog/post/')

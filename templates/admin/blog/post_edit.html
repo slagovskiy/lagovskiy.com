@@ -252,7 +252,7 @@
                 <div class="modal-body" id="window_subscribe_body">
                 </div>
                 <div class="modal-footer" id="window_bottom">
-                    <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-primary" onclick="saveSubscribe(); return false;">Save changes</a>
                     <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
                 </div>
             </div>
@@ -547,6 +547,26 @@
                 msg_error("Error", "load edit form");
             }
         });
+    }
+
+    function saveSubscribe()
+    {
+        var form = $('#window_subscribe_body').find('form');
+        var data = form.serialize();
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            cache: false,
+            data: data,
+            success: function(data){
+                $('#frmSubscribe').modal('hide');
+                msg_info("saved","");
+                loadSubscribe();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "save subscribe " + xhr);
+            }
+        })
     }
 
     //

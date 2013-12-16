@@ -62,6 +62,7 @@ urlpatterns = patterns('',
     url(r'^visitors/', 'apps.admin.views.visitors_by_point'),
 
     url(r'^blog/subscribe/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_subscribe_edit'),
+    url(r'^blog/subscribe/save/(?P<id>[-\w]+)/', 'apps.admin.views.blog_subscribe_save'),
     url(r'^blog/subscribe/(?P<id>[-\w]+)/', 'apps.admin.views.blog_subscribe_getlist'),
 
     ####################################################
