@@ -246,6 +246,18 @@
         </div>
     </div>
 
+    <div id="frmSubscribe" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_subscribe_body">
+                </div>
+                <div class="modal-footer" id="window_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveData(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
     //
@@ -480,6 +492,62 @@
                 }
             })
         }
+
+    //
+    // visitors
+    //
+
+    function loadSubscribe(point)
+    {
+        _data = '';
+        $.ajax({
+            url: '/admin/blog/subscribe/{{ post.id }}/',
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                _data = '<table class="table table-hover">';
+                _data += '<thead><tr>' +
+                        '<th>id</th>' +
+                        '<th>email</th>' +
+                        '<th>active</th>' +
+                        '</tr></thead><tbody>';
+
+                if(data.message!='') msg_info('', data.message);
+                for(var i in data.items)
+                {
+                    var item = data.items[i];
+                    var row = '<tr>' +
+                            '<td>' + item.id + '</td>' +
+                            '<td><a href="/admin/blog/subscribe/edit/' + item.id + '/" onclick="editSubscribe(' + item.id + '); return false;">' + (item.active!="True"?'<strike>':'') + item.email + (item.active!="True"?'</strike>':'') + '</a></td>' +
+                            '<td>' + item.active + '</td>' +
+                            '</tr>';
+                    _data += row;
+                }
+                _data += "</tbody></table>";
+                $('#_subscribe_data').html(_data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","load tag list " + xhr);
+            }
+        });        var _data = '';
+    }
+
+    function editSubscribe(id)
+    {
+        $.ajax({
+            url: '/admin/blog/subscribe/edit/' + id + '/?ajax=1',
+            cache: false,
+            success: function(data){
+                $('#window_subscribe_body').html(data);
+                $('#frmSubscribe').modal({
+                    keyboard: false
+                }).show();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "load edit form");
+            }
+        });
+    }
 
     //
     // visitors
@@ -839,6 +907,7 @@
             loadRevisions(0);
             loadComments();
             loadVisitors('{{ post.get_absolute_url|urlencode:"" }}');
+            loadSubscribe();
         }
 
         init();
