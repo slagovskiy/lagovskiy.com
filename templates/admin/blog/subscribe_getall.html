@@ -1,0 +1,11 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for subscribe in subscribs %}
+    {
+    "id": "{{ subscribe.id }}",
+    "email": "{{ subscribe.email }}",
+    "active": "{{ subscribe.active }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}
