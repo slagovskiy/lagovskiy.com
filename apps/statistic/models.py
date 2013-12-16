@@ -13,6 +13,16 @@ class Visitor(models.Model):
     referer = models.CharField(max_length=255, default='', null=True, blank=True, verbose_name=u'Referer',)
     user = models.ForeignKey(User, null=True, blank=True, verbose_name=u'User',)
     date = models.DateTimeField(auto_now_add=True, verbose_name=u'Published',)
+    browser_family = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name=u'Browser family',)
+    browser_version = models.CharField(max_length=10, default='', null=True, blank=True, verbose_name=u'Browser version',)
+    os_family = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name=u'OS family',)
+    os_version = models.CharField(max_length=10, default='', null=True, blank=True, verbose_name=u'OS version',)
+    device_family = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name=u'Devise family',)
+    is_mobile = models.BooleanField(default=False, verbose_name=u'is_mobile',)
+    is_tablet = models.BooleanField(default=False, verbose_name=u'is_tablet',)
+    is_touch_capable = models.BooleanField(default=False, verbose_name=u'is_touch_capable',)
+    is_pc = models.BooleanField(default=False, verbose_name=u'is_pc',)
+    is_bot = models.BooleanField(default=False, verbose_name=u'is_bot',)
 
     def __unicode__(self):
         return "%s %s", (self.date, self.point)
