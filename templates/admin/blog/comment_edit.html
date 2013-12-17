@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+    <form class="form" method="POST" action="/admin/blog/comment/save/">
+        {% csrf_token %}
+        <input type="hidden" name="_id" value="{{ comment.id }}">
+        <legend>{% if comment.id %}Edit{% else %}New{% endif %} comment</legend>
+        <div class="form-group">
+            <label for="_name">Name</label>
+            <input type="text" id="_name" name="_name" placeholder="Name" value="{{ comment.name }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="_sort">Email</label>
+            <input type="text" id="_email" name="_email" placeholder="Email" value="{{ comment.email }}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="_sort">Comment</label>
+            <textarea id="_content" name="_content" class="form-control" rows="7">{{ comment.content }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="_deleted"{% if comment.deleted %}checked="checked"{% endif %} value="True"> Deleted
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="_allowed"{% if comment.allowed %}checked="checked"{% endif %} value="True"> Allowed
+            </label>
+        </div>
+        <div class="form-group">
+            {% if not ajax %}
+                <input type="submit" value="Save changes" class="btn btn-primary">
+                <input type="button" value="Cancel" class="btn" onclick="location.href='/admin/blog/post/';">
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}

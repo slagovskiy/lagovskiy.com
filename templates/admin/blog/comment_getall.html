@@ -13,6 +13,7 @@
             {% endif %}
             <p>{{ comment.content|escape|linebreaksbr }}</p>
             <!--<a href="#" onclick="loadComments(); return false;"><i class="glyphicon glyphicon-share-alt"></i> Reply</a>&nbsp;&nbsp;&nbsp;-->
+            <a href="#" onclick="editComment({{ comment.id }}); return false;"><i class="glyphicon glyphicon-pencil"></i> Edit</a>&nbsp;&nbsp;&nbsp;
             {% if post.comments_moderated %}{% if not comment.allowed %}
             <a href="#" onclick="allowComments({{ comment.id }}); return false;"><i class="glyphicon glyphicon-ok"></i> Allow</a>&nbsp;&nbsp;&nbsp;
             {% endif %}{% endif %}

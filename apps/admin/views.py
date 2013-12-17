@@ -768,6 +768,25 @@ def blog_comment_getlist(request, id):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def blog_comment_edit(request, id):
+    if not check_access(request.user, 'canCommentDelete'):
+        return HttpResponseRedirect('/admin/ad/')
+    message = ''
+    comment = None
+    try:
+        comment = Comment.objects.get(id=id)
+    except:
+        logging.exception('Error get comment for edit')
+    t = loader.get_template('admin/blog/comment_edit.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'comment': comment,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
 def blog_comment_delete(request, id):
     if not check_access(request.user, 'canCommentDelete'):
         return HttpResponseRedirect('/admin/ad/')

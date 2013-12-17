@@ -259,6 +259,19 @@
         </div>
     </div>
 
+    <div id="frmComment" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" id="window_comment_body">
+                </div>
+                <div class="modal-footer" id="window_bottom">
+                    <a href="#" class="btn btn-primary" onclick="saveComment(); return false;">Save changes</a>
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
     //
     // category
@@ -406,6 +419,44 @@
                 }
             });
         }
+
+    function editComment(id)
+    {
+        $.ajax({
+            url: '/admin/blog/comment/edit/' + id + '/?ajax=1',
+            cache: false,
+            success: function(data){
+                $('#window_comment_body').html(data);
+                $('#frmComment').modal({
+                    keyboard: false
+                }).show();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "load edit form");
+            }
+        });
+    }
+
+    function saveComment()
+    {
+        var form = $('#window_comment_body').find('form');
+        var data = form.serialize();
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            cache: false,
+            data: data,
+            success: function(data){
+                $('#frmComment').modal('hide');
+                msg_info("saved","");
+                loadComments();
+            },
+            error: function(e, xhr){
+                msg_error("Error", "save comment " + xhr);
+            }
+        })
+    }
+
     //
     // tag
     //
