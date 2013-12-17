@@ -787,6 +787,21 @@ def blog_comment_edit(request, id):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def blog_comment_save(request):
+    if not check_access(request.user, 'canAdmin'):
+        return HttpResponseRedirect('/admin/ad/')
+    try:
+        tmp_id = request.POST.get('_id', 0)
+        tmp_name = request.POST.get('_name', '')
+        tmp_content = request.POST.get('_content', '')
+        comment = Comment.objects.get(id=tmp_id)
+        comment.name = tmp_name
+        comment.content = tmp_content
+        comment.save()
+    except:
+        logging.exception('Error save comment')
+    return  HttpResponseRedirect('/admin/blog/post/')
+
 def blog_comment_delete(request, id):
     if not check_access(request.user, 'canCommentDelete'):
         return HttpResponseRedirect('/admin/ad/')
