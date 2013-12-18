@@ -6,7 +6,7 @@ PROJECT_ROOT = op.dirname(op.realpath(__file__))
 sys.path.insert(0, op.join(PROJECT_ROOT, 'apps'))
 
 #DEBUG = True
-TEMPLATE_DEBUG = DEBUG
+#TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     ('Sergey Lagovskiy', 'slagovskiy@gmail.com'),
@@ -181,7 +181,8 @@ Example for settings_local.py
 import os.path as op
 from settings import PROJECT_ROOT
 
-#DEBUG = True
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 DB_PATH = op.join(PROJECT_ROOT, 'db')
 
