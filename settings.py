@@ -5,7 +5,7 @@ import os.path as op
 PROJECT_ROOT = op.dirname(op.realpath(__file__))
 sys.path.insert(0, op.join(PROJECT_ROOT, 'apps'))
 
-DEBUG = True
+#DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -180,6 +180,8 @@ Example for settings_local.py
 
 import os.path as op
 from settings import PROJECT_ROOT
+
+#DEBUG = True
 
 DB_PATH = op.join(PROJECT_ROOT, 'db')
 
