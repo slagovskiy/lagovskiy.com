@@ -679,10 +679,10 @@
                     _data += '<td>' + item.ip_address + '</td>';
                     _data += '<td>' + item.browser_family + '</td>';
                     _data += '<td>' + item.os_family + '</td>';
-                    _data += '<td>' + item.is_mobile + '</td>';
-                    _data += '<td>' + item.is_tablet + '</td>';
-                    _data += '<td>' + item.is_pc + '</td>';
-                    _data += '<td>' + item.is_bot + '</td>';
+                    _data += '<td>' + imageForTrue(item.is_mobile) + '</td>';
+                    _data += '<td>' + imageForTrue(item.is_tablet) + '</td>';
+                    _data += '<td>' + imageForTrue(item.is_pc) + '</td>';
+                    _data += '<td>' + imageForTrue(item.is_bot) + '</td>';
                     _data += '</tr>';
                     j++;
                 }

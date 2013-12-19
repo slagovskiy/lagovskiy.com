@@ -68,3 +68,15 @@ function validateCommentForm(item)
    }
     return ret;
 }
+
+function imageForTrue(item)
+{
+    if(item=='True')
+    {
+        return '<i class="glyphicon glyphicon-ok-sign"></i>';
+    }
+    else
+    {
+        return '';
+    }
+}
