@@ -26,7 +26,7 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         report = []
-        for p in Post.objects.all().filter(do_ping=True):
+        for p in Post.objects.all().filter(do_ping=True, status = Post.PUBLISHED_STATUS):
             logging.info('Page: ' + DOMAIN_NAME + p.get_absolute_url())
             for s in PingServer.objects.all().filter(deleted=False):
                 try:
