@@ -477,7 +477,8 @@ def blog_post_edit(request, id):
             post = Post.objects.create(
                 title = "New post",
                 slug = random_str(16),
-                author = request.user
+                author = request.user,
+                do_ping = True
             )
             post.save()
         else:
