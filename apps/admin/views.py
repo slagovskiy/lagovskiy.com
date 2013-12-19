@@ -852,6 +852,9 @@ def blog_comment_allow(request, id):
         if comment:
             comment.allowed = True
             comment.save()
+            post = comment.post
+            post.do_ping = True
+            post.save()
             subscribe = SubscribePost.objects.all().filter(post=comment.post, email=comment.email)
             if subscribe.count()>0:
                 tmp = subscribe[0]

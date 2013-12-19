@@ -199,6 +199,9 @@ def comment_save(request, id):
                     allowed = not post.comments_moderated,
                     )
                 comment.save()
+                if not post.comments_moderated:
+                    post.do_ping = True
+                    post.save()
                 log.info(u'Saved new comment #' + str(comment.id) + ' in post #' + str(post.id))
                 #try:
                 #    sended_comments = []
