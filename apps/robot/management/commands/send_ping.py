@@ -14,6 +14,7 @@ from apps.robot.models import *
 from apps.robot.settings import *
 from settings import *
 
+from django.core.mail import EmailMultiAlternatives
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -54,33 +55,24 @@ class Command(NoArgsCommand):
                     report.append([pr.date, pr.passed, pr.pingserver, pr.message])
                     logging.warn(s.address + ' (page) ' + str(pr.date) + ' ' + pr.message)
                     #logging.exception('Error send ping')
+            p.do_ping = False
+            p.save()
         if len(report)>0:
             for adm in ADMINS:
                 try:
-                    msg = MIMEMultipart('alternative')
-                    msg['Subject'] = u'[' + DOMAIN_NAME + '] Ping report'
-                    msg['From'] = DEFAULT_FROM_EMAIL
-                    msg['To'] = adm[1]
-
                     c = Context(
                             {
                             'page_title': 'Ping report',
                             'report': report,
                             }
                     )
-
-                    t = loader.get_template('robot/email_ping_text.html')
-                    text = t.render(c)
-                    t = loader.get_template('robot/email_ping_html.html')
-                    html = t.render(c)
-
-                    part1 = MIMEText(text, 'plain', 'utf-8')
-                    part2 = MIMEText(html, 'html', 'utf-8')
-
-                    msg.attach(part1)
-                    msg.attach(part2)
-
-                    send_mail('ping report', msg.as_string(), DEFAULT_FROM_EMAIL, adm[1])
-                    logging.info('ping report sended')
+                    subject = u'Ping report [' + DOMAIN_NAME + ']'
+                    from_email = EMAIL_SUBJECT_PREFIX + ' <' + DEFAULT_FROM_EMAIL + '>'
+                    to = adm[1]
+                    text_content = loader.get_template('robot/email_ping_text.html').render(c)
+                    html_content = loader.get_template('robot/email_ping_html.html').render(c)
+                    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                    msg.attach_alternative(html_content, "text/html")
+                    msg.send()
                 except:
                     logging.exception('Error send ping report')
