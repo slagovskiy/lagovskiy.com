@@ -30,6 +30,7 @@ CAPTCHA_FONT_SIZE = 42
 CAPTCHA_LETTER_ROTATION_LEFT = -35
 CAPTCHA_LETTER_ROTATION_RIGHT = 35
 CAPTCHA_BACKGROUND_COLOR = '#ffffff'
+CAPTCHA_BACKGROUND_COLOR_TRANSPARENT = (255, 0, 0, 0)
 CAPTCHA_FOREGROUND_COLOR = '#001100'
 CAPTCHA_PUNCTUATION = '''_"',.;:-'''
 
@@ -59,8 +60,8 @@ def captcha_image(text, scale=1):
         font = ImageFont.load(CAPTCHA_FONT_PATH)
 
     size = font.getsize(text)
-    size = (size[0] * 2, int(size[1] * 1.2))
-    image = Image.new('RGB', size, CAPTCHA_BACKGROUND_COLOR)
+    size = (size[0] * 2, int(size[1]))
+    image = Image.new('RGBA', size)
 
     try:
         PIL_VERSION = int(NON_DIGITS_RX.sub('', Image.VERSION))
