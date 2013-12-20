@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth import authenticate, login, logout
 
 import logging
+from utils.capcha import captcha_image, capcha_code
 
 def custom_proc(request):
     return {
@@ -31,3 +32,6 @@ def index(request):
     return HttpResponse(t.render(c))
     '''
     return HttpResponseRedirect('/blog/')
+
+def capcha(request):
+    return captcha_image(capcha_code(4), 1)

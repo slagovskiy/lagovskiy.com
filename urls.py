@@ -18,6 +18,7 @@ sitemaps= {
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index'),
+    url(r'^capcha/$', 'views.capcha'),
     #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
     #url(r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
 
