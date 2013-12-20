@@ -80,6 +80,19 @@
                             <input type="text" id="comment_email" name="comment_email" placeholder="Your email" class="form-control">
                         </div>
                     </div>
+                    <div id="subform4" class="form-group">
+                        <label for="comment_name" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-10">
+                            <table class="col-sm-12"><tr>
+                                <td class="col-sm-3">
+                                    <img src="/capcha/" id="comment_capcha_image" alt="Secret code" border="0">
+                                </td>
+                                <td>
+                                    <input type="text" id="comment_capcha" name="comment_capcha" placeholder="Enter text from image" class="form-control">
+                                </td>
+                            </tr></table>
+                        </div>
+                    </div>
                     <div id="subform3" class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="">
@@ -127,7 +140,7 @@
     </article>
     <script>
        $(document).ready(function(){
-           $( "#subform0, #subform1, #subform2, #subform3" ).hide();
+           $( "#subform0, #subform1, #subform2, #subform3, #subform4" ).hide();
            $("#comment_content, #comment_name, #comment_email, #comment_submit, label[name='comment_subscribe_hlabel']").corner("5px");
        });
 
@@ -136,7 +149,7 @@
             $("#comment_content").animate({
                 'height': '100px'
                 }, 500);
-            $("#subform0, #subform1").fadeIn("slow");
+            $("#subform0, #subform1, #subform4").fadeIn("slow");
         }
 
         function openForm2()
@@ -149,7 +162,7 @@
             $("#comment_content").css({
                 'height': '100px'
             });
-            $("#subform0, #subform1, #subform2, #subform3").show();
+            $("#subform0, #subform1, #subform2, #subform3, #subform4").show();
             $(".reply").html('');
             $("#reply_"+id).html($("#comment_form").html());
             $("#reply_"+id).find("form").find("input[name='comment_reply']").val(id);

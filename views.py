@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 from utils.capcha import captcha_image, capcha_code
 
+
 def custom_proc(request):
     return {
         'app_title': '',
@@ -18,20 +19,26 @@ def custom_proc(request):
         'ajax': request.GET.get('ajax', 0)
     }
 
+
 def index(request):
-    '''
-    message = ''
-    t = loader.get_template('default.html')
-    c = RequestContext(
-        request,
-            {
-            'message': message,
-            },
-        processors=[custom_proc]
-    )
-    return HttpResponse(t.render(c))
-    '''
     return HttpResponseRedirect('/blog/')
 
 def capcha(request):
-    return captcha_image(capcha_code(4), 1)
+    request.session['CAPCHA_CODE'] = capcha_code(4)
+    return captcha_image(request.session['CAPCHA_CODE'], 1)
+
+
+def capcha_check(request, code):
+    data = '0'
+    if request.session['CAPCHA_CODE'] == str(code).upper():
+        return HttpResponse('1', content_type="application/javascript")#data = '1'
+    else:
+        return HttpResponse('0', content_type="application/javascript")#data = '0'
+    #t = loader.get_template('ajax.html')
+    #c = RequestContext(
+    #    request,
+    #    {
+    #        'data': data,
+    #        },
+    #    processors=[custom_proc])
+    #return HttpResponse(t.render(c))

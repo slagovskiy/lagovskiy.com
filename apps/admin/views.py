@@ -88,13 +88,10 @@ def login_action(request):
 def login_check(request):
     _login = request.POST.get('txtLogin', '')
     _password = request.POST.get('txtPassword', '')
-    logging.warning(_login)
-    logging.warning(_password)
     page = request.POST.get('return', '/')
     if page == None:
         page = '/'
     user = authenticate(username=_login, password=_password)
-    logging.warning(user)
     if user is not None:
         if user.is_active:
             login(request, user)

@@ -9,6 +9,37 @@ function validateCommentForm(item)
 {
     var e;
     var ret = true;
+    e = item.find('#comment_capcha');
+    if(e.val()=='')
+    {
+        e.css({backgroundColor: '#f2dede'});
+        ret = false;
+    }
+    else
+    {
+        $.ajax({
+            url: '/capcha_check/' + e.val() + '/',
+            cache: false,
+            async: false,
+            success: function(data){
+                if (data=='1')
+                {
+                    e.css({backgroundColor: ''});
+                    ret = true;
+                }
+                else
+                {
+                    e.css({backgroundColor: '#f2dede'});
+                    ret = false;
+                }
+            },
+            error: function(e, xhr){
+                e.css({backgroundColor: '#f2dede'});
+                ret = false;
+                msg_error("Error", "check capcha");
+            }
+        });
+    }
     e = item.find('#comment_content');
     if (e.val()=='')
     {
@@ -46,6 +77,7 @@ function validateCommentForm(item)
     {
         e.css({backgroundColor: ''});
     }
+
     if(item.find('input[name=comment_subscribe]').prop('checked'))
     {
         if(e.val()=='')
