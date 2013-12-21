@@ -177,9 +177,12 @@ def comment_save(request, id):
             _name = request.POST.get('comment_name', 'guest')
             _email = request.POST.get('comment_email', '')
             _message = request.POST.get('comment_content', '')
+            _capcha = request.POST.get('comment_capcha', '')
             _subscribe = request.POST.get('comment_subscribe', False)
             if _subscribe!= False: _subscribe = True
             ajax = request.POST.get('ajax', '0')
+            if request.session['CAPCHA_CODE'] != str(_capcha).upper():
+                return HttpResponseRedirect('/blog/view/'+post.slug+'/?formmessage=Wrong captcha.#add_comment')
             if _reply!='0':
                 root = Comment.objects.get(id=int(_reply))
             if Comment.objects.all().filter(
