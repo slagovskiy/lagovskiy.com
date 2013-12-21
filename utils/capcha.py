@@ -60,7 +60,7 @@ def captcha_image(text, scale=1):
         font = ImageFont.load(CAPTCHA_FONT_PATH)
 
     size = font.getsize(text)
-    size = (size[0] * 2, int(size[1]))
+    size = (size[0] * 2, 50)#int(size[1]))
     image = Image.new('RGBA', size)
 
     try:
@@ -77,7 +77,8 @@ def captcha_image(text, scale=1):
             charlist.append(char)
     for char in charlist:
         fgimage = Image.new('RGB', size, capcha_dark_color())
-        charimage = Image.new('L', font.getsize(' %s ' % char), '#000000')
+        fsize = (50, 50)
+        charimage = Image.new('L', fsize, '#000000')#font.getsize(' %s ' % char), '#000000')
         chardraw = ImageDraw.Draw(charimage)
         chardraw.text((0, 0), ' %s ' % char, font=font, fill='#ffffff')
 
