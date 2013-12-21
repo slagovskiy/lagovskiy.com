@@ -4,3 +4,4 @@ markdown
 mptt
 pytils
 user-agents
+PIL
