@@ -9,7 +9,7 @@ from django.template import loader, Context
 import xmlrpclib
 import sys
 
-from apps.blog.models import Post, CommentMessageQueue, Comment
+from apps.blog.models import Post, CommentMessageQueue, Comment, AuthorCommentMessageQueue
 from apps.robot.models import *
 from apps.robot.settings import *
 from settings import *
@@ -26,25 +26,33 @@ class Command(NoArgsCommand):
 
     def handle_noargs(self, **options):
         comment_queue = CommentMessageQueue.objects.all().filter(active=True)
-        logging.warning(comment_queue)
         for task in comment_queue:
             try:
-                if task.subscribe.active:
-                    c = Context(
-                            {
-                            'task': task
-                            }
-                    )
-
-                    subject = u'New comment [' + task.comment.post.title + ']'
-                    from_email = EMAIL_SUBJECT_PREFIX + ' <' + DEFAULT_FROM_EMAIL + '>'
-                    to = task.subscribe.email
-                    text_content = loader.get_template('robot/email_comment_text.html').render(c)
-                    html_content = loader.get_template('robot/email_comment_html.html').render(c)
-                    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-                    msg.attach_alternative(html_content, "text/html")
-                    msg.send()
+                c = Context({'task': task})
+                subject = u'New comment [' + task.comment.post.title + ']'
+                from_email = EMAIL_SUBJECT_PREFIX + ' <' + DEFAULT_FROM_EMAIL + '>'
+                to = task.subscribe.email
+                text_content = loader.get_template('robot/email_comment_text.html').render(c)
+                html_content = loader.get_template('robot/email_comment_html.html').render(c)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+                task.active = False
+                task.save()
             except:
                 logging.exception('Error send comment notification')
-            #task.active = False
-            #task.save()
+        for task in AuthorCommentMessageQueue.objects.all().filter(active=True):
+            try:
+                c = Context({'task': task})
+                subject = u'[!] New comment [' + task.comment.post.title + ']'
+                from_email = EMAIL_SUBJECT_PREFIX + ' <' + DEFAULT_FROM_EMAIL + '>'
+                to = task.comment.post.author.email
+                text_content = loader.get_template('robot/email_comment_author_text.html').render(c)
+                html_content = loader.get_template('robot/email_comment_author_html.html').render(c)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+                task.active = False
+                task.save()
+            except:
+                logging.exception('Error send comment notification')
