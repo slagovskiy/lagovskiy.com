@@ -202,6 +202,11 @@ def comment_save(request, id):
                     allowed = not post.comments_moderated,
                     )
                 comment.save()
+                amq = AuthorCommentMessageQueue.objects.create(
+                    comment = comment,
+                    active = True
+                )
+                amq.save()
                 if not post.comments_moderated:
                     post.do_ping = True
                     post.save()
