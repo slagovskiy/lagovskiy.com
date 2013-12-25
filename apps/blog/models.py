@@ -164,6 +164,12 @@ class CommentMessageQueue(models.Model):
     sended = models.DateTimeField(null=True, blank=True,)
     active = models.BooleanField(default=False,)
 
+class AuthorCommentMessageQueue(models.Model):
+    comment = models.ForeignKey(Comment)
+    added = models.DateTimeField(auto_now_add=True,)
+    sended = models.DateTimeField(null=True, blank=True,)
+    active = models.BooleanField(default=False,)
+
 class PostImage(models.Model):
     post = models.ForeignKey(Post)
     description = models.CharField(max_length=255, default='', verbose_name=u'Description')
