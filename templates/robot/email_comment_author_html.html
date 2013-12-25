@@ -1,0 +1,14 @@
+{% load markup %}
+{% load strutils %}
+<p>{{ task.comment.name }}{% if task.comment.email %}, {{ task.comment.email }}{% endif %} add new comment for <a href="http://lagovskiy.com{{ task.comment.post.get_absolute_url }}">{{ task.comment.post.title }}</a>.</p>
+<hr>
+<p>Comment published: {{ task.comment.published }}</p>
+<p>Comment allowed: {{ task.comment.allowed }}</p>
+<p>Comment deleted: {{ task.comment.deleted }}</p>
+<p>Comment from: {{ task.comment.ip }} {{ task.comment.agent }}</p>
+<hr>
+<p>Post comments enabled: {{ task.comment.post.comments_enabled }}</p>
+<p>Post comments moderated: {{ task.comment.post.comments_moderated }}</p>
+<hr>
+
+<p>{{ task.comment.content|escape|linebreaksbr }}</p>
