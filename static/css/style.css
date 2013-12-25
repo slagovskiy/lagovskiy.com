@@ -498,6 +498,12 @@ section[role="comments"] ul li h5 a, section[role="comments"] ul li h5 a:hover
     padding-left: 20px !important;
 }
 
+.icon-flickr_14
+{
+    background: url("../img/icon/flickr.png") left no-repeat !important;
+    padding-left: 20px !important;
+}
+
 .icon-github_14
 {
     background: url("../img/icon/github.png") left no-repeat !important;
