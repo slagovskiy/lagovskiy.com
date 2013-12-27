@@ -1,4 +1,4 @@
-{% ifnotequal app_title "Admin" %}<section id="banners" class="banners">
+<section id="banners" class="banners">
 <a href="#" onclick="$('#banners_block').css({display: 'block'}); $(this).hide(); return false;">Counters</a>
 <div id="banners_block" style="display: none;">
 {% for banner in banners %}
@@ -7,4 +7,4 @@
     </div>
 {% endfor %}
 </div>
-</section>{% endifnotequal %}
+</section>

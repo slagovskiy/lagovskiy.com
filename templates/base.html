@@ -58,8 +58,10 @@
     <div class="navbar navbar-static-top border-bottom">
         <header role="banner">
             <section class="container">
-                <h1 class="navbar-brand logo"><a href="/" title="Return to the main page.">
+                <h1 class="navbar-brand logo">
+                    <a href="/" title="Return to the main page.">
                     <!--<b>S</b>ergey<b>L</b>agovskiy</a>--><img src="{{ STATIC_URL }}img/logo.png">
+                    </a>
                 </h1>
 
                 <nav>
@@ -90,7 +92,7 @@
 
                 {% widget_links_menu %}
 
-                {% widget_banners %}
+                {% ifnotequal link_app "admin" %}{% widget_banners %}{% endifnotequal %}
             </aside>
     </div>
     <footer role="footer" class="border-top">
