@@ -101,6 +101,14 @@ input[type="checkbox"]
     letter-spacing: 2px;
     font-weight: bold;
 }
+.logo-img
+{
+    width: 595px;
+    height: 44px;
+    background-image: url("../img/logo.png");
+    background-repeat: no-repeat;
+    display: block;
+}
 .logo a b
 {
     color: #F52A0E;
