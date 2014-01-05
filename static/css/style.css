@@ -214,6 +214,7 @@ article .imgcenter {
 
 article .imgstack {
     display: inline-grid;
+    text-align: center;
 }
 
 article .imgleft {
