@@ -674,7 +674,7 @@
                 for(var i in data.items)
                 {
                     var item = data.items[i];
-                    _data += '<tr>';
+                    _data += '<tr title="' + item.user_agent + '">';
                     _data += '<td>' + item.time + '</td>';
                     _data += '<td>' + item.ip_address + '</td>';
                     _data += '<td>' + item.browser_family + '</td>';
