@@ -213,7 +213,7 @@ article .imgcenter {
 }
 
 article .imgstack {
-    display: inline;
+    display: inline-grid;
 }
 
 article .imgleft {
