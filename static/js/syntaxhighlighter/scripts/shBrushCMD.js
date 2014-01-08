@@ -22,11 +22,13 @@
 	function Brush()
 	{
 		var keywords =	'DO ELSE ERRORLEVEL EXIST IN NOT OFF ON LOADHIGH SET EXIT EOF';
+        keywords = keywords + ' ' + keywords.toLocaleLowerCase();
 		var commands =  'ASSOC AT ATTRIB BREAK CACLS CALL CD CHCP CHDIR CHKDSK CHKNTFS CLS CMD COLOR COMP' +
                 'COMPACT CONVERT COPY DATE DEL DIR DISKCOMP DISKCOPY DOSKEY ECHO ENDLOCAL ERASE FC FIND FINDSTR' +
                 'FOR FORMAT FTYPE GOTO GRAFTABL HELP IF LABEL MD MKDIR MODE MORE MOVE PATH PAUSE POPD PRINT PROMPT' +
                 'PUSHD RD RECOVER REN RENAME REPLACE RMDIR SETLOCAL SHIFT SORT START SUBST TIME TITLE TREE' +
                 'TYPE VER VERIFY VOL XCOPY PROMPT';
+        commands = commands + ' ' + commands.toLocaleLowerCase();
 
 		this.regexList = [
 			{ regex: /^#=!.*$/gm,											css: 'preprocessor bold' },
