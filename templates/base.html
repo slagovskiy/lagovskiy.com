@@ -79,7 +79,7 @@
     <div class="container">
             <section class="col-xs-12 col-sm-6 col-md-9">
 {% endif %}
-                {% block content %}{% endblock %}
+            {% block content %}{% endblock %}
 {% if not ajax %}
             </section>
 
@@ -103,30 +103,31 @@
     <script>
         $("a.img").fancybox();
         SyntaxHighlighter.autoloader(
-            'applescript            js/syntaxhighlighter/scripts/shBrushAppleScript.js',
-            'actionscript3 as3      js/syntaxhighlighter/scripts/shBrushAS3.js',
-            'bash shell             js/syntaxhighlighter/scripts/shBrushBash.js',
-            'coldfusion cf          js/syntaxhighlighter/scripts/shBrushColdFusion.js',
-            'cpp c                  js/syntaxhighlighter/scripts/shBrushCpp.js',
-            'c# c-sharp csharp      js/syntaxhighlighter/scripts/shBrushCSharp.js',
-            'css                    js/syntaxhighlighter/scripts/shBrushCss.js',
-            'delphi pascal          js/syntaxhighlighter/scripts/shBrushDelphi.js',
-            'diff patch pas         js/syntaxhighlighter/scripts/shBrushDiff.js',
-            'erl erlang             js/syntaxhighlighter/scripts/shBrushErlang.js',
-            'groovy                 js/syntaxhighlighter/scripts/shBrushGroovy.js',
-            'java                   js/syntaxhighlighter/scripts/shBrushJava.js',
-            'jfx javafx             js/syntaxhighlighter/scripts/shBrushJavaFX.js',
-            'js jscript javascript  js/syntaxhighlighter/scripts/shBrushJScript.js',
-            'perl pl                js/syntaxhighlighter/scripts/shBrushPerl.js',
-            'php                    js/syntaxhighlighter/scripts/shBrushPhp.js',
-            'text plain             js/syntaxhighlighter/scripts/shBrushPlain.js',
-            'py python              js/syntaxhighlighter/scripts/shBrushPython.js',
-            'ruby rails ror rb      js/syntaxhighlighter/scripts/shBrushRuby.js',
-            'sass scss              js/syntaxhighlighter/scripts/shBrushSass.js',
-            'scala                  js/syntaxhighlighter/scripts/shBrushScala.js',
-            'sql                    js/syntaxhighlighter/scripts/shBrushSql.js',
-            'vb vbnet               js/syntaxhighlighter/scripts/shBrushVb.js',
-            'xml xhtml xslt html    js/syntaxhighlighter/scripts/shBrushXml.js'
+            'applescript            {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushAppleScript.js',
+            'actionscript3 as3      {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushAS3.js',
+            'bash shell             {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushBash.js',
+            'cmd                    {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushCMD.js',
+            'coldfusion cf          {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushColdFusion.js',
+            'cpp c                  {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushCpp.js',
+            'c# c-sharp csharp      {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushCSharp.js',
+            'css                    {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushCss.js',
+            'delphi pascal          {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushDelphi.js',
+            'diff patch pas         {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushDiff.js',
+            'erl erlang             {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushErlang.js',
+            'groovy                 {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushGroovy.js',
+            'java                   {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushJava.js',
+            'jfx javafx             {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushJavaFX.js',
+            'js jscript javascript  {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushJScript.js',
+            'perl pl                {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushPerl.js',
+            'php                    {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushPhp.js',
+            'text plain             {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushPlain.js',
+            'py python              {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushPython.js',
+            'ruby rails ror rb      {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushRuby.js',
+            'sass scss              {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushSass.js',
+            'scala                  {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushScala.js',
+            'sql                    {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushSql.js',
+            'vb vbnet               {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushVb.js',
+            'xml xhtml xslt html    {{ STATIC_URL }}js/syntaxhighlighter/scripts/shBrushXml.js'
         );
         // !!! replace < to &lt;
         SyntaxHighlighter.all();
