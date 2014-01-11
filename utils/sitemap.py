@@ -17,7 +17,7 @@ class BlogSitemap(Sitemap):
         return Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')
 
     def location(self, item):
-        return DOMAIN_NAME + item.get_absolute_url()
+        return item.get_absolute_url()
 
     def lastmod(self, item):
         return item.published
