@@ -9,7 +9,7 @@ def stat_index(request):
     if not check_access(request.user, 'canAdmin'):
         return HttpResponseRedirect('/admin/ad/')
     message = ''
-    t = loader.get_template('admin/blog/category.html')
+    t = loader.get_template('admin/stat/default.html')
     c = RequestContext(
         request,
         {
