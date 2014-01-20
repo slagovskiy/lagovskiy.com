@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Statistics</h2>
+    <div id="data"></div>
+    <a href="#" class="btn btn-success" onclick="loadData(); return false;">Reload</a>
+
+    <script>
+        function init()
+        {
+            loadData();
+        }
+
+        function loadData()
+        {
+            _data = '';
+            $.ajax({
+                url: '/admin/stat/getpoints/',
+                cache: false,
+                dataType: "json",
+                success: function(data){
+                    _data = '<table class="table table-hover">';
+                    _data += '<thead><tr>' +
+                            '<th>point</th>' +
+                            '<th></th>' +
+                            '</tr></thead><tbody>';
+
+                    if(data.message!='') msg_info('', data.message);
+                    for(var i in data.items)
+                    {
+                        var item = data.items[i];
+                        var row = '<tr>' +
+                                '<td><a href="/admin/stat/point/' + item.point + '/" onclick="loadPoint(' + item.point + '); return false;">' + item.point + '</a></td>' +
+                                '</tr>';
+                        _data += row;
+                    }
+                    _data += "</tbody></table>";
+                    $('#data').html(_data);
+                },
+                error: function(e, xhr){
+                    msg_error("Error","load points list " + xhr);
+                }
+            });
+        }
+
+        init();
+    </script>
+{% endblock %}
