@@ -449,7 +449,7 @@ def blog_post_getall(request):
     message = ''
     posts = []
     try:
-        posts = Post.objects.all()
+        posts = Post.objects.all().order_by('status', '-published', 'title')
     except:
         logging.exception('Error get post list')
     t = loader.get_template('admin/blog/post_getall.html')
