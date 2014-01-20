@@ -8,14 +8,15 @@ from apps.admin.views_blog_post import *
 from apps.admin.views_blog_revision import *
 from apps.admin.views_blog_comment import *
 from apps.admin.views_blog_image import *
+from apps.admin.views_blog_subscribe import *
 from apps.admin.views_banner import *
 
 urlpatterns = patterns('',
-    url(r'^$', 'apps.admin.views.index'),
-    url(r'^ad/$', 'apps.admin.views.ad'),
-    url(r'^login/$', 'apps.admin.views.login_action'),
-    url(r'^logout/$', 'apps.admin.views.logout_action'),
-    url(r'^login_check/$', 'apps.admin.views.login_check'),
+    url(r'^$', index),
+    url(r'^ad/$', ad),
+    url(r'^login/$', login_action),
+    url(r'^logout/$', logout_action),
+    url(r'^login_check/$', login_check),
 
 
     ####################################################
@@ -68,12 +69,11 @@ urlpatterns = patterns('',
     url(r'^banner/edit/(?P<baner_id>[-\w]+)/', banner_edit),
     url(r'^banner/', banner_index),
 
-    url(r'^stat/points/', 'apps.admin.views.stat_points'),
-    url(r'^stat/', 'apps.admin.views.stat_index'),
+    url(r'^stat/', stat_index),
 
-    url(r'^blog/subscribe/save/', 'apps.admin.views.blog_subscribe_save'),
-    url(r'^blog/subscribe/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_subscribe_edit'),
-    url(r'^blog/subscribe/(?P<id>[-\w]+)/', 'apps.admin.views.blog_subscribe_getlist'),
+    url(r'^blog/subscribe/save/', blog_subscribe_save),
+    url(r'^blog/subscribe/edit/(?P<subscribe_id>[-\w]+)/', blog_subscribe_edit),
+    url(r'^blog/subscribe/(?P<post_id>[-\w]+)/', blog_subscribe_getlist),
 
     ####################################################
     #  robot
