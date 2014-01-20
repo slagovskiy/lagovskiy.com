@@ -9,6 +9,7 @@ from apps.admin.views_blog_revision import *
 from apps.admin.views_blog_comment import *
 from apps.admin.views_blog_image import *
 from apps.admin.views_blog_subscribe import *
+from apps.admin.views_blog_visitor import *
 from apps.admin.views_banner import *
 
 urlpatterns = patterns('',
@@ -25,9 +26,9 @@ urlpatterns = patterns('',
     url(r'^blog/category/getall/', blog_category_getall),
     url(r'^blog/category/getlist/', blog_category_getlist),
     url(r'^blog/category/save/', blog_category_save),
-    url(r'^blog/category/edit/(?P<id>[-\w]+)/', blog_category_edit),
-    url(r'^blog/category/moveup/(?P<id>[-\w]+)/', blog_category_moveup),
-    url(r'^blog/category/movedown/(?P<id>[-\w]+)/', blog_category_movedown),
+    url(r'^blog/category/edit/(?P<category_id>[-\w]+)/', blog_category_edit),
+    url(r'^blog/category/moveup/(?P<category_id>[-\w]+)/', blog_category_moveup),
+    url(r'^blog/category/movedown/(?P<category_id>[-\w]+)/', blog_category_movedown),
     url(r'^blog/category/', blog_category),
 
     url(r'^blog/tag/getall/', blog_tag_getall),
@@ -68,6 +69,9 @@ urlpatterns = patterns('',
     url(r'^banner/save/', banner_save),
     url(r'^banner/edit/(?P<baner_id>[-\w]+)/', banner_edit),
     url(r'^banner/', banner_index),
+
+    url(r'^visitors/date/', blog_visitors_dates),
+    url(r'^visitors/', blog_visitors_by_point),
 
     url(r'^stat/', stat_index),
 
