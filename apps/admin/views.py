@@ -28,6 +28,8 @@ from urllib2 import unquote
 
 from apps.blog.models import Category
 
+from apps.admin.utils import *
+
 def custom_proc(request):
     return {
         'app_title': 'Admin',
@@ -38,29 +40,6 @@ def custom_proc(request):
         'ip_address': request.META['REMOTE_ADDR'],
         'ajax': request.GET.get('ajax', 0)
     }
-
-# utils
-
-def check_access(user, access):
-    try:
-        if not getattr(user.get_profile(), access)():
-            return False
-        else:
-            return True
-    except:
-        return False
-
-
-def random_str(size):
-    """
-    return random string
-    """
-    str = 'qwertyuiopasdfghjklzxcvbnm'
-    return ''.join([random.choice(str) for i in range(size)])
-
-
-
-
 def index(request):
     message = ''
     t = loader.get_template('admin/default.html')
@@ -116,162 +95,6 @@ def ad(request):
     return HttpResponse(t.render(c))
 
 # blog
-
-## blog: category
-
-def blog_category(request):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    t = loader.get_template('admin/blog/category.html')
-    c = RequestContext(
-        request,
-        {
-            'message': message,
-            },
-        processors=[custom_proc])
-    return HttpResponse(t.render(c))
-
-def blog_category_getall(request):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    categories = []
-    try:
-        categories = Category.objects.all()
-    except:
-        logging.exception('Error get categories list')
-    t = loader.get_template('admin/blog/category_getall.html')
-    c = RequestContext(
-        request,
-        {
-            'message': message,
-            'categories': categories,
-            },
-        processors=[custom_proc])
-    return HttpResponse(t.render(c))
-
-def blog_category_getlist(request):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    categories = []
-    try:
-        categories = Category.objects.all().filter(deleted=False)
-    except:
-        logging.exception('Error get categories list')
-    t = loader.get_template('admin/blog/category_getall.html')
-    c = RequestContext(
-        request,
-        {
-            'message': message,
-            'categories': categories,
-            },
-        processors=[custom_proc])
-    return HttpResponse(t.render(c))
-
-def blog_category_edit(request, id):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    category = None
-    try:
-        if id!=0:
-            category = Category.objects.get(id=id)
-    except:
-        logging.exception('Error get category item')
-    t = loader.get_template('admin/blog/category_edit.html')
-    c = RequestContext(
-        request,
-        {
-            'message': message,
-            'category': category,
-            },
-        processors=[custom_proc])
-    return HttpResponse(t.render(c))
-
-def blog_category_save(request):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    try:
-        category = None
-        tmp_id = request.POST.get('_id', 0)
-        tmp_name = request.POST.get('_name', '')
-        tmp_slug = request.POST.get('_slug', '')
-        tmp_sort = request.POST.get('_sort', 100)
-        tmp_deleted = request.POST.get('_deleted', False)
-        if (tmp_name==''): tmp_name = 'qwerty'
-        if (tmp_slug==''): tmp_slug = 'qwerty'
-        if (tmp_sort==''): tmp_sort = 1000
-        logging.warning(tmp_id)
-        if tmp_id!='':
-            category = Category.objects.get(id=tmp_id)
-            category.slug = tmp_slug
-            category.name = tmp_name
-            category.sort = tmp_sort
-            if tmp_deleted=="True":
-                category.deleted = True
-            else:
-                category.deleted = False
-            category.save()
-        else:
-            category = Category.objects.create(
-                slug = tmp_slug,
-                name = tmp_name,
-                sort = tmp_sort,
-            )
-            if tmp_deleted=="True":
-                category.deleted = True
-            else:
-                category.deleted = False
-            category.save()
-    except:
-        logging.exception('Error save or add category')
-    return  HttpResponseRedirect('/admin/blog/category/')
-
-def blog_category_moveup(request, id):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    try:
-        categories = Category.objects.all()
-        category = None
-        category_prev = None
-        for category in categories:
-            if category.id==int(id):
-                if category_prev:
-                    tmp = category.sort
-                    category.sort = category_prev.sort
-                    category_prev.sort = tmp
-                    category.save()
-                    category_prev.save()
-            category_prev = category
-    except:
-        logging.exception('Error move up category')
-    return  HttpResponseRedirect('/admin/blog/category/')
-
-def blog_category_movedown(request, id):
-    if not check_access(request.user, 'canAdmin'):
-        return HttpResponseRedirect('/admin/ad/')
-    message = ''
-    try:
-        categories = Category.objects.all()
-        category = None
-        category_prev = None
-        for category in reversed(categories):
-            if category.id==int(id):
-                if category_prev:
-                    tmp = category.sort
-                    category.sort = category_prev.sort
-                    category_prev.sort = tmp
-                    category.save()
-                    category_prev.save()
-            category_prev = category
-    except:
-        logging.exception('Error move up category')
-    return  HttpResponseRedirect('/admin/blog/category/')
-
 
 ## blog: tag
 

@@ -1,5 +1,9 @@
 from django.conf.urls import patterns, include, url
 
+from apps.admin.views import *
+from apps.admin.views_stat import *
+from apps.admin.views_blog_category import *
+
 urlpatterns = patterns('',
     url(r'^$', 'apps.admin.views.index'),
     url(r'^ad/$', 'apps.admin.views.ad'),
@@ -11,20 +15,20 @@ urlpatterns = patterns('',
     ####################################################
     #  blog
     ####################################################
-    url(r'^blog/category/getall/', 'apps.admin.views.blog_category_getall'),
-    url(r'^blog/category/getlist/', 'apps.admin.views.blog_category_getlist'),
-    url(r'^blog/category/save/', 'apps.admin.views.blog_category_save'),
-    url(r'^blog/category/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_category_edit'),
-    url(r'^blog/category/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.blog_category_moveup'),
-    url(r'^blog/category/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.blog_category_movedown'),
-    url(r'^blog/category/', 'apps.admin.views.blog_category'),
+    url(r'^blog/category/getall/', blog_category_getall),
+    url(r'^blog/category/getlist/', blog_category_getlist),
+    url(r'^blog/category/save/', blog_category_save),
+    url(r'^blog/category/edit/(?P<id>[-\w]+)/', blog_category_edit),
+    url(r'^blog/category/moveup/(?P<id>[-\w]+)/', blog_category_moveup),
+    url(r'^blog/category/movedown/(?P<id>[-\w]+)/', blog_category_movedown),
+    url(r'^blog/category/', blog_category),
 
     url(r'^blog/tag/getall/', 'apps.admin.views.blog_tag_getall'),
     url(r'^blog/tag/getlist/', 'apps.admin.views.blog_tag_getlist'),
     url(r'^blog/tag/save/', 'apps.admin.views.blog_tag_save'),
-    url(r'^blog/tag/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_edit'),
-    url(r'^blog/tag/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_moveup'),
-    url(r'^blog/tag/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.blog_tag_movedown'),
+    url(r'^blog/tag/edit/(?P<tag_id>[-\w]+)/', 'apps.admin.views.blog_tag_edit'),
+    url(r'^blog/tag/moveup/(?P<tag_id>[-\w]+)/', 'apps.admin.views.blog_tag_moveup'),
+    url(r'^blog/tag/movedown/(?P<tag_id>[-\w]+)/', 'apps.admin.views.blog_tag_movedown'),
     url(r'^blog/tag/', 'apps.admin.views.blog_tag'),
 
     url(r'^blog/post/getall/', 'apps.admin.views.blog_post_getall'),
@@ -60,8 +64,8 @@ urlpatterns = patterns('',
     #url(r'^banner/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.banner_movedown'),
     url(r'^banner/', 'apps.admin.views.banner_index'),
 
-    url(r'^visitors/date/', 'apps.admin.views.visitors_dates'),
-    url(r'^visitors/', 'apps.admin.views.visitors_by_point'),
+    url(r'^stat/points/', 'apps.admin.views.stat_points'),
+    url(r'^stat/', 'apps.admin.views.stat_index'),
 
     url(r'^blog/subscribe/save/', 'apps.admin.views.blog_subscribe_save'),
     url(r'^blog/subscribe/edit/(?P<id>[-\w]+)/', 'apps.admin.views.blog_subscribe_edit'),
