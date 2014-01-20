@@ -69,6 +69,9 @@ urlpatterns = patterns('',
                        url(r'^visitors/date/', blog_visitors_dates),
                        url(r'^visitors/', blog_visitors_by_point),
 
+                       url(r'^stat/getpointsdatelist/', stat_by_point_date_list),
+                       url(r'^stat/getpointsdate/', stat_by_point_date),
+                       url(r'^stat/getpoints/', stat_by_point),
                        url(r'^stat/', stat_index),
 
                        url(r'^blog/subscribe/save/', blog_subscribe_save),

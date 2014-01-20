@@ -1,0 +1,23 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for visitor in visitors %}
+    {
+    "date": "{{ visitor.date|date:"Y/m/d" }}",
+    "time": "{{ visitor.date|date:"h:i:s" }}",
+    "ip_address": "{{ visitor.ip_address }}",
+    "user_agent": "{{ visitor.user_agent }}",
+    "referer": "{{ visitor.referor }}",
+    "browser_family": "{{ visitor.browser_family }}",
+    "browser_version": "{{ visitor.browser_version }}",
+    "os_family": "{{ visitor.os_family }}",
+    "os_version": "{{ visitor.os_version }}",
+    "device_family": "{{ visitor.device_family }}",
+    "is_mobile": "{{ visitor.is_mobile }}",
+    "is_tablet": "{{ visitor.is_tablet }}",
+    "is_touch_capable": "{{ visitor.is_touch_capable }}",
+    "is_pc": "{{ visitor.is_pc }}",
+    "is_bot": "{{ visitor.is_bot }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}

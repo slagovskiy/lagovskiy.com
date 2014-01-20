@@ -1,0 +1,9 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for item in visitors %}
+    {
+    "point": "{{ item.0 }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}

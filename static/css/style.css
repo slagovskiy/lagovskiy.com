@@ -70,6 +70,18 @@ a.active
     border-top: 1px solid rgba(0,0,0,0.1);
 }
 
+.list-no-style
+{
+    list-style: none;
+    padding-left: 0px;
+}
+
+.list-no-style-l1
+{
+    list-style: none;
+    padding-left: 15px;
+}
+
 header[role="banner"]
 {
     line-height: 90px;

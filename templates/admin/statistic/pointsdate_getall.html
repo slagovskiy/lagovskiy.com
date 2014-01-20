@@ -1,0 +1,9 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for item in visitors %}
+    {
+    "day": "{{ item.0|date:"Y-m-d" }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}
