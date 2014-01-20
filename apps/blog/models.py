@@ -107,7 +107,7 @@ class Post(models.Model):
         return self.comment_set.all()
 
     class Meta:
-        ordering = ['status', 'slug']
+        ordering = ['status', 'published', 'title']
 
 class PostRevision(models.Model):
     post = models.ForeignKey(Post)
