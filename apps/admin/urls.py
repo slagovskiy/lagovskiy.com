@@ -8,6 +8,7 @@ from apps.admin.views_blog_post import *
 from apps.admin.views_blog_revision import *
 from apps.admin.views_blog_comment import *
 from apps.admin.views_blog_image import *
+from apps.admin.views_banner import *
 
 urlpatterns = patterns('',
     url(r'^$', 'apps.admin.views.index'),
@@ -62,12 +63,10 @@ urlpatterns = patterns('',
     url(r'^blog/revision/fix/(?P<revision_id>[-\w]+)/', blog_revision_fix),
     url(r'^blog/revision/preview/(?P<revision_id>[-\w]+)/', blog_revision_preview),
 
-    url(r'^banner/getall/', 'apps.admin.views.banner_getall'),
-    url(r'^banner/save/', 'apps.admin.views.banner_save'),
-    url(r'^banner/edit/(?P<id>[-\w]+)/', 'apps.admin.views.banner_edit'),
-    #url(r'^banner/moveup/(?P<id>[-\w]+)/', 'apps.admin.views.banner_moveup'),
-    #url(r'^banner/movedown/(?P<id>[-\w]+)/', 'apps.admin.views.banner_movedown'),
-    url(r'^banner/', 'apps.admin.views.banner_index'),
+    url(r'^banner/getall/', banner_getall),
+    url(r'^banner/save/', banner_save),
+    url(r'^banner/edit/(?P<baner_id>[-\w]+)/', banner_edit),
+    url(r'^banner/', banner_index),
 
     url(r'^stat/points/', 'apps.admin.views.stat_points'),
     url(r'^stat/', 'apps.admin.views.stat_index'),
