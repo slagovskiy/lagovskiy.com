@@ -10,14 +10,14 @@ from utils.sitemap import *
 
 admin.autodiscover()
 
-from settings import *
 
 sitemaps= {
     'pages' : BlogSitemap()
 }
 
+
 urlpatterns = patterns('',
-    url(r'^$', 'views.index'),
+    url(r'^$', 'apps.blog.views.index'),
     url(r'^capcha/$', 'views.capcha'),
     url(r'^capcha_check/(?P<code>[-\w]+)/$', 'views.capcha_check'),
     #url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
