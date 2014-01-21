@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
     <h2>Statistics</h2>
-    <div><input type="text" id="filter" name="filter" class="form-control" onkeypress="filter()"></div>
+    <div class="form-group">
+        <input type="text" id="filter" name="filter" class="form-control" onkeypress="filter()">
+    </div>
+    <div class="form-group">
+        <a href="#" class="btn btn-success" onclick="loadData(); return false;">Reload</a>
+    </div>
     <div id="data"></div>
-    <a href="#" class="btn btn-success" onclick="loadData(); return false;">Reload</a>
 
     <script>
         function filter()
