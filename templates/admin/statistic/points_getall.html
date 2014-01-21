@@ -3,7 +3,8 @@
 "items":
 [{% for item in visitors %}
     {
-    "point": "{{ item.0 }}"
+    "point": "{{ item.point }}",
+    "cnt": "{{ item.cnt }}"
     }{% if not forloop.last %},{% endif %}
 {% endfor %}]
 }

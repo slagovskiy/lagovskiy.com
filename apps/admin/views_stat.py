@@ -30,7 +30,7 @@ def stat_by_point(request):
     visitors = []
     try:
         visitors = Visitor.objects.all() \
-            .values_list('point').order_by('point').distinct()
+            .values('point').annotate(cnt=Count('point')).order_by('point')
     except:
         logging.exception('Error get visitors list')
     t = loader.get_template('admin/statistic/points_getall.html')
@@ -52,7 +52,8 @@ def stat_by_point_date(request):
     try:
         visitors = Visitor.objects.all()\
             .filter(point=unquote(request.GET.get('p', '')))\
-            .values_list('day').order_by('-day').distinct()
+            .values('day').annotate(cnt=Count('day'))
+            #.values_list('day').order_by('-day').distinct()
     except:
         logging.exception('Error get visitors list')
     t = loader.get_template('admin/statistic/pointsdate_getall.html')

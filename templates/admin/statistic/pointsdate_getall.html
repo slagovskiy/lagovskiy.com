@@ -3,7 +3,8 @@
 "items":
 [{% for item in visitors %}
     {
-    "day": "{{ item.0|date:"Y-m-d" }}"
+    "day": "{{ item.day|date:"Y-m-d" }}",
+    "cnt": "{{ item.cnt }}"
     }{% if not forloop.last %},{% endif %}
 {% endfor %}]
 }

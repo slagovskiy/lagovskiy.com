@@ -79,7 +79,7 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<li><a href="#" onclick="loadPointDate(\'' + point + '\', \'' + item.day + '\', \'p' + point.hashCode() + item.day.hashCode() + '\'); return false;">' + item.day + '</a><div id="p' + point.hashCode() + item.day.hashCode() + '"></div></li>';
+                        var row = '<li><a href="#" onclick="loadPointDate(\'' + point + '\', \'' + item.day + '\', \'p' + point.hashCode() + item.day.hashCode() + '\'); return false;">' + item.day + '</a><span class="count_badge">' + item.cnt + '</span><div id="p' + point.hashCode() + item.day.hashCode() + '"></div></li>';
                         _data += row;
                     }
                     _data += "</ul>";
@@ -109,7 +109,7 @@
                     for(var i in data.items)
                     {
                         var item = data.items[i];
-                        var row = '<li><a href="#" onclick="loadPoint(\'' + item.point + '\', \'p' + item.point.hashCode() + '\'); return false;">' + item.point + '</a><div id="p' + item.point.hashCode() + '"></div></li>';
+                        var row = '<li><a href="#" onclick="loadPoint(\'' + item.point + '\', \'p' + item.point.hashCode() + '\'); return false;">' + item.point + '</a><span class="count_badge">' + item.cnt + '</span><div id="p' + item.point.hashCode() + '"></div></li>';
                         _data += row;
                     }
                     _data += '</ul>';
