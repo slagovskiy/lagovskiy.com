@@ -4,11 +4,11 @@
         {% for key, value in dates.items %}
         <li class="list-group-item">
             <a href="#" id="#" onclick="$('#arch{{ key|date:"Y" }}').removeClass('hide'); return false;">{{ key|date:"Y" }}</a>
-            <ul style="padding-left: 30px;" id="arch{{ key|date:"Y" }}" class="hide">
+            <ul style="padding-left: 15px;" id="arch{{ key|date:"Y" }}" class="hide">
             {% for item in value %}
                 <li class="list-group-item">
                     <a href="#" onclick="loadArch('{{ item|date:"Y" }}', '{{ item|date:"m" }}'); return false;">{{ item|date:"Y, F" }}</a>
-                    <ul id="arch{{ item|date:"YF" }}"></ul>
+                    <ul id="arch{{ item|date:"Ym" }}" style="padding-left: 15px;"></ul>
                 </li>
             {% endfor %}
             </ul>
@@ -20,7 +20,25 @@
 <script>
     function loadArch(y, m)
     {
-        alert(y + ' ' + m);
+        $.ajax({
+            url: '/blog/archive/' + y + '/' + m + '/',
+            cache: false,
+            dataType: "json",
+            success: function(data){
+                _data = '';
+                if(data.message!='') msg_info('', data.message);
+                for(var i in data.items)
+                {
+                    var item = data.items[i];
+                    _data += '<li class="list-group-item"><a href="' + item.url + '">' + item.title + '</a></li>';
+                }
+                $('#arch' + y + m).html(_data);
+            },
+            error: function(e, xhr){
+                msg_error("Error","load archive list " + xhr);
+            }
+        });
+
     }
 </script>
 

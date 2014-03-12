@@ -53,7 +53,7 @@ def archive(request, year, month):
     message = ''
     posts = []
     try:
-        posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS, published__year=year, published__month=month)
+        posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS, published__year=year, published__month=month).order_by('-published')
     except:
         log.exception('Error get posts list')
     t = loader.get_template('blog/archive.html')
