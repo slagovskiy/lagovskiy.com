@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^$', 'apps.blog.views.index'),
+    url(r'^archive/(?P<year>[-\w]+)/(?P<month>[-\w]+)/$', 'apps.blog.views.archive'),
     url(r'^tag/(?P<tag>[-\w]+)/$', 'apps.blog.views.postby_tag'),
     url(r'^category/(?P<category>[-\w]+)/$', 'apps.blog.views.postby_category'),
     url(r'^view/(?P<slug>[-\w]+)/$', 'apps.blog.views.post_view'),

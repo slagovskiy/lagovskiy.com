@@ -1,0 +1,10 @@
+{
+"message": "{{ message }}",
+"items":
+[{% for post in posts %}
+    {
+    "title": "{{ post.title }}",
+    "url": "{{ post.get_absolute_url }}"
+    }{% if not forloop.last %},{% endif %}
+{% endfor %}]
+}

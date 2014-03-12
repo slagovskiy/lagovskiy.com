@@ -7,7 +7,8 @@
             <ul style="padding-left: 30px;" id="arch{{ key|date:"Y" }}" class="hide">
             {% for item in value %}
                 <li class="list-group-item">
-                    {{ item|date:"Y, F" }}
+                    <a href="#" onclick="loadArch('{{ item|date:"Y" }}', '{{ item|date:"m" }}'); return false;">{{ item|date:"Y, F" }}</a>
+                    <ul id="arch{{ item|date:"YF" }}"></ul>
                 </li>
             {% endfor %}
             </ul>
@@ -16,4 +17,10 @@
     </ul>
 </section>
 
+<script>
+    function loadArch(y, m)
+    {
+        alert(y + ' ' + m);
+    }
+</script>
 

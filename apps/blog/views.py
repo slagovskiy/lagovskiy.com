@@ -48,6 +48,24 @@ def index(request):
         processors=[custom_proc])
     return HttpResponse(t.render(c))
 
+def archive(request, year, month):
+    log = logging.getLogger('blog.page')
+    message = ''
+    posts = []
+    try:
+        posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS, published__year=year, published__month=month)
+    except:
+        log.exception('Error get posts list')
+    t = loader.get_template('blog/archive.html')
+    c = RequestContext(
+        request,
+        {
+            'message': message,
+            'posts': posts,
+            },
+        processors=[custom_proc])
+    return HttpResponse(t.render(c))
+
 def postby_tag(request, tag):
     log = logging.getLogger('blog.page')
     message = ''
