@@ -1,0 +1,19 @@
+<section id="categories">
+    <h3>Archive</h3>
+    <ul class="list-group">
+        {% for key, value in dates.items %}
+        <li class="list-group-item">
+            <a href="#" id="#" onclick="$('#arch{{ key|date:"Y" }}').removeClass('hide'); return false;">{{ key|date:"Y" }}</a>
+            <ul style="padding-left: 30px;" id="arch{{ key|date:"Y" }}" class="hide">
+            {% for item in value %}
+                <li class="list-group-item">
+                    {{ item|date:"Y, F" }}
+                </li>
+            {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+

@@ -31,6 +31,16 @@ def widget_banners():
         logging.exception('Error in widget widget_banner')
     return {'banners': banners}
 
+def widget_archive_menu():
+    dates = {}
+    try:
+        from apps.blog.models import Post
+        for item in Post.objects.filter(status=Post.PUBLISHED_STATUS).dates('published','year',order='DESC'):
+            dates[item] = Post.objects.filter(status=Post.PUBLISHED_STATUS, published__year=item.year).dates('published','month',order='DESC')
+    except:
+        logging.exception('Error in widget widget_archive_menu')
+    return {'dates': dates}
+
 def widget_admin_menu():
     return {}
 
@@ -42,3 +52,4 @@ register.inclusion_tag('widgets/tags.html')(widget_tags_menu)
 register.inclusion_tag('widgets/links.html')(widget_links_menu)
 register.inclusion_tag('widgets/admin.html')(widget_admin_menu)
 register.inclusion_tag('widgets/banners.html')(widget_banners)
+register.inclusion_tag('widgets/archive.html')(widget_archive_menu)
