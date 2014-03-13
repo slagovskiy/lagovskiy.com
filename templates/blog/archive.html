@@ -3,6 +3,7 @@
 "items":
 [{% for post in posts %}
     {
+    "id": "{{ post.id }}",
     "title": "{{ post.title }}",
     "url": "{{ post.get_absolute_url }}"
     }{% if not forloop.last %},{% endif %}

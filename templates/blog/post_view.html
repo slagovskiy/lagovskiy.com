@@ -142,6 +142,9 @@
        $(document).ready(function(){
            $( "#subform0, #subform1, #subform2, #subform3, #subform4" ).hide();
            $("#comment_content, #comment_name, #comment_email, #comment_submit, label[name='comment_subscribe_hlabel']").corner("5px");
+           $('#arch{{ post.published|date:"Y" }}').removeClass('hide');
+           loadArch('{{ post.published|date:"Y" }}', '{{ post.published|date:"m" }}');
+           $('#archpost{{ post.id }}').addClass('active');
        });
 
        function openForm1()

@@ -24,13 +24,14 @@
             url: '/blog/archive/' + y + '/' + m + '/',
             cache: false,
             dataType: "json",
+            async: false,
             success: function(data){
                 _data = '';
                 if(data.message!='') msg_info('', data.message);
                 for(var i in data.items)
                 {
                     var item = data.items[i];
-                    _data += '<li class="list-group-item"><a href="' + item.url + '">' + item.title + '</a></li>';
+                    _data += '<li class="list-group-item"><a href="' + item.url + '" id="archpost' + item.id + '">' + item.title + '</a></li>';
                 }
                 $('#arch' + y + m).html(_data);
             },
