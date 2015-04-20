@@ -3,6 +3,7 @@
 *.pyc
 *.pot
 *~
+__pycache__
 
 # Project specific #
 ####################
