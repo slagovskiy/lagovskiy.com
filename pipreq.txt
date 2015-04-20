@@ -1,5 +1,4 @@
 django
-django_toolbar
 markdown
 mptt
 pytils
