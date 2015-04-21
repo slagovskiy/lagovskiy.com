@@ -25,6 +25,7 @@ settings_local.py
 logs/*.log.*
 *.sql
 *.sqlite
+*.sqlite3
 *.db
 
 # IDE #
