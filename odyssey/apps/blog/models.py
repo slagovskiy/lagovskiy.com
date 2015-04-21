@@ -13,6 +13,11 @@ class Category(models.Model):
     def get_absolute_url(self):
         return '/blog/category/%s/' % self.slug
 
+    class Meta:
+        ordering = ['sort', 'name']
+        verbose_name = u'Category'
+        verbose_name_plural = u'Categories'
+
 
 class Tag(models.Model):
     slug = models.SlugField(unique=True, max_length=255, verbose_name=u'Slug')
@@ -25,3 +30,8 @@ class Tag(models.Model):
 
     def get_absolute_url(self):
         return '/blog/category/%s/' % self.slug
+
+    class Meta:
+        ordering = ['sort', 'name']
+        verbose_name = u'Tag'
+        verbose_name_plural = u'Tags'
