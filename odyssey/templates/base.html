@@ -1,15 +1,50 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% if title %}{{ title }} - {% endif %}Sergey Lagovskiy</title>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="{{ meta_keywords }}" />
+    <meta name="description" content="{{ meta_description }}" />
+    <meta name="author" content="Sergey Lagovskiy" />
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" title="Sergey Lagovskiy" />
+    <!-- jquery -->
+    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+<div class="container-fluid">
+    <div class="container">
+        <header role="banner">
+            <section class="container">
+                <h1 class="navbar-brand logo">
+                    <a href="/" title="Return to the main page." class="logo-img">
+                    <!--<b>S</b>ergey<b>L</b>agovskiy<img src="/static/img/logo.png">-->
+                    </a>
+                </h1>
 
-<div id="content">
+                <nav>
+                    <ul class="navbar-nav navbar-right">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/blog" class="active">Blog</a></li>
+                        <li><a href="/projects/">Projects</a></li>
+                        <li><a href="/about/">About</a></li>
+                    </ul>
+                </nav>
+            </section>
+        </header>
+    </div>
+    <div class="container" id="content">
     {% block content %}
     {% endblock %}
 </div>
-
+</div>
 </body>
 </html>
