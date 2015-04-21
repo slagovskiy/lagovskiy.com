@@ -26,6 +26,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'odyssey.apps.blog',
 )
 
 MIDDLEWARE_CLASSES = (
