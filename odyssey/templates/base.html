@@ -1,50 +1,108 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% if title %}{{ title }} - {% endif %}Sergey Lagovskiy</title>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="{{ meta_keywords }}" />
-    <meta name="description" content="{{ meta_description }}" />
-    <meta name="author" content="Sergey Lagovskiy" />
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" title="Sergey Lagovskiy" />
-    <!-- jquery -->
-    <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-<div class="container-fluid">
-    <div class="container">
-        <header role="banner">
-            <section class="container">
-                <h1 class="navbar-brand logo">
-                    <a href="/" title="Return to the main page." class="logo-img">
-                    <!--<b>S</b>ergey<b>L</b>agovskiy<img src="/static/img/logo.png">-->
-                    </a>
-                </h1>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="keywords" content="{{ meta_keywords }}" />
+        <meta name="description" content="{{ meta_description }}" />
+        <meta name="author" content="Sergey Lagovskiy">
+        <link rel="icon" href="{% static 'favicon.ico' %}">
 
-                <nav>
-                    <ul class="navbar-nav navbar-right">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/blog" class="active">Blog</a></li>
-                        <li><a href="/projects/">Projects</a></li>
-                        <li><a href="/about/">About</a></li>
-                    </ul>
-                </nav>
-            </section>
-        </header>
+        <title>{% if page_title %}{{ page_title }} - {% endif %}Sergey Lagovskiy</title>
+
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <script src="{% static 'js/jquery-2.1.3.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+        <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/offcanvas.css' %}">
+        <script src="{% static 'js/offcanvas.js' %}"></script>
+
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body>
+        <nav class="navbar header">
+            <div class="container">
+                <table class="head-line">
+                    <tr>
+                        <td>
+                            <div class="navbar-header text-nowrap nowrap">
+                            <table class="head-line">
+                                <tr>
+                                    <td>
+                                        <a class="navbar-brand" href="#"><img src="{% static 'logo.png' %}" title="Sergey Lagovskiy" alt="Sergey Lagovskiy" class="logo"></a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="navbar" class="collapse navbar-collapse pull-right">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="#">Home</a></li>
+                                    <li><a href="#about">blog</a></li>
+                                    <li><a href="#contact">projects</a></li>
+                                    <li><a href="#contact">about</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </nav>
+
+    <div class="container">
+
+        <div class="row row-offcanvas row-offcanvas-right">
+
+            <div class="col-xs-12 col-sm-9">
+                <div class="pull-right visible-xs">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Показать меню</button>
+                </div>
+                текст текст текст
+            </div>
+
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas sidebar" id="sidebar">
+                <h3>Categories</h3>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">Админево<span class="badge">10</span></a>
+                    <a href="#" class="list-group-item">Разработка<span class="badge">7</span></a>
+                    <a href="#" class="list-group-item">Электроника<span class="badge">22</span></a>
+                    <a href="#" class="list-group-item">Фотография<span class="badge">1</span></a>
+                </div>
+
+                <h3>Tags</h3>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">Windows<span class="badge">1</span></a>
+                    <a href="#" class="list-group-item">Linux<span class="badge">4</span></a>
+                    <a href="#" class="list-group-item">Arduino<span class="badge">2</span></a>
+                    <a href="#" class="list-group-item">LOMO Compact Automat<span class="badge">1</span></a>
+                    <a href="#" class="list-group-item">Film<span class="badge">1</span></a>
+                    <a href="#" class="list-group-item">Mikrotik<span class="badge">4</span></a>
+                    <a href="#" class="list-group-item">C#<span class="badge">2</span></a>
+                    <a href="#" class="list-group-item">Microsoft SQL server<span class="badge">1</span></a>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="container" id="content">
-    {% block content %}
-    {% endblock %}
-</div>
-</div>
+    <footer>
+        <div class="container">
+            <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> © 2010-2015 &nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.2
+        </div>
+    </footer>
+
+
+
+
 </body>
 </html>
