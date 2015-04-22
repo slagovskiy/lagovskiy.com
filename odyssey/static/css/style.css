@@ -119,3 +119,114 @@ a.active
 {
     background: #fff4cc;
 }
+
+
+/***************************************************************************/
+
+article
+{
+    padding-bottom: 50px;
+    font-size: 16px;
+}
+
+article header h2
+{
+    font-family: Tahoma, Geneva, sans-serif;
+    font-weight: normal;
+    font-size: 36px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 45px;
+}
+
+article header h2 a
+{
+    border: 0px;
+}
+
+article header h2 a:hover
+{
+    background: #fff4cc;
+    border: 0px;
+}
+
+article a
+{
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(0,0,0,0.5);
+}
+
+article a:hover
+{
+    background: #fff4cc;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+article div.reading
+{
+    padding-bottom: 30px;
+}
+article div.reading a
+{
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+
+article a.reading:hover
+{
+    border-bottom: 0px;
+}
+
+article .imgcenter {
+    text-align: center;
+    padding: 5px;
+}
+
+article .imgstack {
+    display: inline-grid;
+    text-align: center;
+}
+
+article .imgleft {
+    float: left;
+    padding-right: 10px;
+}
+
+article .imgright {
+    float: right;
+    padding-left: 10px;
+}
+
+article .image-note
+{
+    font-size: 12px;
+    text-align: center;
+}
+
+article a.img img {
+    margin-left: 3px;
+    margin-bottom: 10px;
+}
+
+article a.img img {
+    border: 1px solid rgba(0,0,0,0.5);
+    padding: 5px;
+}
+
+article a.img {
+    border: 0px;
+}
+
+article a.img:hover {
+    border: 0px;
+    background: none;
+}
+
+article div.code {
+    min-height: 20px;
+    padding: 0px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
