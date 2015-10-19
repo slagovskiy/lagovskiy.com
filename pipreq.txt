@@ -1,6 +1,1 @@
 django
-markdown
-mptt
-pytils
-user-agents
-PIL
