@@ -38,3 +38,14 @@
     font-style: normal;
     font-weight: normal;
 }
+
+
+@font-face {
+	font-family: "Saucer BB";
+	src: url("../fonts/SaucerBB.eot?") format("eot");
+	src: url("../fonts/SaucerBB.woff") format("woff");
+	src: url("../fonts/SaucerBB.ttf") format("truetype");
+	src: url("../fonts/SaucerBB.svg#SaucerBB") format("svg");
+	font-weight: normal;
+	font-style:normal;
+}
