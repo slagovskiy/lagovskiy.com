@@ -12,14 +12,10 @@ body{
 }
 
 
+/* head */
 
 .head-row{
     padding: 1.3em;
-    border-bottom: 1px solid red;
-}
-
-.head-logo {
-
 }
 
 .head-logo img {
@@ -75,4 +71,86 @@ body{
 
 .head-menu-link:not(:hover){
     transition: 1s;
+}
+
+/* post */
+
+.post {
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom: 4em;
+    padding-top: 4em;
+}
+
+.post-category {
+    margin: 0;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1.5em;
+}
+
+.post-category a {
+    text-decoration: none;
+    color: #AAAAAA;
+    opacity: 0.7;
+}
+
+.post-category a:hover {
+    opacity: 1;
+}
+
+.post-category a:not(:hover){
+    transition: 1s;
+}
+
+.post-title {
+    font-family: GabrielaRegular, serif;
+    font-size: 2.5em;
+}
+
+.post-title a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.post-title a:hover {
+    color: #006ED2;
+}
+
+.post-tag {
+    margin: 0;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1em;
+}
+
+.post-tag a {
+    text-decoration: none;
+    color: #AAAAAA;
+    opacity: 0.7;
+}
+
+.post-tag a:hover {
+    opacity: 1;
+}
+
+.post-body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.2em;
+    line-height: 1.7em;
+}
+
+.post-button {
+    text-align: right;
+    padding-top: 20px;
+}
+
+.post-button a {
+    background: #DDDDDD;
+    border-radius: 4px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #444444;
+}
+
+.post-button a:hover {
+    background: #006ED2;
+    color: #FFFFFF;
 }
