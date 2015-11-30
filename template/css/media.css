@@ -7,12 +7,18 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
-
+    .head-menu-line {
+        display: none;
+        position: inherit;
+    }
+    .head-menu-line li {
+        display: block;
+        padding-bottom: 5px;
+    }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
-
 }
 
 /* Extra Small Devices, Phones */
@@ -45,7 +51,9 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
-
+    .head-menu-line {
+        display: block !important;
+    }
 }
 
  /* Large Devices, Wide Screens */

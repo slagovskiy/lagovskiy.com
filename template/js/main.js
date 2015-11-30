@@ -17,6 +17,9 @@ function isValidEmailAddress(emailAddress) {
 
 
 $(document).ready(function() {
+    $('#head-menu-link').click(function(){
+        $('#head-menu-line').slideToggle();
+    });
     /*
      //http://api.jquery.com/jquery.ajax/
      $("form").submit(function() {

@@ -1,1 +1,78 @@
 /* lagovskiy.com */
+body{
+
+}
+
+.fl-left{
+    float: left;
+}
+
+.fl-right{
+    float: right;
+}
+
+
+
+.head-row{
+    padding: 1.3em;
+    border-bottom: 1px solid red;
+}
+
+.head-logo {
+
+}
+
+.head-logo img {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+}
+
+.head-menu {
+    text-align: right;
+    font-family: "RobotoMedium";
+    text-transform: uppercase;
+}
+
+.head-menu-line{
+    list-style: none;
+    padding-left: 0;
+    padding-top: 10px;
+}
+
+.head-menu-line li{
+    display: inline;
+    letter-spacing: 1px;
+    padding-left: 1.5em;
+}
+
+.head-menu-line li a{
+    text-decoration: none;
+    color: #000000;
+    opacity: 0.7;
+}
+
+.head-menu-line li a:hover{
+    text-decoration: none;
+    opacity: 1;
+}
+
+.head-menu-line li a:not(:hover){
+    transition: 1s;
+}
+
+.head-menu-link{
+    border: none;
+    background-color: transparent;
+    opacity: 0.7;
+    font-size: 1.6em;
+    padding-top: 0.2em;
+}
+
+.head-menu-link:hover{
+    opacity: 1;
+}
+
+.head-menu-link:not(:hover){
+    transition: 1s;
+}
