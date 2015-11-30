@@ -112,6 +112,16 @@
     font-weight: normal;
 }
 
+/* font-family: "GabrielaRegular"; */
+@font-face {
+    font-family: "GabrielaRegular";
+    src: url("../fonts/GabrielaRegular/GabrielaRegular.eot");
+    src: url("../fonts/GabrielaRegular/GabrielaRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/GabrielaRegular/GabrielaRegular.woff") format("woff"),
+    url("../fonts/GabrielaRegular/GabrielaRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
 
 @font-face {
 	font-family: "Saucer BB";
