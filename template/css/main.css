@@ -30,7 +30,7 @@ body{
 
 .head-menu {
     text-align: right;
-    font-family: "RobotoMedium";
+    font-family: "RobotoMedium", sans-serif;
     text-transform: uppercase;
 }
 
