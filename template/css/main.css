@@ -80,8 +80,12 @@ a:not(:hover) {
 
 /* post */
 
+.articles hr {
+    width: 70%;
+    color: #DDDDDD;
+}
+
 .post {
-    border-bottom: 1px solid #DDDDDD;
     padding-bottom: 4em;
     margin-bottom: 2em;
     padding-top: 2em;
