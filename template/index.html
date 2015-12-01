@@ -35,7 +35,7 @@
             <div class="head-logo fl-left">
                 <a href="/"><img src="img/logo450.png"></a>
             </div>
-            <div class="head-menu fl-right">
+            <nav role="navigation" class="head-menu fl-right">
                 <button class="hidden-lg hidden-md head-menu-link" id="head-menu-link"><i class="fa fa-bars"></i></button>
                 <ul class="head-menu-line" id="head-menu-line">
                     <li><a href="/">home</a></li>
@@ -44,7 +44,7 @@
                     <li><a href="/#">projects</a></li>
                     <li><a href="/#">about</a></li>
                 </ul>
-            </div>
+            </nav>
         </div>
     </header>
 
@@ -93,10 +93,10 @@
                 </div>
             </article>
         </section>
-        <section class="col-md-3 right-menu" id="right-menu">
+        <aside class="col-md-3 right-menu" id="right-menu">
             <section>
                 <h2><i class="fa fa-folder-o"></i> Categories</h2>
-                <ul>
+                <ul role="menu">
                     <li><a href="#">Admin notes</a></li>
                     <li><a href="#">Dev notes</a></li>
                     <li><a href="#">Photography</a></li>
@@ -105,7 +105,7 @@
             </section>
             <section>
                 <h2><i class="fa fa-tags"></i> Tags</h2>
-                <ul class="tag">
+                <ul class="tag" role="menu">
                     <li><a href="#">linux<span>3</span></a></li>
                     <li><a href="#">mikrotik<span>5</span></a></li>
                     <li><a href="#">film<span>12</span></a></li>
@@ -122,7 +122,7 @@
             </section>
             <section>
                 <h2><i class="fa fa-link"></i> Links</h2>
-                <ul>
+                <ul role="menu">
                     <li><a href="https://www.facebook.com/sergey.lagovskiy" target="_blank"><i class="fa fa-facebook-official"></i> i on facebook</a></li>
                     <li><a href="https://www.flickr.com/photos/slagovskiy/" target="_blank"><i class="fa fa-flickr"></i> my photos on flickr</a></li>
                     <li><a href="https://github.com/slagovskiy" target="_blank"><i class="fa fa-github-square"></i> my code on github</a></li>
@@ -132,15 +132,22 @@
             </section>
             <section>
                 <h2><i class="fa fa-archive"></i> Archive</h2>
-                <ul>
+                <ul role="menu">
                     <li>2015</li>
                     <li>2014</li>
                     <li>2013</li>
                     <li>2012</li>
                 </ul>
             </section>
-        </section>
+        </aside>
     </div>
+    <footer class="footer">
+        <div class="container clearfix">
+            <div class="col-md-12">
+                <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-2016&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.2
+            </div>
+        </div>
+    </footer>
 
 	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
 	<!-- Google Analytics counter --><!-- /Google Analytics counter -->

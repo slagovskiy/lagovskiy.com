@@ -259,3 +259,12 @@ a:not(:hover) {
     padding-right: 0.2em;
     color: #FFFFFF;
 }
+
+/* footer */
+.footer{
+    text-align: center;
+    font-family: "RobotoMedium", sans-serif;
+    font-size: 0.8em;
+    padding: 2em 0em 2em 0em;
+    border-top: 1px solid #DDDDDD;
+}
