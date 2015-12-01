@@ -22,8 +22,13 @@ a:hover {
     color: #f52a0e;
 }
 
+a:visited {
+    text-decoration: none;
+}
+
 a:not(:hover) {
     transition: 1s;
+    color: #000000;
 }
 
 /* head */
