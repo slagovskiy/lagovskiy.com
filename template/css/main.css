@@ -167,6 +167,18 @@ a:not(:hover) {
     transition: 200ms;
 }
 
+/* post-body */
+
+.post-body img.img-left {
+    padding-right: 0.5em;
+    float: left;
+}
+
+.post-body img.img-right {
+    padding-left: 0.5em;
+    float: right;
+}
+
 /* right menu */
 
 .right-menu {
