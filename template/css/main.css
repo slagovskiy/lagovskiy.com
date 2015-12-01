@@ -198,7 +198,8 @@ a:not(:hover) {
 }
 
 .right-menu section ul.tag li a {
-    border: 1px solid #E0E0E0;
+    border: 2px solid #E0E0E0;
+    border-radius: 3px;
     line-height: 1.8em;
     padding-left: 0.4em;
 }
@@ -216,7 +217,8 @@ a:not(:hover) {
 }
 
 .right-menu section ul.tag li a:hover {
-    border: 1px solid #f52a0e;
+    border: 2px solid #f52a0e;
+    border-radius: 3px;
     line-height: 1.8em;
 }
 
@@ -234,7 +236,7 @@ a:not(:hover) {
 }
 
 .right-menu section ul.tag li a.tag-active {
-    border: 1px solid #f52a0e;
+    border: 2px solid #f52a0e;
     line-height: 1.8em;
 }
 .right-menu section ul.tag li a.tag-active span{
