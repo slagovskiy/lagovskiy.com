@@ -166,7 +166,7 @@ a:not(:hover) {
 
 .right-menu section {
     padding-top: 2em;
-    padding-bottom: 2em;
+    padding-bottom: 0.5em;
 }
 
 .right-menu section h2 {
@@ -174,6 +174,7 @@ a:not(:hover) {
     font-family: RobotoRegular, sans-serif;
     font-size: 1.8em;
     padding-bottom: 0.3em;
+    text-transform: uppercase;
 }
 
 .right-menu section ul {
@@ -193,14 +194,14 @@ a:not(:hover) {
 }
 
 .right-menu section ul.tag li a {
-    border: 1px solid transparent;
+    border: 1px solid #E0E0E0;
     line-height: 1.8em;
-    padding-left: 0.2em;
+    padding-left: 0.4em;
 }
 .right-menu section ul.tag li a span{
     background-color: #DDDDDD;
     position: relative;
-    padding-left: 0.5em;
+    padding-left: 0.7em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-right: 0.5em;
@@ -213,18 +214,10 @@ a:not(:hover) {
 .right-menu section ul.tag li a:hover {
     border: 1px solid #f52a0e;
     line-height: 1.8em;
-    padding-left: 0.2em;
 }
+
 .right-menu section ul.tag li a:hover span{
     background-color: #f52a0e;
-    position: relative;
-    padding-left: 0.5em;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    padding-right: 0.5em;
-    margin-left: 0.6em;
-    font-size: 0.6em;
-    vertical-align: top;
     color: #FFFFFF;
 }
 
@@ -239,12 +232,11 @@ a:not(:hover) {
 .right-menu section ul.tag li a.tag-active {
     border: 1px solid #f52a0e;
     line-height: 1.8em;
-    padding-left: 0.2em;
 }
 .right-menu section ul.tag li a.tag-active span{
     background-color: #f52a0e;
     position: relative;
-    padding-left: 0.5em;
+    padding-left: 0.7em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     padding-right: 0.5em;
