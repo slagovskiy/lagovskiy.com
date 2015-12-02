@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-
 from .forms import UserChangeForm
 from .forms import UserCreationForm
 from .models import User
@@ -21,23 +20,23 @@ class UserAdmin(UserAdmin):
         'is_active'
     ]
 
-    list_filter = ('is_admin','is_active')
+    list_filter = ('is_admin', 'is_active')
 
     fieldsets = (
-                (None, {
-                'fields': (
-                    'email', 
-                    'password'
-                )}),
-                ('Personal info', {
-                 'fields': (
-                     'avatar',
-                     'firstname',
-                     'lastname',
-                 )}),
-                ('Permissions', {'fields': ('is_active', 'is_admin', 'is_superuser',
-                                               'groups', 'user_permissions')}),
-                ('Important dates', {'fields': ('last_login',)}),
+        (None, {
+            'fields': (
+                'email',
+                'password'
+            )}),
+        ('Personal info', {
+            'fields': (
+                'avatar',
+                'firstname',
+                'lastname',
+            )}),
+        ('Permissions', {'fields': ('is_active', 'is_admin', 'is_superuser',
+                                    'groups', 'user_permissions')}),
+        ('Important dates', {'fields': ('last_login',)}),
     )
 
     add_fieldsets = (
@@ -55,5 +54,5 @@ class UserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+
 admin.site.register(User, UserAdmin)
-#admin.site.unregister(Group)

@@ -33,25 +33,16 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    #password = ReadOnlyPasswordHashField(
-    #    widget=forms.PasswordInput,
-    #    required=False
-    #)
-    
     password = ReadOnlyPasswordHashField(label="Password",
-    help_text= "Raw passwords are not stored, so there is no way to see "
-                "this user's password, but you can change the password "
-                "using <a href=\"password/\">this form</a>.")
-
+                                         help_text="Raw passwords are not stored, so there is no way to see "
+                                                   "this user's password, but you can change the password "
+                                                   "using <a href=\"password/\">this form</a>.")
 
     def clean_password(self):
         return self.initial['password']
 
     def save(self, commit=True):
         user = super(UserChangeForm, self).save(commit=False)
-        password = self.cleaned_data["password"]
-        #if password:
-        #    user.set_password(password)
         if commit:
             user.save()
         return user

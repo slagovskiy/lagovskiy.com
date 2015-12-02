@@ -7,7 +7,6 @@ import os
 
 
 class UserManager(BaseUserManager):
-
     def create_user(self, email, password=None):
         if not email:
             raise ValueError('Not a valid email address!')
@@ -29,13 +28,8 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-
     def avatar_path(instance, filename):
         ext = filename.split('.')[-1]
-        #if instance.pk:
-        #    filename = '{}.{}'.format(instance.pk, ext)
-        #else:
-        #    filename = '{}.{}'.format(str(uuid.uuid1()), ext)
         filename = '{}.{}'.format(str(uuid.uuid1()), ext)
         return os.path.join(os.path.join('user', 'avatar'), filename)
 
