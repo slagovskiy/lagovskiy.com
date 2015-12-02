@@ -169,14 +169,32 @@ a:not(:hover) {
 
 /* post-body */
 
+.post-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 .post-body img.img-left {
-    padding-right: 0.5em;
+    margin-right: 0.5em;
     float: left;
 }
 
 .post-body img.img-right {
-    padding-left: 0.5em;
+    margin-left: 0.5em;
     float: right;
+}
+
+.post-body img.img-center {
+    display: block;
+    margin: 0.5em auto 0.5em auto;
+}
+
+
+.post-body img.img-border {
+    border: 1px solid #DDDDDD;
+    background-color: #F0F0F0;
+    padding: 10px;
 }
 
 /* right menu */
