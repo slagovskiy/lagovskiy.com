@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Module(models.Model):
+class Block(models.Model):
     slug = models.SlugField(
         unique=True
     )
@@ -18,5 +18,5 @@ class Module(models.Model):
 
     class Meta:
         ordering = ['name']
-        verbose_name = 'Module'
-        verbose_name_plural = 'Modules'
+        verbose_name = 'Block'
+        verbose_name_plural = 'Blocks'
