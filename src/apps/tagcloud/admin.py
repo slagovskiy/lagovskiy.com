@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Tag
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin):
     list_display = ('name')
 
 
