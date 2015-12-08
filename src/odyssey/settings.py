@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # my apps
     'apps.userext',
     'apps.categorytree',
+    'apps.tagcloud',
 ]
 
 MIDDLEWARE_CLASSES = [
