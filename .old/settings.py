@@ -108,6 +108,7 @@ MIDDLEWARE_CLASSES = (
 
     # 3rd party middleware
     # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'mptt',
 
     # statistic
     'apps.statistic.middleware.StatisticMiddleware',
