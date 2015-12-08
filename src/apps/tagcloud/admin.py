@@ -3,7 +3,7 @@ from .models import Tag
 
 
 class TagAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'slug', 'deleted')
 
 
 admin.site.register(Tag, TagAdmin)
