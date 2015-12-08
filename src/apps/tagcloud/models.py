@@ -1,7 +1,9 @@
 from django.db import models
+from apps.modules.models import Module
 
 
 class Tag(models.Model):
+    module = models.ForeignKey(Module)
     slug = models.SlugField(
         unique=True
     )
