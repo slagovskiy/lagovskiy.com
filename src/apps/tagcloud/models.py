@@ -3,7 +3,7 @@ from apps.blocks.models import Block
 
 
 class Tag(models.Model):
-    block = models.ForeignKey(Block)
+    block = models.ForeignKey(Block, null=True)
     slug = models.SlugField(
         unique=True
     )
