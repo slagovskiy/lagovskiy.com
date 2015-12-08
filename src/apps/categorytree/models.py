@@ -26,3 +26,8 @@ class Category(MPTTModel):
 
     class MPTTMeta:
         order_insertion_by = ['name']
+
+    class Meta:
+        ordering = ['sort']
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
