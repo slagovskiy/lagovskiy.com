@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party middleware
-    'mptt',
 
     # my apps
     'apps.userext',
