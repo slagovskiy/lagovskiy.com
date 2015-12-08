@@ -1,8 +1,7 @@
 from django.db import models
-from mptt.models import MPTTModel, TreeForeignKey
 
 
-class Category(MPTTModel):
+class Category(models.Model):
     slug = models.SlugField(
         unique=True
     )
@@ -13,7 +12,7 @@ class Category(MPTTModel):
     deleted = models.BooleanField(
         default=False
     )
-    parent = TreeForeignKey(
+    parent = models.ForeignKey(
         'self',
         null=True,
         blank=True,
@@ -23,9 +22,6 @@ class Category(MPTTModel):
 
     def __str__(self):
         return self.name
-
-    class MPTTMeta:
-        order_insertion_by = ['name']
 
     class Meta:
         ordering = ['name']
