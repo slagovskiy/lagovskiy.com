@@ -3,7 +3,7 @@ from .models import Category
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'parent')
+    list_display = ('name', 'parent', 'deleted')
     list_filter = ('name', 'parent')
 
 
