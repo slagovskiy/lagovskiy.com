@@ -96,6 +96,9 @@ class Post(models.Model):
     do_ping = models.BooleanField(
         default=False
     )
+    created = models.DateTimeField(
+        auto_now_add=True
+    )
     published = models.DateTimeField(
         blank=True,
         null=True
