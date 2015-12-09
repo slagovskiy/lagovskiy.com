@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Tag
+from .models import Category, Tag, Post
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -12,5 +12,10 @@ class TagAdmin(admin.ModelAdmin):
     ordering = ['name']
 
 
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'status', 'sticked')
+    ordering = ('status', 'sticked', 'created', 'title')
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Post, PostAdmin)
