@@ -4,7 +4,7 @@ from .models import Category, Tag
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent', 'deleted')
-    list_filter = ('block', 'name', 'parent')
+    list_filter = ('name', 'parent')
 
 
 class TagAdmin(admin.ModelAdmin):
