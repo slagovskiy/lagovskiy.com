@@ -113,3 +113,12 @@ class Post(models.Model):
         Tag,
         blank=True
     )
+    teaser = models.TextField(
+        default=''
+    )
+    content = models.TextField(
+        default=''
+    )
+    content_prev = models.TextField(
+        default=''
+    )
