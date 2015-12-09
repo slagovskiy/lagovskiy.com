@@ -97,7 +97,9 @@ class Post(models.Model):
         default=False
     )
     created = models.DateTimeField(
-        auto_now_add=True
+        auto_now_add=True,
+        editable=False,
+        blank=True
     )
     published = models.DateTimeField(
         blank=True,
