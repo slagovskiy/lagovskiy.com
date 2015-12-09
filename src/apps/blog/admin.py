@@ -9,7 +9,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug', 'deleted')
-    list_filter = ['block']
     ordering = ('block', 'name')
 
 
