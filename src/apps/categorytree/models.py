@@ -1,7 +1,9 @@
 from django.db import models
+from apps.blocks.models import Block
 
 
 class Category(models.Model):
+    block = models.ForeignKey(Block, null=True)
     slug = models.SlugField(
         unique=True
     )
