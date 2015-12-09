@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # my apps
     'apps.userext',
+    'apps.blog',
 ]
 
 MIDDLEWARE_CLASSES = [
