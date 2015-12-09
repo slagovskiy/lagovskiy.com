@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # 3rd party middleware
 
     # my apps
+    'utils',
     'apps.userext',
     'apps.blog',
 ]
