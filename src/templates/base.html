@@ -56,68 +56,6 @@
         <section class="col-md-9 articles" id="articles">
             {% block content %}
             {% endblock %}
-            <article id="post1" class="post">
-                <header>
-                    <h2 class="post-category"><a href="/">photography</a></h2>
-                    <h1 class="post-title"><a href="/">Обзор пленочного фотоаппарата Киев-88</a></h1>
-                    <!--<span class="post-tag"><a href="/">film,</a> <a href="/">camera,</a> <a href="/">photo,</a> <a href="/">kiev-88,</a> <a href="/">medium format,</a> <a href="/">6x6</a></span>-->
-                </header>
-                <div class="post-body clearfix">
-                    <p>Задача организации, в особенности же реализация намеченных плановых заданий в значительной степени обуславливает создание позиций, занимаемых участниками в отношении поставленных задач. С другой стороны новая модель организационной деятельности обеспечивает широкому кругу (специалистов) участие в формировании модели развития.</p>
-
-                    <pre><code>import random
-
-
-def check_access(user, access):
-    try:
-        if not getattr(user.get_profile(), access)():
-            return False
-        else:
-            return True
-    except:
-        return False
-
-
-def random_str(size):
-    str = 'qwertyuiopasdfghjklzxcvbnm'
-    return ''.join([random.choice(str) for i in range(size)])</code></pre>
-
-                    <p>Повседневная практика показывает, что новая модель организационной деятельности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям. Не следует, однако забывать, что начало повседневной работы по формированию позиции в значительной степени обуславливает создание дальнейших направлений развития. Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции позволяет оценить значение существенных финансовых и административных условий. Равным образом укрепление и развитие структуры способствует подготовки и реализации дальнейших направлений развития.</p>
-                </div>
-                <div class="post-button">
-                    <a href="#">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <hr>
-            <article id="post1" class="post">
-                <header>
-                    <h2 class="post-category"><a href="/">admin</a></h2>
-                    <h1 class="post-title"><a href="/">Автовамическая ручная разблокировка блокировок</a></h1>
-                    <!--<span class="post-tag"><a href="/">windows,</a> <a href="/">linux,</a> <a href="/">lock</a></span>-->
-                </header>
-                <div class="post-body clearfix">
-                    <p><a href="img/img_0.jpg" class="fancybox" rel="1" title="g1"><img src="img/img_3.jpg" class="img-left"></a> Значимость этих проблем настолько очевидна, что рамки и место обучения кадров позволяет выполнять важные задания по разработке позиций, занимаемых участниками в отношении поставленных задач. Таким образом начало повседневной работы по формированию позиции обеспечивает широкому кругу (специалистов) участие в формировании позиций, занимаемых участниками в отношении поставленных задач.</p>
-                    <p><a href="img/img_0.jpg" class="fancybox" rel="1" title="g2"><img src="img/img_3.jpg" class="img-right img-border"></a> С другой стороны новая модель организационной деятельности требуют определения и уточнения новых предложений. Идейные соображения высшего порядка, а также консультация с широким активом в значительной степени обуславливает создание новых предложений.</p>
-                </div>
-                <div class="post-button">
-                    <a href="#">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
-                </div>
-            </article>
-            <hr>
-            <article id="post1" class="post">
-                <header>
-                    <h2 class="post-category"><a href="/">programming</a></h2>
-                    <h1 class="post-title"><a href="/">Блокировки в MySQL</a></h1>
-                    <!--<span class="post-tag"><a href="/">database,</a> <a href="/">mysql,</a> <a href="/">linux,</a> <a href="/">sql</a></span>-->
-                </header>
-                <div class="post-body clearfix">
-                    <p>Задача организации, в особенности же реализация намеченных плановых заданий в значительной степени обуславливает создание позиций, занимаемых участниками в отношении поставленных задач. <a href="img/img_0.jpg" class="fancybox" rel="1" title="g1"><img src="img/img_2.jpg" class="img-center img-border"></a> С другой стороны новая модель организационной деятельности обеспечивает широкому кругу (специалистов) участие в формировании модели развития. Повседневная практика показывает, что новая модель организационной деятельности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям. Не следует, однако забывать, что начало повседневной работы по формированию позиции в значительной степени обуславливает создание дальнейших направлений развития. Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции позволяет оценить значение существенных финансовых и административных условий. Равным образом укрепление и развитие структуры способствует подготовки и реализации дальнейших направлений развития.</p>
-                </div>
-                <div class="post-button">
-                    <a href="#">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
-                </div>
-            </article>
-        </section>
         <aside class="col-md-3 right-menu" id="right-menu">
             {% widget_category %}
             {% widget_tags %}
@@ -129,6 +67,9 @@ def random_str(size):
         <div class="container clearfix">
             <div class="col-md-12">
                 <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-2016&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.2
+            </div>
+            <div class="col-md-12 admin-link">
+                <a href="/admin/">django admin</a> <a href="/oadmin/">odyssey admin</a>
             </div>
         </div>
     </footer>

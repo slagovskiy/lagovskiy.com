@@ -298,3 +298,15 @@ a:not(:hover) {
     padding: 2em 0em 2em 0em;
     border-top: 1px solid #DDDDDD;
 }
+
+.footer .admin-link {
+    text-align: right;
+}
+
+.footer .admin-link a{
+    color: transparent;
+}
+
+.footer .admin-link a:hover{
+    color: #CCCCCC;
+}
