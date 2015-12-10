@@ -19,3 +19,8 @@ def widget_tags():
 @register.inclusion_tag('widgets/links.html')
 def widget_links():
     return {}
+
+
+@register.inclusion_tag('widgets/archive.html')
+def widget_archive():
+    return {'archives': ['2016', '2015', '2014', '2013']}
