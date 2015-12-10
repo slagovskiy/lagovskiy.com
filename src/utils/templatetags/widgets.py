@@ -14,3 +14,8 @@ def widget_category():
 def widget_tags():
     tags = Tag.objects.all().filter(deleted=False)
     return {'tags': tags}
+
+
+@register.inclusion_tag('widgets/links.html')
+def widget_links():
+    return {}
