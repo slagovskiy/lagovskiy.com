@@ -48,6 +48,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return '/blog/tag/%s' % self.slug
+
     def post_count(self):
         return self.post_set.all().filter(status=2).count()
 
