@@ -1,1 +1,10 @@
-<h1>tags</h1>
+{% if categories %}
+<section>
+    <h2><i class="fa fa-folder-o"></i> Notepads</h2>
+    <ul role="menu">
+        {% for category in categories %}
+        <li><a href="/blog/category/{{ category.slug }}/">{{ canegory.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

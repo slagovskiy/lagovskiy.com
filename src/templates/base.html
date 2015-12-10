@@ -1,4 +1,5 @@
 {% load static %}
+{% load widgets %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html lang="ru" class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
@@ -118,15 +119,7 @@ def random_str(size):
             </article>
         </section>
         <aside class="col-md-3 right-menu" id="right-menu">
-            <section>
-                <h2><i class="fa fa-folder-o"></i> Categories</h2>
-                <ul role="menu">
-                    <li><a href="#">Admin notes</a></li>
-                    <li><a href="#">Dev notes</a></li>
-                    <li><a href="#">Photography</a></li>
-                    <li><a href="#">Other</a></li>
-                </ul>
-            </section>
+            {% widget_tags %}
             <section>
                 <h2><i class="fa fa-tags"></i> Tags</h2>
                 <ul class="tag" role="menu">
