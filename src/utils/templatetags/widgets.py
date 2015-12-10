@@ -1,7 +1,13 @@
 from django import template
-from apps.blog.models import Tag
+from apps.blog.models import Category, Tag
 
 register = template.Library()
+
+
+@register.inclusion_tag('widgets/category.html')
+def widget_category():
+    categories = Category.objects.all().filter(deleted=False)
+    return {'categories': categories}
 
 
 @register.inclusion_tag('widgets/tags.html')
