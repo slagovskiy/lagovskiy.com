@@ -6,16 +6,16 @@
         <header>
             <h2 class="post-category">
                 {% for category in post.categories.all %}
-                    <a href="/blog/category/{{ category.slug }}/">{{ category.name }}</a>&nbsp;&nbsp;
+                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>&nbsp;&nbsp;
                 {% endfor %}
             </h2>
-            <h1 class="post-title"><a href="/blog/view/{{ post.slug }}/">{{ post.title }}</a></h1>
+            <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
             {{ post.teaser|safe }}
         </div>
         <div class="post-button">
-            <a href="/blog/view/{{ post.slug }}/">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+            <a href="{{ post.get_absolute_url }}">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
         </div>
     </article>
     {% if not loop.last %}<hr>{% endif %}
