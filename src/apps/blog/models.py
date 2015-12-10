@@ -25,7 +25,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return '/blog/category/%s' % self.slug
+        return '/blog/category/%s/' % self.slug
 
     class Meta:
         ordering = ['name']
@@ -49,7 +49,7 @@ class Tag(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return '/blog/tag/%s' % self.slug
+        return '/blog/tag/%s/' % self.slug
 
     def post_count(self):
         return self.post_set.all().filter(status=2).count()
@@ -131,3 +131,7 @@ class Post(models.Model):
     content_prev = models.TextField(
         default=''
     )
+
+    def get_absolute_url(self):
+        return '/blog/view/%s/' % self.slug
+
