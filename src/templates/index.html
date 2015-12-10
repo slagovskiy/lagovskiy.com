@@ -1,37 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% for post in posts %}
     <article id="post1" class="post">
         <header>
-            <h2 class="post-category"><a href="/">photography</a></h2>
-            <h1 class="post-title"><a href="/">Обзор пленочного фотоаппарата Киев-88</a></h1>
-            <!--<span class="post-tag"><a href="/">film,</a> <a href="/">camera,</a> <a href="/">photo,</a> <a href="/">kiev-88,</a> <a href="/">medium format,</a> <a href="/">6x6</a></span>-->
+            <h2 class="post-category">
+                {% for category in post.categories.all %}
+                    <a href="/blog/category/{{ category.slug }}/">{{ category.name }}</a>&nbsp;&nbsp;
+                {% endfor %}
+            </h2>
+            <h1 class="post-title"><a href="/blog/view/{{ post.slug }}/">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
-            <p>Задача организации, в особенности же реализация намеченных плановых заданий в значительной степени обуславливает создание позиций, занимаемых участниками в отношении поставленных задач. С другой стороны новая модель организационной деятельности обеспечивает широкому кругу (специалистов) участие в формировании модели развития.</p>
-
-                    <pre><code>import random
-
-
-                        def check_access(user, access):
-                        try:
-                        if not getattr(user.get_profile(), access)():
-                        return False
-                        else:
-                        return True
-                        except:
-                        return False
-
-
-                        def random_str(size):
-                        str = 'qwertyuiopasdfghjklzxcvbnm'
-                        return ''.join([random.choice(str) for i in range(size)])</code></pre>
-
-            <p>Повседневная практика показывает, что новая модель организационной деятельности играет важную роль в формировании системы обучения кадров, соответствует насущным потребностям. Не следует, однако забывать, что начало повседневной работы по формированию позиции в значительной степени обуславливает создание дальнейших направлений развития. Значимость этих проблем настолько очевидна, что начало повседневной работы по формированию позиции позволяет оценить значение существенных финансовых и административных условий. Равным образом укрепление и развитие структуры способствует подготовки и реализации дальнейших направлений развития.</p>
+            {{ post.teaser|safe }}
         </div>
         <div class="post-button">
-            <a href="#">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+            <a href="/blog/view/{{ post.slug }}/">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
         </div>
     </article>
-    <hr>
+    {% if not loop.last %}<hr>{% endif %}
+    {% endfor %}
 {% endblock %}
