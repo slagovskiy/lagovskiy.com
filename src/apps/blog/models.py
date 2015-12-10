@@ -45,6 +45,9 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    def post_count(self):
+        return self.post_set.all().filter(status=2).count()
+
     class Meta:
         ordering = ['name']
         verbose_name = 'Tag'
