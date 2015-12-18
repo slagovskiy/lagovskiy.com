@@ -1,0 +1,1 @@
+"c:\Program Files\WinRAR\Rar.exe" u -p -m5 localdata.arc src/db.sqlite3 src/media src/odyssey/settings_local*.py
