@@ -25,6 +25,8 @@
 	<link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/main.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/media.css' %}" />
+    {% block ext_css %}
+    {% endblock %}
 </head>
 <body>
 	<script src="{% static 'libs/jquery/jquery-2.1.4.min.js' %}"></script>
