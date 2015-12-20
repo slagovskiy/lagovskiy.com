@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # my apps
     'utils',
     'apps.userext',
+    'apps.oadmin',
     'apps.blog',
 ]
 
