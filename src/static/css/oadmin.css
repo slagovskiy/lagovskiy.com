@@ -1,0 +1,14 @@
+.oadmin-top-menu {
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+
+.oadmin-top-menu ul {
+    padding-left: 0;
+}
+
+.oadmin-top-menu li{
+    display: inline;
+    letter-spacing: 1px;
+}
+
