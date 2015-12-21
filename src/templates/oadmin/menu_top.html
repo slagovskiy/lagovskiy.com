@@ -1,10 +1,10 @@
 <nav class="oadmin-top-menu">
     <ul>
-        <li><a href="{% url 'oadmin_dashboard' %}" class="active">Dashboard</a></li>
+        {% url 'oadmin_dashboard' as url %}<li><a href="{{ url }}"{% if request.path == url %} class="active"{% endif %}>Dashboard</a></li>
         <li><a href="/oadmin/">Posts</a></li>
         <li><a href="/oadmin/">Comments</a></li>
         <li><a href="/oadmin/">Notepads</a></li>
-        <li><a href="{% url 'oadmin_tag' %}">Tags</a></li>
+        {% url 'oadmin_tag' as url %}<li><a href="{{ url }}"{% if request.path == url %} class="active"{% endif %}>Tags</a></li>
         <li><a href="/oadmin/">Links</a></li>
     </ul>
 </nav>
