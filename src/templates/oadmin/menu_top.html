@@ -1,10 +1,10 @@
 <nav class="oadmin-top-menu">
     <ul>
-        <li><a href="/oadmin/" class="active">Dashboard</a></li>
+        <li><a href="{% url 'oadmin_dashboard' %}" class="active">Dashboard</a></li>
         <li><a href="/oadmin/">Posts</a></li>
         <li><a href="/oadmin/">Comments</a></li>
         <li><a href="/oadmin/">Notepads</a></li>
-        <li><a href="/oadmin/tag/">Tags</a></li>
+        <li><a href="{% url 'oadmin_tag' %}">Tags</a></li>
         <li><a href="/oadmin/">Links</a></li>
     </ul>
 </nav>
