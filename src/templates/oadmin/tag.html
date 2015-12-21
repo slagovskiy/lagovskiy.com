@@ -11,7 +11,14 @@
             <li><a href="#" onclick="editData({{pk}});return false;">{{fields.name}} [{{fields.slug}}]</a></li>
         {{/.}}</ul>
     </div>
+    <div id="dataEdit" class="hide">
+        <form>{{.}}
+            <label>slug</label><input type="text" value="{{fields.slug}}"><br>
+            <label>name</label><input type="text" value="{{fields.name}}">
+        {{/.}}</form>
+    </div>
 {% endverbatim %}
+<div id="dataForm" class="dataForm"></div>
 <div id="dataContainer" class="dataContainer"></div>
 
 <script>
@@ -29,7 +36,14 @@
 
     function editData(key)
     {
-        alert(key);
+        $.ajax({
+            url :'{% url 'oadmin_tag' %}' + key + '/',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $('#dataEdit').html();
+            $('#dataForm').html(Mark.up(template, jdata));
+        });
     }
 
     $(document).ready(function(){
