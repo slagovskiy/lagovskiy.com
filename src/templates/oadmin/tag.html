@@ -2,6 +2,38 @@
 {% load static %}
 
 {% block oa-content %}
-<script src="{% static 'libs/jsrender/jsrender.js' %}"></script>
+<script src="{% static 'libs/markup/markup.min.js' %}"></script>
 
+
+{% verbatim %}
+    <div id="dataTemplate" class="hide">
+        <ul>{{.}}
+            <li><a href="#" onclick="editData({{pk}});return false;">{{fields.name}} [{{fields.slug}}]</a></li>
+        {{/.}}</ul>
+    </div>
+{% endverbatim %}
+<div id="dataContainer"></div>
+
+<script>
+    function loadData()
+    {
+        $.ajax({
+            url :'{% url 'oadmin_tag_all' %}',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $('#dataTemplate').html();
+            $('#dataContainer').html(Mark.up(template, jdata));
+        });
+    }
+
+    function editData(key)
+    {
+        alert(key);
+    }
+
+    $(document).ready(function(){
+        loadData();
+    });
+</script>
 {% endblock %}
