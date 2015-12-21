@@ -14,3 +14,8 @@ def tag(request):
     content = {
     }
     return render(request, 'oadmin/tag.html', content)
+
+
+def tag_all(request):
+    data = serializers.serialize('json', Tag.objects.all())
+    return JsonResponse(data, safe=False)
