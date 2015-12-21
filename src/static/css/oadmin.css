@@ -12,3 +12,12 @@
     letter-spacing: 1px;
 }
 
+.dataContainer {
+    font-size: 1.2em;
+}
+
+.dataContainer ul {
+    padding-left: 0.8em;
+    list-style: none;
+    line-height: 1.6em;
+}
