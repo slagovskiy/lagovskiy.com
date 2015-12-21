@@ -31,6 +31,11 @@ a:not(:hover) {
     color: #000000;
 }
 
+a.active {
+    text-decoration: none;
+    color: #f52a0e;
+}
+
 /* head */
 
 .head-row{
