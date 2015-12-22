@@ -36,6 +36,21 @@ a.active {
     color: #f52a0e;
 }
 
+/* input active */
+input, textarea
+{
+    outline:none;
+}
+
+input:active, textarea:active
+{
+    outline:none;
+}
+
+input:focus, textarea:focus {
+    outline:none;
+}
+
 /* head */
 
 .head-row{

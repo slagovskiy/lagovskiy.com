@@ -8,13 +8,21 @@
 {% verbatim %}
     <div id="dataTemplate" class="hide">
         <ul>{{.}}
-            <li><a href="#" onclick="editData({{pk}});return false;">{{fields.name}} [{{fields.slug}}]</a></li>
+            <li><a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a></li>
         {{/.}}</ul>
     </div>
     <div id="dataEdit" class="hide">
         <form>{{.}}
-            <label>slug</label><input type="text" value="{{fields.slug}}"><br>
-            <label>name</label><input type="text" value="{{fields.name}}">
+            <div class="fields">
+                <label for="txtSlug">slug</label>
+                <input type="text" value="{{fields.slug}}" name="txtSlug" id="txtSlug">
+                <br>
+                <label for="txtName">name</label>
+                <input type="text" value="{{fields.name}}" name="txtName" id="txtName">
+            </div>
+            <div class="action">
+                <input type="button" value="save" class="btn btn-success">
+            </div>
         {{/.}}</form>
     </div>
 {% endverbatim %}
@@ -43,6 +51,14 @@
             var jdata = jQuery.parseJSON(data);
             var template = $('#dataEdit').html();
             $('#dataForm').html(Mark.up(template, jdata));
+        });
+
+        $('.open-data-form').fancybox({
+            padding: 0,
+            type: 'inline',
+            title: '',
+            modal: false,
+            autoSize: true
         });
     }
 

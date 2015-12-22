@@ -21,3 +21,32 @@
     list-style: none;
     line-height: 1.6em;
 }
+
+.dataForm {
+    padding: 2em;
+}
+
+.dataForm label {
+    width: 6em;
+    padding-bottom: 1em;
+}
+.dataForm input[type=text] {
+    width: 15em;
+    padding: 2px;
+    border-color: transparent;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.dataForm .fields {
+    margin-bottom: 1em;
+}
+
+.dataForm .action {
+    text-align: center;
+}
+
+.dataForm .action input[type=button]{
+    text-transform: uppercase;
+    padding-left: 2em;
+    padding-right: 2em;
+}
