@@ -22,17 +22,20 @@ def tag_all(request):
 
 
 def tag_save(request):
-    id = int(request.POST['id'])
-    slug = str(request.POST['txtSlug'])
-    name = str(request.POST['txtName'])
-    tag = Tag.objects.get(id=id)
-    if tag:
-        tag.slug = slug
-        tag.name = name
-        tag.save()
-        return HttpResponse('ok')
-    else:
-        return HttpResponse('error')
+    try:
+        id = int(request.POST['id'])
+        slug = str(request.POST['txtSlug'])
+        name = str(request.POST['txtName'])
+        tag = Tag.objects.get(id=id)
+        if tag:
+            tag.slug = slug
+            tag.name = name
+            tag.save()
+            return HttpResponse('ok')
+        else:
+            return HttpResponse('error get object')
+    except Exception as ex:
+        return HttpResponse(ex)
 
 
 def tag_edit(request, id):

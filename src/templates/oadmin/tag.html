@@ -74,12 +74,17 @@
                 data: $("#dataForm form").serialize()
             })
             .done(function(data){
-                notice('green', 'saved');
-                $.fancybox.close();
-                loadData(model);
+                if(data=='ok') {
+                    notice('green', 'saved');
+                    $.fancybox.close();
+                    loadData(model);
+                }
+                else {
+                    notice('red', data);
+                }
             })
             .fail(function(){
-                notice('red', 'save error');
+                notice('red', 'data transfer error');
             });
     }
 
