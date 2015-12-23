@@ -5,8 +5,8 @@ from .views import tag, tag_all, tag_edit, tag_save
 
 urlpatterns = [
     url(r'^$', index, name='oadmin_dashboard'),
-    url(r'^blog.tag/$', tag, name='oadmin_tag'),
-    url(r'^blog.tag/all/$', tag_all, name='oadmin_tag_all'),
-    url(r'^blog.tag/save/$', tag_save, name='oadmin_tag_save'),
-    url(r'^blog.tag/(?P<id>[-\w]+)/$', tag_edit, name='oadmin_tag_edit'),
+    url(r'^blog/tag/$', tag, name='oadmin_tag'),
+    url(r'^blog/tag/all/$', tag_all, name='oadmin_tag_all'),
+    url(r'^blog/tag/save/$', tag_save, name='oadmin_tag_save'),
+    url(r'^blog/tag/(?P<id>[-\w]+)/$', tag_edit, name='oadmin_tag_edit'),
 ]

@@ -8,7 +8,7 @@
 {% verbatim %}
     <div id="dataTemplate" class="hide">
         <ul>{{.}}
-            <li><a href="#dataForm" onclick="editData('{{model}}',{{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a></li>
+            <li><a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a></li>
         {{/.}}</ul>
     </div>
     <div id="dataEdit" class="hide">
@@ -25,7 +25,7 @@
                 <input type="text" value="{{fields.name}}" name="txtName" id="txtName">
             </div>
             <div class="action">
-                <input type="button" onclick="saveData('{{model}}');" value="save" class="btn btn-success">
+                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
             </div>
         {{/.}}</form>
     </div>
@@ -35,10 +35,10 @@
 <div id="dataContainer" class="dataContainer"></div>
 
 <script>
-    function loadData(model)
+    function loadData()
     {
         $.ajax({
-            url :'/oadmin/' + model + '/all/',
+            url :'{% url 'oadmin_tag_all' %}',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -47,10 +47,10 @@
         });
     }
 
-    function editData(model, key)
+    function editData(key)
     {
         $.ajax({
-            url :'/oadmin/' + model + '/' + key + '/',
+            url :'{% url 'oadmin_tag' %}' + key + '/',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -70,7 +70,7 @@
     function saveData(model) {
         $.ajax({
                 type: 'POST',
-                url: '/oadmin/' + model + '/save/',
+                url: '{% url 'oadmin_tag_save' %}',
                 data: $("#dataForm form").serialize()
             })
             .done(function(data){
@@ -89,7 +89,7 @@
     }
 
     $(document).ready(function(){
-        loadData('blog.tag');
+        loadData();
     });
 </script>
 {% endblock %}

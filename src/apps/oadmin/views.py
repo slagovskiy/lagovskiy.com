@@ -21,6 +21,11 @@ def tag_all(request):
     return JsonResponse(data, safe=False)
 
 
+def tag_edit(request, id):
+    data = serializers.serialize('json', Tag.objects.all().filter(id=id))
+    return JsonResponse(data, safe=False)
+
+
 def tag_save(request):
     try:
         id = int(request.POST['id'])
@@ -36,8 +41,3 @@ def tag_save(request):
             return HttpResponse('error get object')
     except Exception as ex:
         return HttpResponse(ex)
-
-
-def tag_edit(request, id):
-    data = serializers.serialize('json', Tag.objects.all().filter(id=id))
-    return JsonResponse(data, safe=False)
