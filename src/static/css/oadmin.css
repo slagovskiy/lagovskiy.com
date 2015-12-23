@@ -12,6 +12,10 @@
     letter-spacing: 1px;
 }
 
+.oadmin-action {
+    padding-bottom: 1em;
+}
+
 .dataContainer {
     font-size: 1.2em;
 }
