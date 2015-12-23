@@ -3,12 +3,19 @@
 
 {% block oa-content %}
 <script src="{% static 'libs/markup/markup.min.js' %}"></script>
+<script src="{% static 'libs/markup/markup.min.js' %}"></script>
 
 
 {% verbatim %}
     <div id="dataTemplate" class="hide">
         <ul>{{.}}
-            <li><a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a></li>
+            <li
+            >
+                {{if fields.deleted}}
+                class="deleted"
+                {{/if}}
+                <a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a>
+            </li>
         {{/.}}</ul>
     </div>
     <div id="dataEdit" class="hide">
@@ -18,14 +25,21 @@
                 {% csrf_token %}
 {% verbatim %}
                 <input type="hidden" name="id" value="{{pk}}">
+                <input type="hidden" name="deleted" value="{{fields.deleted}}">
                 <label for="txtSlug">slug</label>
                 <input type="text" value="{{fields.slug}}" name="txtSlug" id="txtSlug">
                 <br>
                 <label for="txtName">name</label>
                 <input type="text" value="{{fields.name}}" name="txtName" id="txtName">
+                <br>
             </div>
             <div class="action">
                 <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                {{if fields.deleted}}
+                <button onclick="saveData();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                {{else}}
+                <button onclick="saveData();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                {{/if}}
             </div>
         {{/.}}</form>
     </div>
