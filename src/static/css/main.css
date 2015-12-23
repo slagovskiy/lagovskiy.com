@@ -40,6 +40,7 @@ a.active {
 input, textarea
 {
     outline:none;
+    border-color: transparent;
 }
 
 input:active, textarea:active
@@ -49,6 +50,17 @@ input:active, textarea:active
 
 input:focus, textarea:focus {
     outline:none;
+}
+
+button {
+    text-transform: uppercase;
+    padding-left: 2em !important;
+    padding-right: 2em !important;
+}
+
+
+button .fa{
+    padding-right: 0.4em;
 }
 
 /* head */
