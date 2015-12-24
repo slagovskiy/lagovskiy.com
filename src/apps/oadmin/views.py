@@ -32,16 +32,25 @@ def tag_save(request):
         slug = str(request.POST['txtSlug'])
         name = str(request.POST['txtName'])
         deleted = False
-        if request.POST['deleted']=='true':
+        if request.POST['deleted'] == 'true':
             deleted = True
-        tag = Tag.objects.get(id=id)
-        if tag:
-            tag.slug = slug
-            tag.name = name
-            tag.deleted = deleted
+        if id == -1:
+            tag = Tag.objects.create(
+                slug=slug,
+                name=name,
+                deleted=deleted
+            )
             tag.save()
             return HttpResponse('ok')
         else:
-            return HttpResponse('error get object')
+            tag = Tag.objects.get(id=id)
+            if tag:
+                tag.slug = slug
+                tag.name = name
+                tag.deleted = deleted
+                tag.save()
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('error get object')
     except Exception as ex:
         return HttpResponse(ex)
