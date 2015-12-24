@@ -6,8 +6,7 @@ class MyLinks(models.Model):
         max_length=255,
         default=''
     )
-    link = models.CharField(
-        max_length=255,
+    link = models.URLField(
         default=''
     )
     order = models.SmallIntegerField(
