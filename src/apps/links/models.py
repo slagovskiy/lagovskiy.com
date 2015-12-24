@@ -13,6 +13,9 @@ class MyLinks(models.Model):
     order = models.SmallIntegerField(
         default=0
     )
+    deleted = models.BooleanField(
+        default=False
+    )
 
     def __str__(self):
         return self.name
