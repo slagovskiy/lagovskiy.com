@@ -3,7 +3,7 @@
         {% url 'oadmin_dashboard' as url %}<li><a href="{{ url }}"{% if request.path == url %} class="active"{% endif %}>Dashboard</a></li>
         <li><a href="/oadmin/">Posts</a></li>
         <li><a href="/oadmin/">Comments</a></li>
-        <li><a href="/oadmin/">Notepads</a></li>
+        {% url 'oadmin_category' as url %}<li><a href="{{ url }}"{% if request.path == url %} class="active"{% endif %}>Notepads</a></li>
         {% url 'oadmin_tag' as url %}<li><a href="{{ url }}"{% if request.path == url %} class="active"{% endif %}>Tags</a></li>
         <li><a href="/oadmin/">Links</a></li>
     </ul>
