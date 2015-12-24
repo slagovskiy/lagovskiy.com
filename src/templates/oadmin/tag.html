@@ -14,7 +14,7 @@
             {{else}}
             <li>
             {{/if}}
-                {{fields.name}} [{{fields.slug}}]</a>
+                <a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a>
             </li>
         {{/.}}</ul>
     </div>
@@ -46,8 +46,8 @@
 {% endverbatim %}
 
 <div class="oadmin-action">
-    <a href="#dataForm" onclick="newData();return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>
-    <button class="btn btn-primary" onclick="loadData();"><i class="fa fa-refresh"></i> refresh</button>
+    <a href="#dataForm" onclick="newData();return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
 <div id="dataForm" class="dataForm" style="display: none;"></div>
 <div id="dataContainer" class="dataContainer"></div>
@@ -87,14 +87,10 @@
 
     function newData(key)
     {
-        $.ajax({
-            url :'{% url 'oadmin_tag_new' %}',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $('#dataEdit').html();
-            $('#dataForm').html(Mark.up(template, jdata));
-        });
+        var data = "[{\"pk\": -1, \"fields\": {\"slug\": \"new_tag\",\"name\": \"new tag\",\"deleted\": false}}]";
+        var jdata = jQuery.parseJSON(data);
+        var template = $('#dataEdit').html();
+        $('#dataForm').html(Mark.up(template, jdata));
 
         $('.open-data-form').fancybox({
             padding: 0,

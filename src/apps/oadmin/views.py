@@ -26,18 +26,6 @@ def tag_edit(request, id):
     return JsonResponse(data, safe=False)
 
 
-def tag_new(request):
-    data = '''[
-        {"pk": -1, "fields":
-            {"slug": "new_tag",
-             "name": "new tag",
-             "deleted": false
-             }
-         }
-    ]'''
-    return JsonResponse(data, safe=False)
-
-
 def tag_save(request):
     try:
         id = int(request.POST['id'])
