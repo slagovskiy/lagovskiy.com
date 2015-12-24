@@ -24,8 +24,8 @@
 {% endverbatim %}
                 {% csrf_token %}
 {% verbatim %}
-                <input type="hidden" name="id" value="{{pk}}">
-                <input type="hidden" name="deleted" value="{{fields.deleted}}">
+                <input type="hidden" value="{{pk}}" name="id">
+                <input type="hidden" value="{{fields.deleted}}" name="deleted" id="deleted">
                 <label for="txtSlug">slug</label>
                 <input type="text" value="{{fields.slug}}" name="txtSlug" id="txtSlug">
                 <br>
@@ -36,9 +36,9 @@
             <div class="action">
                 <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
                 {{if fields.deleted}}
-                <button onclick="saveData();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
                 {{else}}
-                <button onclick="saveData();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
                 {{/if}}
             </div>
         {{/.}}</form>
@@ -101,7 +101,17 @@
         });
     }
 
-    function saveData(model) {
+    function deleteItem() {
+        $("#dataForm form #deleted").val('true');
+        saveData();
+    }
+
+    function restoreItem() {
+        $("#dataForm form #deleted").val('false');
+        saveData();
+    }
+
+    function saveData() {
         $.ajax({
                 type: 'POST',
                 url: '{% url 'oadmin_tag_save' %}',
@@ -111,7 +121,7 @@
                 if(data=='ok') {
                     notice('green', 'saved');
                     $.fancybox.close();
-                    loadData(model);
+                    loadData();
                 }
                 else {
                     notice('red', data);
@@ -120,6 +130,9 @@
             .fail(function(){
                 notice('red', 'data transfer error');
             });
+        $("#dataForm form").submit(function(){
+            return false;
+        });
     }
 
     $(document).ready(function(){
