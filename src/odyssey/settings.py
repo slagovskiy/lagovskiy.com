@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.userext',
     'apps.oadmin',
     'apps.blog',
+    'apps.links',
 ]
 
 MIDDLEWARE_CLASSES = [
