@@ -13,7 +13,7 @@ def index(request):
 def tag(request):
     content = {
     }
-    return render(request, 'oadmin/tag.html', content)
+    return render(request, 'oadmin/blog/tag.html', content)
 
 
 def tag_all(request):
@@ -59,7 +59,7 @@ def tag_save(request):
 def category(request):
     content = {
     }
-    return render(request, 'oadmin/category.html', content)
+    return render(request, 'oadmin/blog/category.html', content)
 
 
 def category_all(request):
