@@ -9,12 +9,12 @@
 {% verbatim %}
     <div id="dataTemplate" class="hide">
         <ul>{{.}}
-            <li
-            >
-                {{if fields.deleted}}
-                class="deleted"
-                {{/if}}
-                <a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a>
+            {{if fields.deleted}}
+            <li class="deleted">
+            {{else}}
+            <li>
+            {{/if}}
+                {{fields.name}} [{{fields.slug}}]</a>
             </li>
         {{/.}}</ul>
     </div>
