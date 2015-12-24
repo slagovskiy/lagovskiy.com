@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from apps.blog.models import Tag, Category
+from apps.links.models import MyLinks
 
 
 def index(request):
@@ -99,4 +100,54 @@ def category_save(request):
             else:
                 return HttpResponse('error get object')
     except Exception as ex:
+        return HttpResponse(ex)
+
+
+def mylinks(request):
+    content = {
+    }
+    return render(request, 'oadmin/links/mylinks.html', content)
+
+
+def mylinks_all(request):
+    data = serializers.serialize('json', MyLinks.objects.all())
+    return JsonResponse(data, safe=False)
+
+
+def mylinks_edit(request, id):
+    data = serializers.serialize('json', MyLinks.objects.all().filter(id=id))
+    return JsonResponse(data, safe=False)
+
+
+def mylinks_save(request):
+    try:
+        id = int(request.POST['id'])
+        url = str(request.POST['txtUrl'])
+        order = int(request.POST['txtOrder'])
+        name = str(request.POST['txtName'])
+        deleted = False
+        if request.POST['deleted'] == 'true':
+            deleted = True
+        if id == -1:
+            mylink = MyLinks.objects.create(
+                url=url,
+                order=order,
+                name=name,
+                deleted=deleted
+            )
+            mylink.save()
+            return HttpResponse('ok')
+        else:
+            mylink = MyLinks.objects.get(id=id)
+            if mylink:
+                mylink.url = url
+                mylink.name = name
+                mylink.order = order
+                mylink.deleted = deleted
+                mylink.save()
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('error get object')
+    except Exception as ex:
+        print(ex)
         return HttpResponse(ex)
