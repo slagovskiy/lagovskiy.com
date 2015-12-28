@@ -14,7 +14,7 @@
                     {{else}}
                 <li>
                     {{/if}}
-                    <a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}}</a> [<a href="{{fields.url}}" target="_blank">{{fields.url}}]</a>
+                    <a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}}</a> [<a href="{{fields.link}}" target="_blank">{{fields.link}}]</a>
                 </li>
                 {{/.}}</ul>
         </div>
@@ -30,7 +30,7 @@
     <input type="text" value="{{fields.name}}" name="txtName" id="txtName">
     <br>
     <label for="txtSlug">url</label>
-    <input type="text" value="{{fields.url}}" name="txtUrl" id="txtUrl">
+    <input type="text" value="{{fields.link}}" name="txtLink" id="txtLink">
     <br>
     <label for="txtSlug">order</label>
     <input type="text" value="{{fields.order}}" name="txtOrder" id="txtOrder">
@@ -90,7 +90,7 @@
 
         function newData(key)
         {
-            var data = "[{\"pk\": -1, \"fields\": {\"url\": \"http://\",\"name\": \"new link\",\"order\": \"1\",\"deleted\": false}}]";
+            var data = "[{\"pk\": -1, \"fields\": {\"link\": \"http://\",\"name\": \"new link\",\"order\": \"1\",\"deleted\": false}}]";
             var jdata = jQuery.parseJSON(data);
             var template = $('#dataEdit').html();
             $('#dataForm').html(Mark.up(template, jdata));

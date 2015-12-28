@@ -122,7 +122,7 @@ def mylinks_edit(request, id):
 def mylinks_save(request):
     try:
         id = int(request.POST['id'])
-        url = str(request.POST['txtUrl'])
+        link = str(request.POST['txtLink'])
         order = int(request.POST['txtOrder'])
         name = str(request.POST['txtName'])
         deleted = False
@@ -130,7 +130,7 @@ def mylinks_save(request):
             deleted = True
         if id == -1:
             mylink = MyLinks.objects.create(
-                url=url,
+                link=link,
                 order=order,
                 name=name,
                 deleted=deleted
@@ -140,7 +140,7 @@ def mylinks_save(request):
         else:
             mylink = MyLinks.objects.get(id=id)
             if mylink:
-                mylink.url = url
+                mylink.url = link
                 mylink.name = name
                 mylink.order = order
                 mylink.deleted = deleted
