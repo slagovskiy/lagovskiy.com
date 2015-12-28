@@ -33,8 +33,9 @@
 .dataForm label {
     width: 6em;
     padding-bottom: 1em;
+    vertical-align: top;
 }
-.dataForm input[type=text] {
+.dataForm input[type=text], .dataForm textarea {
     width: 15em;
     padding: 2px;
     border-color: transparent;

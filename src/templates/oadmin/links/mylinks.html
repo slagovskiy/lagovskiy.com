@@ -27,13 +27,21 @@
     <input type="hidden" value="{{pk}}" name="id">
     <input type="hidden" value="{{fields.deleted}}" name="deleted" id="deleted">
     <label for="txtName">name</label>
-    <input type="text" value="{{fields.name}}" name="txtName" id="txtName">
+    <textarea name="txtName" id="txtName">{{fields.name}}</textarea>
     <br>
     <label for="txtSlug">url</label>
     <input type="text" value="{{fields.link}}" name="txtLink" id="txtLink">
     <br>
     <label for="txtSlug">order</label>
     <input type="text" value="{{fields.order}}" name="txtOrder" id="txtOrder">
+    <br>
+    <label for="txtSlug"> </label>
+    {{if fields.new_window}}
+    <input type="checkbox" value="1" checked="checked" name="txtNewW" id="txtNewW">
+    {{else}}
+    <input type="checkbox" value="1" name="txtNewW" id="txtNewW">
+    {{/if}}
+    <label for="txtSlug">open in new window</label>
     <br>
     </div>
     <div class="action">
@@ -90,7 +98,7 @@
 
         function newData(key)
         {
-            var data = "[{\"pk\": -1, \"fields\": {\"link\": \"http://\",\"name\": \"new link\",\"order\": \"1\",\"deleted\": false}}]";
+            var data = "[{\"pk\": -1, \"fields\": {\"link\": \"http://\",\"name\": \"new link\",\"order\": \"1\",\"deleted\": false,\"new_window\": true}}]";
             var jdata = jQuery.parseJSON(data);
             var template = $('#dataEdit').html();
             $('#dataForm').html(Mark.up(template, jdata));

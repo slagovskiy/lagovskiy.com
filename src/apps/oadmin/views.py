@@ -125,6 +125,7 @@ def mylinks_save(request):
         link = str(request.POST['txtLink'])
         order = int(request.POST['txtOrder'])
         name = str(request.POST['txtName'])
+        new_window = ('txtNewW' in request.POST)
         deleted = False
         if request.POST['deleted'] == 'true':
             deleted = True
@@ -133,6 +134,7 @@ def mylinks_save(request):
                 link=link,
                 order=order,
                 name=name,
+                new_window=new_window,
                 deleted=deleted
             )
             mylink.save()
@@ -143,6 +145,7 @@ def mylinks_save(request):
                 mylink.url = link
                 mylink.name = name
                 mylink.order = order
+                mylink.new_window = new_window
                 mylink.deleted = deleted
                 mylink.save()
                 return HttpResponse('ok')
