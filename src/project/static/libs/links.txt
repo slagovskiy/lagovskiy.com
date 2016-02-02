@@ -1,0 +1,2 @@
+font-awesome-4.4.0 - http://fontawesome.io/
+bootstrap - http://getbootstrap.com/
