@@ -1,2 +1,5 @@
 font-awesome-4.4.0 - http://fontawesome.io/
 bootstrap - http://getbootstrap.com/
+jBox - https://github.com/StephanWagner/jBox/releases
+FancyBox - http://fancyapps.com/fancybox/
+bootstrap - http://getbootstrap.com/getting-started/
