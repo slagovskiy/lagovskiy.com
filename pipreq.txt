@@ -1,1 +1,12 @@
-django
+flask
+flask-login
+flask-bcrypt
+flask-openid
+flask-mail
+sqlalchemy
+flask-sqlalchemy
+sqlalchemy-migrate
+flask-migrate
+flask-wtf
+flask-babel
+pillow
