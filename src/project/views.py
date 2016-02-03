@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from flask import render_template, g
 from flask.ext.login import current_user
 from project import app, db

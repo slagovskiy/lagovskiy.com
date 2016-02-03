@@ -25,7 +25,7 @@ class User(db.Model):
         self.password = bcrypt.generate_password_hash(password)
         self.email = email
         self.active = not USER_MUST_ACTIVATE_REGISTRATION
-        self.registered_on = datetime.utcnow()
+        self.registered = datetime.utcnow()
 
     @property
     def is_authenticated(self):
