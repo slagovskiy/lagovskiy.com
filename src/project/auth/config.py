@@ -1,0 +1,13 @@
+ROLE_ADMIN = 0
+ROLE_STAFF = 1
+ROLE_USER = 2
+ROLE = {
+    ROLE_ADMIN: 'admin',
+    ROLE_STAFF: 'staff',
+    ROLE_USER: 'user',
+}
+
+SIZE_USERNAME = 60
+SIZE_PASSWORD = 60
+SIZE_EMAIL = 120
+SIZE_UUID = 36
