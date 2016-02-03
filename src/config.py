@@ -7,7 +7,7 @@ CSRF_ENABLED = True
 
 # SQLALCHEMY
 # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'base.sqlite') moved to config_local
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
+SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'migrations')
 
 # WHOOSH
 WHOOSH_BASE = os.path.join(basedir, 'db_search')
