@@ -1,0 +1,300 @@
+/* lagovskiy.com */
+/* logo color f52a0e */
+body{
+
+}
+
+.fl-left{
+    float: left;
+}
+
+.fl-right{
+    float: right;
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #f52a0e;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:not(:hover) {
+    transition: 1s;
+    color: #000000;
+}
+
+/* head */
+
+.head-row{
+    padding: 1.3em;
+}
+
+.head-logo img {
+    width: 100%;
+    max-width: 550px;
+    height: auto;
+}
+
+.head-menu {
+    text-align: right;
+    font-family: "RobotoMedium", sans-serif;
+    text-transform: uppercase;
+}
+
+.head-menu-line{
+    list-style: none;
+    padding-left: 0;
+    padding-top: 10px;
+}
+
+.head-menu-line li{
+    display: inline;
+    letter-spacing: 1px;
+    padding-left: 1.5em;
+}
+
+.head-menu-line li a{
+    opacity: 0.7;
+}
+
+.head-menu-line li a:hover{
+    color: #f52a0e;
+    opacity: 1;
+}
+
+
+.head-menu-link{
+    border: none;
+    background-color: transparent;
+    opacity: 0.7;
+    font-size: 1.6em;
+    padding-top: 0.2em;
+}
+
+.head-menu-link:hover{
+    opacity: 1;
+}
+
+/* post */
+
+.articles hr {
+    width: 70%;
+    color: #DDDDDD;
+}
+
+.post {
+    padding-bottom: 4em;
+    margin-bottom: 2em;
+    padding-top: 2em;
+}
+
+.post-category {
+    margin: 0;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1.5em;
+}
+
+.post-category a {
+    color: #AAAAAA;
+    opacity: 0.7;
+}
+
+.post-category a:hover {
+    opacity: 1;
+}
+
+
+.post-title {
+    font-family: GabrielaRegular, serif;
+    font-size: 2.5em;
+}
+
+.post-title a {
+}
+
+.post-title a:hover {
+    color: #006ED2;
+}
+
+.post-tag {
+    margin: 0;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1em;
+}
+
+.post-tag a {
+    color: #AAAAAA;
+    opacity: 0.7;
+}
+
+.post-tag a:hover {
+    opacity: 1;
+}
+
+.post-body {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.2em;
+    line-height: 1.7em;
+}
+
+.post-button {
+    text-align: right;
+    padding-top: 20px;
+}
+
+.post-button a {
+    border: 2px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: #444444;
+}
+
+.post-button a:hover {
+    background: #006ED2;
+    border: 2px solid #006ED2;
+    color: #FFFFFF;
+}
+
+.post-button a:not(:hover) {
+    transition: 200ms;
+}
+
+/* post-body */
+
+.post-body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.post-body img.img-left {
+    margin-right: 0.5em;
+    float: left;
+}
+
+.post-body img.img-right {
+    margin-left: 0.5em;
+    float: right;
+}
+
+.post-body img.img-center {
+    display: block;
+    margin: 0.5em auto 0.5em auto;
+}
+
+
+.post-body img.img-border {
+    border: 1px solid #DDDDDD;
+    background-color: #F0F0F0;
+    padding: 10px;
+}
+
+/* right menu */
+
+.right-menu {
+
+}
+
+.right-menu section {
+    padding-top: 2em;
+    padding-bottom: 0.5em;
+}
+
+.right-menu section h2 {
+    margin: 0;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1.8em;
+    padding-bottom: 0.3em;
+    text-transform: uppercase;
+}
+
+.right-menu section ul {
+    list-style: none;
+    padding-left: 1em;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1.2em;
+    line-height: 1.7em;
+}
+
+.right-menu section ul.tag li {
+    padding: 0.1em;
+    line-height: 2em;
+}
+.right-menu section ul.tag li {
+    display: inline;
+    white-space: nowrap;
+}
+
+.right-menu section ul.tag li a {
+    border: 2px solid #E0E0E0;
+    border-radius: 3px;
+    line-height: 1.8em;
+    padding-left: 0.4em;
+}
+.right-menu section ul.tag li a span{
+    background-color: #DDDDDD;
+    position: relative;
+    padding: 0.6em 0.5em  0.5em 0.7em;
+    margin-left: 0.6em;
+    font-size: 0.6em;
+    vertical-align: 0.2em;
+    color: #666666;
+}
+
+.right-menu section ul.tag li a:hover {
+    border: 2px solid #f52a0e;
+    border-radius: 3px;
+    line-height: 1.8em;
+}
+
+.right-menu section ul.tag li a:hover span{
+    background-color: #f52a0e;
+    color: #FFFFFF;
+}
+
+.right-menu section ul.tag li a:not(:hover){
+    transition: 300ms;
+}
+
+.right-menu section ul.tag li a:not(:hover) span:not(:hover){
+    transition: 300ms;
+}
+
+.right-menu section ul.tag li a.tag-active {
+    border: 2px solid #f52a0e;
+    line-height: 1.8em;
+}
+.right-menu section ul.tag li a.tag-active span{
+    background-color: #f52a0e;
+    position: relative;
+    padding: 0.6em 0.5em  0.5em 0.7em;
+    margin-left: 0.6em;
+    font-size: 0.6em;
+    vertical-align: 0.2em;
+    color: #FFFFFF;
+}
+
+.right-menu section ul.tag li a.tag-close{
+    background-color: #f52a0e;
+    position: relative;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    color: #FFFFFF;
+}
+
+/* footer */
+.footer{
+    text-align: center;
+    font-family: "RobotoMedium", sans-serif;
+    font-size: 0.8em;
+    padding: 2em 0em 2em 0em;
+    border-top: 1px solid #DDDDDD;
+}
