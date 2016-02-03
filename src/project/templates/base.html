@@ -1,11 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]><html lang="ru" class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html lang="ru" class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ru">
+<!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
-    <title>Lagovskiy.com</title>
+	<meta charset="utf-8" />
+	<title>lagovskiy.com</title>
+	<meta name="description" content="" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="/static/css/normalize.min.css" />
+	<link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/static/libs/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/libs/fancyapps-fancybox/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="/static/libs/jbox/jBox.css" />
+    <link rel="stylesheet" href="/static/libs/jbox/themes/NoticeBorder.css" />
+    <link rel="stylesheet" href="/static/libs/highlight/styles/monokai.css" />
+
+	<link rel="stylesheet" href="/static/css/fonts.css" />
+	<link rel="stylesheet" href="/static/css/main.css" />
+	<link rel="stylesheet" href="/static/css/media.css" />
 </head>
 <body>
-    {% include 'flash.html' %}
-    {% block content %}{% endblock %}
+	<script src="/static/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="/static/libs/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/static/libs/jbox/jBox.min.js"></script>
+    <script src="/static/libs/highlight/highlight.pack.js"></script>
+
+	<script src="/static/js/main.js"></script>
+
+    <header class="head-row">
+        <div class="container clearfix">
+            <div class="head-logo fl-left">
+                <a href="/"><img src="/static/img/logo450.png"></a>
+            </div>
+            <nav role="navigation" class="head-menu fl-right">
+                <button class="hidden-lg hidden-md head-menu-link" id="head-menu-link"><i class="fa fa-bars"></i></button>
+                <ul class="head-menu-line" id="head-menu-line">
+                    <li><a href="/">home</a></li>
+                    <li><a href="/#">blog</a></li>
+                    <li><a href="/#">photo</a></li>
+                    <li><a href="/#">projects</a></li>
+                    <li><a href="/#">about</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container clearfix">
+        <section class="col-md-9" id="content" role="main">{% block content %}{% endblock %}</section>
+        <aside class="col-md-3 right-menu" id="right-menu">
+            <section>
+                <h2><i class="fa fa-folder-o"></i> Categories</h2>
+                <ul role="menu">
+                    <li><a href="#">Admin notes</a></li>
+                    <li><a href="#">Dev notes</a></li>
+                    <li><a href="#">Photography</a></li>
+                    <li><a href="#">Other</a></li>
+                </ul>
+            </section>
+            <section>
+                <h2><i class="fa fa-tags"></i> Tags</h2>
+                <ul class="tag" role="menu">
+                    <li><a href="#">linux<span>3</span></a></li>
+                    <li><a href="#">mikrotik<span>5</span></a></li>
+                    <li><a href="#">film<span>12</span></a></li>
+                    <li><a href="#" class="tag-active">analog<span>54</span></a></li>
+                    <li><a href="#">dos<span>1</span></a></li>
+                    <li><a href="#">database<span>123</span></a></li>
+                    <li><a href="#">sql<span>7</span></a></li>
+                    <li><a href="#" class="tag-active">medium format<span>8</span></a></li>
+                    <li><a href="#">norton commander<span>32</span></a></li>
+                    <li><a href="#">zenit<span>3</span></a></li>
+                    <li><a href="#">norton utilites<span>67</span></a></li>
+                    <li><a href="#">kiev<span>9</span></a></li>
+                </ul>
+            </section>
+            <section>
+                <h2><i class="fa fa-link"></i> Links</h2>
+                <ul role="menu">
+                    <li><a href="https://www.facebook.com/sergey.lagovskiy" target="_blank"><i class="fa fa-facebook-official"></i> i on facebook</a></li>
+                    <li><a href="https://www.flickr.com/photos/slagovskiy/" target="_blank"><i class="fa fa-flickr"></i> my photos on flickr</a></li>
+                    <li><a href="https://github.com/slagovskiy" target="_blank"><i class="fa fa-github-square"></i> my code on github</a></li>
+                    <li><a href="mailto:slagovskiy@gmail.com"><i class="fa fa-envelope-square"></i> write me email</a></li>
+                    <li><a href="http://novosibirsk.hh.ru/resume/4f27274aff01958a560039ed1f7a44564d3256" target="_blank"><i class="fa fa-user"></i> headhunt me</a></li>
+                </ul>
+            </section>
+            <section>
+                <h2><i class="fa fa-archive"></i> Archive</h2>
+                <ul role="menu">
+                    <li>2015</li>
+                    <li>2014</li>
+                    <li>2013</li>
+                    <li>2012</li>
+                </ul>
+            </section>
+        </aside>
+    </div>
+    <footer class="footer">
+        <div class="container clearfix">
+            <div class="col-md-12">
+                <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-2016&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.2
+            </div>
+        </div>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            hljs.initHighlightingOnLoad();
+            $(".fancybox").fancybox();
+        });
+    </script>
+	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
+	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
 </body>
 </html>
