@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ _('Please enter activation code') }}</h1>
+<br>
+<form class="form-activation" role="form" method="post" action="">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.code.label }}: {{ form.code(class="") }}
+        <span class="error">
+            {% if form.code.errors %}
+                {% for error in form.code.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endif %}
+        </span>
+        <button class="btn btn-sm btn-success" type="submit">{{ _('Activate') }}</button>
+    </p>
+</form>
+{% endblock %}

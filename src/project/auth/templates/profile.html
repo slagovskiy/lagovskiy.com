@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+{% if user %}
+<h1>{{ user.username }}</h1>
+<div>registerd: {{ user.registered_on }}</div>
+{% endif %}
+{% endblock %}
