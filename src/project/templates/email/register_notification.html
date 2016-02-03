@@ -1,0 +1,20 @@
+{% autoescape false %}
+<p>{{ _('You registered on site %(site)s.', site=site) }}</p>
+
+<p>{{ _('Your username: %(name)s.', name='<a href="%s">%s</a>' % (url_for('auth.profile', username=user.username, _external=True), user.username)) }}</p>
+
+{% if not user.active %}<p>{{
+    _('You must activate you account. Open this %(open_full_link)slink%(close_link)s, or enter code %(code)s in %(open_form_link)sthis%(close_link)s form.',
+    open_full_link='<a href="%s">'% url_for('auth.activate', code=user.uuid, _external=True),
+    open_form_link='<a href="%s">' % url_for('auth.activate', _external=True),
+    code='<b>%s</b>' % user.uuid,
+    close_link='</a>')
+}}</p>{% endif %}
+
+<p>{{
+    _('Sended by %(site)s. Please do not reply directly to this email. You have received this email because you have registered on our site and asked to receive our email notifications. If you prefer not to receive emails from %(site)s, please %(open_link)sunsubscribe%(close_link)s.',
+    site=site,
+    open_link='<a href="%s">' % url_for('auth.unsubscribe', code=user.uuid, _external=True),
+    close_link='</a>')
+}}</p>
+{% endautoescape %}

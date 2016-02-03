@@ -1,0 +1,8 @@
+{{ _('You registered on site %(site)s.', site=site) }}
+
+{{ _('Your username: %(name)s.', name=user.username) }}
+{{ _('Your profile: [%(link)s.]', link=url_for('auth.profile', username=user.username, _external=True)) }}
+
+{% if not user.active %}{{ _('You must activate you account. Open this link [%(link_full)s], or enter code %(code)s in this form [%(link)s].', link_full=url_for('auth.activate', code=user.uuid, _external=True), link=url_for('auth.activate', _external=True), code=user.uuid) }}{% endif %}
+
+{{ _('Sended by %(site)s. Please do not reply directly to this email. You have received this email because you have registered on our site and asked to receive our email notifications. If you prefer not to receive emails from %(site)s, please unsubscribe [%(uslink)s].', site=site, uslink=url_for('auth.unsubscribe', code=user.uuid, _external=True)) }}
