@@ -28,8 +28,10 @@ bcrypt = Bcrypt(app)
 logger = app.logger
 
 #from project.XXX.views import mod_XXX
+from project.auth.views import mod_auth
 
 #app.register_blueprint(mod_XXX)
+app.register_blueprint(mod_auth)
 
 if WRITE_LOG_FILE:
     logdir = os.path.join(basedir, 'logs')
