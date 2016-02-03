@@ -1,10 +1,16 @@
-from flask import render_template
+import datetime
+from flask import render_template, g
+from flask.ext.login import current_user
 from project import app, db
 
 
 @app.before_request
 def before_request():
-    pass
+    g.user = current_user
+    if g.user.is_authenticated:
+        g.user.last_active = datetime.utcnow()
+        db.session.add(g.user)
+        db.session.commit()
 
 
 @app.errorhandler(404)
