@@ -23,7 +23,8 @@ def upgrade():
     sa.Column('tagname', sa.String(length=60), nullable=True),
     sa.Column('added', sa.DateTime(), nullable=True),
     sa.Column('deleted', sa.Boolean(), nullable=True),
-    sa.PrimaryKeyConstraint('tag_id')
+    sa.PrimaryKeyConstraint('tag_id'),
+    sa.UniqueConstraint('uuid')
     )
     op.create_index(op.f('ix_blog_tag_slug'), 'blog_tag', ['slug'], unique=True)
     op.create_index(op.f('ix_blog_tag_tagname'), 'blog_tag', ['tagname'], unique=False)
