@@ -1,6 +1,7 @@
 import os
 import unittest
 from config import basedir
+from flask import g
 from project import app, db
 from project.auth.models import User
 from project.blog.models import Tag, Category
@@ -35,7 +36,24 @@ class TestCase(unittest.TestCase):
         assert u.is_active is False
         assert u.is_anonymous is False
         id = u.get_id()
-        assert u.id == id
+        assert str(u.id) == id
+
+    def test_auth_view(self):
+        r = self.app.get('/user/register')
+        assert len(r.data) > 0
+        r = self.app.post(
+            '/user/register',
+            data=dict(
+                username='user',
+                password='password',
+                email='user@user.ru'
+            ),
+            follow_redirects=True
+        )
+        print(r.data)
+        assert len(r.data) > 0
+        u = User.query.filter_by(username='user').first()
+        assert u.username == 'user'
 
     def test_blog_tag(self):
         t = Tag(slug='test', tagname='Test')
