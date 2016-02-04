@@ -10,3 +10,4 @@ flask-migrate
 flask-wtf
 flask-babel
 pillow
+coverage
