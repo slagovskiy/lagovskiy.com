@@ -27,6 +27,9 @@ bcrypt = Bcrypt(app)
 
 logger = app.logger
 
+from .tags import tag_datetime
+app.jinja_env.globals['datetime'] = tag_datetime
+
 #from project.XXX.views import mod_XXX
 from project.auth.views import mod_auth
 from project.blog.views import mod_blog
