@@ -4,7 +4,7 @@
             <h2><i class="fa fa-tags"></i> Tags</h2>
             <ul class="tag" role="menu">
                 {% for tag in g.tags %}
-                <li><a href="{{ tag.slug }}">{{ tag.tagname }}<span>0</span></a></li>
+                <li><a href="{{ url_for("blog.posts_by_tag", slug=tag.slug) }}">{{ tag.tagname }}<span>0</span></a></li>
                 {% endfor %}
             </ul>
         </section>
