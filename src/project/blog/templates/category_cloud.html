@@ -1,0 +1,12 @@
+{% if g.categories %}
+    {% if g.categories.count() > 0 %}
+        <section>
+            <h2><i class="fa fa-folder-o"></i> Categories</h2>
+            <ul role="menu">
+                {% for category in g.categories %}
+                <li><a href="{{ url_for("blog.posts_by_category", slug=category.slug) }}">{{ category.caregoryname }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+{% endif %}
