@@ -1,0 +1,12 @@
+{% if g.tags %}
+    {% if g.tags.count() > 0 %}
+        <section>
+            <h2><i class="fa fa-tags"></i> Tags</h2>
+            <ul class="tag" role="menu">
+                {% for tag in g.tags %}
+                <li><a href="{{ tag.slug }}">{{ tag.tagname }}<span>0</span></a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+{% endif %}
