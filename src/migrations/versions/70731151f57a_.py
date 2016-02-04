@@ -21,6 +21,7 @@ def upgrade():
     sa.Column('uuid', sa.String(length=36), nullable=True),
     sa.Column('slug', sa.String(length=60), nullable=True),
     sa.Column('categoryname', sa.String(length=60), nullable=True),
+    sa.Column('order', sa.SmallInteger(), nullable=True),
     sa.Column('added', sa.DateTime(), nullable=True),
     sa.Column('deleted', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('category_id'),

@@ -20,7 +20,7 @@ class Tag(db.Model):
         self.added = datetime.utcnow()
 
     def __repr__(self):
-        return '<Tag %s [$s]>' % (self.tagname, self.slug)
+        return '<Tag %s [%s]>' % (self.tagname, self.slug)
 
 
 class Category(db.Model):
@@ -29,6 +29,7 @@ class Category(db.Model):
     uuid = db.Column('uuid', db.String(SIZE_UUID), unique=True)
     slug = db.Column('slug', db.String(SIZE_NAME), unique=True, index=True)
     categoryname = db.Column('categoryname', db.String(SIZE_NAME), index=True)
+    order = db.Column('order', db.SmallInteger(), default=10)
     added = db.Column('added', db.DateTime)
     deleted = db.Column('deleted', db.Boolean, default=False)
 
@@ -39,4 +40,4 @@ class Category(db.Model):
         self.added = datetime.utcnow()
 
     def __repr__(self):
-        return '<Category %s [$s]>' % (self.categoryname, self.slug)
+        return '<Category %s [%s]>' % (self.categoryname, self.slug)
