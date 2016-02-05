@@ -1,5 +1,6 @@
 from uuid import uuid1
 from datetime import datetime
+from sqlalchemy import func
 from flask.ext.login import unicode
 from project import db, bcrypt
 from config import USER_MUST_ACTIVATE_REGISTRATION
@@ -44,3 +45,17 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+    @staticmethod
+    def username_exist(username):
+        if User.query.filter(func.lower(username) == func.lower(User.username)).first() is None:
+            return False
+        else:
+            return True
+
+    @staticmethod
+    def email_exist(email):
+        if User.query.filter(func.lower(email) == func.lower(User.email)).first() is None:
+            return False
+        else:
+            return True
