@@ -22,6 +22,13 @@ class Tag(db.Model):
     def __repr__(self):
         return '<Tag %s [%s]>' % (self.tagname, self.slug)
 
+    @staticmethod
+    def exist(slug):
+        if Tag.query.filter_by(slug=slug).first() is None:
+            return False
+        else:
+            return True
+
 
 class Category(db.Model):
     __tablename__ = 'blog_category'
@@ -41,3 +48,10 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %s [%s]>' % (self.categoryname, self.slug)
+
+    @staticmethod
+    def exist(slug):
+        if Category.query.filter_by(slug=slug).first() is None:
+            return False
+        else:
+            return True
