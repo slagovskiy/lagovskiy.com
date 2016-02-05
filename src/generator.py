@@ -20,6 +20,7 @@ u = User(
     email='sergey@lagovskiy.com',
     password='123'
 )
+u.role = 0
 db.session.add(u)
 print('USER: Sergey')
 
@@ -59,6 +60,7 @@ for _ in range(0, 50):
 print('\nGENERATE CATEGORIES')
 for _ in range(0, 10):
     slug = fake_en.slug()
+    order = random.randint(0, 100)
     name = ''
     if random.randint(0, 1) == 0:
         name = fake_en.word()
@@ -69,6 +71,7 @@ for _ in range(0, 10):
             slug=slug,
             categoryname=name
         )
+        c.order = order
         db.session.add(c)
         print(c)
     else:
