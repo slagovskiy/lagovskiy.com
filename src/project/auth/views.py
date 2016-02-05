@@ -4,6 +4,7 @@ from flask.ext.babel import gettext
 from flask.ext.login import login_user, login_required, logout_user
 from project import db, bcrypt, logger, login_manager
 from project.toolbox.email import send_email_registration
+from config import SEND_EMAIL_AFTER_REGISTRATION
 from .forms import LoginForm, RegisterForm, ActivateForm
 from .models import User
 #from project.media.models import MediaFolder
@@ -69,7 +70,8 @@ def register():
                 )
                 db.session.add(user)
                 db.session.commit()
-                send_email_registration(user)
+                if SEND_EMAIL_AFTER_REGISTRATION:
+                    send_email_registration(user)
                 logger.info('Registration success - new user [' + form.username.data + '].')
 
                 # create default media folder
