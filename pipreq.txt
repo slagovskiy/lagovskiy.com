@@ -11,3 +11,4 @@ flask-wtf
 flask-babel
 pillow
 coverage
+fake-factory
