@@ -1,0 +1,12 @@
+{% if g.mylinks %}
+    {% if g.mylinks.count() > 0 %}
+        <section>
+            <h2><i class="fa fa-link"></i> Links</h2>
+            <ul role="menu">
+                {% for mylink in g.mylinks %}
+                <li><a href="{{ mylink.link }}"{% if mylink.blank %} target="_blank"{% endif %}>{{ mylink.name|safe }}</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+{% endif %}
