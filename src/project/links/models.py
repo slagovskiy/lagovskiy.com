@@ -11,14 +11,16 @@ class MyLink(db.Model):
     slug = db.Column('slug', db.String(SIZE_SLUG), unique=True, index=True)
     name = db.Column('name', db.String(SIZE_NAME), default='', index=True)
     link = db.Column('link', db.String(SIZE_NAME), default='', index=True)
+    blank = db.Column('blank', db.Boolean, default=True)
     added = db.Column('added', db.DateTime)
     deleted = db.Column('deleted', db.Boolean, default=False)
 
-    def __init__(self, slug, name, link):
+    def __init__(self, slug, name, link, blank=True):
         self.uuid = str(uuid4())
         self.slug = slug
         self.name = name
         self.link = link
+        self.blank = blank
         self.added = datetime.utcnow()
 
     def __repr__(self):
