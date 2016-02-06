@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, g
 from project import app
 from .models import MyLink
 
-mod_blog = Blueprint(
+mod_links = Blueprint(
     'links',
     __name__,
     url_prefix='/links',

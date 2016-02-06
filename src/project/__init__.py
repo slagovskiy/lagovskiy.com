@@ -33,10 +33,12 @@ app.jinja_env.globals['datetime'] = tag_datetime
 #from project.XXX.views import mod_XXX
 from project.auth.views import mod_auth
 from project.blog.views import mod_blog
+from project.links.views import mod_links
 
 #app.register_blueprint(mod_XXX)
 app.register_blueprint(mod_auth)
 app.register_blueprint(mod_blog)
+app.register_blueprint(mod_links)
 
 if WRITE_LOG_FILE:
     logdir = os.path.join(basedir, 'logs')
