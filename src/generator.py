@@ -51,7 +51,7 @@ for _ in range(0, 50):
     if not Tag.exist(slug):
         t = Tag(
             slug=slug,
-            tagname=name
+            name=name
         )
         db.session.add(t)
         print(t)
@@ -70,7 +70,7 @@ for _ in range(0, 10):
     if not Category.exist(slug):
         c = Category(
             slug=slug,
-            categoryname=name
+            name=name
         )
         c.order = order
         db.session.add(c)

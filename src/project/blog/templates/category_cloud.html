@@ -4,7 +4,7 @@
             <h2><i class="fa fa-folder-o"></i> Categories</h2>
             <ul role="menu">
                 {% for category in g.categories %}
-                <li><a href="{{ url_for("blog.posts_by_category", slug=category.slug) }}">{{ category.categoryname }}</a></li>
+                <li><a href="{{ url_for("blog.posts_by_category", slug=category.slug) }}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         </section>
