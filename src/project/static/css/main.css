@@ -100,6 +100,7 @@ a:not(:hover) {
     margin: 0;
     font-family: RobotoRegular, sans-serif;
     font-size: 1.5em;
+    color: #E0E0E0;
 }
 
 .post-category a {
@@ -128,6 +129,7 @@ a:not(:hover) {
     margin: 0;
     font-family: RobotoRegular, sans-serif;
     font-size: 1em;
+    color: #E0E0E0;
 }
 
 .post-tag a {
@@ -143,6 +145,7 @@ a:not(:hover) {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 1.2em;
     line-height: 1.7em;
+    padding-top: 0.7em;
 }
 
 .post-button {
