@@ -3,9 +3,9 @@
         <section>
             <h2><i class="fa fa-tags"></i> Tags</h2>
             <ul class="tag" role="menu">
-                {% for tag in g.tags %}
-                <li><a href="{{ url_for("blog.posts_by_tag", slug=tag.slug) }}">{{ tag.name }}<span>0</span></a></li>
-                {% endfor %}
+                {% for tag in g.tags %}{% if tag.post_count > 0 %}
+                <li><a href="{{ url_for("blog.posts_by_tag", slug=tag.slug) }}">{{ tag.name }}<span>{{ tag.post_count }}</span></a></li>
+                {% endif %}{% endfor %}
             </ul>
         </section>
     {% endif %}
