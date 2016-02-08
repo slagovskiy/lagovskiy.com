@@ -2,7 +2,7 @@ from uuid import uuid4
 from datetime import datetime
 from project import db
 from .config import SIZE_NAME, SIZE_UUID, SIZE_TITLE, SIZE_META
-from .config import POST_STATUS_DRAFT, POST_TEMPLATE_TEXT
+from .config import POST_STATUS_DRAFT, POST_STATUS_PUBLISHED, POST_TEMPLATE_TEXT
 
 
 tags = db.Table(
@@ -37,6 +37,10 @@ class Tag(db.Model):
     def __repr__(self):
         return '<Tag %s [%s]>' % (self.name, self.slug)
 
+    @property
+    def post_count(self):
+        return len(self.posts.filter_by(status=POST_STATUS_PUBLISHED).all())
+
     @staticmethod
     def exist(slug):
         if Tag.query.filter_by(slug=slug).first() is None:
@@ -63,6 +67,10 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %s [%s]>' % (self.name, self.slug)
+
+    @property
+    def post_count(self):
+        return len(self.posts.query.filter_by(status=POST_STATUS_PUBLISHED).all())
 
     @staticmethod
     def exist(slug):
