@@ -12,6 +12,13 @@ tags = db.Table(
 )
 
 
+categories = db.Table(
+    'blog_categories',
+    db.Column('category_id', db.Integer, db.ForeignKey('blog_category.category_id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('blog_post.post_id'))
+)
+
+
 class Tag(db.Model):
     __tablename__ = 'blog_tag'
     id = db.Column('tag_id', db.Integer, primary_key=True)
@@ -85,6 +92,7 @@ class Post(db.Model):
     content = db.Column('content', db.Text, default='')
     prev = db.Column('prev', db.Text, default='')
     tags = db.relationship('Tag', secondary=tags, backref=db.backref('posts', lazy='dynamic'))
+    categories = db.relationship('Category', secondary=categories, backref=db.backref('posts', lazy='dynamic'))
 
     def __init__(self):
         self.uuid = str(uuid4())
