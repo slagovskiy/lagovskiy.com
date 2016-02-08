@@ -1,4 +1,5 @@
 import random
+from datetime import datetime
 from project import db
 from project.auth.models import User
 from project.blog.models import Tag, Category, Post
@@ -145,9 +146,9 @@ for _ in range(0, 100):
         fake = fake_ru
     p = Post()
     p.author = random.choice(User.query.all())
-    for i in range(1, random.randint(1, 10)):
+    for i in range(0, random.randint(1, 10)):
         p.tags.append(random.choice(Tag.query.all()))
-    for i in range(1, random.randint(0, 3)):
+    for i in range(0, random.randint(1, 3)):
         p.categories.append(random.choice(Category.query.all()))
     p.status = random.randint(0, 2)
     p.template = random.randint(1, 6)
@@ -167,6 +168,7 @@ for _ in range(0, 100):
     p.title = title
     p.teaser = teaser
     p.content = content
+    p.published = datetime.utcnow()
     db.session.add(p)
     print(p)
 
