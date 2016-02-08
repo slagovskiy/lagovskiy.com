@@ -138,39 +138,40 @@ print('COMMIT')
 db.session.commit()
 
 
-for _ in range(0, 100):
+for _ in range(0, 500):
     fake = None
     if random.randint(0, 1) == 0:
         fake = fake_en
     else:
         fake = fake_ru
-    p = Post()
-    p.author = random.choice(User.query.all())
-    for i in range(0, random.randint(1, 10)):
-        p.tags.append(random.choice(Tag.query.all()))
-    for i in range(0, random.randint(1, 3)):
-        p.categories.append(random.choice(Category.query.all()))
-    p.status = random.randint(0, 2)
-    p.template = random.randint(1, 6)
     title = ''
     teaser = ''
     content = ''
     slug = fake_en.slug()
-    _title = fake.words(random.randint(2, 6))
-    for i in range(0, len(_title)):
-            title += _title[i] + ' '
-    title = title[0:1].upper() + title[1:]
-    for i in range(0, random.randint(1, 2)):
-        teaser += '<p>' + fake.paragraph() + '</p>\n'
-    for i in range(0, random.randint(1, 7)):
-        content += '<p>' + fake.paragraph() + '</p>\n'
-    p.slug = slug
-    p.title = title
-    p.teaser = teaser
-    p.content = content
-    p.published = datetime.utcnow()
-    db.session.add(p)
-    print(p)
+    if not Post.exist(slug):
+        p = Post()
+        p.author = random.choice(User.query.all())
+        for i in range(0, random.randint(1, 10)):
+            p.tags.append(random.choice(Tag.query.all()))
+        for i in range(0, random.randint(1, 3)):
+            p.categories.append(random.choice(Category.query.all()))
+        p.status = random.randint(0, 2)
+        p.template = random.randint(1, 6)
+        _title = fake.words(random.randint(2, 6))
+        for i in range(0, len(_title)):
+                title += _title[i] + ' '
+        title = title[0:1].upper() + title[1:]
+        for i in range(0, random.randint(1, 2)):
+            teaser += '<p>' + fake.paragraph() + '</p>\n'
+        for i in range(0, random.randint(1, 7)):
+            content += '<p>' + fake.paragraph() + '</p>\n'
+        p.slug = slug
+        p.title = title
+        p.teaser = teaser
+        p.content = content
+        p.published = datetime.utcnow()
+        db.session.add(p)
+        print(p)
 
 print('COMMIT')
 db.session.commit()
