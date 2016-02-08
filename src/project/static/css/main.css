@@ -300,6 +300,10 @@ a:not(:hover) {
     color: #FFFFFF;
 }
 
+.right-menu section a.category-active {
+    color: #f52a0e;
+}
+
 /* footer */
 .footer{
     text-align: center;
