@@ -5,6 +5,13 @@ from .config import SIZE_NAME, SIZE_UUID, SIZE_TITLE, SIZE_META
 from .config import POST_STATUS_DRAFT, POST_TEMPLATE_TEXT
 
 
+tags = db.Table(
+    'blog_tags',
+    db.Column('tag_id', db.Integer, db.ForeignKey('blog_tag.tag_id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('blog_post.post_id'))
+)
+
+
 class Tag(db.Model):
     __tablename__ = 'blog_tag'
     id = db.Column('tag_id', db.Integer, primary_key=True)
@@ -77,6 +84,7 @@ class Post(db.Model):
     teaser = db.Column('teaser', db.Text, default='')
     content = db.Column('content', db.Text, default='')
     prev = db.Column('prev', db.Text, default='')
+    tags = db.relationship('Tag', secondary=tags, backref=db.backref('posts', lazy='dynamic'))
 
     def __init__(self):
         self.uuid = str(uuid4())
