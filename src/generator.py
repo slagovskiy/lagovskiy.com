@@ -1,7 +1,7 @@
 import random
 from project import db
 from project.auth.models import User
-from project.blog.models import Tag, Category
+from project.blog.models import Tag, Category, Post
 from project.links.models import MyLink
 from faker import Factory
 
@@ -25,7 +25,7 @@ u.role = 0
 db.session.add(u)
 print('USER: Sergey')
 
-for _ in range(0, 100):
+for _ in range(0, 10):
     username = fake_en.first_name().lower()
     email = username + '@' + fake_en.free_email_domain()
     password = '123'
@@ -132,6 +132,43 @@ ml = MyLink(
 )
 db.session.add(ml)
 print(ml)
+
+print('COMMIT')
+db.session.commit()
+
+
+for _ in range(0, 100):
+    fake = None
+    if random.randint(0, 1) == 0:
+        fake = fake_en
+    else:
+        fake = fake_ru
+    p = Post()
+    p.author = random.choice(User.query.all())
+    for i in range(1, random.randint(1, 10)):
+        p.tags.append(random.choice(Tag.query.all()))
+    for i in range(1, random.randint(0, 3)):
+        p.categories.append(random.choice(Category.query.all()))
+    p.status = random.randint(0, 2)
+    p.template = random.randint(1, 6)
+    title = ''
+    teaser = ''
+    content = ''
+    slug = fake_en.slug()
+    _title = fake.words(random.randint(2, 6))
+    for i in range(0, len(_title)):
+            title += _title[i] + ' '
+    title = title[0:1].upper() + title[1:]
+    for i in range(0, random.randint(1, 2)):
+        teaser += '<p>' + fake.paragraph() + '</p>\n'
+    for i in range(0, random.randint(1, 7)):
+        content += '<p>' + fake.paragraph() + '</p>\n'
+    p.slug = slug
+    p.title = title
+    p.teaser = teaser
+    p.content = content
+    db.session.add(p)
+    print(p)
 
 print('COMMIT')
 db.session.commit()
