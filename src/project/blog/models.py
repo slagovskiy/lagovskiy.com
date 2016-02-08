@@ -1,7 +1,8 @@
 from uuid import uuid4
 from datetime import datetime
 from project import db
-from .config import SIZE_NAME, SIZE_UUID
+from .config import SIZE_NAME, SIZE_UUID, SIZE_TITLE, SIZE_META
+from .config import POST_STATUS_DRAFT, POST_TEMPLATE_TEXT
 
 
 class Tag(db.Model):
@@ -52,6 +53,41 @@ class Category(db.Model):
     @staticmethod
     def exist(slug):
         if Category.query.filter_by(slug=slug).first() is None:
+            return False
+        else:
+            return True
+
+
+class Post(db.Model):
+    __tablename__ = 'blog_post'
+    id = db.Column('post_id', db.Integer, primary_key=True)
+    uuid = db.Column('uuid', db.String(SIZE_UUID), unique=True)
+    slug = db.Column('slug', db.String(SIZE_TITLE), unique=True, index=True)
+    description = db.Column('description', db.String(SIZE_META), default='')
+    keywords = db.Column('keywords', db.String(SIZE_META), default='')
+    status = db.Column('status', db.SmallInteger, default=POST_STATUS_DRAFT)
+    added = db.Column('added', db.DateTime)
+    published = db.Column('published', db.DateTime)
+    sticked = db.Column('sticked', db.Boolean, default=False)
+    ping = db.Column('ping', db.Boolean, default=False)
+    comments_enabled = db.Column('comments_enabled', db.Boolean, default=True)
+    comments_moderated = db.Column('comments_moderated', db.Boolean, default=False)
+    template = db.Column('template', db.SmallInteger, default=POST_TEMPLATE_TEXT)
+    title = db.Column('title', db.String(SIZE_TITLE), index=True, default='')
+    teaser = db.Column('teaser', db.Text, default='')
+    content = db.Column('content', db.Text, default='')
+    prev = db.Column('prev', db.Text, default='')
+
+    def __init__(self):
+        self.uuid = str(uuid4())
+        self.added = datetime.utcnow()
+
+    def __repr__(self):
+        return '<Post: %s>' % self.title
+
+    @staticmethod
+    def exist(slug):
+        if Post.query.filter_by(slug=slug).first() is None:
             return False
         else:
             return True
