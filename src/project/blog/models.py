@@ -93,6 +93,7 @@ class Post(db.Model):
     prev = db.Column('prev', db.Text, default='')
     tags = db.relationship('Tag', secondary=tags, backref=db.backref('posts', lazy='dynamic'))
     categories = db.relationship('Category', secondary=categories, backref=db.backref('posts', lazy='dynamic'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
     def __init__(self):
         self.uuid = str(uuid4())

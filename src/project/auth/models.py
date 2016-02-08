@@ -19,6 +19,7 @@ class User(db.Model):
     registered = db.Column('registered', db.DateTime)
     last_active = db.Column('last_active', db.DateTime)
     subscribed = db.Column('subscribed', db.Boolean, default=True)
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, username, password, email):
         self.uuid = str(uuid1())
