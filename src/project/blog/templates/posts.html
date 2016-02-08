@@ -1,4 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    blog index
+    {% if posts %}
+        {% for post in posts %}
+            {% include 'post_teaser.html' %}
+            {% if not loop.last %}<hr>{% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}
