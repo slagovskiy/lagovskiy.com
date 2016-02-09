@@ -1,14 +1,42 @@
+import os
 import random
+from PIL import Image, ImageDraw
+from uuid import uuid4
 from datetime import datetime
 from project import db
+from config import UPLOAD_DIR
 from project.auth.models import User
 from project.blog.models import Tag, Category, Post
 from project.links.models import MyLink
+from project.media.models import MediaFolder, MediaFile
 from faker import Factory
 
 
 fake_ru = Factory.create('ru-RU')
 fake_en = Factory.create('en-US')
+
+
+def drawImage(x=300, y=200):
+    testImage = Image.new("RGB", (x, y), (255, 255, 255))
+    pixel = testImage.load()
+    draw = ImageDraw.Draw(testImage)
+    for _ in range(100, random.randint(200, 500)):
+        red1 = random.randrange(0, 255)
+        blue1 = random.randrange(0, 255)
+        green1 = random.randrange(0, 255)
+        red2 = random.randrange(0, 255)
+        blue2 = random.randrange(0, 255)
+        green2 = random.randrange(0, 255)
+        draw.ellipse(
+            (random.randint(1, x-1), random.randint(1, x-1), random.randint(1, y-1), random.randint(1, y-1)),
+            fill=(red1, blue1, green1), outline=(red2, blue2, green2)
+        )
+    for _ in range(100, random.randint(200, 1000)):
+        red = random.randrange(0, 255)
+        blue = random.randrange(0, 255)
+        green = random.randrange(0, 255)
+        pixel[random.randint(1, x-1), random.randint(1, y-1)] = (red, blue, green)
+    return testImage
 
 print('CLEAR DATABASE')
 db.drop_all()
@@ -134,11 +162,52 @@ ml = MyLink(
 db.session.add(ml)
 print(ml)
 
-print('COMMIT')
-db.session.commit()
+print('\nGENERATE MEDIAFOLDERS')
+for user in User.query.all():
+    for _ in range(0, random.randint(1, 20)):
+        fake = None
+        if random.randint(0, 1) == 0:
+            fake = fake_en
+        else:
+            fake = fake_ru
+        mf = MediaFolder(
+            name=fake.word()
+        )
+        mf.author = user
+        db.session.add(mf)
+        print(mf)
+
+print('\nGENERATE FILES')
+for folder in MediaFolder.query.all():
+    for _ in range(0, random.randint(1, 20)):
+        fake = None
+        if random.randint(0, 1) == 0:
+            fake = fake_en
+        else:
+            fake = fake_ru
+        mf = MediaFile(
+            uuid=str(uuid4()),
+            name=fake.word(),
+            ext='png',
+            folder=folder
+        )
+        mf.author = folder.author
+        db.session.add(mf)
+        print(mf)
+
+mf_count = MediaFile.query.count()
+mf_i = 0
+for mf in MediaFile.query.all():
+    file_dir = os.path.join(UPLOAD_DIR, mf.uuid)
+    os.mkdir(file_dir)
+    img = drawImage(random.randint(50, 1000), random.randint(50, 1000))
+    img.save(os.path.join(file_dir, mf.name + '.' + mf.ext))
+    mf_i += 1
+    print('generated image: %s from %s' % (mf_i, mf_count))
 
 
-for _ in range(0, 500):
+print('\nGENERATE POSTS')
+for _ in range(0, 50):
     fake = None
     if random.randint(0, 1) == 0:
         fake = fake_en
