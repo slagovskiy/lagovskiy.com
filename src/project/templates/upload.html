@@ -1,0 +1,62 @@
+{% if g.user.is_authenticated %}
+<style>
+#dropbox {
+    border: 2px dashed #000000;
+    padding: 20px;
+}
+
+#dropbox.active {
+    border: 4px dashed #FF0000;
+}
+
+.progress-trough {
+    border: 1px solid #000000;
+    height: 24px;
+    width: 100%;
+    position: relative;
+}
+
+.progress-bar {
+    width: 50%;
+    height: 100%;
+    background-color: #0099FF;
+}
+</style>
+
+<form id="upload-form" action="{{ url_for('media.upload') }}" method="POST" enctype="multipart/form-data">
+    <strong>Folders:</strong><br>
+    Select folder.
+    <select name="upload_folder" id="upload_folder">
+        {% for folder in g.user.mediafolders %}
+        <option value="{{ folder.id }}">{{ folder.name }}</option>
+        {% endfor %}
+    </select><p>
+
+    <strong>Files:</strong><br>
+    Select files OR drag them into the box below.
+    <input id="file-picker" type="file" name="file" accept="image/*" multiple><p>
+
+    <div id="dropbox">
+        Drag and Drop Files Here
+    </div><p>
+
+    <input type="submit" value="Upload!" id="upload-button">
+</form>
+
+<fieldset id="progress" style="display: none">
+    <legend>Files Progress</legend>
+
+    <div class="progress-trough">
+        <div id="progress-bar" class="progress-bar">0%</div>
+    </div>
+</fieldset>
+
+<script src="/static/js/upload.js" rel="script"></script>
+<script>
+    UPLOAD_URL = "{{ url_for('media.upload') }}";
+    MAX_UPLOAD_FILE_SIZE = 1024*1024*1024;
+    NEXT_URL   = "/media/files";
+</script>
+{% else %}
+Only authenticated users can upload files
+{% endif %}
