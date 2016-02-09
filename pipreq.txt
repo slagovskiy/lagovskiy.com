@@ -9,6 +9,7 @@ sqlalchemy-migrate
 flask-migrate
 flask-wtf
 flask-babel
+flask-debugtoolbar
 pillow
 coverage
 fake-factory
