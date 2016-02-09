@@ -10,6 +10,7 @@ flask-migrate
 flask-wtf
 flask-babel
 flask-debugtoolbar
+flask-markdown
 pillow
 coverage
 fake-factory
