@@ -39,7 +39,7 @@ class Tag(db.Model):
 
     @property
     def post_count(self):
-        return len(self.posts.filter_by(status=POST_STATUS_PUBLISHED).all())
+        return self.posts.filter_by(status=POST_STATUS_PUBLISHED).count()
 
     @staticmethod
     def exist(slug):
@@ -70,7 +70,7 @@ class Category(db.Model):
 
     @property
     def post_count(self):
-        return len(self.posts.query.filter_by(status=POST_STATUS_PUBLISHED).all())
+        return self.posts.query.filter_by(status=POST_STATUS_PUBLISHED).count()
 
     @staticmethod
     def exist(slug):
