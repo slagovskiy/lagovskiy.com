@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from flask import render_template, g
 from flask.ext.login import current_user
@@ -36,3 +37,11 @@ def index():
         'index.html',
         text=text
     )
+
+
+def ajax_response(status, msg):
+    status_code = "ok" if status else "error"
+    return json.dumps(dict(
+        status=status_code,
+        msg=msg,
+    ))
