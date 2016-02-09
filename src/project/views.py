@@ -27,4 +27,12 @@ def internal_error(error):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    text = 'Hello, world!\n' \
+           '=============\n\n' \
+           '[image:124]\n\n' \
+           'Test test test test test test test test test test test test test test test test test test test test test test test.\n\n' \
+           'Test test test test test test test test test test test test test test test test test test test test test test test.'
+    return render_template(
+        'index.html',
+        text=text
+    )

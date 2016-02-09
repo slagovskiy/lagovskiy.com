@@ -7,7 +7,8 @@ from flask.ext.babel import Babel
 from flask.ext.login import LoginManager
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_debugtoolbar import DebugToolbarExtension
+from flask.ext.debugtoolbar import DebugToolbarExtension
+from flask.ext.markdown import Markdown, Extension
 from config import basedir, WRITE_LOG_FILE
 
 
@@ -25,6 +26,8 @@ login_manager.init_app(app)
 login_manager.login_view = 'auth.login'
 
 bcrypt = Bcrypt(app)
+
+markdown = Markdown(app)
 
 logger = app.logger
 
