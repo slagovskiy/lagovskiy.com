@@ -20,6 +20,8 @@ class User(db.Model):
     last_active = db.Column('last_active', db.DateTime)
     subscribed = db.Column('subscribed', db.Boolean, default=True)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    mediafolders = db.relationship('MediaFolder', backref='author', lazy='dynamic')
+    mediafiles = db.relationship('MediaFile', backref='author', lazy='dynamic')
 
     def __init__(self, username, password, email):
         self.uuid = str(uuid1())
