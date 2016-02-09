@@ -7,6 +7,7 @@ from flask.ext.babel import Babel
 from flask.ext.login import LoginManager
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_debugtoolbar import DebugToolbarExtension
 from config import basedir, WRITE_LOG_FILE
 
 
@@ -26,6 +27,8 @@ login_manager.login_view = 'auth.login'
 bcrypt = Bcrypt(app)
 
 logger = app.logger
+
+toolbar = DebugToolbarExtension(app)
 
 from .tags import tag_datetime
 app.jinja_env.globals['datetime'] = tag_datetime
