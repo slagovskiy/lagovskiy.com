@@ -207,6 +207,18 @@ a:not(:hover) {
     padding: 10px;
 }
 
+/* paginator */
+.paginator {
+    list-style: none;
+    font-size: 1.5em;
+    padding-left: 0;
+}
+
+.paginator li {
+    display: inline;
+    padding-right: 1em;
+}
+
 /* right menu */
 
 .right-menu {

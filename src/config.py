@@ -31,6 +31,8 @@ CAPTCHA_COLORS = ['#00267C', '#AF0000', '#3400C4', '#005089', '#347F3D',
 
 UPLOAD_DIR = os.path.join(basedir, 'uploads')
 
+POST_PER_PAGE = 5
+
 try:
     from config_local import *
 except ImportError:

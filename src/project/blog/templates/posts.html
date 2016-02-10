@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
     {% if posts %}
-        {% for post in posts %}
+        {% for post in posts.items %}
             {% include 'post_teaser.html' %}
             {% if not loop.last %}<hr>{% endif %}
         {% endfor %}
+        <ul class="paginator">
+			{% if posts.has_prev %}<li><a class="prev" id="prev_page" href="{% if active_tag %}{{ url_for('blog.posts_by_tag', slug = active_tag.slug, page = posts.prev_num) }}{% elif active_category %}{{ url_for('blog.posts_by_category', slug = active_category.slug, page = posts.prev_num) }}{% else %}{{ url_for('blog.index', page = posts.prev_num) }}{% endif %}"><span>←</span>&nbsp;Newer</a></li>{% endif %}
+			{% if posts.has_next %}<li><a class="next" id="next_page" href="{% if active_tag %}{{ url_for('blog.posts_by_tag', slug = active_tag.slug, page = posts.next_num) }}{% elif active_category %}{{ url_for('blog.posts_by_category', slug = active_category.slug, page = posts.next_num) }}{% else %}{{ url_for('blog.index', page = posts.next_num) }}{% endif %}">Older&nbsp;<span>→</span></a></li>{% endif %}
+	    </ul>
     {% endif %}
 {% endblock %}
