@@ -1,0 +1,10 @@
+{% if tags %}
+    <section>
+        <h2><i class="fa fa-tags"></i> Tags</h2>
+        <ul class="tag" role="menu">
+            {% for tag in tags %}
+            {% if tag.post_count > 0 %}<li><a href="{{ tag.get_absolute_url }}">{{ tag.name }}<span>{{ tag.post_count }}</span></a></li>{% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}

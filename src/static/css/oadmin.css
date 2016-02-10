@@ -1,0 +1,61 @@
+.oadmin-top-menu {
+    text-transform: uppercase;
+    font-size: 1.5em;
+}
+
+.oadmin-top-menu ul {
+    padding-left: 0;
+}
+
+.oadmin-top-menu li{
+    display: inline;
+    letter-spacing: 1px;
+}
+
+.oadmin-action {
+    padding-bottom: 1em;
+}
+
+.dataContainer {
+    font-size: 1.2em;
+}
+
+.dataContainer ul {
+    padding-left: 0.8em;
+    list-style: none;
+    line-height: 1.6em;
+}
+
+.dataForm {
+    padding: 2em;
+}
+
+.dataForm label {
+    width: 6em;
+    padding-bottom: 1em;
+    vertical-align: top;
+}
+.dataForm input[type=text], .dataForm textarea {
+    width: 15em;
+    padding: 2px;
+    border-color: transparent;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.dataForm .fields {
+    margin-bottom: 1em;
+}
+
+.dataForm .action {
+    text-align: center;
+}
+
+.dataForm .action input[type=button]{
+    text-transform: uppercase;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.deleted {
+    text-decoration: line-through;
+}

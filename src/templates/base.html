@@ -1,0 +1,88 @@
+{% load static %}
+{% load widgets %}
+<!DOCTYPE html>
+<!--[if lt IE 7]><html lang="ru" class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html lang="ru" class="lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ru">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>lagovskiy.com</title>
+	<meta name="description" content="" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'libs/bootstrap-3.3.5/css/bootstrap.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'libs/font-awesome-4.4.0/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/fancyapps-fancybox/jquery.fancybox.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/jbox/jBox.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/jbox/themes/NoticeBorder.css' %}" />
+    <link rel="stylesheet" href="{% static 'libs/highlight/styles/monokai.css' %}" />
+
+	<link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/media.css' %}" />
+    {% block ext_css %}
+    {% endblock %}
+</head>
+<body>
+	<script src="{% static 'libs/jquery/jquery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'libs/fancyapps-fancybox/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'libs/jbox/jBox.min.js' %}"></script>
+    <script src="{% static 'libs/highlight/highlight.pack.js' %}"></script>
+
+	<script src="{% static 'js/main.js' %}"></script>
+
+    <header class="head-row">
+        <div class="container clearfix">
+            <div class="head-logo fl-left">
+                <a href="/"><img src="{% static 'img/logo450.png' %}"></a>
+            </div>
+            <nav role="navigation" class="head-menu fl-right">
+                <button class="hidden-lg hidden-md head-menu-link" id="head-menu-link"><i class="fa fa-bars"></i></button>
+                <ul class="head-menu-line" id="head-menu-line">
+                    <li><a href="/">home</a></li>
+                    <li><a href="/#">blog</a></li>
+                    <li><a href="/#">photo</a></li>
+                    <li><a href="/#">projects</a></li>
+                    <li><a href="/#">about</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container clearfix">
+        <section class="col-md-9 articles" id="articles">
+            {% block content %}
+            {% endblock %}
+        </section>
+        <aside class="col-md-3 right-menu" id="right-menu">
+            {% widget_category %}
+            {% widget_tags %}
+            {% widget_links %}
+            {% widget_archive %}
+        </aside>
+    </div>
+    <footer class="footer">
+        <div class="container clearfix">
+            <div class="col-md-12">
+                <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-2016&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.2
+            </div>
+            <div class="col-md-12 admin-link">
+                <a href="/admin/">django admin</a> <a href="/oadmin/">odyssey admin</a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            hljs.initHighlightingOnLoad();
+            $(".fancybox").fancybox();
+        });
+    </script>
+	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
+	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
+</body>
+</html>

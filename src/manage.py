@@ -1,16 +1,10 @@
-from project import app, db
-from flask.ext.script import Manager
-from flask.ext.migrate import Migrate, MigrateCommand
-from config import SQLALCHEMY_MIGRATE_REPO
+#!/usr/bin/env python
+import os
+import sys
 
-migrate = Migrate(
-    app=app,
-    db=db,
-    directory=SQLALCHEMY_MIGRATE_REPO
-)
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "odyssey.settings")
 
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
+    from django.core.management import execute_from_command_line
 
-if __name__ == '__main__':
-    manager.run()
+    execute_from_command_line(sys.argv)

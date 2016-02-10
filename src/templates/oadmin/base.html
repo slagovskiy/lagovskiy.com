@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block ext_css %}
+<link rel="stylesheet" href="{% static 'css/oadmin.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include 'oadmin/menu_top.html' %}
+    {% block oa-content %}
+    {% endblock %}
+{% endblock %}
