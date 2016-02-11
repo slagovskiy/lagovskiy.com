@@ -5,8 +5,11 @@
 <link rel="stylesheet" href="{% static 'css/oadmin.css' %}">
 {% endblock %}
 
-{% block content %}
-{% include 'oadmin/menu_top.html' %}
-    {% block oa-content %}
+{% block body %}
+    {% block content %}
     {% endblock %}
+{% endblock %}
+
+{% block right_menu %}
+    {% include "oadmin/right_menu.html" %}
 {% endblock %}
