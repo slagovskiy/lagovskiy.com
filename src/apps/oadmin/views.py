@@ -19,30 +19,37 @@ def index(request):
 def tag(request, id=None):
     data = None
     if request.POST:
+        # save data
         id = int(request.POST['id'])
         slug = str(request.POST['txtSlug'])
         name = str(request.POST['txtName'])
         deleted = False
         if request.POST['deleted'] == 'true':
             deleted = True
-        if id == -1:
-            tag = Tag.objects.create(
-                slug=slug,
-                name=name,
-                deleted=deleted
-            )
-            tag.save()
-            return HttpResponse('ok')
-        else:
-            tag = Tag.objects.get(id=id)
-            if tag:
-                tag.slug = slug
-                tag.name = name
-                tag.deleted = deleted
+        if id == -1:    # new object
+            if not Tag.exist(slug):
+                tag = Tag.objects.create(
+                    slug=slug,
+                    name=name,
+                    deleted=deleted
+                )
                 tag.save()
                 return HttpResponse('ok')
             else:
-                return HttpResponse('error get object')
+                return HttpResponse('Tag already exist')
+        else:   # save object
+            tag = Tag.objects.get(id=id)
+            if tag:
+                if ((tag.slug != slug) and (not Tag.exist(slug))) or (tag.slug == slug):
+                    tag.slug = slug
+                    tag.name = name
+                    tag.deleted = deleted
+                    tag.save()
+                    return HttpResponse('ok')
+                else:
+                    return HttpResponse('Tag already exist')
+            else:
+                return HttpResponse('Error get object')
     elif id is None:
         # return admin form
         return render(request, 'oadmin/blog/tag.html')
@@ -52,7 +59,11 @@ def tag(request, id=None):
         return JsonResponse(data, safe=False)
     else:
         # return one in json
-        data = serializers.serialize('json', Tag.objects.all().filter(id=id))
+        tag = Tag.objects.all().filter(id=id)
+        if id == -1:
+            tag.slug = 'new_tag'
+            tag.name = 'new tag'
+        data = serializers.serialize('json', tag)
         return JsonResponse(data, safe=False)
 
 
