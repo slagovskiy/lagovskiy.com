@@ -1,5 +1,4 @@
 {% load static %}
-{% load widgets %}
 <!DOCTYPE html>
 <!--[if lt IE 7]><html lang="ru" class="lt-ie9 lt-ie8 lt-ie7"><![endif]-->
 <!--[if IE 7]><html lang="ru" class="lt-ie9 lt-ie8"><![endif]-->
@@ -49,7 +48,7 @@
                     <li><a href="/#">photo</a></li>
                     <li><a href="/#">projects</a></li>
                     <li><a href="/#">about</a></li>
-                    {% if not request.user.is_anonymous %}{% if request.user.is_admin %}<li><a href="{% url 'oadmin' %}" target="_blank">admin</a></li>{% endif %}{% endif %}
+                    {% if not request.user.is_anonymous %}{% if request.user.is_admin %}<li><a href="{% url 'oadmin' %}">admin</a></li>{% endif %}{% endif %}
                 </ul>
             </nav>
         </div>
@@ -57,14 +56,12 @@
 
     <div class="container clearfix">
         <section class="col-md-9 articles" id="articles">
-            {% block content %}
+            {% block body %}
             {% endblock %}
         </section>
         <aside class="col-md-3 right-menu" id="right-menu">
-            {% widget_category %}
-            {% widget_tags %}
-            {% widget_links %}
-            {% widget_archive %}
+            {% block right_menu %}
+            {% endblock %}
         </aside>
     </div>
     <footer class="footer">
