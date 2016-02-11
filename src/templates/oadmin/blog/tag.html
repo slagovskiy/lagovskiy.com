@@ -45,7 +45,7 @@
 {% endverbatim %}
 
 <div class="oadmin-action">
-    <a href="#dataForm" onclick="newData();return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
+    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
 <div id="dataForm" class="dataForm" style="display: none;"></div>
@@ -74,22 +74,6 @@
             var template = $('#dataEdit').html();
             $('#dataForm').html(Mark.up(template, jdata));
         });
-
-        $('.open-data-form').fancybox({
-            padding: 0,
-            type: 'inline',
-            title: '',
-            modal: false,
-            autoSize: true
-        });
-    }
-
-    function newData(key)
-    {
-        var data = "[{\"pk\": -1, \"fields\": {\"slug\": \"new_tag\",\"name\": \"new tag\",\"deleted\": false}}]";
-        var jdata = jQuery.parseJSON(data);
-        var template = $('#dataEdit').html();
-        $('#dataForm').html(Mark.up(template, jdata));
 
         $('.open-data-form').fancybox({
             padding: 0,
