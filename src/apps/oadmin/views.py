@@ -16,24 +16,9 @@ def index(request):
     return render(request, 'oadmin/index.html', content)
 
 
-def tag(request):
-    content = {
-    }
-    return render(request, 'oadmin/blog/tag.html', content)
-
-
-def tag_all(request):
-    data = serializers.serialize('json', Tag.objects.all())
-    return JsonResponse(data, safe=False)
-
-
-def tag_edit(request, id):
-    data = serializers.serialize('json', Tag.objects.all().filter(id=id))
-    return JsonResponse(data, safe=False)
-
-
-def tag_save(request):
-    try:
+def tag(request, id=None):
+    data = None
+    if request.POST:
         id = int(request.POST['id'])
         slug = str(request.POST['txtSlug'])
         name = str(request.POST['txtName'])
@@ -58,8 +43,17 @@ def tag_save(request):
                 return HttpResponse('ok')
             else:
                 return HttpResponse('error get object')
-    except Exception as ex:
-        return HttpResponse(ex)
+    elif id is None:
+        # return admin form
+        return render(request, 'oadmin/blog/tag.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', Tag.objects.all())
+        return JsonResponse(data, safe=False)
+    else:
+        # return one in json
+        data = serializers.serialize('json', Tag.objects.all().filter(id=id))
+        return JsonResponse(data, safe=False)
 
 
 def category(request):

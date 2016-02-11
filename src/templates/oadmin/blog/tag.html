@@ -55,7 +55,7 @@
     function loadData()
     {
         $.ajax({
-            url :'{% url 'oadmin_tag_all' %}',
+            url :'{% url 'oadmin_tag_get' 0 %}',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
