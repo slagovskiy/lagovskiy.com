@@ -5,6 +5,11 @@ from apps.blog.models import Tag, Category
 from apps.links.models import MyLinks
 
 
+def admin_check(request):
+    if not request.user.is_anonymous():
+        if request.user.is_admin():
+            pass
+
 def index(request):
     content = {
     }

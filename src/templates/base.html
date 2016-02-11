@@ -13,7 +13,7 @@
 	<meta name="description" content="" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
 	<link rel="stylesheet" href="{% static 'css/normalize.min.css' %}" />
 	<link rel="stylesheet" href="{% static 'libs/bootstrap-3.3.5/css/bootstrap.min.css' %}" />
 	<link rel="stylesheet" href="{% static 'libs/font-awesome-4.4.0/css/font-awesome.min.css' %}" />
@@ -49,6 +49,7 @@
                     <li><a href="/#">photo</a></li>
                     <li><a href="/#">projects</a></li>
                     <li><a href="/#">about</a></li>
+                    {% if not request.user.is_anonymous %}{% if request.user.is_admin %}<li><a href="{% url 'oadmin' %}" target="_blank">admin</a></li>{% endif %}{% endif %}
                 </ul>
             </nav>
         </div>

@@ -6,7 +6,7 @@ from .views import mylinks, mylinks_all, mylinks_edit, mylinks_save
 
 
 urlpatterns = [
-    url(r'^$', index, name='oadmin_dashboard'),
+    url(r'^$', index, name='oadmin'),
 
     url(r'^links/mylinks/$', mylinks, name='oadmin_mylinks'),
     url(r'^links/mylinks/all/$', mylinks_all, name='oadmin_mylinks_all'),
