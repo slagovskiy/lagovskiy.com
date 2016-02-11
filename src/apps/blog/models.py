@@ -54,6 +54,16 @@ class Tag(models.Model):
     def post_count(self):
         return self.post_set.all().filter(status=2).count()
 
+    @staticmethod
+    def exist(slug=None):
+        if slug is None:
+            return False
+        else:
+            if Tag.objects.filter(slug=slug).first() is None:
+                return False
+            else:
+                return True
+
     class Meta:
         ordering = ['name']
         verbose_name = 'Tag'
