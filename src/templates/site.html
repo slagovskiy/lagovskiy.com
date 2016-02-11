@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load widgets %}
+
+{% block body %}{% block content %}{% endblock %}{% endblock %}
+
+{% block right_menu %}
+    {% widget_category %}
+    {% widget_tags %}
+    {% widget_links %}
+    {% widget_archive %}
+{% endblock %}
