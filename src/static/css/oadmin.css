@@ -36,10 +36,14 @@
     vertical-align: top;
 }
 .dataForm input[type=text], .dataForm textarea {
-    width: 15em;
+    width: 45em;
     padding: 2px;
     border-color: transparent;
     border-bottom: 1px solid #DDDDDD;
+}
+
+textarea.text {
+    height: 2em;
 }
 
 .dataForm .fields {
