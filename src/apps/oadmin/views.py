@@ -60,10 +60,10 @@ def tag(request, id=None):
     else:
         # return one in json
         tag = Tag.objects.all().filter(id=id)
-        if id == -1:
-            tag.slug = 'new_tag'
-            tag.name = 'new tag'
         data = serializers.serialize('json', tag)
+        if id == '-1':
+            data = '[{"model": "blog.tag", "pk": -1, ' \
+                   '"fields": {"slug": "new_tag", "name": "new tag", "deleted": false}}]'
         return JsonResponse(data, safe=False)
 
 
@@ -111,10 +111,10 @@ def category(request, id=None):
     else:
         # return on in json
         category = Category.objects.all().filter(id=id)
-        if id == -1:
-            category.slug = 'new_category'
-            category.name = 'new category'
         data = serializers.serialize('json', category)
+        if id == '-1':
+            data = '[{"model": "blog.category", "pk": -1, ' \
+                   '"fields": {"slug": "new_category", "name": "new category", "deleted": false}}]'
         return JsonResponse(data, safe=False)
 
 
