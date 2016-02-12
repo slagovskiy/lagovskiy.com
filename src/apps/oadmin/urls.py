@@ -1,7 +1,6 @@
 from django.conf.urls import url
 from .views import index
-from .views import tag
-from .views import category, category_all, category_edit, category_save
+from .views import tag, category
 from .views import mylinks, mylinks_all, mylinks_edit, mylinks_save
 
 
