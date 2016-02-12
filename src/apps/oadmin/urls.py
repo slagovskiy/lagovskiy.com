@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^blog/tag/save/$', tag, name='oadmin_tag_save'),
 
     url(r'^blog/category/$', category, name='oadmin_category'),
-    url(r'^blog/category/all/$', category_all, name='oadmin_category_all'),
-    url(r'^blog/category/save/$', category_save, name='oadmin_category_save'),
-    url(r'^blog/category/(?P<id>[-\w]+)/$', category_edit, name='oadmin_category_edit'),
+    url(r'^blog/category/(?P<id>[-\w]+)/$', category, name='oadmin_category_get'),
+    url(r'^blog/category/save/$', category, name='oadmin_category_save'),
 ]
