@@ -1,8 +1,7 @@
 {% extends 'oadmin/base.html' %}
 {% load static %}
 
-{% block oa-content %}
-    <script src="{% static 'libs/markup/markup.min.js' %}"></script>
+{% block content %}
     <script src="{% static 'libs/markup/markup.min.js' %}"></script>
 
 
@@ -27,10 +26,10 @@
     <input type="hidden" value="{{pk}}" name="id">
     <input type="hidden" value="{{fields.deleted}}" name="deleted" id="deleted">
     <label for="txtSlug">slug</label>
-    <input type="text" value="{{fields.slug}}" name="txtSlug" id="txtSlug">
+    <textarea name="txtSlug" id="txtSlug" class="text">{{fields.slug}}</textarea>
     <br>
     <label for="txtName">name</label>
-    <input type="text" value="{{fields.name}}" name="txtName" id="txtName">
+    <textarea name="txtName" id="txtName" class="text">{{fields.name}}</textarea>
     <br>
     </div>
     <div class="action">
@@ -46,7 +45,7 @@
 {% endverbatim %}
 
     <div class="oadmin-action">
-        <a href="#dataForm" onclick="newData();return false;" class="open-data-form"><i class="fa fa-plus"></i> add new category</a>&nbsp;&nbsp;&nbsp;
+        <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new category</a>&nbsp;&nbsp;&nbsp;
         <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
     </div>
     <div id="dataForm" class="dataForm" style="display: none;"></div>
@@ -56,7 +55,7 @@
         function loadData()
         {
             $.ajax({
-                url :'{% url 'oadmin_category_all' %}',
+                url :'{% url 'oadmin_category_get' 0 %}',
                 cashe: false
             }).done(function(data){
                 var jdata = jQuery.parseJSON(data);
@@ -75,22 +74,6 @@
                 var template = $('#dataEdit').html();
                 $('#dataForm').html(Mark.up(template, jdata));
             });
-
-            $('.open-data-form').fancybox({
-                padding: 0,
-                type: 'inline',
-                title: '',
-                modal: false,
-                autoSize: true
-            });
-        }
-
-        function newData(key)
-        {
-            var data = "[{\"pk\": -1, \"fields\": {\"slug\": \"new_category\",\"name\": \"new category\",\"deleted\": false}}]";
-            var jdata = jQuery.parseJSON(data);
-            var template = $('#dataEdit').html();
-            $('#dataForm').html(Mark.up(template, jdata));
 
             $('.open-data-form').fancybox({
                 padding: 0,
