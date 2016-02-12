@@ -67,50 +67,55 @@ def tag(request, id=None):
         return JsonResponse(data, safe=False)
 
 
-def category(request):
-    content = {
-    }
-    return render(request, 'oadmin/blog/category.html', content)
-
-
-def category_all(request):
-    data = serializers.serialize('json', Category.objects.all())
-    return JsonResponse(data, safe=False)
-
-
-def category_edit(request, id):
-    data = serializers.serialize('json', Category.objects.all().filter(id=id))
-    return JsonResponse(data, safe=False)
-
-
-def category_save(request):
-    try:
+def category(request, id=None):
+    data = None
+    if request.POST:
+        # save data
         id = int(request.POST['id'])
         slug = str(request.POST['txtSlug'])
         name = str(request.POST['txtName'])
         deleted = False
         if request.POST['deleted'] == 'true':
             deleted = True
-        if id == -1:
-            category = Category.objects.create(
-                slug=slug,
-                name=name,
-                deleted=deleted
-            )
-            category.save()
-            return HttpResponse('ok')
-        else:
-            category = Category.objects.get(id=id)
-            if category:
-                category.slug = slug
-                category.name = name
-                category.deleted = deleted
+        if id == -1:    # new object
+            if not Category.exist(slug):
+                category = Category.objects.create(
+                    slug=slug,
+                    name=name,
+                    deleted=deleted
+                )
                 category.save()
                 return HttpResponse('ok')
             else:
+                return HttpResponse('Category already exist')
+        else:   # save object
+            category = Category.objects.get(id=id)
+            if category:
+                if ((category.slug != slug) and (not Category.exist(slug))) or (category.slug == slug):
+                    category.slug = slug
+                    category.name = name
+                    category.deleted = deleted
+                    category.save()
+                    return HttpResponse('ok')
+                else:
+                    return HttpResponse('Category already exist')
+            else:
                 return HttpResponse('error get object')
-    except Exception as ex:
-        return HttpResponse(ex)
+    elif id is None:
+        # return admin form
+        return render(request, 'oadmin/blog/category.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', Category.objects.all())
+        return JsonResponse(data, safe=False)
+    else:
+        # return on in json
+        category = Category.objects.all().filter(id=id)
+        if id == -1:
+            category.slug = 'new_category'
+            category.name = 'new category'
+        data = serializers.serialize('json', category)
+        return JsonResponse(data, safe=False)
 
 
 def mylinks(request):
