@@ -27,6 +27,16 @@ class Category(models.Model):
     def get_absolute_url(self):
         return '/blog/category/%s/' % self.slug
 
+    @staticmethod
+    def exist(slug=None):
+        if slug is None:
+            return False
+        else:
+            if Category.objects.filter(slug=slug).first() is None:
+                return False
+            else:
+                return True
+
     class Meta:
         ordering = ['name']
         verbose_name = 'Category'
