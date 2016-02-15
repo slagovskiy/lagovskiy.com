@@ -10,6 +10,9 @@ class Category(models.Model):
         max_length=255,
         default=''
     )
+    order = models.IntegerField(
+        default=10
+    )
     deleted = models.BooleanField(
         default=False
     )
@@ -38,7 +41,7 @@ class Category(models.Model):
                 return True
 
     class Meta:
-        ordering = ['name']
+        ordering = ['order', 'name']
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
 
