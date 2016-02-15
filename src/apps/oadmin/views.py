@@ -77,6 +77,7 @@ def category(request, id=None):
         id = int(request.POST['id'])
         slug = str(request.POST['txtSlug'])
         name = str(request.POST['txtName'])
+        order = int(request.POST['txtOrder'])
         deleted = False
         if request.POST['deleted'] == 'true':
             deleted = True
@@ -85,7 +86,8 @@ def category(request, id=None):
                 category = Category.objects.create(
                     slug=slug,
                     name=name,
-                    deleted=deleted
+                    deleted=deleted,
+                    order=order
                 )
                 category.save()
                 return HttpResponse('ok')
@@ -98,6 +100,7 @@ def category(request, id=None):
                     category.slug = slug
                     category.name = name
                     category.deleted = deleted
+                    category.order = order
                     category.save()
                     return HttpResponse('ok')
                 else:
@@ -118,7 +121,8 @@ def category(request, id=None):
             category = Category(
                 id=-1,
                 slug='new_category',
-                name='new category'
+                name='new category',
+                order=10
             )
         data = serializers.serialize('json', [category, ])
         return JsonResponse('{"items": %s}' % data, safe=False)

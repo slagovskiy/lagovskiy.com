@@ -11,6 +11,7 @@
             <tr>
                 <th>Name</td>
                 <th>Slug</td>
+                <th>Order</td>
             </tr>
         </thead>
         {{for items}}
@@ -19,6 +20,7 @@
                     <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
                 </td>
                 <td>{{>fields.slug}}</td>
+                <td>{{>fields.order}}</td>
             </tr>
             {{/for}}</table>
     </script>
@@ -35,6 +37,9 @@
                 <br>
                 <label for="txtName">name</label>
                 <textarea name="txtName" id="txtName" class="text">{{>fields.name}}</textarea>
+                <br>
+                <label for="txtName">order</label>
+                <textarea name="txtOrder" id="txtOrder" class="text">{{>fields.order}}</textarea>
                 <br>
             </div>
             <div class="action">
