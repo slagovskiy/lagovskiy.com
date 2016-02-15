@@ -40,7 +40,8 @@ def blog_category(count):
         if not Category.exist(slug):
             c = Category.objects.create(
                 slug=slug,
-                name=name
+                name=name,
+                order=randint(1, 100)
             )
             c.save()
             print(c)
@@ -51,5 +52,5 @@ class Command(BaseCommand):
 
     def handle(self, **options):
         clean()
-        blog_category(10)
+        blog_category(5)
         blog_tag(50)
