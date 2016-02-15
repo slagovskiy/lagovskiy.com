@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from apps.blog.models import Tag, Category
-from apps.links.models import MyLinks
+from apps.links.models import MyLink
 
 
 def admin_check(request):
@@ -128,54 +128,67 @@ def category(request, id=None):
         return JsonResponse('{"items": %s}' % data, safe=False)
 
 
-def mylinks(request):
-    content = {
-    }
-    return render(request, 'oadmin/links/mylinks.html', content)
-
-
-def mylinks_all(request):
-    data = serializers.serialize('json', MyLinks.objects.all())
-    return JsonResponse(data, safe=False)
-
-
-def mylinks_edit(request, id):
-    data = serializers.serialize('json', MyLinks.objects.all().filter(id=id))
-    return JsonResponse(data, safe=False)
-
-
-def mylinks_save(request):
-    try:
-        id = int(request.POST['id'])
-        link = str(request.POST['txtLink'])
-        order = int(request.POST['txtOrder'])
-        name = str(request.POST['txtName'])
-        new_window = ('txtNewW' in request.POST)
+def mylinks(request, id=None):
+    data = None
+    if request.POST:
+        # save data
+        id = int(request.POST.get('id'))
+        slug = str(request.POST.get('txtSlug'))
+        name = str(request.POST.get('txtName'))
+        link = str(request.POST.get('txtLink'))
+        order = int(request.POST.get('txtOrder'))
         deleted = False
-        if request.POST['deleted'] == 'true':
+        new_window = False
+        if request.POST.get('deleted') == 'true':
             deleted = True
-        if id == -1:
-            mylink = MyLinks.objects.create(
-                link=link,
-                order=order,
-                name=name,
-                new_window=new_window,
-                deleted=deleted
-            )
-            mylink.save()
-            return HttpResponse('ok')
-        else:
-            mylink = MyLinks.objects.get(id=id)
-            if mylink:
-                mylink.url = link
-                mylink.name = name
-                mylink.order = order
-                mylink.new_window = new_window
-                mylink.deleted = deleted
+        if request.POST.get('new_window') == 'on':
+            new_window = True
+        if id == -1:    # new object
+            if not MyLink.exist(slug):
+                mylink = MyLink.objects.create(
+                    slug=slug,
+                    name=name,
+                    link=link,
+                    deleted=deleted,
+                    order=order
+                )
                 mylink.save()
                 return HttpResponse('ok')
             else:
+                return HttpResponse('Category already exist')
+        else:   # save object
+            mylink = MyLink.objects.get(id=id)
+            if mylink:
+                if ((mylink.slug != slug) and (not MyLink.exist(slug))) or (mylink.slug == slug):
+                    mylink.slug = slug
+                    mylink.name = name
+                    mylink.link = link
+                    mylink.deleted = deleted
+                    mylink.new_window = new_window
+                    mylink.order = order
+                    mylink.save()
+                    return HttpResponse('ok')
+                else:
+                    return HttpResponse('Link already exist')
+            else:
                 return HttpResponse('error get object')
-    except Exception as ex:
-        print(ex)
-        return HttpResponse(ex)
+    elif id is None:
+        # return admin form
+        return render(request, 'oadmin/links/mylink.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', MyLink.objects.all())
+        return JsonResponse('{"items": %s}' % data, safe=False)
+    else:
+        # return on in json
+        mylink = MyLink.objects.all().filter(id=id).first()
+        if mylink is None:
+            mylink = MyLink(
+                id=-1,
+                slug='new_link',
+                name='new link',
+                link='http://',
+                order=10
+            )
+        data = serializers.serialize('json', [mylink, ])
+        return JsonResponse('{"items": %s}' % data, safe=False)

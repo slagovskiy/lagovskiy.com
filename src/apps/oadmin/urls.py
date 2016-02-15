@@ -1,16 +1,15 @@
 from django.conf.urls import url
 from .views import index
 from .views import tag, category
-from .views import mylinks, mylinks_all, mylinks_edit, mylinks_save
+from .views import mylinks
 
 
 urlpatterns = [
     url(r'^$', index, name='oadmin'),
 
-    url(r'^links/mylinks/$', mylinks, name='oadmin_mylinks'),
-    url(r'^links/mylinks/all/$', mylinks_all, name='oadmin_mylinks_all'),
-    url(r'^links/mylinks/save/$', mylinks_save, name='oadmin_mylinks_save'),
-    url(r'^links/mylinks/(?P<id>[-\w]+)/$', mylinks_edit, name='oadmin_mylinks_edit'),
+    url(r'^links/mylink/$', mylinks, name='oadmin_mylink'),
+    url(r'^links/mylink/(?P<id>[-\w]+)/$', mylinks, name='oadmin_mylink_get'),
+    url(r'^links/mylink/save/$', mylinks, name='oadmin_mylink_save'),
 
     url(r'^blog/tag/$', tag, name='oadmin_tag'),
     url(r'^blog/tag/(?P<id>[-\w]+)/$', tag, name='oadmin_tag_get'),
