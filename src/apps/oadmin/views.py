@@ -110,15 +110,18 @@ def category(request, id=None):
     elif id == '0':
         # return all in json
         data = serializers.serialize('json', Category.objects.all())
-        return JsonResponse(data, safe=False)
+        return JsonResponse('{"items": %s}' % data, safe=False)
     else:
         # return on in json
-        category = Category.objects.all().filter(id=id)
-        data = serializers.serialize('json', category)
-        if id == '-1':
-            data = '[{"model": "blog.category", "pk": -1, ' \
-                   '"fields": {"slug": "new_category", "name": "new category", "deleted": false}}]'
-        return JsonResponse(data, safe=False)
+        category = Category.objects.all().filter(id=id).first()
+        if category is None:
+            category = Category(
+                id=-1,
+                slug='new_category',
+                name='new category'
+            )
+        data = serializers.serialize('json', [category, ])
+        return JsonResponse('{"items": %s}' % data, safe=False)
 
 
 def mylinks(request):
