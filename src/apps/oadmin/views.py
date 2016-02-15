@@ -20,9 +20,9 @@ def tag(request, id=None):
     data = None
     if request.POST:
         # save data
-        id = int(request.POST['id'])
-        slug = str(request.POST['txtSlug'])
-        name = str(request.POST['txtName'])
+        id = int(request.POST.get('id', 0))
+        slug = str(request.POST.get('txtSlug', 'tag'))
+        name = str(request.POST.get('txtName', 'tag'))
         deleted = False
         if request.POST['deleted'] == 'true':
             deleted = True
@@ -74,10 +74,10 @@ def category(request, id=None):
     data = None
     if request.POST:
         # save data
-        id = int(request.POST['id'])
-        slug = str(request.POST['txtSlug'])
-        name = str(request.POST['txtName'])
-        order = int(request.POST['txtOrder'])
+        id = int(request.POST.get('id', 0))
+        slug = str(request.POST.get('txtSlug', 'caregory'))
+        name = str(request.POST.get('txtName', 'category'))
+        order = int(request.POST.get('txtOrder', 10))
         deleted = False
         if request.POST['deleted'] == 'true':
             deleted = True
@@ -132,11 +132,11 @@ def mylinks(request, id=None):
     data = None
     if request.POST:
         # save data
-        id = int(request.POST.get('id'))
-        slug = str(request.POST.get('txtSlug'))
-        name = str(request.POST.get('txtName'))
-        link = str(request.POST.get('txtLink'))
-        order = int(request.POST.get('txtOrder'))
+        id = int(request.POST.get('id'), 0)
+        slug = str(request.POST.get('txtSlug'), 'mylink')
+        name = str(request.POST.get('txtName'), 'mylink')
+        link = str(request.POST.get('txtLink'), 'mylink')
+        order = int(request.POST.get('txtOrder'), 10)
         deleted = False
         new_window = False
         if request.POST.get('deleted') == 'true':
