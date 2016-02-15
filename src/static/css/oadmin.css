@@ -30,6 +30,7 @@ table.data {
     width: 100%;
     border: 1px solid #E5E5E5;
     border-spacing: 0;
+    margin-bottom: 2em;
 }
 
 table.data thead tr {
