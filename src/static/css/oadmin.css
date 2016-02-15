@@ -26,6 +26,40 @@
     line-height: 1.6em;
 }
 
+table.data {
+    width: 100%;
+    border: 1px solid #E5E5E5;
+    border-spacing: 0;
+}
+
+table.data thead tr {
+    background-color: #F5F5F5;
+}
+
+table.data thead tr:hover {
+    background-color: #F5F5F5;
+}
+
+table.data th {
+    line-height: 2.2em;
+    text-align: center;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+table.data tr:hover {
+    background-color: #F1F1F1;
+}
+
+table.data tr.even {
+    background-color: #F9F9F9;
+}
+
+table.data td {
+    font-size: .9em;
+    line-height: 2em;
+    padding-left: 0.5em;
+}
+
 .dataForm {
     padding: 2em;
 }
