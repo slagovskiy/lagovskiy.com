@@ -65,7 +65,7 @@ class Tag(models.Model):
         return '/blog/tag/%s/' % self.slug
 
     def post_count(self):
-        return self.post_set.all().filter(status=2).count()
+        return self.post_set.all().filter(status=Post.PUBLISHED_STATUS).count()
 
     @staticmethod
     def exist(slug=None):
