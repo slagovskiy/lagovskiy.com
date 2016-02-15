@@ -1,0 +1,142 @@
+{% extends 'oadmin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
+
+
+    {% verbatim %}
+    <script id="dataTemplate" type="text/x-jsrender">
+        <table class="data">
+        <thead>
+            <tr>
+                <th>Name</td>
+                <th>Link</td>
+                <th>Slug</td>
+            </tr>
+        </thead>
+        {{for items}}
+            <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
+                <td>
+                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
+                </td>
+                <td>{{>fields.link}}</td>
+                <td>{{>fields.slug}}</td>
+            </tr>
+        {{/for}}
+        </table>
+    </script>
+    <script id="dataEdit" type="text/x-jsrender">
+        <form id="editForm">{{for items}}
+            <div class="fields">
+{% endverbatim %}
+                {% csrf_token %}
+{% verbatim %}
+                <input type="hidden" value="{{:pk}}" name="id">
+                <input type="hidden" value="{{:fields.deleted}}" name="deleted" id="deleted">
+                <label for="txtSlug">slug</label>
+                <textarea name="txtSlug" id="txtSlug" class="text">{{>fields.slug}}</textarea>
+                <br>
+                <label for="txtName">name</label>
+                <textarea name="txtName" id="txtName" class="text">{{>fields.name}}</textarea>
+                <br>
+                <label for="txtLink">link</label>
+                <textarea name="txtLink" id="txtLink" class="text">{{>fields.link}}</textarea>
+                <br>
+                <label for="txtOrder">link</label>
+                <textarea name="txtOrder" id="txtOrder" class="text">{{>fields.order}}</textarea>
+                <br>
+                <label for="new_window" class="checkbox"><input type="checkbox" name="new_window" id="new_window"{{if fields.new_window}} checked{{/if}}> open link in new window</label>
+                <br>
+            </div>
+            <div class="action">
+                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                {{if fields.deleted}}
+                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                {{else}}
+                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                {{/if}}
+            </div>
+        {{/for}}</form>
+    </script>
+{% endverbatim %}
+
+<div class="oadmin-action">
+    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new link</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+</div>
+<div id="dataForm" class="dataForm" style="display: none;"></div>
+<div id="dataContainer" class="dataContainer"></div>
+
+<script>
+    function loadData()
+    {
+        $.ajax({
+            url :'{% url 'oadmin_mylink_get' 0 %}',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataTemplate');
+            $('#dataContainer').html(template.render(jdata));
+        });
+    }
+
+    function editData(key)
+    {
+        $.ajax({
+            url :'{% url 'oadmin_mylink' %}' + key + '/',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataEdit');
+            $('#dataForm').html(template.render(jdata));
+        });
+
+        $('.open-data-form').fancybox({
+            padding: 0,
+            type: 'inline',
+            title: '',
+            modal: false,
+            autoSize: true
+        });
+    }
+
+    function deleteItem() {
+        $("#dataForm form #deleted").val('true');
+        saveData();
+    }
+
+    function restoreItem() {
+        $("#dataForm form #deleted").val('false');
+        saveData();
+    }
+
+    function saveData() {
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'oadmin_mylink_save' %}',
+            data: $("#dataForm form").serialize()
+            })
+            .done(function(data){
+                if(data=='ok') {
+                    notice('green', 'saved');
+                    $.fancybox.close();
+                    loadData();
+                }
+                else {
+                    notice('red', data);
+                }
+            })
+            .fail(function(){
+                notice('red', 'data transfer error');
+            });
+    $("#dataForm form").submit(function(){
+            return false;
+        });
+    }
+
+    $(document).ready(function(){
+        loadData();
+    });
+</script>
+{% endblock %}
