@@ -56,15 +56,18 @@ def tag(request, id=None):
     elif id == '0':
         # return all in json
         data = serializers.serialize('json', Tag.objects.all())
-        return JsonResponse(data, safe=False)
+        return JsonResponse('{"items": %s}' % data, safe=False)
     else:
         # return one in json
-        tag = Tag.objects.all().filter(id=id)
-        data = serializers.serialize('json', tag)
-        if id == '-1':
-            data = '[{"model": "blog.tag", "pk": -1, ' \
-                   '"fields": {"slug": "new_tag", "name": "new tag", "deleted": false}}]'
-        return JsonResponse(data, safe=False)
+        tag = Tag.objects.all().filter(id=id).first()
+        if tag is None:
+            tag = Tag(
+                id=-1,
+                slug='new_tag',
+                name='new tag'
+            )
+        data = serializers.serialize('json', [tag, ])
+        return JsonResponse('{"items": %s}' % data, safe=False)
 
 
 def category(request, id=None):
