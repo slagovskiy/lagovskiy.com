@@ -2,34 +2,41 @@
 {% load static %}
 
 {% block content %}
-<script src="{% static 'libs/markup/markup.min.js' %}"></script>
+<script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
 
 
 {% verbatim %}
-    <div id="dataTemplate" class="hide">
-        <ul>{{.}}
-            {{if fields.deleted}}
-            <li class="deleted">
-            {{else}}
-            <li>
-            {{/if}}
-                <a href="#dataForm" onclick="editData({{pk}});return false;" class="open-data-form">{{fields.name}} [{{fields.slug}}]</a>
-            </li>
-        {{/.}}</ul>
-    </div>
-    <div id="dataEdit" class="hide">
-        <form id="editForm">{{.}}
+    <script id="dataTemplate" type="text/x-jsrender">
+        <table class="data">
+        <thead>
+            <tr>
+                <th>Name</td>
+                <th>Slug</td>
+            </tr>
+        </thead>
+        {{for items}}
+            <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
+                <td>
+                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
+                </td>
+                <td>{{>fields.slug}}</td>
+            </tr>
+        {{/for}}
+        </table>
+    </script>
+    <script id="dataEdit" type="text/x-jsrender">
+        <form id="editForm">{{for items}}
             <div class="fields">
 {% endverbatim %}
                 {% csrf_token %}
 {% verbatim %}
-                <input type="hidden" value="{{pk}}" name="id">
-                <input type="hidden" value="{{fields.deleted}}" name="deleted" id="deleted">
+                <input type="hidden" value="{{:pk}}" name="id">
+                <input type="hidden" value="{{:fields.deleted}}" name="deleted" id="deleted">
                 <label for="txtSlug">slug</label>
-                <textarea name="txtSlug" id="txtSlug" class="text">{{fields.slug}}</textarea>
+                <textarea name="txtSlug" id="txtSlug" class="text">{{>fields.slug}}</textarea>
                 <br>
                 <label for="txtName">name</label>
-                <textarea name="txtName" id="txtName" class="text">{{fields.name}}</textarea>
+                <textarea name="txtName" id="txtName" class="text">{{>fields.name}}</textarea>
                 <br>
             </div>
             <div class="action">
@@ -40,8 +47,8 @@
                 <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
                 {{/if}}
             </div>
-        {{/.}}</form>
-    </div>
+        {{/for}}</form>
+    </script>
 {% endverbatim %}
 
 <div class="oadmin-action">
@@ -59,8 +66,8 @@
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $('#dataTemplate').html();
-            $('#dataContainer').html(Mark.up(template, jdata));
+            var template = $.templates('#dataTemplate');
+            $('#dataContainer').html(template.render(jdata));
         });
     }
 
@@ -71,8 +78,8 @@
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $('#dataEdit').html();
-            $('#dataForm').html(Mark.up(template, jdata));
+            var template = $.templates('#dataEdit');
+            $('#dataForm').html(template.render(jdata));
         });
 
         $('.open-data-form').fancybox({
