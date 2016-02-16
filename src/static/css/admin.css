@@ -1,18 +1,4 @@
-.oadmin-top-menu {
-    text-transform: uppercase;
-    font-size: 1.5em;
-}
-
-.oadmin-top-menu ul {
-    padding-left: 0;
-}
-
-.oadmin-top-menu li{
-    display: inline;
-    letter-spacing: 1px;
-}
-
-.oadmin-action {
+.admin-action {
     padding-bottom: 1em;
 }
 
@@ -96,10 +82,12 @@ table.data td {
 }
 
 .dataForm label.checkbox {
-    width: 100%;
     padding-bottom: 1em;
     vertical-align: top;
+    display: inline;
+    padding-left: 0.5em;
 }
+
 
 .dataForm input[type=text], .dataForm textarea {
     width: 45em;

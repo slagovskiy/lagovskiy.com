@@ -32,12 +32,10 @@ def login_action(request):
     return render(request, 'admin/login.html')
 
 
+@login_required()
 def logout_action(request):
-    next = request.META.get('HTTP_REFERER')
-    if next is None:
-        next = '/'
     logout(request)
-    return redirect(next)
+    return redirect(url())
 
 
 @login_required()
@@ -168,11 +166,11 @@ def mylinks(request, id=None):
         link = str(request.POST.get('txtLink', 'mylink'))
         order = int(request.POST.get('txtOrder', 10))
         deleted = False
-        new_window = False
+        blank = False
         if request.POST.get('deleted') == 'true':
             deleted = True
-        if request.POST.get('new_window') == 'on':
-            new_window = True
+        if request.POST.get('blank') == 'on':
+            blank = True
         if id == -1:    # new object
             if not MyLink.exist(slug):
                 mylink = MyLink.objects.create(
@@ -180,7 +178,8 @@ def mylinks(request, id=None):
                     name=name,
                     link=link,
                     deleted=deleted,
-                    order=order
+                    order=order,
+                    blank=blank
                 )
                 mylink.save()
                 return HttpResponse('ok')
@@ -194,7 +193,7 @@ def mylinks(request, id=None):
                     mylink.name = name
                     mylink.link = link
                     mylink.deleted = deleted
-                    mylink.new_window = new_window
+                    mylink.blank = blank
                     mylink.order = order
                     mylink.save()
                     return HttpResponse('ok')

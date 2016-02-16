@@ -2,7 +2,7 @@
     <h2><i class="fa fa-link"></i> Links</h2>
     <ul role="menu">
         {% for mylink in mylinks %}
-        <li><a href="{{ mylink.link }}"{% if mylink.new_window %} target="_blank"{% endif %}>{{ mylink.name|safe }}</a></li>
+        <li><a href="{{ mylink.link }}"{% if mylink.blank %} target="_blank"{% endif %}>{{ mylink.name|safe }}</a></li>
         {% endfor %}
     </ul>
 </section>

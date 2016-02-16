@@ -16,7 +16,7 @@ class MyLink(models.Model):
     order = models.SmallIntegerField(
         default=0
     )
-    new_window = models.BooleanField(
+    blank = models.BooleanField(
         default=True
     )
     deleted = models.BooleanField(
