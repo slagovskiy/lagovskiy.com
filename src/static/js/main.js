@@ -20,20 +20,32 @@ $(document).ready(function() {
     $('#head-menu-link').click(function(){
         $('#head-menu-line').slideToggle();
     });
-    /*
-     //http://api.jquery.com/jquery.ajax/
-     $("form").submit(function() {
-         $.ajax({
-            type: "GET",
-            url: "\save\",
-            data: $("form").serialize()
-        }).done(function() {
-            alert("sended");
-            setTimeout(function() {
-                $.fancybox.close();
-            }, 1000);
-        });
-        return false;
-     });
-     */
+
+    $.views.converters({
+        /*
+        len: function(value) {
+            var ln = 50;
+            if (this.tagCtx.props.max)
+                ln = this.tagCtx.props.max;
+            if (value.length > ln)
+                return value.substr(0, ln - 1) + "...";
+            else
+                return value;
+        }
+        */
+    });
+
+    $.views.tags({
+        cutstr: function () {
+            var ln = 20;
+            var str = this.tagCtx.render();
+            if (this.tagCtx.props.max)
+                ln = this.tagCtx.props.max;
+            if (str.length > ln)
+                return  str.substr(0, ln - 1) + "...";
+            else
+                return str;
+        }
+    });
+
 });

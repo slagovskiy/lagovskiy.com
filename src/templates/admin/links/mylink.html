@@ -18,9 +18,9 @@
         {{for items}}
             <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
                 <td>
-                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
+                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{cutstr max=70}}{{>fields.name}}{{/cutstr}}</a>
                 </td>
-                <td>{{>fields.link}}</td>
+                <td>{{cutstr max=50}}{{:fields.link}}{{/cutstr}}</td>
                 <td>{{>fields.slug}}</td>
             </tr>
         {{/for}}
