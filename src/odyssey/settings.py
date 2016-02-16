@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # my apps
     'toolbox',
     'apps.userext',
-    'apps.oadmin',
+    'apps.admin.apps.AdminConfig',
     'apps.blog',
     'apps.links',
 ]
@@ -129,6 +129,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-LOGIN_URL = r"/login/"
+LOGIN_URL = r'/admin/login/'
 
 AUTH_USER_MODEL = 'userext.User'

@@ -1,20 +1,44 @@
 from django.shortcuts import render
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from apps.userext.utils import admin_check
 from apps.blog.models import Tag, Category
 from apps.links.models import MyLink
 
 
-def admin_check(request):
-    if not request.user.is_anonymous():
-        if request.user.is_admin():
-            pass
-
+@login_required()
+@user_passes_test(admin_check)
 def index(request):
     content = {
     }
-    return render(request, 'oadmin/index.html', content)
+    return render(request, 'admin/index.html', content)
 
+
+def login(request):
+    return render(request, 'admin/login.html')
+'''
+
+def login_check(request):
+    _login = request.POST.get('txtLogin', '')
+    _password = request.POST.get('txtPassword', '')
+    page = request.POST.get('return', '/')
+    if page is None:
+        page = '/'
+    user = authenticate(username=_login, password=_password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+    return HttpResponseRedirect(page)
+
+
+def logout_action(request):
+    page = request.META.get('HTTP_REFERER')
+    if page is None:
+        page = '/'
+    logout(request)
+    return HttpResponseRedirect(page)
+'''
 
 def tag(request, id=None):
     data = None
@@ -52,7 +76,7 @@ def tag(request, id=None):
                 return HttpResponse('Error get object')
     elif id is None:
         # return admin form
-        return render(request, 'oadmin/blog/tag.html')
+        return render(request, 'admin/blog/tag.html')
     elif id == '0':
         # return all in json
         data = serializers.serialize('json', Tag.objects.all())
@@ -109,7 +133,7 @@ def category(request, id=None):
                 return HttpResponse('error get object')
     elif id is None:
         # return admin form
-        return render(request, 'oadmin/blog/category.html')
+        return render(request, 'admin/blog/category.html')
     elif id == '0':
         # return all in json
         data = serializers.serialize('json', Category.objects.all())
@@ -133,10 +157,10 @@ def mylinks(request, id=None):
     if request.POST:
         # save data
         id = int(request.POST.get('id'), 0)
-        slug = str(request.POST.get('txtSlug'), 'mylink')
-        name = str(request.POST.get('txtName'), 'mylink')
-        link = str(request.POST.get('txtLink'), 'mylink')
-        order = int(request.POST.get('txtOrder'), 10)
+        slug = str(request.POST.get('txtSlug', 'mylink'))
+        name = str(request.POST.get('txtName', 'mylink'))
+        link = str(request.POST.get('txtLink', 'mylink'))
+        order = int(request.POST.get('txtOrder', 10))
         deleted = False
         new_window = False
         if request.POST.get('deleted') == 'true':
@@ -174,7 +198,7 @@ def mylinks(request, id=None):
                 return HttpResponse('error get object')
     elif id is None:
         # return admin form
-        return render(request, 'oadmin/links/mylink.html')
+        return render(request, 'admin/links/mylink.html')
     elif id == '0':
         # return all in json
         data = serializers.serialize('json', MyLink.objects.all())

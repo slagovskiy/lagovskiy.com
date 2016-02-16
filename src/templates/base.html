@@ -48,7 +48,7 @@
                     <li><a href="/#">photo</a></li>
                     <li><a href="/#">projects</a></li>
                     <li><a href="/#">about</a></li>
-                    {% if not request.user.is_anonymous %}{% if request.user.is_admin %}<li><a href="{% url 'oadmin' %}">admin</a></li>{% endif %}{% endif %}
+                    {% if not request.user.is_anonymous %}{% if request.user.is_admin %}<li><a href="{% url 'admin' %}">admin</a></li>{% endif %}{% endif %}
                 </ul>
             </nav>
         </div>
@@ -70,7 +70,7 @@
                 <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-2016&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.2
             </div>
             <div class="col-md-12 admin-link">
-                <a href="/admin/">django admin</a> <a href="/oadmin/">odyssey admin</a>
+                <a href="/djadmin/">django admin</a> <a href="/admin/">odyssey admin</a>
             </div>
         </div>
     </footer>
