@@ -1,25 +1,16 @@
 {% extends "admin/base.html" %}
+{% load static %}
 
 {% block content %}
-    <div class="form_login">
+    <div class="loginForm">
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
-            <div class="control-group">
-                <label class="control-label" for="txtLogin">Login</label>
-                <div class="controls">
-                    <input type="text" id="txtLogin" name="txtLogin" placeholder="Login">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="txtPassword">Password</label>
-                <div class="controls">
-                    <input type="password" id="txtPassword" name="txtPassword" placeholder="Password">
-                </div>
-            </div>
-            <div class="control-group">
-                <div class="controls">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
-                </div>
+            <label class="control-label" for="txtUsername">Username</label>
+            <input type="text" id="txtUsername" name="txtUsername">
+            <label class="control-label" for="txtPassword">Password</label>
+            <input type="password" id="txtPassword" name="txtPassword">
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Sign in</button>
             </div>
         </form>
     </div>
