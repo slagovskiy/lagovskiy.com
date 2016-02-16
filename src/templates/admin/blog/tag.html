@@ -4,7 +4,6 @@
 {% block content %}
 <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
 
-
 {% verbatim %}
     <script id="dataTemplate" type="text/x-jsrender">
         <table class="data">
@@ -51,7 +50,7 @@
     </script>
 {% endverbatim %}
 
-<div class="oadmin-action">
+<div class="admin-action">
     <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
@@ -62,7 +61,7 @@
     function loadData()
     {
         $.ajax({
-            url :'{% url 'oadmin_tag_get' 0 %}',
+            url :'{% url 'admin_tag_get' 0 %}',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -74,7 +73,7 @@
     function editData(key)
     {
         $.ajax({
-            url :'{% url 'oadmin_tag' %}' + key + '/',
+            url :'{% url 'admin_tag' %}' + key + '/',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -104,7 +103,7 @@
     function saveData() {
         $.ajax({
                 type: 'POST',
-                url: '{% url 'oadmin_tag_save' %}',
+                url: '{% url 'admin_tag_save' %}',
                 data: $("#dataForm form").serialize()
             })
             .done(function(data){

@@ -61,6 +61,30 @@ table.data td {
     padding-left: 0.5em;
 }
 
+.loginForm {
+    width: 25em;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8em;
+}
+
+.loginForm label {
+    width: 100%;
+}
+
+.loginForm .actions {
+    text-align: center;
+}
+
+.loginForm input[type=text],
+.loginForm input[type=password] {
+    width: 100%;
+    border: 1px solid #E0E0E0;
+    padding: 0.3em;
+    margin-bottom: 1em;
+}
+
 .dataForm {
     padding: 2em;
 }
