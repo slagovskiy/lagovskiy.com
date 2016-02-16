@@ -1,13 +1,14 @@
 from django.conf.urls import url
-from .views import index, login
+from .views import index, login_action, logout_action
 from .views import tag, category
 from .views import mylinks
 
 
 urlpatterns = [
-    url(r'^$', index, name='oadmin'),
+    url(r'^$', index, name='admin'),
 
-    url(r'^login/$', login, name='login'),
+    url(r'^login/$', login_action, name='login'),
+    url(r'^logout/$', logout_action, name='logout'),
 
     url(r'^links/mylink/$', mylinks, name='admin_mylink'),
     url(r'^links/mylink/(?P<id>[-\w]+)/$', mylinks, name='admin_mylink_get'),

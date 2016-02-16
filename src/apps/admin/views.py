@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -15,31 +16,32 @@ def index(request):
     return render(request, 'admin/index.html', content)
 
 
-def login(request):
+def login_action(request):
+    if request.POST:
+        username = request.POST.get('txtUsername', '')
+        password = request.POST.get('txtPassword', '')
+        next = request.GET.get('next', '/')
+        user = authenticate(
+            username=username,
+            password=password
+        )
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+        return redirect(next)
     return render(request, 'admin/login.html')
-'''
-
-def login_check(request):
-    _login = request.POST.get('txtLogin', '')
-    _password = request.POST.get('txtPassword', '')
-    page = request.POST.get('return', '/')
-    if page is None:
-        page = '/'
-    user = authenticate(username=_login, password=_password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-    return HttpResponseRedirect(page)
 
 
 def logout_action(request):
-    page = request.META.get('HTTP_REFERER')
-    if page is None:
-        page = '/'
+    next = request.META.get('HTTP_REFERER')
+    if next is None:
+        next = '/'
     logout(request)
-    return HttpResponseRedirect(page)
-'''
+    return redirect(next)
 
+
+@login_required()
+@user_passes_test(admin_check)
 def tag(request, id=None):
     data = None
     if request.POST:
@@ -94,6 +96,8 @@ def tag(request, id=None):
         return JsonResponse('{"items": %s}' % data, safe=False)
 
 
+@login_required()
+@user_passes_test(admin_check)
 def category(request, id=None):
     data = None
     if request.POST:
@@ -152,6 +156,8 @@ def category(request, id=None):
         return JsonResponse('{"items": %s}' % data, safe=False)
 
 
+@login_required()
+@user_passes_test(admin_check)
 def mylinks(request, id=None):
     data = None
     if request.POST:

@@ -48,7 +48,12 @@
                     <li><a href="/#">photo</a></li>
                     <li><a href="/#">projects</a></li>
                     <li><a href="/#">about</a></li>
-                    {% if not request.user.is_anonymous %}{% if request.user.is_admin %}<li><a href="{% url 'admin' %}">admin</a></li>{% endif %}{% endif %}
+                    {% if not request.user.is_anonymous %}
+                        {% if request.user.is_admin %}
+                            <li><a href="{% url 'admin' %}">admin</a></li>
+                            <li><a href="{% url 'logout' %}">logout</a></li>
+                        {% endif %}
+                    {% endif %}
                 </ul>
             </nav>
         </div>
