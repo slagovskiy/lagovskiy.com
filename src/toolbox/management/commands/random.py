@@ -88,21 +88,53 @@ def blog_tag(count):
 
 
 def blog_category(count):
-    for _ in range(0, count):
-        if randint(0, 1):
-            fake = fake_ru
-        else:
-            fake = fake_en
-        slug = fake.slug()
-        name = fake.word()
-        if not Category.exist(slug):
-            c = Category.objects.create(
-                slug=slug,
-                name=name,
-                order=randint(1, 100)
-            )
-            c.save()
-            print(c)
+    # for _ in range(0, count):
+    #     if randint(0, 1):
+    #         fake = fake_ru
+    #     else:
+    #         fake = fake_en
+    #     slug = fake.slug()
+    #     name = fake.word()
+    #     if not Category.exist(slug):
+    #         c = Category.objects.create(
+    #             slug=slug,
+    #             name=name,
+    #             order=randint(1, 100)
+    #         )
+    #         c.save()
+    #         print(c)
+    slug = 'admin'
+    name = 'Админево'
+    c = Category.objects.create(
+        slug=slug,
+        name=name,
+        order=10
+    )
+    c.save()
+    slug = 'dev'
+    name = 'Разработка'
+    c = Category.objects.create(
+        slug=slug,
+        name=name,
+        order=20
+    )
+    c.save()
+    slug = 'photo'
+    name = 'Фотография'
+    c = Category.objects.create(
+        slug=slug,
+        name=name,
+        order=30
+    )
+    c.save()
+    slug = 'other'
+    name = 'Разное'
+    c = Category.objects.create(
+        slug=slug,
+        name=name,
+        order=40
+    )
+    c.save()
 
 
 class Command(BaseCommand):
@@ -112,3 +144,4 @@ class Command(BaseCommand):
         clean()
         blog_category(5)
         blog_tag(50)
+        links_mylink()
