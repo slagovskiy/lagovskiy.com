@@ -25,7 +25,7 @@ class Category(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return '<Category %s>' % self.name
 
     def get_absolute_url(self):
         return '/blog/category/%s/' % self.slug
@@ -59,7 +59,7 @@ class Tag(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return '<Tag %s>' % self.name
 
     def get_absolute_url(self):
         return '/blog/tag/%s/' % self.slug
@@ -155,5 +155,18 @@ class Post(models.Model):
         default=''
     )
 
+    def __str__(self):
+        return '<Post %s>' % self.title
+
     def get_absolute_url(self):
         return '/blog/view/%s/' % self.slug
+
+    @staticmethod
+    def exist(slug=None):
+        if slug is None:
+            return False
+        else:
+            if Post.objects.filter(slug=slug).first() is None:
+                return False
+            else:
+                return True

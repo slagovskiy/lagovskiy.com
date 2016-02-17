@@ -1,8 +1,11 @@
-from random import randint
-from apps.blog.models import Tag, Category
+from datetime import datetime
+from random import randint, choice
+from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
+from apps.userext.models import User
 from faker import Factory
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 fake_ru = Factory.create('ru-RU')
 fake_en = Factory.create('en-US')
@@ -11,6 +14,7 @@ fake = None
 
 def clean():
     MyLink.objects.all().delete()
+    Post.objects.all().delete()
     Tag.objects.all().delete()
     Category.objects.all().delete()
 
@@ -137,6 +141,58 @@ def blog_category(count):
     c.save()
 
 
+def blog_post(count):
+    for _ in range(0, count):
+        if randint(0, 1):
+            fake = fake_ru
+        else:
+            fake = fake_en
+        slug = fake.slug()
+        title = ' '.join(fake.words(randint(1, 6)))
+        title = title[0:1].upper() + title[1:]
+        author = User.objects.all().first()
+        description = ' '.join(fake.words(randint(5, 20)))
+        keywords = ', '.join(fake.words(randint(5, 20)))
+        status = randint(1, 3)
+        sticked = False
+        comments_enabled = False
+        comments_moderated = False
+        do_ping = False
+        published = timezone.now()
+        categories = []
+        for __ in range(1, randint(1, 3)):
+            categories.append(choice(Category.objects.all()))
+        tags = []
+        for __ in range(1, randint(1, 10)):
+            tags.append(choice(Tag.objects.all()))
+        teaser = '\n\n'.join(fake.paragraphs(randint(1, 3)))
+        content = '\n\n'.join(fake.paragraphs(randint(3, 10)))
+        content_prev = '\n\n'.join(fake.paragraphs(randint(3, 10)))
+        if not Post.exist(slug):
+            p = Post.objects.create(
+                slug=slug,
+                title=title,
+                author=author,
+                description=description,
+                keywords=keywords,
+                status=status,
+                sticked=sticked,
+                comments_enabled=comments_enabled,
+                comments_moderated=comments_moderated,
+                do_ping=do_ping,
+                published=published,
+                teaser=teaser,
+                content=content,
+                content_prev=content_prev
+            )
+            p.save()
+            for c in categories:
+                p.categories.add(c)
+            for t in tags:
+                p.tags.add(t)
+            print(p)
+
+
 class Command(BaseCommand):
     help = 'generate random data'
 
@@ -144,4 +200,5 @@ class Command(BaseCommand):
         clean()
         blog_category(5)
         blog_tag(50)
+        blog_post(100)
         links_mylink()
