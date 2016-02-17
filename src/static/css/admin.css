@@ -101,6 +101,16 @@ textarea.text {
     height: 2em;
 }
 
+textarea.bigtext {
+    height: 12em;
+    width: 100%;
+}
+
+textarea.bigtext2 {
+    height: 18em;
+    width: 100%;
+}
+
 .dataForm .fields {
     margin-bottom: 1em;
 }

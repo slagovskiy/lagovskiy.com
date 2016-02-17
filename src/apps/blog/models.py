@@ -85,13 +85,13 @@ class Tag(models.Model):
 
 class Post(models.Model):
     DRAFT_STATUS = 1
-    PUBLISHED_STATUS = 2
-    HIDDEN_STATUS = 3
+    HIDDEN_STATUS = 2
+    PUBLISHED_STATUS = 3
 
     STATUS_CHOICES = (
         (DRAFT_STATUS, 'Draft'),
-        (PUBLISHED_STATUS, 'Public'),
         (HIDDEN_STATUS, 'Hidden'),
+        (PUBLISHED_STATUS, 'Public'),
     )
 
     slug = models.SlugField(
@@ -114,7 +114,7 @@ class Post(models.Model):
     )
     status = models.IntegerField(
         choices=STATUS_CHOICES,
-        default=1
+        default=DRAFT_STATUS
     )
     sticked = models.BooleanField(
         default=False
@@ -170,3 +170,8 @@ class Post(models.Model):
                 return False
             else:
                 return True
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'

@@ -4,7 +4,7 @@ from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.userext.utils import admin_check
-from apps.blog.models import Tag, Category
+from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
 
 
@@ -35,7 +35,7 @@ def login_action(request):
 @login_required()
 def logout_action(request):
     logout(request)
-    return redirect(url())
+    return redirect('/')
 
 
 @login_required()
@@ -156,7 +156,32 @@ def category(request, id=None):
 
 @login_required()
 @user_passes_test(admin_check)
-def mylinks(request, id=None):
+def post(request, id=None):
+    data = None
+    if request.POST:
+        # save data
+        pass
+    elif id is None:
+        # return admin form
+        return render(request, 'admin/blog/post.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', Post.objects.all().order_by('status', 'created'))
+        return JsonResponse('{"items": %s}' % data, safe=False)
+    else:
+        # return on in json
+        post = Post.objects.all().filter(id=id).first()
+        if post is None:
+            post = Post(
+                id=-1
+            )
+        data = serializers.serialize('json', [post, ])
+        return JsonResponse('{"items": %s}' % data, safe=False)
+
+
+@login_required()
+@user_passes_test(admin_check)
+def mylink(request, id=None):
     data = None
     if request.POST:
         # save data

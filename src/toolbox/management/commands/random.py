@@ -160,7 +160,7 @@ def blog_post(count):
         do_ping = False
         published = timezone.now()
         categories = []
-        for __ in range(1, randint(1, 3)):
+        for __ in range(1, randint(2, 4)):
             categories.append(choice(Category.objects.all()))
         tags = []
         for __ in range(1, randint(1, 10)):
@@ -187,9 +187,11 @@ def blog_post(count):
             )
             p.save()
             for c in categories:
-                p.categories.add(c)
+                if c not in p.categories:
+                    p.categories.add(c)
             for t in tags:
-                p.tags.add(t)
+                if t not in p.tags:
+                    p.tags.add(t)
             print(p)
 
 
