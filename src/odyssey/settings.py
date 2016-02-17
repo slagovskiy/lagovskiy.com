@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party middleware
+    'django_markdown',
 
     # my apps
     'toolbox',

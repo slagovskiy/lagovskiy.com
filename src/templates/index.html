@@ -1,4 +1,5 @@
 {% extends 'site.html' %}
+{% load django_markdown %}
 
 {% block content %}
     {% for post in posts %}
@@ -12,7 +13,7 @@
             <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
-            {{ post.teaser|safe }}
+            {{ post.teaser|markdown }}
         </div>
         <div class="post-button">
             <a href="{{ post.get_absolute_url }}">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
