@@ -25,80 +25,58 @@
         {{/for}}
         </table>
     </script>
-    <script id="dataEdit" type="text/x-jsrender">
-        <form id="editForm">{{for items}}
-            <div class="fields">
-{% endverbatim %}
-                {% csrf_token %}
-{% verbatim %}
-                <input type="hidden" value="{{:pk}}" name="id">
-                <input type="hidden" value="{{:fields.deleted}}" name="deleted" id="deleted">
-                <label for="txtSlug">slug</label>
-                <textarea name="txtSlug" id="txtSlug" class="text">{{>fields.slug}}</textarea>
-                <br>
-                <label for="txtName">name</label>
-                <textarea name="txtName" id="txtName" class="text">{{>fields.name}}</textarea>
-                <br>
-            </div>
-            <div class="action">
-                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
-                {{if fields.deleted}}
-                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
-                {{else}}
-                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
-                {{/if}}
-            </div>
-        {{/for}}</form>
-    </script>
 {% endverbatim %}
 
 <div class="admin-action">
     <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
-<div id="dataForm" class="dataFormInt">
+    <div id="dataForm" class="dataFormInt">
         <form id="editForm">
-            <div class="fields">
-                {% csrf_token %}
-{% verbatim %}
-                <input type="hidden" value="{{:pk}}" name="id">
-                <label for="txtSlug" class="col-md-2">slug</label>
-                <textarea name="txtSlug" id="txtSlug" class="col-md-10">{{>fields.slug}}</textarea>
-                <br>
-                <label for="txtTitle" class="col-md-2">title</label>
-                <textarea name="txtTitle" id="txtTitle" class="col-md-10">{{>fields.title}}</textarea>
-                <br>
-                <div><span><a href="#" onclick="$('#block_meta').show();return false;">show META information</a></span>
-                    <script>
-                        $('#block_meta').hide();
-                    </script>
-                    <div id="block_meta">
-                        <label for="txtDescription" class="col-md-2">description</label>
-                        <textarea name="txtDescription" id="txtDescription" class="col-md-10">{{>fields.description}}</textarea>
-                        <br>
-                        <label for="txtKeywords" class="col-md-2">keywords</label>
-                        <textarea name="txtKeywords" id="txtKeywords" class="col-md-10">{{>fields.keywords}}</textarea>
-                        <br>
-                        <hr>
-                    </div>
+            {% csrf_token %}
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#meta">meta</a></li>
+              <li><a data-toggle="tab" href="#labels">labels</a></li>
+              <li><a data-toggle="tab" href="#content">content</a></li>
+              <li><a data-toggle="tab" href="#preview" onclick="">preview</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="meta" class="tab-pane fade in active">
+                    <input type="hidden" value="" name="id">
+                    <label for="txtSlug" class="col-md-2">slug</label>
+                    <textarea name="txtSlug" id="txtSlug" class="col-md-10 text"></textarea>
+                    <br>
+                    <label for="txtTitle" class="col-md-2">title</label>
+                    <textarea name="txtTitle" id="txtTitle" class="col-md-10 text"></textarea>
+                    <br>
+                    <label for="txtDescription" class="col-md-2">description</label>
+                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text"></textarea>
+                    <br>
+                    <label for="txtKeywords" class="col-md-2">keywords</label>
+                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text"></textarea>
+                    <br>
                 </div>
-                <label for="txtTeaser" class="col-md-12">teaser</label>
-                <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 bigtext">{{>fields.teaser}}</textarea>
-                <br>
-                <label for="txtContent" class="col-md-12">content</label>
-                <textarea name="txtContent" id="txtContent" class="col-md-12 bigtext2">{{>fields.content}}</textarea>
-                <br>
-            </div>
+                <div id="labels" class="tab-pane fade">
+                    tags and categories
+                </div>
+                <div id="content" class="tab-pane fade">
+                    <label for="txtTeaser" class="col-md-12">teaser</label>
+                    <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 bigtext"></textarea>
+                    <br>
+                    <label for="txtContent" class="col-md-12">content</label>
+                    <textarea name="txtContent" id="txtContent" class="col-md-12 bigtext2"></textarea>
+                    <br>
+                </div>
+                <div id="preview" class="tab-pane fade">
+                    preview
+                </div>
+                </div>
             <div class="action">
                 <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
-                {{if fields.deleted}}
                 <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
-                {{else}}
                 <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
-                {{/if}}
             </div>
-        {{/for}}</form>
-{% endverbatim %}
+        </form>
 </div>
 <div id="dataContainer" class="dataContainer"></div>
 

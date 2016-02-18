@@ -71,30 +71,21 @@ table.data td {
     margin-bottom: 1em;
 }
 
-.dataForm {
-    padding: 2em;
-}
-
-.dataForm label {
-    width: 6em;
-    padding-bottom: 1em;
-    vertical-align: top;
-}
-
-.dataForm label.checkbox {
+label.checkbox {
     padding-bottom: 1em;
     vertical-align: top;
     display: inline;
     padding-left: 0.5em;
 }
 
+textarea, input[type=text], input[type=password] {
+    border: 1px solid #E0E0E0;
+    padding: 0.3em;
+    margin-bottom: 1em;
+}
 
-.dataForm input[type=text], .dataForm textarea {
-    width: 45em;
-    padding: 2px;
-    border-color: transparent;
-    border-bottom: 1px solid #DDDDDD;
-    background-color: transparent;
+input[type=checkbox] {
+    margin-left: 1em;
 }
 
 textarea.text {
@@ -111,15 +102,20 @@ textarea.bigtext2 {
     width: 100%;
 }
 
-.dataForm .fields {
-    margin-bottom: 1em;
+.window {
+    width: 56em;
+    padding: 2em;
 }
 
-.dataForm .action {
+.window .fields {
+    margin-bottom: 2em;
+}
+
+.window .action {
     text-align: center;
 }
 
-.dataForm .action input[type=button]{
+.window .action input[type=button]{
     text-transform: uppercase;
     padding-left: 2em;
     padding-right: 2em;
