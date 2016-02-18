@@ -30,6 +30,7 @@ def links_mylink():
         order=10
     )
     ml.save()
+    print(ml)
     slug = 'flickr'
     name = '<i class="fa fa-flickr"></i>  my photos on flickr'
     link = 'https://www.flickr.com/photos/slagovskiy/'
@@ -40,6 +41,7 @@ def links_mylink():
         order=20
     )
     ml.save()
+    print(ml)
     slug = 'github'
     name = '<i class="fa fa-github-square"></i> my code on github'
     link = 'https://github.com/slagovskiy'
@@ -50,6 +52,7 @@ def links_mylink():
         order=30
     )
     ml.save()
+    print(ml)
     slug = 'email'
     name = '<i class="fa fa-envelope-square"></i> write me email'
     link = 'mailto:slagovskiy@gmail.com'
@@ -62,6 +65,7 @@ def links_mylink():
         blank=blank
     )
     ml.save()
+    print(ml)
     slug = 'hh'
     name = '<i class="fa fa-user"></i> headhunt me'
     link = 'http://novosibirsk.hh.ru/resume/4f27274aff01958a560039ed1f7a44564d3256'
@@ -72,6 +76,7 @@ def links_mylink():
         order=50
     )
     ml.save()
+    print(ml)
 
 
 def blog_tag(count):
@@ -115,6 +120,7 @@ def blog_category(count):
         order=10
     )
     c.save()
+    print(c)
     slug = 'dev'
     name = 'Разработка'
     c = Category.objects.create(
@@ -123,6 +129,7 @@ def blog_category(count):
         order=20
     )
     c.save()
+    print(c)
     slug = 'photo'
     name = 'Фотография'
     c = Category.objects.create(
@@ -131,6 +138,7 @@ def blog_category(count):
         order=30
     )
     c.save()
+    print(c)
     slug = 'other'
     name = 'Разное'
     c = Category.objects.create(
@@ -139,6 +147,7 @@ def blog_category(count):
         order=40
     )
     c.save()
+    print(c)
 
 
 def blog_post(count):
@@ -187,10 +196,10 @@ def blog_post(count):
             )
             p.save()
             for c in categories:
-                if c not in p.categories:
+                if c not in p.categories.all():
                     p.categories.add(c)
             for t in tags:
-                if t not in p.tags:
+                if t not in p.tags.all():
                     p.tags.add(t)
             print(p)
 
