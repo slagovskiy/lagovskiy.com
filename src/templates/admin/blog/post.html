@@ -53,9 +53,9 @@
                     <br>
                 </div>
                 <div id="labels" class="tab-pane fade">
-                    <div id="dataCategory"></div>
+                    <div id="dataCategory" class="checkboxes"></div>
                     <hr>
-                    <div id="dataTag"></div>
+                    <div id="dataTag" class="checkboxes"></div>
                 </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
@@ -77,7 +77,7 @@
     <script id="dataTemplateCategory" type="text/x-jsrender">
         <label class="col-md-12">notepads</label>
         {{for items}}
-            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}}><label for="tag_{{>fields.slug}}">{{:fields.name}}</label>
+            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}}><a href="#" id="category_btn_{{>fields.slug}}" onclick="check_category('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
         {{/for}}
     </script>
     <script id="dataTemplateTag" type="text/x-jsrender">
@@ -104,6 +104,15 @@
             var template = $.templates('#dataTemplate');
             $('#dataContainer').html(template.render(jdata));
         });
+    }
+
+    function check_category(key)
+    {
+        var c = $('#category_' + key).prop('checked');
+        if (c)
+            $('#category_' + key).prop('checked', false);
+        else
+            $('#category_' + key).prop('checked', true);
     }
 
     function loadTag(key)

@@ -121,6 +121,16 @@ textarea.md18 {
     padding-left: 2.5em !important;
 }
 
+.checkboxes a {
+    padding: 0.5em;
+    border: 1px solid red;
+    border-radius: 3px;
+}
+
+.checkboxes a.checked {
+    background-color: #ae81ff;
+}
+
 .window {
     width: 56em;
     padding: 2em;
