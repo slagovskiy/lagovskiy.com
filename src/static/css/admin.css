@@ -88,18 +88,37 @@ input[type=checkbox] {
     margin-left: 1em;
 }
 
+textarea {
+    padding-left: 0.3em !important;
+    padding-right: 0.3em !important;
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+
+select[multiple],
+select[size] {
+    height: 18em;
+    width: 20em;
+}
+
 textarea.text {
     height: 2em;
 }
 
-textarea.bigtext {
+textarea.md12 {
     height: 12em;
     width: 100%;
+    background-image: url("../img/bg-editor-markdown.png");
+    background-repeat: no-repeat;
+    padding-left: 2.5em !important;
 }
 
-textarea.bigtext2 {
+textarea.md18 {
     height: 18em;
     width: 100%;
+    background-image: url("../img/bg-editor-markdown.png");
+    background-repeat: no-repeat;
+    padding-left: 2.5em !important;
 }
 
 .window {
@@ -107,15 +126,23 @@ textarea.bigtext2 {
     padding: 2em;
 }
 
-.window .fields {
+.pageform {
+    padding-bottom: 2em;
+}
+
+.pageform .tab-pane {
+    padding-top: 2em;
+}
+
+.fields {
     margin-bottom: 2em;
 }
 
-.window .action {
+.action {
     text-align: center;
 }
 
-.window .action input[type=button]{
+.action input[type=button]{
     text-transform: uppercase;
     padding-left: 2em;
     padding-right: 2em;

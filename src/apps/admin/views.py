@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core import serializers
@@ -177,6 +178,40 @@ def post(request, id=None):
             )
         data = serializers.serialize('json', [post, ])
         return JsonResponse('{"items": %s}' % data, safe=False)
+
+
+@login_required()
+@user_passes_test(admin_check)
+def post_tag(request):
+    data = []
+    id = request.GET.get('id', '0')
+    post = Post.objects.all().filter(id=id).first()
+    data = serializers.serialize('json', Tag.objects.all())
+    jdata = json.loads(data)
+    if post:
+        for _jdata in jdata:
+            for tag in post.tags.all():
+                if tag.slug == _jdata['fields']['slug']:
+                    _jdata['fields']['select'] = True
+    data = json.dumps(jdata)
+    return JsonResponse('{"items": %s}' % data, safe=False)
+
+
+@login_required()
+@user_passes_test(admin_check)
+def post_category(request):
+    data = []
+    id = request.GET.get('id', '0')
+    post = Post.objects.all().filter(id=id).first()
+    data = serializers.serialize('json', Category.objects.all())
+    jdata = json.loads(data)
+    if post:
+        for _jdata in jdata:
+            for cat in post.categories.all():
+                if cat.slug == _jdata['fields']['slug']:
+                    _jdata['fields']['select'] = True
+    data = json.dumps(jdata)
+    return JsonResponse('{"items": %s}' % data, safe=False)
 
 
 @login_required()

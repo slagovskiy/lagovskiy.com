@@ -25,59 +25,73 @@
         {{/for}}
         </table>
     </script>
+    <script id="dataEdit" type="text/x-jsrender">
+        <form id="editForm">{{for items}}
 {% endverbatim %}
-
-<div class="admin-action">
-    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
-    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
-</div>
-    <div id="dataForm" class="dataFormInt">
-        <form id="editForm">
             {% csrf_token %}
+{% verbatim %}
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#meta">meta</a></li>
               <li><a data-toggle="tab" href="#labels">labels</a></li>
               <li><a data-toggle="tab" href="#content">content</a></li>
               <li><a data-toggle="tab" href="#preview" onclick="">preview</a></li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content fields">
                 <div id="meta" class="tab-pane fade in active">
                     <input type="hidden" value="" name="id">
                     <label for="txtSlug" class="col-md-2">slug</label>
-                    <textarea name="txtSlug" id="txtSlug" class="col-md-10 text"></textarea>
+                    <textarea name="txtSlug" id="txtSlug" class="col-md-10 text">{{>fields.slug}}</textarea>
                     <br>
                     <label for="txtTitle" class="col-md-2">title</label>
-                    <textarea name="txtTitle" id="txtTitle" class="col-md-10 text"></textarea>
+                    <textarea name="txtTitle" id="txtTitle" class="col-md-10 text">{{>fields.title}}</textarea>
                     <br>
                     <label for="txtDescription" class="col-md-2">description</label>
-                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text"></textarea>
+                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text">{{>fields.description}}</textarea>
                     <br>
                     <label for="txtKeywords" class="col-md-2">keywords</label>
-                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text"></textarea>
+                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text">{{>fields.keywords}}</textarea>
                     <br>
                 </div>
                 <div id="labels" class="tab-pane fade">
-                    tags and categories
+                    <div id="dataCategory"></div>
+                    <hr>
+                    <div id="dataTag"></div>
                 </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
-                    <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 bigtext"></textarea>
+                    <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 md12">{{>fields.teaser}}</textarea>
                     <br>
                     <label for="txtContent" class="col-md-12">content</label>
-                    <textarea name="txtContent" id="txtContent" class="col-md-12 bigtext2"></textarea>
+                    <textarea name="txtContent" id="txtContent" class="col-md-12 md18">{{>fields.content}}</textarea>
                     <br>
                 </div>
                 <div id="preview" class="tab-pane fade">
                     preview
                 </div>
-                </div>
+            </div>
             <div class="action">
                 <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
-                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
-                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
             </div>
-        </form>
+        {{/for}}</form>
+    </script>
+    <script id="dataTemplateTag" type="text/x-jsrender">
+        <label class="col-md-12">notepads</label>
+        <select multiple>{{for items}}
+            <option {{if fields.select}} selected{{/if}} value="{{:fields.slug}}">{{>fields.name}}</option>
+        {{/for}}</select>
+    </script>
+    <script id="dataTemplateCategory" type="text/x-jsrender">
+        <label class="col-md-12">tags</label>
+        <select multiple>{{for items}}
+            <option {{if fields.select}} selected{{/if}} value="{{:fields.slug}}">{{>fields.name}}</option>
+        {{/for}}</select>
+    </script>
+{% endverbatim %}
+<div class="admin-action">
+    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
+<div id="dataForm" class="pageform"></div>
 <div id="dataContainer" class="dataContainer"></div>
 
 <script>
@@ -93,6 +107,30 @@
         });
     }
 
+    function loadTag(key)
+    {
+        $.ajax({
+            url :'{% url 'admin_post_tag_get' %}?id=' + key,
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataTemplateTag');
+            $('#dataTag').html(template.render(jdata));
+        });
+    }
+
+    function loadCategory(key)
+    {
+        $.ajax({
+            url :'{% url 'admin_post_category_get' %}?id=' + key,
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataTemplateCategory');
+            $('#dataCategory').html(template.render(jdata));
+        });
+    }
+
     function editData(key)
     {
         $.ajax({
@@ -102,15 +140,11 @@
             var jdata = jQuery.parseJSON(data);
             var template = $.templates('#dataEdit');
             $('#dataForm').html(template.render(jdata));
+            loadTag(key);
+            loadCategory(key);
         });
 
-        $('.open-data-form').fancybox({
-            padding: 0,
-            type: 'inline',
-            title: '',
-            modal: false,
-            autoSize: true
-        });
+        $('#dataContainer').hide();
     }
 
     function deleteItem() {
@@ -145,6 +179,7 @@
         $("#dataForm form").submit(function(){
             return false;
         });
+        $('#dataContainer').show();
     }
 
     $(document).ready(function(){
