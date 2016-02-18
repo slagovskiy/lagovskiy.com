@@ -46,10 +46,10 @@
                     <textarea name="txtTitle" id="txtTitle" class="col-md-10 text">{{>fields.title}}</textarea>
                     <br>
                     <label for="txtDescription" class="col-md-2">description</label>
-                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text">{{>fields.description}}</textarea>
+                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text3">{{>fields.description}}</textarea>
                     <br>
                     <label for="txtKeywords" class="col-md-2">keywords</label>
-                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text">{{>fields.keywords}}</textarea>
+                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text3">{{>fields.keywords}}</textarea>
                     <br>
                 </div>
                 <div id="labels" class="tab-pane fade">
@@ -77,13 +77,13 @@
     <script id="dataTemplateCategory" type="text/x-jsrender">
         <label class="col-md-12">notepads</label>
         {{for items}}
-            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}}><a href="#" id="category_btn_{{>fields.slug}}" onclick="check_category('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
+            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="category_btn_{{>fields.slug}}" onclick="check_category('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
         {{/for}}
     </script>
     <script id="dataTemplateTag" type="text/x-jsrender">
         <label class="col-md-12">tags</label>
         {{for items}}
-            <input type="checkbox" name="_tag" value="{{>fields.slug}}" id="tag_{{>fields.slug}}"{{if fields.select}} checked{{/if}}><label for="tag_{{>fields.slug}}">{{:fields.name}}</label>
+            <input type="checkbox" name="_tag" value="{{>fields.slug}}" id="tag_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="tag_btn_{{>fields.slug}}" onclick="check_tag('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
         {{/for}}
     </script>
 {% endverbatim %}
@@ -109,10 +109,25 @@
     function check_category(key)
     {
         var c = $('#category_' + key).prop('checked');
-        if (c)
+        if (c) {
             $('#category_' + key).prop('checked', false);
-        else
+            $('#category_btn_' + key).removeClass('checked');
+        } else {
             $('#category_' + key).prop('checked', true);
+            $('#category_btn_' + key).addClass('checked');
+        }
+    }
+
+    function check_tag(key)
+    {
+        var c = $('#tag_' + key).prop('checked');
+        if (c) {
+            $('#tag_' + key).prop('checked', false);
+            $('#tag_btn_' + key).removeClass('checked');
+        } else {
+            $('#tag_' + key).prop('checked', true);
+            $('#tag_btn_' + key).addClass('checked');
+        }
     }
 
     function loadTag(key)

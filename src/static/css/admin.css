@@ -105,6 +105,14 @@ textarea.text {
     height: 2em;
 }
 
+textarea.text2 {
+    height: 4em;
+}
+
+textarea.text3 {
+    height: 6em;
+}
+
 textarea.md12 {
     height: 12em;
     width: 100%;
@@ -121,14 +129,27 @@ textarea.md18 {
     padding-left: 2.5em !important;
 }
 
+.checkboxes {
+    line-height: 3em;
+}
+
+.checkboxes label {
+    padding-bottom: 0.7em;
+}
+
 .checkboxes a {
     padding: 0.5em;
-    border: 1px solid red;
-    border-radius: 3px;
+    border: 1px solid #006ED2;
+    border-radius: 4px;
+}
+
+.checkboxes a:hover {
+    color: #006ED2;
 }
 
 .checkboxes a.checked {
-    background-color: #ae81ff;
+    background-color: #006ED2;
+    color: #FFFFFF;
 }
 
 .window {
