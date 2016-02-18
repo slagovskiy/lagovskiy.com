@@ -74,17 +74,17 @@
             </div>
         {{/for}}</form>
     </script>
-    <script id="dataTemplateTag" type="text/x-jsrender">
-        <label class="col-md-12">notepads</label>
-        <select multiple>{{for items}}
-            <option {{if fields.select}} selected{{/if}} value="{{:fields.slug}}">{{>fields.name}}</option>
-        {{/for}}</select>
-    </script>
     <script id="dataTemplateCategory" type="text/x-jsrender">
+        <label class="col-md-12">notepads</label>
+        {{for items}}
+            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}}><label for="tag_{{>fields.slug}}">{{:fields.name}}</label>
+        {{/for}}
+    </script>
+    <script id="dataTemplateTag" type="text/x-jsrender">
         <label class="col-md-12">tags</label>
-        <select multiple>{{for items}}
-            <option {{if fields.select}} selected{{/if}} value="{{:fields.slug}}">{{>fields.name}}</option>
-        {{/for}}</select>
+        {{for items}}
+            <input type="checkbox" name="_tag" value="{{>fields.slug}}" id="tag_{{>fields.slug}}"{{if fields.select}} checked{{/if}}><label for="tag_{{>fields.slug}}">{{:fields.name}}</label>
+        {{/for}}
     </script>
 {% endverbatim %}
 <div class="admin-action">
@@ -93,7 +93,6 @@
 </div>
 <div id="dataForm" class="pageform"></div>
 <div id="dataContainer" class="dataContainer"></div>
-
 <script>
     function loadData()
     {
