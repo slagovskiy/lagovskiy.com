@@ -71,49 +71,71 @@ table.data td {
     margin-bottom: 1em;
 }
 
-label.checkbox {
+.fields {
+    margin-bottom: 2em;
+}
+
+.fields .col-md-1,
+.fields .col-md-2,
+.fields .col-md-8,
+.fields .col-md-9 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.fields label {
+    line-height: 2em;
+}
+
+.fields .abtn {
+    line-height: 2em;
+    text-align: center;
+}
+
+.fields label.checkbox {
     padding-bottom: 1em;
     vertical-align: top;
     display: inline;
     padding-left: 0.5em;
 }
 
-textarea, input[type=text], input[type=password] {
+.fields textarea, .fields input[type=text], .fields input[type=password] {
     border: 1px solid #E0E0E0;
     padding: 0.3em;
     margin-bottom: 1em;
 }
 
-input[type=checkbox] {
-    margin-left: 1em;
+.fields input[type=checkbox] {
+    line-height: 2em;
+    margin-top: 0.6em;
 }
 
-textarea {
+.fields textarea {
     padding-left: 0.3em !important;
     padding-right: 0.3em !important;
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
 }
 
-select[multiple],
-select[size] {
+.fields select[multiple],
+.fields select[size] {
     height: 18em;
     width: 20em;
 }
 
-textarea.text {
+.fields textarea.text {
     height: 2em;
 }
 
-textarea.text2 {
+.fields textarea.text2 {
     height: 4em;
 }
 
-textarea.text3 {
+.fields textarea.text3 {
     height: 6em;
 }
 
-textarea.md12 {
+.fields textarea.md12 {
     height: 12em;
     width: 100%;
     background-image: url("../img/bg-editor-markdown.png");
@@ -121,7 +143,7 @@ textarea.md12 {
     padding-left: 2.5em !important;
 }
 
-textarea.md18 {
+.fields textarea.md18 {
     height: 18em;
     width: 100%;
     background-image: url("../img/bg-editor-markdown.png");
@@ -163,10 +185,6 @@ textarea.md18 {
 
 .pageform .tab-pane {
     padding-top: 2em;
-}
-
-.fields {
-    margin-bottom: 2em;
 }
 
 .action {
