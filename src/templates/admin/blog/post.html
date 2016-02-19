@@ -51,6 +51,10 @@
                     <label for="txtKeywords" class="col-md-2">keywords</label>
                     <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text3">{{>fields.keywords}}</textarea>
                     <br>
+                    <label for="txtPublished" class="col-md-2">published</label>
+                    <input type="text" name="txtPublished" id="txtPublished" class="col-md-9 text datetimeMask" value="{{datetime:fields.published}}">
+                    <a href="#" class="col-md-1 abtn" onClick="publishedNow(); return false;">now</a>
+                    <br>
                 </div>
                 <div id="labels" class="tab-pane fade">
                     <div id="dataCategory" class="checkboxes"></div>
@@ -104,6 +108,18 @@
             var template = $.templates('#dataTemplate');
             $('#dataContainer').html(template.render(jdata));
         });
+    }
+
+    function publishedNow()
+    {
+        var d = new Date();
+        var ds = d.getFullYear() + '/' +
+                ('0'+(d.getMonth()+1)).slice(-2) + '/' +
+                ('0' + d.getDate()).slice(-2) + ' ' +
+                ('0' + d.getHours()).slice(-2) + ':' +
+                ('0' + d.getMinutes()).slice(-2) + ':' +
+                ('0' + d.getSeconds()).slice(-2);
+        $('#txtPublished').val(ds)
     }
 
     function check_category(key)
