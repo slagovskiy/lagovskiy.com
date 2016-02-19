@@ -4,9 +4,7 @@
         <header>
             <h2 class="post-category">
                 {% if post.id %}
-                    {% for category in post.categories.all %}
-                        <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>&nbsp;&nbsp;
-                    {% endfor %}
+                    {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
                 {% endif %}
             </h2>
             <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
