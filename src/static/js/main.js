@@ -22,17 +22,18 @@ $(document).ready(function() {
     });
 
     $.views.converters({
-        /*
-        len: function(value) {
-            var ln = 50;
-            if (this.tagCtx.props.max)
-                ln = this.tagCtx.props.max;
-            if (value.length > ln)
-                return value.substr(0, ln - 1) + "...";
-            else
-                return value;
+        datetime: function(value) {
+            var date = '/';
+            var time = ':';
+            if (this.tagCtx.props.date)
+                date = this.tagCtx.props.date;
+            if (this.tagCtx.props.time)
+                time = this.tagCtx.props.time;
+            var dt = value.split('T');
+            var d = dt[0].split('-');
+            var t = dt[1].replace('T', '').replace('Z', '').split(':');
+            return d[0] + date + d[1] + date + d[2] + ' ' + t[0] + time + t[1] + time + t[2].split('.')[0];
         }
-        */
     });
 
     $.views.tags({
