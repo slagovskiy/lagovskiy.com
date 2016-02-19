@@ -34,7 +34,7 @@
               <li class="active"><a data-toggle="tab" href="#meta">meta</a></li>
               <li><a data-toggle="tab" href="#labels">labels</a></li>
               <li><a data-toggle="tab" href="#content">content</a></li>
-              <li><a data-toggle="tab" href="#preview" onclick="">preview</a></li>
+              <li><a data-toggle="tab" href="#preview" onclick="loadPreview();">preview</a></li>
             </ul>
             <div class="tab-content fields">
                 <div id="meta" class="tab-pane fade in active">
@@ -66,7 +66,7 @@
                     <br>
                 </div>
                 <div id="preview" class="tab-pane fade">
-                    preview
+                    <div id="dataPreview"></div>
                 </div>
             </div>
             <div class="action">
@@ -151,6 +151,22 @@
             var jdata = jQuery.parseJSON(data);
             var template = $.templates('#dataTemplateCategory');
             $('#dataCategory').html(template.render(jdata));
+        });
+    }
+
+    function loadPreview()
+    {
+        $.ajax({
+            url: '{% url 'admin_post_preview' %}',
+            cashe: false,
+            method: 'POST',
+            data: $("#dataForm form").serialize()
+        })
+        .done(function(code){
+            $('#dataPreview').html(code);
+        })
+        .fail(function(){
+            notice('red', 'load preview error');
         });
     }
 

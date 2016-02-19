@@ -216,6 +216,39 @@ def post_category(request):
 
 @login_required()
 @user_passes_test(admin_check)
+def post_preview(request):
+    if request.POST:
+        post = Post(
+            title=request.POST.get('txtTitle', '---'),
+            teaser=request.POST.get('txtTeaser', '---'),
+            content=request.POST.get('txtContent', '---'),
+        )
+        categories = []
+        tags = []
+        for slug in request.POST.getlist('_category', []):
+            c = Category.objects.all().filter(slug=slug).first()
+            if c:
+                categories.append(c)
+        for slug in request.POST.getlist('_tag', []):
+            t = Tag.objects.all().filter(slug=slug).first()
+            if t:
+                tags.append(t)
+        content = {
+            'post': post,
+            'categories': categories,
+            'tags': tags
+        }
+        return render(
+            request,
+            'admin/blog/preview.html',
+            content
+        )
+    else:
+        HttpResponse('---')
+
+
+@login_required()
+@user_passes_test(admin_check)
 def mylink(request, id=None):
     data = None
     if request.POST:

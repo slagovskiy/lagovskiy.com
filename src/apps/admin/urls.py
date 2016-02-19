@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from .views import index, login_action, logout_action
-from .views import tag, category, post, post_tag, post_category
+from .views import tag, category, post, post_tag, post_category, post_preview
 from .views import mylink
 
 
@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^blog/post/$', post, name='admin_post'),
     url(r'^blog/post/tag/$', post_tag, name='admin_post_tag_get'),
     url(r'^blog/post/category/$', post_category, name='admin_post_category_get'),
+    url(r'^blog/post/preview/$', post_preview, name='admin_post_preview'),
     url(r'^blog/post/(?P<id>[-\w]+)/$', post, name='admin_post_get'),
     url(r'^blog/post/save/$', post, name='admin_post_save'),
 
