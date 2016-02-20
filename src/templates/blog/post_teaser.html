@@ -2,11 +2,14 @@
 {% if post %}
     <article id="post1" class="post">
         <header>
-            <h2 class="post-category">
-                {% if post.id %}
-                    {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
-                {% endif %}
-            </h2>
+            <div class="post-header1">
+                <h2 class="post-category col-md-9">
+                    {% if post.id %}
+                        {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
+                    {% endif %}
+                </h2>
+                <div class="col-md-3 post-date">{{ post.published }}</div>
+            </div>
             <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
