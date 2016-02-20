@@ -100,6 +100,7 @@
 <script>
     function loadData()
     {
+        $('#dataContainer').html('<div class="loader"></div>');
         $.ajax({
             url :'{% url 'admin_post_get' 0 %}',
             cashe: false

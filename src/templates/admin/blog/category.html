@@ -65,6 +65,7 @@
     <script>
         function loadData()
         {
+            $('#dataContainer').html('<div class="loader"></div>');
             $.ajax({
                 url :'{% url 'admin_category_get' 0 %}',
                 cashe: false
@@ -73,6 +74,7 @@
                 var template = $.templates('#dataTemplate');
                 $('#dataContainer').html(template.render(jdata));
             });
+
         }
 
         function editData(key)

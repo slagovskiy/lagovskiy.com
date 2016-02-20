@@ -6,6 +6,15 @@
     font-size: 1.2em;
 }
 
+.dataContainer .loader{
+    width: 512px;
+    height: 512px;
+    background-image: url("../img/ajax-loader-big-grey.gif");
+    background-repeat: no-repeat;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .dataContainer ul {
     padding-left: 0.8em;
     list-style: none;

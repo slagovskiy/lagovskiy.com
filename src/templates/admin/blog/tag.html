@@ -60,6 +60,7 @@
 <script>
     function loadData()
     {
+        $('#dataContainer').html('<div class="loader"></div>');
         $.ajax({
             url :'{% url 'admin_tag_get' 0 %}',
             cashe: false
