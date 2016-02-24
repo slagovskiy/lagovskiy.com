@@ -18,6 +18,9 @@ class Folder(models.Model):
         max_length=512,
         default=''
     )
+    added = models.DateTimeField(
+        auto_now_add=True
+    )
     deleted = models.BooleanField(
         default=False
     )
@@ -41,3 +44,35 @@ class Folder(models.Model):
         ordering = ['name']
         verbose_name = 'Folder'
         verbose_name_plural = 'Folders'
+
+
+class File(models.Model):
+    uuid = models.CharField(
+        max_length=255,
+        default=''
+    )
+    name = models.CharField(
+        max_length=255
+    )
+    folder = models.ForeignKey(
+        Folder,
+        blank=True
+    )
+    author = models.ForeignKey(
+        User,
+        blank=True
+    )
+    added = models.DateTimeField(
+        auto_now_add=True
+    )
+    deleted = models.BooleanField(
+        default=False
+    )
+
+    def __str__(self):
+        return '<File %s>' % self.name
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'File'
+        verbose_name_plural = 'Files'
