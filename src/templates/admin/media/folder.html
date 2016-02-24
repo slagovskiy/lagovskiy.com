@@ -56,6 +56,34 @@
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
 <div id="dataForm" class="window" style="display: none;"></div>
+<div id="dataFormPage" class="pageform">
+!!!!http://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
+    <form id="upload-form" action="" method="POST" enctype="multipart/form-data">
+        <div>
+            <label>Folder: </label>default
+        </div>
+
+        <strong>Files:</strong><br>
+        Select files OR drag them into the box below.
+        <input id="file-picker" type="file" name="file" accept="image/*" multiple class="btn btn-warning">
+        <div id="dropbox">
+            Drag and Drop Files Here
+        </div><p>
+        <input type="submit" value="upload" id="upload-button" class="btn btn-success">
+    </form>
+    <label>Files Progress</label>
+
+    <div class="progress-trough">
+        <div id="progress-bar" class="progress-bar">0%</div>
+    </div>
+
+
+
+    <script src="/static/js/uploadr.js" rel="script"></script>
+    <script>
+        UPLOAD_URL = "";
+    </script>
+</div>
 <div id="dataContainer" class="dataContainer"></div>
 
 <script>
