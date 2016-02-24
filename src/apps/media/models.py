@@ -3,8 +3,9 @@ from apps.userext.models import User
 
 
 class Folder(models.Model):
-    slug = models.SlugField(
-        max_length=255
+    uuid = models.CharField(
+        max_length=255,
+        default=''
     )
     name = models.TextField(
         max_length=255
@@ -25,11 +26,13 @@ class Folder(models.Model):
         return '<Folder %s>' % self.name
 
     @staticmethod
-    def exist(slug=None):
-        if slug is None:
+    def exist(name=None, author=None):
+        if name is None:
+            return False
+        elif author is None:
             return False
         else:
-            if Folder.objects.filter(slug=slug).first() is None:
+            if Folder.objects.filter(name=name, author=author).first() is None:
                 return False
             else:
                 return True

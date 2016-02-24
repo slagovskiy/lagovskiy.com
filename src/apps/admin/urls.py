@@ -2,6 +2,7 @@ from django.conf.urls import url
 from .views import index, login_action, logout_action
 from .views import tag, category, post, post_tag, post_category, post_preview
 from .views import mylink
+from .views import media_folder
 
 
 urlpatterns = [
@@ -28,4 +29,8 @@ urlpatterns = [
     url(r'^links/mylink/$', mylink, name='admin_mylink'),
     url(r'^links/mylink/(?P<id>[-\w]+)/$', mylink, name='admin_mylink_get'),
     url(r'^links/mylink/save/$', mylink, name='admin_mylink_save'),
+
+    url(r'^media/folder/$', media_folder, name='admin_folder'),
+    url(r'^media/folder/(?P<id>[-\w]+)/$', media_folder, name='admin_folder_get'),
+    url(r'^media/folder/save/$', media_folder, name='admin_folder_save'),
 ]

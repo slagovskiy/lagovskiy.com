@@ -1,4 +1,5 @@
 import json
+from uuid import uuid4
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core import serializers
@@ -7,6 +8,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.userext.utils import admin_check
 from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
+from apps.media.models import Folder
 
 
 @login_required()
@@ -313,4 +315,67 @@ def mylink(request, id=None):
                 order=10
             )
         data = serializers.serialize('json', [mylink, ])
+        return JsonResponse('{"items": %s}' % data, safe=False)
+
+
+@login_required()
+@user_passes_test(admin_check)
+def media_folder(request, id=None):
+    data = None
+    if request.POST:
+        # save data
+        id = int(request.POST.get('id'), 0)
+        name = str(request.POST.get('txtName', 'New folder'))
+        description = str(request.POST.get('txtDescription', ''))
+        deleted = False
+        if request.POST.get('deleted') == 'true':
+            deleted = True
+        if id == -1:    # new object
+            if not Folder.exist(slug):
+                folder = Folder.objects.create(
+                    uuid=str(uuid4()),
+                    name=name,
+                    description=description,
+                    deleted=deleted,
+                    author_id=request.user.id
+                )
+                folder.save()
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('Folder already exist')
+        else:   # save object
+            folder = Folder.objects.get(id=id)
+            if folder:
+                if ((folder.name != name) and (not folder.exist(name, request.user))) or (folder.name == name):
+                    folder.uuid = str(uuid4())
+                    folder.name = name
+                    folder.description = description
+                    folder.author_id = request.user.id
+                    folder.deleted = deleted
+                    folder.save()
+                    return HttpResponse('ok')
+                else:
+                    return HttpResponse('Folder already exist')
+            else:
+                return HttpResponse('error get object')
+    elif id is None:
+        # return admin form
+        return render(request, 'admin/media/folder.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', Folder.objects.all())
+        return JsonResponse('{"items": %s}' % data, safe=False)
+    else:
+        # return on in json
+        folder = Folder.objects.all().filter(id=id).first()
+        if folder is None:
+            folder = Folder(
+                id=-1,
+                uuid=str(uuid4()),
+                name='new folder',
+                description='',
+                deleted=False,
+                author_id=request.user.id
+            )
+        data = serializers.serialize('json', [folder, ])
         return JsonResponse('{"items": %s}' % data, safe=False)

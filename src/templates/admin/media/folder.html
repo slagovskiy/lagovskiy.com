@@ -11,8 +11,7 @@
         <thead>
             <tr>
                 <th>Name</td>
-                <th>Link</td>
-                <th>Slug</td>
+                <th>files</td>
             </tr>
         </thead>
         {{for items}}
@@ -20,8 +19,7 @@
                 <td>
                     <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{cutstr max=70}}{{>fields.name}}{{/cutstr}}</a>
                 </td>
-                <td>{{cutstr max=50}}{{:fields.link}}{{/cutstr}}</td>
-                <td>{{>fields.slug}}</td>
+                <td><a href="#" onClick="return false;">view</a></td>
             </tr>
         {{/for}}
         </table>
@@ -34,19 +32,11 @@
 {% verbatim %}
                 <input type="hidden" value="{{:pk}}" name="id">
                 <input type="hidden" value="{{:fields.deleted}}" name="deleted" id="deleted">
-                <label for="txtSlug" class="col-md-2">slug</label>
-                <textarea name="txtSlug" id="txtSlug" class="col-md-10 text">{{>fields.slug}}</textarea>
-                <br>
                 <label for="txtName" class="col-md-2">name</label>
                 <textarea name="txtName" id="txtName" class="col-md-10 text">{{>fields.name}}</textarea>
                 <br>
-                <label for="txtLink" class="col-md-2">link</label>
-                <textarea name="txtLink" id="txtLink" class="col-md-10 text">{{>fields.link}}</textarea>
-                <br>
-                <label for="txtOrder" class="col-md-2">link</label>
-                <textarea name="txtOrder" id="txtOrder" class="col-md-10 text">{{>fields.order}}</textarea>
-                <br>
-                <input type="checkbox" name="blank" id="blank"{{if fields.blank}} checked{{/if}}><label for="blank" class="checkbox"> open link in new window</label>
+                <label for="txtDescription" class="col-md-2">description</label>
+                <textarea name="txtDescription" id="txtDescription" class="col-md-10 text3">{{>fields.description}}</textarea>
                 <br>
             </div>
             <div class="action">
@@ -73,7 +63,7 @@
     {
         $('#dataContainer').html('<div class="loader"></div>');
         $.ajax({
-            url :'{% url 'admin_mylink_get' 0 %}',
+            url :'{% url 'admin_folder_get' 0 %}',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -85,7 +75,7 @@
     function editData(key)
     {
         $.ajax({
-            url :'{% url 'admin_mylink' %}' + key + '/',
+            url :'{% url 'admin_folder' %}' + key + '/',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -115,7 +105,7 @@
     function saveData() {
         $.ajax({
             type: 'POST',
-            url: '{% url 'admin_mylink_save' %}',
+            url: '{% url 'admin_folder_save' %}',
             data: $("#dataForm form").serialize()
             })
             .done(function(data){
