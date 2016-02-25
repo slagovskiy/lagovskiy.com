@@ -57,29 +57,66 @@
 </div>
 <div id="dataForm" class="window" style="display: none;"></div>
 <div id="dataFormPage" class="pageform">
-!!!!http://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
     <form id="upload-form" action="" method="POST" enctype="multipart/form-data">
-        <div>
-            <label>Folder: </label>default
+        <div class="fields">
+            <div>
+                <label>Folder: </label>default
+            </div>
+
+            <div class="col-md-12">
+                <div class="col-md-3">
+                    <input id="filePicker" type="file" name="file" accept="image/*" multiple onchange="$('#filePicker').next().text('Selected ' + this.files.length + ' files.');">
+                    <label for="filePicker" class="btn btn-success">Choose a file</label>
+                </div>
+                <div class="col-md-9">
+                    <div class="progress-trough">
+                        <div id="progress-bar" class="progress-bar">0%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div id="dropbox">
+                Drag and Drop Files Here
+            </div>
+            <input type="submit" value="upload" id="upload-button" class="btn btn-success">
         </div>
-
-        <strong>Files:</strong><br>
-        Select files OR drag them into the box below.
-        <input id="file-picker" type="file" name="file" accept="image/*" multiple class="btn btn-warning">
-        <div id="dropbox">
-            Drag and Drop Files Here
-        </div><p>
-        <input type="submit" value="upload" id="upload-button" class="btn btn-success">
     </form>
-    <label>Files Progress</label>
 
-    <div class="progress-trough">
-        <div id="progress-bar" class="progress-bar">0%</div>
-    </div>
+    <style>
+        #filePicker {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #dropbox {
+            border: 2px dashed #000000;
+            padding: 2em;
+            margin-bottom: 1em;
+            margin-top: 1em;
+        }
 
+        #dropbox.active {
+            border: 4px dashed #FF0000;
+        }
 
+        .progress-trough {
+            border: 1px solid #000000;
+            border-radius: 4px;
+            height: 24px;
+            width: 100%;
+            position: relative;
+            margin-top: 0.6em;
+        }
 
-    <script src="/static/js/uploadr.js" rel="script"></script>
+        .progress-bar {
+            width: 50%;
+            height: 100%;
+            background-color: #0099FF;
+        }
+    </style>
+
+    <!--<script src="/static/js/uploadr.js" rel="script"></script>-->
     <script>
         UPLOAD_URL = "";
     </script>

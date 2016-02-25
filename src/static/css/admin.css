@@ -86,8 +86,10 @@ table.data td {
 
 .fields .col-md-1,
 .fields .col-md-2,
+.fields .col-md-3,
 .fields .col-md-8,
-.fields .col-md-9 {
+.fields .col-md-9,
+.fields .col-md-12 {
     padding-left: 0;
     padding-right: 0;
 }
@@ -208,28 +210,4 @@ table.data td {
 
 .deleted {
     text-decoration: line-through;
-}
-
-#dropbox {
-    border: 2px dashed #000000;
-    padding: 2em;
-    margin-bottom: 1em;
-    margin-top: 1em;
-}
-
-#dropbox.active {
-    border: 4px dashed #FF0000;
-}
-
-.progress-trough {
-    border: 1px solid #000000;
-    height: 24px;
-    width: 100%;
-    position: relative;
-}
-
-.progress-bar {
-    width: 50%;
-    height: 100%;
-    background-color: #0099FF;
 }
