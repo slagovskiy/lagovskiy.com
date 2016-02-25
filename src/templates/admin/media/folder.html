@@ -58,6 +58,7 @@
 <div id="dataForm" class="window" style="display: none;"></div>
 <div id="dataFormPage" class="pageform">
     <form id="upload-form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="fields">
             <div>
                 <label>Folder: </label>default
@@ -69,7 +70,7 @@
                     <label for="filePicker" class="btn btn-success">Choose a file</label>
                 </div>
                 <div class="col-md-9">
-                    <div class="progressTrough">
+                    <div class="progressTrough" id="progress">
                         <div id="progressBar" class="progressBar">0%</div>
                     </div>
                 </div>
@@ -82,45 +83,10 @@
         </div>
     </form>
 
-    <style>
-        .filePicker {
-            width: 0.1px;
-            height: 0.1px;
-            opacity: 0;
-            overflow: hidden;
-        }
-        .dropbox {
-            border: 2px dashed #000000;
-            padding: 2em;
-            margin-bottom: 1em;
-            margin-top: 1em;
-        }
-
-        .dropbox.active {
-            border: 4px dashed #FF0000;
-        }
-
-        .progressTrough {
-            border: 1px solid #000000;
-            border-radius: 4px;
-            height: 24px;
-            width: 100%;
-            position: relative;
-            margin-top: 0.6em;
-        }
-
-        .progressBar {
-            width: 50%;
-            height: 100%;
-            background-color: #0099FF;
-            color: #FFFFFF;
-            text-align: center;
-        }
-    </style>
-
-    <!--<script src="/static/js/uploadr.js" rel="script"></script>-->
+    <script src="{% static 'js/upload.js' %}" rel="script"></script>
     <script>
-        UPLOAD_URL = "";
+        $("#progress").hide();
+        UPLOAD_URL = "/";
     </script>
 </div>
 <div id="dataContainer" class="dataContainer"></div>

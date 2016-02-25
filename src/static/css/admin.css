@@ -162,6 +162,40 @@ table.data td {
     padding-left: 2.5em !important;
 }
 
+.fields .filePicker {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+}
+.fields .dropbox {
+    border: 2px dashed #000000;
+    padding: 2em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.fields .dropbox.active {
+    border: 4px dashed #FF0000;
+}
+
+.fields .progressTrough {
+    border: 1px solid #000000;
+    border-radius: 4px;
+    height: 24px;
+    width: 100%;
+    position: relative;
+    margin-top: 0.6em;
+}
+
+.fields .progressBar {
+    width: 50%;
+    height: 100%;
+    background-color: #0099FF;
+    color: #FFFFFF;
+    text-align: center;
+}
+
 .checkboxes {
     line-height: 3em;
 }
