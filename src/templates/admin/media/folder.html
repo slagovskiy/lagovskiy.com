@@ -65,17 +65,17 @@
 
             <div class="col-md-12">
                 <div class="col-md-3">
-                    <input id="filePicker" type="file" name="file" accept="image/*" multiple onchange="$('#filePicker').next().text('Selected ' + this.files.length + ' files.');">
+                    <input id="filePicker" type="file" name="file" accept="image/*" multiple onchange="$('#filePicker').next().text('Selected ' + this.files.length + ' file(s).');" class="filePicker">
                     <label for="filePicker" class="btn btn-success">Choose a file</label>
                 </div>
                 <div class="col-md-9">
-                    <div class="progress-trough">
-                        <div id="progress-bar" class="progress-bar">0%</div>
+                    <div class="progressTrough">
+                        <div id="progressBar" class="progressBar">0%</div>
                     </div>
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div id="dropbox">
+            <div id="dropbox" class="dropbox">
                 Drag and Drop Files Here
             </div>
             <input type="submit" value="upload" id="upload-button" class="btn btn-success">
@@ -83,24 +83,24 @@
     </form>
 
     <style>
-        #filePicker {
+        .filePicker {
             width: 0.1px;
             height: 0.1px;
             opacity: 0;
             overflow: hidden;
         }
-        #dropbox {
+        .dropbox {
             border: 2px dashed #000000;
             padding: 2em;
             margin-bottom: 1em;
             margin-top: 1em;
         }
 
-        #dropbox.active {
+        .dropbox.active {
             border: 4px dashed #FF0000;
         }
 
-        .progress-trough {
+        .progressTrough {
             border: 1px solid #000000;
             border-radius: 4px;
             height: 24px;
@@ -109,10 +109,12 @@
             margin-top: 0.6em;
         }
 
-        .progress-bar {
+        .progressBar {
             width: 50%;
             height: 100%;
             background-color: #0099FF;
+            color: #FFFFFF;
+            text-align: center;
         }
     </style>
 
