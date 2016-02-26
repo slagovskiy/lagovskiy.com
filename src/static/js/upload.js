@@ -49,9 +49,13 @@ function doUpload() {
         data: fd
     })
     .done(function(data) {
+        if (data=="ok") {
+            clearFileField();
+            notice("green", "uploaded");
+        } else {
+            notice("red", data);
+        }
         $progressBar.css({"width": "100%"});
-        notice("green", data);
-        clearFileField();
         $("#progress").hide();
         $("#upload-form :input").removeAttr("disabled");
     })
