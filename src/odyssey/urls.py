@@ -5,6 +5,7 @@ from .views import index
 
 urlpatterns = [
     url(r'^$', index, name='home'),
+    url(r'^media/', include('apps.media.urls')),
     url(r'^admin/', include('apps.admin.urls')),
     url(r'^djadmin/', admin.site.urls, name='djadmin'),
 ]
