@@ -3,7 +3,7 @@ var UPLOAD_URL = "/upload";
 var PENDING_FILES  = [];
 
 
-$(document).ready(function() {
+function initUpload() {
     initDropbox();
     $("#filePicker").on("change", function() {
         handleFiles(this.files);
@@ -13,7 +13,8 @@ $(document).ready(function() {
         e.preventDefault();
         doUpload();
     })
-});
+    $("#progress").hide();
+}
 
 
 function doUpload() {

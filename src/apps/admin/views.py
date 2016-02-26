@@ -333,7 +333,7 @@ def media_folder(request, id=None):
         if request.POST.get('deleted') == 'true':
             deleted = True
         if id == -1:    # new object
-            if not Folder.exist(slug):
+            if not Folder.exist(name, request.user):
                 folder = Folder.objects.create(
                     uuid=str(uuid4()),
                     name=name,

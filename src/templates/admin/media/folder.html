@@ -19,7 +19,7 @@
                 <td>
                     <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{cutstr max=70}}{{>fields.name}}{{/cutstr}}</a>
                 </td>
-                <td><a href="#" onClick="return false;">view</a></td>
+                <td><a href="#" onClick="loadFolderData({{:pk}});return false;">view</a></td>
             </tr>
         {{/for}}
         </table>
@@ -51,7 +51,7 @@
     </script>
     <script id="dataUpload" type="text/x-jsrender">
         <form id="upload-form" action="" method="POST" enctype="multipart/form-data">{{for items}}
-            <input type="hidden" name="folder" value="{{fields.uuid}}">
+            <input type="hidden" name="folder" value="{{:fields.uuid}}">
 {% endverbatim %}
 
             {% csrf_token %}
@@ -59,7 +59,7 @@
 
             <div class="fields">
                 <div>
-                    <label>Folder: </label>{{fields.name}}
+                    <label>Folder: </label>{{:fields.name}}
                 </div>
 
                 <div class="col-md-12">
@@ -93,7 +93,6 @@
 
 <script src="{% static 'js/upload.js' %}" rel="script"></script>
 <script>
-    $("#progress").hide();
     UPLOAD_URL = "{% url "admin_upload" %}";
 </script>
 
@@ -108,6 +107,20 @@
             var jdata = jQuery.parseJSON(data);
             var template = $.templates('#dataTemplate');
             $('#dataContainer').html(template.render(jdata));
+        });
+    }
+
+    function loadFolderData(key)
+    {
+        $('#dataContainer').html('<div class="loader"></div>');
+        $.ajax({
+            url :'{% url 'admin_folder' %}' + key + '/',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataUpload');
+            $('#dataContainer').html(template.render(jdata));
+            initUpload();
         });
     }
 
