@@ -128,6 +128,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
+UPLOAD_URL = '/media/'
+SENDFILE_BACKEND = 'sendfile.backends.simple'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
