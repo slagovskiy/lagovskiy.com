@@ -16,12 +16,10 @@ $(document).ready(function() {
 
 
 function doUpload() {
-    alert('1');
     var $progressBar = $(".progressBar");
     $("#upload-form :input").attr("disabled", "disabled");
     $progressBar.css({"width": "0%"});
     $("#progress").show();
-    alert('2');
     fd = collectFormData();
 
     for (var i = 0, ie = PENDING_FILES.length; i < ie; i++) {
@@ -50,23 +48,23 @@ function doUpload() {
         data: fd
     })
     .done(function(data) {
+        $progressBar.css({"width": "100%"});
+        notice("green", data);
+        clearFileField();
         $("#progress").hide();
         $("#upload-form :input").removeAttr("disabled");
-        $progressBar.css({"width": "100%"});
-        data = JSON.parse(data);
-
-        if (data.status === "error") {
-            window.alert(data.msg);
-            return;
-        }
-        else {
-            var uuid = data.msg;
-            alert(uuid);
-        }
     })
     .fail(function() {
         notice("red", "error send file");
+        $("#progress").hide();
+        $("#upload-form :input").removeAttr("disabled");
     });
+}
+
+function clearFileField() {
+    $('#filePicker').next().text('Choose a file');
+    var control = $("#filePicker");
+    control.replaceWith(control = control.val('').clone(true));
 }
 
 

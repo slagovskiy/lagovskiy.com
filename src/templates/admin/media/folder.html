@@ -86,7 +86,7 @@
     <script src="{% static 'js/upload.js' %}" rel="script"></script>
     <script>
         $("#progress").hide();
-        UPLOAD_URL = "/";
+        UPLOAD_URL = "{% url "admin_upload" %}";
     </script>
 </div>
 <div id="dataContainer" class="dataContainer"></div>

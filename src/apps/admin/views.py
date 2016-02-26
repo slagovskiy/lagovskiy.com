@@ -1,4 +1,5 @@
 import json
+import os
 from uuid import uuid4
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -9,6 +10,7 @@ from apps.userext.utils import admin_check
 from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
 from apps.media.models import Folder
+from odyssey.settings import UPLOAD_DIR
 
 
 @login_required()
@@ -379,3 +381,28 @@ def media_folder(request, id=None):
             )
         data = serializers.serialize('json', [folder, ])
         return JsonResponse('{"items": %s}' % data, safe=False)
+
+
+@login_required()
+@user_passes_test(admin_check)
+def upload(request):
+    if request.POST:
+        folder = request.POST.get('folder', 'default')
+        files = request.FILES.getlist('file', [])
+        ufiles = []
+        for file in files:
+            uuid = str(uuid4())
+            dist = os.path.join(os.path.join(os.path.join(UPLOAD_DIR, uuid[0:1]), uuid[1:2]), uuid)
+            _file = os.path.join(dist, file.name)
+            if not os.path.exists(dist):
+                os.makedirs(dist)
+            __file = open(_file, 'wb+')
+            for chunk in file.chunks():
+                __file.write(chunk)
+            __file.close()
+            ufiles.append(uuid)
+            print(file.name)
+        print(ufiles)
+        return HttpResponse('ok')
+    else:
+        return HttpResponse('error')
