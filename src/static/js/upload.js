@@ -5,8 +5,9 @@ var PENDING_FILES  = [];
 
 $(document).ready(function() {
     initDropbox();
-    $(".filePicker").on("change", function() {
+    $("#filePicker").on("change", function() {
         handleFiles(this.files);
+        $("#filePicker").next().text('Selected ' + this.files.length + ' file(s).');
     });
     $("#upload-button").on("click", function(e) {
         e.preventDefault();

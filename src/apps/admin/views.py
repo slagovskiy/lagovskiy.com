@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from apps.userext.utils import admin_check
 from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
-from apps.media.models import Folder
+from apps.media.models import Folder, File
 from odyssey.settings import UPLOAD_DIR
 
 
@@ -387,9 +387,19 @@ def media_folder(request, id=None):
 @user_passes_test(admin_check)
 def upload(request):
     if request.POST:
-        folder = request.POST.get('folder', 'default')
+        user = request.user;
         files = request.FILES.getlist('file', [])
-        ufiles = []
+        uuid = request.POST.get('folder', '')
+        folder = Folder.objects.all().filter(uuid=uuid).first()
+        if folder is None:
+            folder = Folder.objects.all().filter(name='default', author=request.user).first()
+            if folder is None:
+                folder = Folder.objects.create(
+                    uuid=str(uuid4()),
+                    name='default',
+                    author=user,
+                )
+                folder.save()
         for file in files:
             uuid = str(uuid4())
             dist = os.path.join(os.path.join(os.path.join(UPLOAD_DIR, uuid[0:1]), uuid[1:2]), uuid)
@@ -400,9 +410,13 @@ def upload(request):
             for chunk in file.chunks():
                 __file.write(chunk)
             __file.close()
-            ufiles.append(uuid)
-            print(file.name)
-        print(ufiles)
+            mfile = File.objects.create(
+                uuid=uuid,
+                name=file.name,
+                folder=folder,
+                author=user
+            )
+            mfile.save()
         return HttpResponse('ok')
     else:
         return HttpResponse('error')
