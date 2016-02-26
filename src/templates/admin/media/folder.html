@@ -81,6 +81,13 @@
             </div>
         {{/for}}</form>
     </script>
+    <script id="dataImages" type="text/x-jsrender">
+    {{for items}}
+    <div>
+        <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/">
+    </div>
+    {{/for}}
+    </script>
 {% endverbatim %}
 
 <div class="admin-action">
@@ -88,8 +95,8 @@
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
 <div id="dataForm" class="window" style="display: none;"></div>
-<div id="dataFormPage" class="pageform"></div>
 <div id="dataContainer" class="dataContainer"></div>
+<div id="dataContainerImages" class="pageform"></div>
 
 <script src="{% static 'js/upload.js' %}" rel="script"></script>
 <script>
@@ -100,6 +107,7 @@
     function loadData()
     {
         $('#dataContainer').html('<div class="loader"></div>');
+        $('#dataContainerImages').html('');
         $.ajax({
             url :'{% url 'admin_folder_get' 0 %}',
             cashe: false
@@ -121,6 +129,20 @@
             var template = $.templates('#dataUpload');
             $('#dataContainer').html(template.render(jdata));
             initUpload();
+            loadFolderImages(key);
+        });
+    }
+
+    function loadFolderImages(key)
+    {
+        $('#dataContainerImages').html('<div class="loader"></div>');
+        $.ajax({
+            url :'{% url 'admin_images' %}' + key + '/',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataImages');
+            $('#dataContainerImages').html(template.render(jdata));
         });
     }
 

@@ -385,6 +385,18 @@ def media_folder(request, id=None):
 
 @login_required()
 @user_passes_test(admin_check)
+def media_images(request, id=None):
+    data = None
+    folder = Folder.objects.all().filter(id=id).first()
+    if folder:
+        data = serializers.serialize('json', File.objects.all().filter(folder=folder))
+        return JsonResponse('{"items": %s}' % data, safe=False)
+    else:
+        return HttpResponse('')
+
+
+@login_required()
+@user_passes_test(admin_check)
 def upload(request):
     if request.POST:
         user = request.user;
