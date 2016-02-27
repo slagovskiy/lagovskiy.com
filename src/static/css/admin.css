@@ -245,3 +245,10 @@ table.data td {
 .deleted {
     text-decoration: line-through;
 }
+
+.imagePreview {
+    margin: 0 0.5em 0.5em 0;
+    padding: 0.5em;
+    width: initial;
+    border: 1px solid #E0E0E0;
+}

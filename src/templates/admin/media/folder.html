@@ -52,6 +52,7 @@
     <script id="dataUpload" type="text/x-jsrender">
         <form id="upload-form" action="" method="POST" enctype="multipart/form-data">{{for items}}
             <input type="hidden" name="folder" value="{{:fields.uuid}}">
+            <input type="hidden" name="folder_key" id="folder_key" value="{{:pk}}">
 {% endverbatim %}
 
             {% csrf_token %}
@@ -83,8 +84,8 @@
     </script>
     <script id="dataImages" type="text/x-jsrender">
     {{for items}}
-    <div>
-        <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/">
+    <div class="col-md-2 imagePreview">
+        <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110">
     </div>
     {{/for}}
     </script>

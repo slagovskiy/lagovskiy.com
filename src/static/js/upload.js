@@ -51,7 +51,7 @@ function doUpload() {
     })
     .done(function(data) {
         if (data=="ok") {
-            clearFileField();
+            //clearFileField();
             notice("green", "uploaded");
         } else {
             notice("red", data);
@@ -59,6 +59,8 @@ function doUpload() {
         $progressBar.css({"width": "100%"});
         $("#progress").hide();
         $("#upload-form :input").removeAttr("disabled");
+        notice("green", "reload images");
+        loadFolderData($('#folder_key').val());
     })
     .fail(function() {
         notice("red", "error send file");
