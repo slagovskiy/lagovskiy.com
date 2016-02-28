@@ -12,7 +12,7 @@ function initUpload() {
     $("#upload-button").on("click", function(e) {
         e.preventDefault();
         doUpload();
-    })
+    });
     $("#progress").hide();
 }
 
@@ -51,7 +51,6 @@ function doUpload() {
     })
     .done(function(data) {
         if (data=="ok") {
-            //clearFileField();
             notice("green", "uploaded");
         } else {
             notice("red", data);
@@ -59,7 +58,6 @@ function doUpload() {
         $progressBar.css({"width": "100%"});
         $("#progress").hide();
         $("#upload-form :input").removeAttr("disabled");
-        notice("green", "reload images");
         loadFolderData($('#folder_key').val());
     })
     .fail(function() {
@@ -69,10 +67,10 @@ function doUpload() {
     });
 }
 
-function clearFileField() {
+function resetForm(e) {
+    e.wrap('<form>').closest('form').get(0).reset();
+    e.unwrap();
     $('#filePicker').next().text('Choose a file');
-    var control = $("#filePicker");
-    control.replaceWith(control = control.val('').clone(true));
 }
 
 
