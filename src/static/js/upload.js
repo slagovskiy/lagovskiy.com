@@ -14,6 +14,7 @@ function initUpload() {
         doUpload();
     });
     $("#progress").hide();
+    PENDING_FILES = [];
 }
 
 

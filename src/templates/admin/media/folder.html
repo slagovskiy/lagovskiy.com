@@ -59,10 +59,8 @@
 {% verbatim %}
 
             <div class="fields">
-                <div>
-                    <label>Folder: </label>{{:fields.name}}
-                </div>
-
+                <h2>{{:fields.name}}</h2>
+                <hr>
                 <div class="col-md-12">
                     <div class="col-md-3" id="filePickerContainer">
                         <input id="filePicker" type="file" name="file" accept="image/*" multiple class="filePicker">
@@ -79,6 +77,8 @@
                     Drag and Drop Files Here
                 </div>
                 <input type="submit" value="upload" id="upload-button" class="btn btn-success">
+                <hr>
+                <a href="{% endverbatim %}{% url "admin_folder" %}{% verbatim %}"><i class="fa fa-arrow-left"></i> back</a>
             </div>
         {{/for}}</form>
     </script>
