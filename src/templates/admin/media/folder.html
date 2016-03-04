@@ -84,8 +84,12 @@
     </script>
     <script id="dataImages" type="text/x-jsrender">
     {{for items}}
-    <div class="col-md-2 imagePreview">
+    <div class="col-md-2 imagePreview" id="imageItem{{:pk}}"
+        onmouseover="$('#imagePanel{{:pk}}').css({'display': 'block'});"
+        onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
+    >
         <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110">
+        <div id="imagePanel{{:pk}}" class="imagePanel"><a href="#" onclick="deleteImage('{{:pk}}');return false;">delete</a></div>
     </div>
     {{/for}}
     </script>
@@ -145,6 +149,11 @@
             var template = $.templates('#dataImages');
             $('#dataContainerImages').html(template.render(jdata));
         });
+    }
+
+    function deleteImage(key)
+    {
+        $('#imageItem' + key).hide();
     }
 
     function editData(key)
