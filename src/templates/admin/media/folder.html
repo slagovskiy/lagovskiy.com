@@ -89,7 +89,11 @@
         onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
     >
         <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110">
-        <div id="imagePanel{{:pk}}" class="imagePanel"><a href="#" onclick="deleteImage('{{:pk}}');return false;">delete</a></div>
+        <div id="imagePanel{{:pk}}" class="imagePanel">
+            <div class="imagePanelButtons">
+                <a href="#" onclick="deleteImage('{{:pk}}');return false;">delete</a>
+            </div>
+        </div>
     </div>
     {{/for}}
     </script>
