@@ -146,7 +146,7 @@
     {
         $('#dataContainerImages').html('<div class="loader"></div>');
         $.ajax({
-            url :'{% url 'admin_images' %}' + key + '/',
+            url :'{% url 'admin_files' %}' + key + '/',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
@@ -157,7 +157,16 @@
 
     function deleteImage(key)
     {
-        $('#imageItem' + key).hide();
+        $.ajax({
+            url :'{% url 'admin_file' %}' + key + '/?action=delete',
+            cashe: false
+        }).done(function(data){
+            if (data=='ok')
+            {
+                $('#imageItem' + key).hide();
+                notice('green', 'file deleted');
+            }
+        });
     }
 
     function editData(key)

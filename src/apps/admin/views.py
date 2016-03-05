@@ -385,14 +385,32 @@ def media_folder(request, id=None):
 
 @login_required()
 @user_passes_test(admin_check)
-def media_images(request, id=None):
+def media_files(request, id=None):
     data = None
     folder = Folder.objects.all().filter(id=id).first()
     if folder:
-        data = serializers.serialize('json', File.objects.all().filter(folder=folder))
+        data = serializers.serialize('json', File.objects.all().filter(folder=folder, deleted=False))
         return JsonResponse('{"items": %s}' % data, safe=False)
     else:
         return HttpResponse('')
+
+
+@login_required()
+@user_passes_test(admin_check)
+def media_file(request, id=None):
+    data = None
+    file = File.objects.all().filter(id=id).first()
+    action = request.GET.get('action', '')
+    if file:
+        if action == 'delete':
+            file.deleted = True
+            file.save()
+            return HttpResponse('ok')
+        else:
+            return HttpResponse('')
+    else:
+        data = serializers.serialize('json', File.objects.all())
+        return JsonResponse('{"items": %s}' % data, safe=False)
 
 
 @login_required()
