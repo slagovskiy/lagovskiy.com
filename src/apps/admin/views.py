@@ -422,6 +422,10 @@ def media_file(request, id=None):
             return HttpResponse('ok')
         else:
             data = serializers.serialize('json', [file, ])
+            jdata = json.loads(data)
+            folder = Folder.objects.get(id=jdata[0]['fields']['folder'])
+            jdata[0]['fields']['foldername'] = folder.name
+            data = json.dumps(jdata)
             return JsonResponse('{"items": %s}' % data, safe=False)
 
 

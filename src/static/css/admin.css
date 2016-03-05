@@ -253,6 +253,16 @@ table.data td {
     border: 1px solid #E0E0E0;
 }
 
+.imagePreviewField {
+    padding-bottom: 1em;
+    text-align: center;
+}
+
+.imagePreviewField img {
+    padding: 0.5em;
+    border: 1px solid #E0E0E0;
+}
+
 .imagePanel {
     position: absolute;
     top: 0;

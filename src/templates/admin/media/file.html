@@ -36,10 +36,21 @@
 {% verbatim %}
                 <input type="hidden" value="{{:pk}}" name="id">
                 <input type="hidden" value="{{:fields.deleted}}" name="deleted" id="deleted">
-                <div style="text-align: center;">
+                <div class="imagePreviewField">
                     <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?w=600">
                 </div>
-                <label for="txtName" class="col-md-2">name</label>{{>fields.name}}
+                <label for="txtUUID" class="col-md-2">uuid</label>
+                <input type="text" readonly value="{{:fields.uuid}}" name="txtUUID" class="col-md-9 text">
+                <br>
+                <label for="txtName" class="col-md-2">name</label>
+                <input type="text" readonly value="{{:fields.name}}" name="txtName" class="col-md-9 text">
+                <br>
+                <label for="txtFolderName" class="col-md-2">folder</label>
+                <input type="hidden" value="{{:fields.folder}}" name="id">
+                <input type="text" readonly value="{{:fields.foldername}}" name="txtFolderName" class="col-md-9 text">
+                <br>
+                <label for="txtAdded" class="col-md-2">added</label>
+                <input type="text" readonly value="{{datetime:fields.added}}" name="txtAdded" class="col-md-9 text">
                 <br>
             </div>
             <div class="action">
