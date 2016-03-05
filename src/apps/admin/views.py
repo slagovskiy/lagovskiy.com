@@ -399,18 +399,30 @@ def media_files(request, id=None):
 @user_passes_test(admin_check)
 def media_file(request, id=None):
     data = None
-    file = File.objects.all().filter(id=id).first()
-    action = request.GET.get('action', '')
-    if file:
+    if request.POST:
+        pass
+    elif id is None:
+        # return admin form
+        return render(request, 'admin/media/file.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', File.objects.all().order_by('folder'))
+        jdata = json.loads(data)
+        for _jdata in jdata:
+            folder = Folder.objects.get(id=_jdata['fields']['folder'])
+            _jdata['fields']['foldername'] = folder.name
+        data = json.dumps(jdata)
+        return JsonResponse('{"items": %s}' % data, safe=False)
+    else:
+        file = File.objects.all().filter(id=id).first()
+        action = request.GET.get('action', '')
         if action == 'delete':
             file.deleted = True
             file.save()
             return HttpResponse('ok')
         else:
-            return HttpResponse('')
-    else:
-        data = serializers.serialize('json', File.objects.all())
-        return JsonResponse('{"items": %s}' % data, safe=False)
+            data = serializers.serialize('json', [file, ])
+            return JsonResponse('{"items": %s}' % data, safe=False)
 
 
 @login_required()

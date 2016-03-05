@@ -1,0 +1,174 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
+
+
+    {% verbatim %}
+    <script id="dataTemplate" type="text/x-jsrender">
+        <table class="data">
+        <thead>
+            <tr>
+                <th>#</td>
+                <th>Filename</td>
+                <th>Folder</td>
+            </tr>
+        </thead>
+        {{for items}}
+            <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
+                <td style="text-align: center;">
+                    <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=24">
+                </td>
+                <td>
+                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{cutstr max=70}}{{>fields.name}}{{/cutstr}}</a>
+                </td>
+                <td>{{:fields.foldername}}</td>
+            </tr>
+        {{/for}}
+        </table>
+    </script>
+    <script id="dataEdit" type="text/x-jsrender">
+        <form id="editForm">{{for items}}
+            <div class="fields">
+{% endverbatim %}
+                {% csrf_token %}
+{% verbatim %}
+                <input type="hidden" value="{{:pk}}" name="id">
+                <input type="hidden" value="{{:fields.deleted}}" name="deleted" id="deleted">
+                <div style="text-align: center;">
+                    <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?w=600">
+                </div>
+                <label for="txtName" class="col-md-2">name</label>{{>fields.name}}
+                <br>
+            </div>
+            <div class="action">
+                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                {{if fields.deleted}}
+                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                {{else}}
+                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                {{/if}}
+            </div>
+        {{/for}}</form>
+    </script>
+    <script id="dataUpload" type="text/x-jsrender">
+        <form id="upload-form" action="" method="POST" enctype="multipart/form-data">{{for items}}
+            <input type="hidden" name="folder" value="{{:fields.uuid}}">
+            <input type="hidden" name="folder_key" id="folder_key" value="{{:pk}}">
+{% endverbatim %}
+
+            {% csrf_token %}
+{% verbatim %}
+
+            <div class="fields">
+                <h2>{{:fields.name}}</h2>
+                <hr>
+                <div class="col-md-12">
+                    <div class="col-md-3" id="filePickerContainer">
+                        <input id="filePicker" type="file" name="file" accept="image/*" multiple class="filePicker">
+                        <label for="filePicker" class="btn btn-success">Choose a file</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="progressTrough" id="progress">
+                            <div id="progressBar" class="progressBar">0%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div id="dropbox" class="dropbox">
+                    Drag and Drop Files Here
+                </div>
+                <input type="submit" value="upload" id="upload-button" class="btn btn-success">
+                <hr>
+                <a href="{% endverbatim %}{% url "admin_folder" %}{% verbatim %}"><i class="fa fa-arrow-left"></i> back</a>
+            </div>
+        {{/for}}</form>
+    </script>
+{% endverbatim %}
+
+<div class="admin-action">
+    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new folder</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+</div>
+<div id="dataForm" class="window" style="display: none;"></div>
+<div id="dataContainer" class="dataContainer"></div>
+
+<script src="{% static 'js/upload.js' %}" rel="script"></script>
+<script>
+    UPLOAD_URL = "{% url "admin_upload" %}";
+</script>
+
+<script>
+    function loadData()
+    {
+        $('#dataContainer').html('<div class="loader"></div>');
+        $.ajax({
+            url :'{% url 'admin_file_get' 0 %}',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataTemplate');
+            $('#dataContainer').html(template.render(jdata));
+        });
+    }
+
+    function editData(key)
+    {
+        $.ajax({
+            url :'{% url 'admin_file' %}' + key + '/',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataEdit');
+            $('#dataForm').html(template.render(jdata));
+        });
+
+        $('.open-data-form').fancybox({
+            padding: 0,
+            type: 'inline',
+            title: '',
+            modal: false,
+            autoSize: true
+        });
+    }
+
+    function deleteItem() {
+        $("#dataForm form #deleted").val('true');
+        saveData();
+    }
+
+    function restoreItem() {
+        $("#dataForm form #deleted").val('false');
+        saveData();
+    }
+
+    function saveData() {
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'admin_file_save' %}',
+            data: $("#dataForm form").serialize()
+            })
+            .done(function(data){
+                if(data=='ok') {
+                    notice('green', 'saved');
+                    $.fancybox.close();
+                    loadData();
+                }
+                else {
+                    notice('red', data);
+                }
+            })
+            .fail(function(){
+                notice('red', 'data transfer error');
+            });
+    $("#dataForm form").submit(function(){
+            return false;
+        });
+    }
+
+    $(document).ready(function(){
+        loadData();
+    });
+</script>
+{% endblock %}
