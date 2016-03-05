@@ -35,14 +35,16 @@ def image_resize(imagefile, type, size):
         size = int(size)
         source = Image.open(imagefile)
         if type == 'w':
-            wpercent = (size/float(source.size[0]))
-            hsize = int((float(source.size[1])*float(wpercent)))
-            source = source.resize((size, hsize), Image.ANTIALIAS)
+            if source.size[0] > size:
+                wpercent = (size/float(source.size[0]))
+                hsize = int((float(source.size[1])*float(wpercent)))
+                source = source.resize((size, hsize), Image.ANTIALIAS)
             save = True
         elif type == 'h':
-            wpercent = (size/float(source.size[1]))
-            hsize = int((float(source.size[0])*float(wpercent)))
-            source = source.resize((hsize, size), Image.ANTIALIAS)
+            if source.size[1] > size:
+                wpercent = (size/float(source.size[1]))
+                hsize = int((float(source.size[0])*float(wpercent)))
+                source = source.resize((hsize, size), Image.ANTIALIAS)
             save = True
         elif type == 's':
             if source.size[0] < source.size[1]:
