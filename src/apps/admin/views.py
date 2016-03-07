@@ -400,7 +400,20 @@ def media_files(request, id=None):
 def media_file(request, id=None):
     data = None
     if request.POST:
-        pass
+        id = int(request.POST.get('id'), 0)
+        deleted = False
+        if request.POST.get('deleted') == 'true':
+            deleted = True
+        if id == -1:    # new object
+            return HttpResponse('New file must be uploaded')
+        else:   # save object
+            file = File.objects.get(id=id)
+            if file:
+                file.deleted = deleted
+                file.save()
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('error get object')
     elif id is None:
         # return admin form
         return render(request, 'admin/media/file.html')
