@@ -1,12 +1,12 @@
 import os
 from PIL import Image
 from sendfile import sendfile
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .models import File
 from odyssey.settings import UPLOAD_URL, UPLOAD_DIR
 
 
-def media_file(request, key=None):
+def media_file(request, key=None, filename=None):
     file = File.objects.all().filter(uuid=key).first()
     file_path = ''
     _file_path = False
@@ -23,7 +23,7 @@ def media_file(request, key=None):
             file_path = _file_path
         return sendfile(request, file_path)
     else:
-        HttpResponse('')
+        raise Http404
 
 
 def image_resize(imagefile, type, size):

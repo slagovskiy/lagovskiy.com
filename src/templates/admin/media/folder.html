@@ -88,7 +88,7 @@
         onmouseover="$('#imagePanel{{:pk}}').css({'display': 'block'});"
         onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
     >
-        <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110">
+        <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/file.img" class="fancybox"><img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110"></a>
         <div id="imagePanel{{:pk}}" class="imagePanel">
             <div class="imagePanelButtons">
                 <a href="#" onclick="deleteImage('{{:pk}}');return false;">delete</a>
@@ -98,7 +98,6 @@
     {{/for}}
     </script>
 {% endverbatim %}
-
 <div class="admin-action">
     <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new folder</a>&nbsp;&nbsp;&nbsp;
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
