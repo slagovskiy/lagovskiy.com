@@ -58,6 +58,9 @@ class File(models.Model):
         Folder,
         blank=True
     )
+    image = models.BooleanField(
+        default=False
+    )
     author = models.ForeignKey(
         User,
         blank=True
