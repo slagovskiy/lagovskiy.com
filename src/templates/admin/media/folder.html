@@ -88,7 +88,9 @@
         onmouseover="$('#imagePanel{{:pk}}').css({'display': 'block'});"
         onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
     >
-        <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/file.img" class="fancybox"><img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110"></a>
+        <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/file.img" class="fancybox" data-fancybox-group="gallery">
+            <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110" />
+        </a>
         <div id="imagePanel{{:pk}}" class="imagePanel">
             <div class="imagePanelButtons">
                 <a href="#" onclick="deleteImage('{{:pk}}');return false;">delete</a>
