@@ -10,7 +10,9 @@ from apps.userext.utils import admin_check
 from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
 from apps.media.models import Folder, File
+from apps.media.utils import create_icon
 from odyssey.settings import UPLOAD_DIR
+from toolbox.imghdr import what
 
 
 @login_required()
@@ -463,16 +465,23 @@ def upload(request):
             uuid = str(uuid4())
             dist = os.path.join(os.path.join(os.path.join(UPLOAD_DIR, uuid[0:1]), uuid[1:2]), uuid)
             _file = os.path.join(dist, file.name)
+            image = False
             if not os.path.exists(dist):
                 os.makedirs(dist)
             __file = open(_file, 'wb+')
             for chunk in file.chunks():
                 __file.write(chunk)
             __file.close()
+            if what(_file):
+                image = True
+            else:
+                image = False
+                create_icon(_file)
             mfile = File.objects.create(
                 uuid=uuid,
                 name=file.name,
                 folder=folder,
+                image=image,
                 author=user
             )
             mfile.save()

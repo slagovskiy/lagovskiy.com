@@ -9,10 +9,15 @@ from odyssey.settings import UPLOAD_URL, UPLOAD_DIR
 def media_file(request, key=None, filename=None):
     file = File.objects.all().filter(uuid=key).first()
     file_path = ''
+    filename = ''
     _file_path = False
     if file:
+        if file.image:
+            filename = file.name
+        else:
+            filename = 'icon.jpg'
         file_path = os.path.join(os.path.join(os.path.join(os.path.join(
-            UPLOAD_DIR, file.uuid[0:1]), file.uuid[1:2]), file.uuid), file.name)
+            UPLOAD_DIR, file.uuid[0:1]), file.uuid[1:2]), file.uuid), filename)
         if 'w' in request.GET:
             _file_path = image_resize(file_path, 'w', request.GET.get('w', 600))
         if 'h' in request.GET:
