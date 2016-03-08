@@ -162,12 +162,22 @@ def blog_post(count):
         author = User.objects.all().first()
         description = ' '.join(fake.words(randint(5, 20)))
         keywords = ', '.join(fake.words(randint(5, 20)))
-        status = randint(1, 3)
+        status = randint(0, 2)
         sticked = False
+        if randint(0, 1):
+            sticked = True
         comments_enabled = False
+        if randint(0, 1):
+            comments_enabled = True
         comments_moderated = False
+        if randint(0, 1):
+            comments_moderated = True
         do_ping = False
-        published = timezone.now()
+        if randint(0, 1):
+            do_ping = True
+        published = None
+        if status == 2:
+            published = timezone.now()
         categories = []
         for __ in range(1, randint(2, 4)):
             categories.append(choice(Category.objects.all()))
