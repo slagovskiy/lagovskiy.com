@@ -33,7 +33,6 @@
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#meta">meta</a></li>
               <li><a data-toggle="tab" href="#labels">labels</a></li>
-              <li><a data-toggle="tab" href="#options">options</a></li>
               <li><a data-toggle="tab" href="#content">content</a></li>
               <li><a data-toggle="tab" href="#preview" onclick="loadPreview();">preview</a></li>
             </ul>
@@ -46,25 +45,31 @@
                     <label for="txtTitle" class="col-md-2">title</label>
                     <textarea name="txtTitle" id="txtTitle" class="col-md-10 text">{{>fields.title}}</textarea>
                     <br>
-                    <label for="txtDescription" class="col-md-2">description</label>
-                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text3">{{>fields.description}}</textarea>
+                    <div class="checkboxes-status col-md-12" style="padding-bottom: 0.4em;">
+                        <label class="col-md-2">Status: </label>
+                        <div class="col-md-10">
+                            <input type="radio" name="rstatus" value="0" id="status_0" class="hide"><a href="#" id="status_btn_0" onclick="check_status('0');return false;">draft</a>
+                            <input type="radio" name="rstatus" value="1" id="status_1" class="hide"><a href="#" id="status_btn_1" onclick="check_status('1');return false;">hidden</a>
+                            <input type="radio" name="rstatus" value="2" id="status_2" class="hide"><a href="#" id="status_btn_2" onclick="check_status('2');return false;">public</a>
+                            <script>check_status('{{:fields.status}}');{{:'<'}}/script>
+                        </div>
+                        <br>
+                    </div>
                     <br>
-                    <label for="txtKeywords" class="col-md-2">keywords</label>
-                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text3">{{>fields.keywords}}</textarea>
+                    <div class="col-md-12">
+                        <label for="txtPublished" class="col-md-2">published</label>
+                        <input type="text" name="txtPublished" id="txtPublished" class="col-md-9 text datetimeMask" value="{{datetime:fields.published}}">
+                        <a href="#" class="col-md-1 abtn" onClick="publishedNow(); return false;">now</a>
+                    </div>
                     <br>
-                    <label for="txtPublished" class="col-md-2">published</label>
-                    <input type="text" name="txtPublished" id="txtPublished" class="col-md-9 text datetimeMask" value="{{datetime:fields.published}}">
-                    <a href="#" class="col-md-1 abtn" onClick="publishedNow(); return false;">now</a>
-                    <br>
-                </div>
-                <div id="labels" class="tab-pane fade">
-                    <div id="dataCategory" class="checkboxes"></div>
-                    <hr>
-                    <div id="dataTag" class="checkboxes"></div>
-                </div>
-                <div id="options" class="tab-pane fade">
                     <input type="checkbox" name="sticked" id="sticked"{{if fields.sticked}} checked{{/if}}>
                     <label for="sticked" class="checkbox"> sticked</label>
+                    <br>
+                    <label for="txtDescription" class="col-md-2">description</label>
+                    <textarea name="txtDescription" id="txtDescription" class="col-md-10 text2">{{>fields.description}}</textarea>
+                    <br>
+                    <label for="txtKeywords" class="col-md-2">keywords</label>
+                    <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text2">{{>fields.keywords}}</textarea>
                     <br>
                     <input type="checkbox" name="comments_enabled" id="comments_enable"{{if fields.comments_enabled}} checked{{/if}}>
                     <label for="comments_enabled" class="checkbox"> comments enable</label>
@@ -75,6 +80,11 @@
                     <input type="checkbox" name="do_ping" id="do_ping"{{if fields.do_ping}} checked{{/if}}>
                     <label for="do_ping" class="checkbox"> ping</label>
                     <br>
+                </div>
+                <div id="labels" class="tab-pane fade">
+                    <div id="dataCategory" class="checkboxes"></div>
+                    <hr>
+                    <div id="dataTag" class="checkboxes"></div>
                 </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
@@ -109,7 +119,7 @@
     </script>
 {% endverbatim %}
 <div class="admin-action">
-    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
+    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new post</a>&nbsp;&nbsp;&nbsp;
     <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
 <div id="dataForm" class="pageform"></div>
@@ -161,6 +171,43 @@
         } else {
             $('#tag_' + key).prop('checked', true);
             $('#tag_btn_' + key).addClass('checked');
+        }
+    }
+
+    function check_status(key)
+    {
+        var c = $('#status_' + key).prop('checked');
+        switch (key) {
+            case '0':
+            {
+                $('#status_0').prop('checked', true);
+                $('#status_btn_0').addClass('checked');
+                $('#status_1').prop('checked', false);
+                $('#status_btn_1').removeClass('checked');
+                $('#status_2').prop('checked', false);
+                $('#status_btn_2').removeClass('checked');
+                break;
+            }
+            case '1':
+            {
+                $('#status_1').prop('checked', true);
+                $('#status_btn_1').addClass('checked');
+                $('#status_0').prop('checked', false);
+                $('#status_btn_0').removeClass('checked');
+                $('#status_2').prop('checked', false);
+                $('#status_btn_2').removeClass('checked');
+                break;
+            }
+            case '2':
+            {
+                $('#status_2').prop('checked', true);
+                $('#status_btn_2').addClass('checked');
+                $('#status_1').prop('checked', false);
+                $('#status_btn_1').removeClass('checked');
+                $('#status_0').prop('checked', false);
+                $('#status_btn_0').removeClass('checked');
+                break;
+            }
         }
     }
 

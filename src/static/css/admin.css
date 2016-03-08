@@ -87,8 +87,14 @@ table.data td {
 .fields .col-md-1,
 .fields .col-md-2,
 .fields .col-md-3,
+.fields .col-md-4,
+.fields .col-md-5,
+.fields .col-md-6,
+.fields .col-md-7,
 .fields .col-md-8,
 .fields .col-md-9,
+.fields .col-md-10,
+.fields .col-md-11,
 .fields .col-md-12 {
     padding-left: 0;
     padding-right: 0;
@@ -206,8 +212,11 @@ table.data td {
 
 .checkboxes a {
     padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
     border: 1px solid #006ED2;
     border-radius: 4px;
+    margin-right: 0.3em;
 }
 
 .checkboxes a:hover {
@@ -215,6 +224,32 @@ table.data td {
 }
 
 .checkboxes a.checked {
+    background-color: #006ED2;
+    color: #FFFFFF;
+}
+
+.checkboxes-status {
+    line-height: 3em;
+}
+
+.checkboxes-status label {
+    padding-bottom: 0.7em;
+}
+
+.checkboxes-status a {
+    padding: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    border: 1px solid #006ED2;
+    border-radius: 4px;
+    margin-right: 0.3em;
+}
+
+.checkboxes-status a:hover {
+    color: #006ED2;
+}
+
+.checkboxes-status a.checked {
     background-color: #006ED2;
     color: #FFFFFF;
 }
