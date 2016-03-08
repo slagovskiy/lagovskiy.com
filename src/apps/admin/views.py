@@ -174,6 +174,10 @@ def post(request, id=None):
     elif id == '0':
         # return all in json
         data = serializers.serialize('json', Post.objects.all().order_by('status', 'created'))
+        jdata = json.loads(data)
+        for _jdata in jdata:
+            _jdata['fields']['statusname'] = Post.STATUS_CHOICES[_jdata['fields']['status']][1]
+        data = json.dumps(jdata)
         return JsonResponse('{"items": %s}' % data, safe=False)
     else:
         # return on in json
