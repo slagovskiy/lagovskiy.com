@@ -20,7 +20,7 @@
                     <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.title}}</a>
                 </td>
                 <td>{{>fields.slug}}</td>
-                <td>{{>fields.status}}</td>
+                <td>{{>fields.statusname}}</td>
             </tr>
         {{/for}}
         </table>
@@ -33,6 +33,7 @@
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#meta">meta</a></li>
               <li><a data-toggle="tab" href="#labels">labels</a></li>
+              <li><a data-toggle="tab" href="#options">options</a></li>
               <li><a data-toggle="tab" href="#content">content</a></li>
               <li><a data-toggle="tab" href="#preview" onclick="loadPreview();">preview</a></li>
             </ul>
@@ -61,6 +62,20 @@
                     <hr>
                     <div id="dataTag" class="checkboxes"></div>
                 </div>
+                <div id="options" class="tab-pane fade">
+                    <input type="checkbox" name="sticked" id="sticked"{{if fields.sticked}} checked{{/if}}>
+                    <label for="sticked" class="checkbox"> sticked</label>
+                    <br>
+                    <input type="checkbox" name="comments_enabled" id="comments_enable"{{if fields.comments_enabled}} checked{{/if}}>
+                    <label for="comments_enabled" class="checkbox"> comments enable</label>
+                    <br>
+                    <input type="checkbox" name="comments_moderated" id="comments_moderated"{{if fields.comments_moderated}} checked{{/if}}>
+                    <label for="comments_moderated" class="checkbox"> comments moderated</label>
+                    <br>
+                    <input type="checkbox" name="do_ping" id="do_ping"{{if fields.do_ping}} checked{{/if}}>
+                    <label for="do_ping" class="checkbox"> ping</label>
+                    <br>
+                </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
                     <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 md12">{{>fields.teaser}}</textarea>
@@ -77,6 +92,8 @@
                 <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
             </div>
         {{/for}}</form>
+        <hr>
+        <a href="{% endverbatim %}{% url "admin_post" %}{% verbatim %}"><i class="fa fa-arrow-left"></i> back</a>
     </script>
     <script id="dataTemplateCategory" type="text/x-jsrender">
         <label class="col-md-12">notepads</label>
