@@ -84,9 +84,9 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    DRAFT_STATUS = 1
-    HIDDEN_STATUS = 2
-    PUBLISHED_STATUS = 3
+    DRAFT_STATUS = 0
+    HIDDEN_STATUS = 1
+    PUBLISHED_STATUS = 2
 
     STATUS_CHOICES = (
         (DRAFT_STATUS, 'Draft'),
