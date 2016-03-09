@@ -27,6 +27,7 @@
     </script>
     <script id="dataEdit" type="text/x-jsrender">
         <form id="editForm">{{for items}}
+        <input type="hidden" value="{{:pk}}" name="id">
 {% endverbatim %}
             {% csrf_token %}
 {% verbatim %}
@@ -38,7 +39,6 @@
             </ul>
             <div class="tab-content fields">
                 <div id="meta" class="tab-pane fade in active">
-                    <input type="hidden" value="" name="id">
                     <label for="txtSlug" class="col-md-2">slug</label>
                     <textarea name="txtSlug" id="txtSlug" class="col-md-10 text">{{>fields.slug}}</textarea>
                     <br>
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="action">
-                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                <button onclick="saveData();return false;" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
             </div>
         {{/for}}</form>
         <hr>
@@ -278,12 +278,14 @@
     }
 
     function saveData() {
+        console.log($("#dataForm form"));
         $.ajax({
                 type: 'POST',
                 url: '{% url 'admin_post_save' %}',
                 data: $("#dataForm form").serialize()
             })
             .done(function(data){
+                /*
                 if(data=='ok') {
                     notice('green', 'saved');
                     $.fancybox.close();
@@ -292,14 +294,17 @@
                 else {
                     notice('red', data);
                 }
+                */
             })
             .fail(function(){
                 notice('red', 'data transfer error');
             });
+        /*
         $("#dataForm form").submit(function(){
             return false;
         });
-        $('#dataContainer').show();
+        */
+        //$('#dataContainer').show();
     }
 
     $(document).ready(function(){

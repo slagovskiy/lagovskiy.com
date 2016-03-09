@@ -167,7 +167,44 @@ def post(request, id=None):
     data = None
     if request.POST:
         # save data
-        pass
+        id = int(request.POST.get('id', 0))
+        slug = str(request.POST.get('txtSlug', ''))
+        title = str(request.POST.get('txtTitle', ''))
+        status = int(request.POST.get('status', 0))
+        published = request.POST.get('txtPublished', None)
+        description = str(request.POST.get('txtDescription', ''))
+        keywords = str(request.POST.get('txtKeywords', ''))
+        teaser = str(request.POST.get('txtTeaser', ''))
+        content = str(request.POST.get('txtContent', ''))
+        categories = request.POST.getlist('_category', [])
+        tags = request.POST.getlist('_tags', [])
+        deleted = False
+        if request.POST.get('sticked', '') == 'on':
+            sticked = True
+        if request.POST.get('comments_enabled', '') == 'on':
+            comments_enabled = True
+        if request.POST.get('comments_moderated', '') == 'on':
+            comments_moderated = True
+        if request.POST.get('do_ping', 'false') == 'on':
+            do_ping = True
+        if id > 0:
+            post = Post.objects.get(id=id)
+            if post:
+                post.slug = slug
+                post.title = title
+                post.status = status
+                #post.published = published
+                post.description = description
+                post.keywords = keywords
+                post.teaser = teaser
+                post.content_prev = post.content
+                post.content = content
+                post.save()
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('error get object')
+        else:
+            return HttpResponse('new')
     elif id is None:
         # return admin form
         return render(request, 'admin/blog/post.html')
