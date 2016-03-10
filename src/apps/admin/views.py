@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.dateparse import parse_datetime
 from apps.userext.utils import admin_check
 from apps.blog.models import Tag, Category, Post
 from apps.links.models import MyLink
@@ -177,8 +178,11 @@ def post(request, id=None):
         teaser = str(request.POST.get('txtTeaser', ''))
         content = str(request.POST.get('txtContent', ''))
         categories = request.POST.getlist('_category', [])
-        tags = request.POST.getlist('_tags', [])
-        deleted = False
+        tags = request.POST.getlist('_tag', [])
+        sticked = False
+        comments_enabled = False
+        comments_moderated = False
+        do_ping = False
         if request.POST.get('sticked', '') == 'on':
             sticked = True
         if request.POST.get('comments_enabled', '') == 'on':
@@ -187,18 +191,36 @@ def post(request, id=None):
             comments_moderated = True
         if request.POST.get('do_ping', 'false') == 'on':
             do_ping = True
+        if published:
+            published = parse_datetime(published)
+        else:
+            published = None
         if id > 0:
             post = Post.objects.get(id=id)
             if post:
                 post.slug = slug
                 post.title = title
                 post.status = status
-                #post.published = published
+                post.published = published
                 post.description = description
                 post.keywords = keywords
                 post.teaser = teaser
                 post.content_prev = post.content
                 post.content = content
+                post.sticked = sticked
+                post.comments_enabled = comments_enabled
+                post.comments_moderated = comments_moderated
+                post.do_ping = do_ping
+                post.categories.clear()
+                for _category in categories:
+                    c = Category.objects.filter(slug=_category).first()
+                    if c:
+                        post.categories.add(c)
+                post.tags.clear()
+                for _tag in tags:
+                    t = Tag.objects.filter(slug=_tag).first()
+                    if t:
+                        post.tags.add(t)
                 post.save()
                 return HttpResponse('ok')
             else:

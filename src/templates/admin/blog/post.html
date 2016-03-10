@@ -48,9 +48,9 @@
                     <div class="checkboxes-status col-md-12" style="padding-bottom: 0.4em;">
                         <label class="col-md-2">Status: </label>
                         <div class="col-md-10">
-                            <input type="radio" name="rstatus" value="0" id="status_0" class="hide"><a href="#" id="status_btn_0" onclick="check_status('0');return false;">draft</a>
-                            <input type="radio" name="rstatus" value="1" id="status_1" class="hide"><a href="#" id="status_btn_1" onclick="check_status('1');return false;">hidden</a>
-                            <input type="radio" name="rstatus" value="2" id="status_2" class="hide"><a href="#" id="status_btn_2" onclick="check_status('2');return false;">public</a>
+                            <input type="radio" name="status" value="0" id="status_0" class="hide"><a href="#" id="status_btn_0" onclick="check_status('0');return false;">draft</a>
+                            <input type="radio" name="status" value="1" id="status_1" class="hide"><a href="#" id="status_btn_1" onclick="check_status('1');return false;">hidden</a>
+                            <input type="radio" name="status" value="2" id="status_2" class="hide"><a href="#" id="status_btn_2" onclick="check_status('2');return false;">public</a>
                             <script>check_status('{{:fields.status}}');{{:'<'}}/script>
                         </div>
                         <br>
