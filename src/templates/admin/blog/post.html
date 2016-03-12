@@ -90,9 +90,15 @@
                     <label for="txtTeaser" class="col-md-12">teaser</label>
                     <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 md12">{{>fields.teaser}}</textarea>
                     <br>
-                    <label for="txtContent" class="col-md-12">content</label>
+                    <label for="txtContent" class="col-md-12">content <a href="#" id="content_prev_block_link" onclick="$('#content_prev_block').show();$('#content_prev_block_link').hide();return false;" style="font-weight: normal;padding-left: 1em;font-size: 0.8em;">show prev version</a></label>
                     <textarea name="txtContent" id="txtContent" class="col-md-12 md18">{{>fields.content}}</textarea>
                     <br>
+                    <div class="col-md-12" id="content_prev_block">
+                        <label for="txtContent" class="col-md-12">content prev version</label>
+                        <textarea name="txtContent_prev" id="txtContent_prev" class="col-md-12 md18" readonly>{{>fields.content_prev}}</textarea>
+                        <br>
+                    </div>
+                    <script>$('#content_prev_block').hide();{{:"<"}}/script>
                 </div>
                 <div id="preview" class="tab-pane fade">
                     <div id="dataPreview"></div>
