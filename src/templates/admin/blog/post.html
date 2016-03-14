@@ -255,6 +255,20 @@
         }
     }
 
+    function deleteImage(key)
+    {
+        $.ajax({
+            url :'{% url 'admin_file' %}' + key + '/?action=delete',
+            cashe: false
+        }).done(function(data){
+            if (data=='ok')
+            {
+                $('#imageItem' + key).hide();
+                notice('green', 'file deleted');
+            }
+        });
+    }
+
     function loadFolders()
     {
         $.ajax({
