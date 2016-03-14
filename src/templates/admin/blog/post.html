@@ -92,9 +92,9 @@
                     social
                 </div>
                 <div id="media" class="tab-pane fade">
-                    <div id="dataFolder"></div>
-                    <hr>
-                    <div id="dataImage"></div>
+                    <div id="dataFolder" class="col-md-12"></div>
+                    <hr class="col-md-12">
+                    <div id="dataImage" class="col-md-12"></div>
                 </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
@@ -136,7 +136,29 @@
     <script id="dataTemplateFolder" type="text/x-jsrender">
         <label class="col-md-12">folders</label>
         {{for items}}
-            <a href="#" id="folder_{{:pk}}" onclick="return false;">{{:fields.name}}</a>
+            <a href="#" id="folder_{{:pk}}" onclick="loadFolderData('{{:pk}}');return false;"><i class="fa fa-folder-o"></i> {{:fields.name}}</a>&nbsp;&nbsp;
+        {{/for}}
+    </script>
+    <script id="dataTemplateImage" type="text/x-jsrender">
+        <label class="col-md-12">images</label>
+        {{for items}}
+        <div class="col-md-2 imagePreview" id="imageItem{{:pk}}"
+            onmouseover="$('#imagePanel{{:pk}}').css({'display': 'block'});"
+            onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
+        >
+            <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/file.img" class="fancybox" data-fancybox-group="gallery">
+                <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110" />
+            </a>
+            <div id="imagePanel{{:pk}}" class="imagePanel">
+                <div class="imagePanelButtons">
+                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="left align"><i class="fa fa-align-left"></i></a>
+                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="center align"><i class="fa fa-align-center"></i></a>
+                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="right align"><i class="fa fa-align-right"></i></a>
+                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="link"><i class="fa fa-link"></i></a>
+                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="delete"><i class="fa fa-times-circle"></i></a>
+                </div>
+            </div>
+        </div>
         {{/for}}
     </script>
 {% endverbatim %}
@@ -242,6 +264,18 @@
             var jdata = jQuery.parseJSON(data);
             var template = $.templates('#dataTemplateFolder');
             $('#dataFolder').html(template.render(jdata));
+        });
+    }
+
+    function loadFolderData(key)
+    {
+        $.ajax({
+            url :'{% url 'admin_files' %}' + key + '/',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataTemplateImage');
+            $('#dataImage').html(template.render(jdata));
         });
     }
 

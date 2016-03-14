@@ -283,7 +283,7 @@ table.data td {
 
 .imagePreview {
     margin: 0 0.5em 0.5em 0;
-    padding: 0.5em;
+    padding: 0.5em !important;
     width: initial;
     border: 1px solid #E0E0E0;
 }
