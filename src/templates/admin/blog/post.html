@@ -34,6 +34,8 @@
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#meta">meta</a></li>
               <li><a data-toggle="tab" href="#labels">labels</a></li>
+              <li><a data-toggle="tab" href="#social">social</a></li>
+              <li><a data-toggle="tab" href="#media">media</a></li>
               <li><a data-toggle="tab" href="#content">content</a></li>
               <li><a data-toggle="tab" href="#preview" onclick="loadPreview();">preview</a></li>
             </ul>
@@ -86,6 +88,14 @@
                     <hr>
                     <div id="dataTag" class="checkboxes"></div>
                 </div>
+                <div id="social" class="tab-pane fade">
+                    social
+                </div>
+                <div id="media" class="tab-pane fade">
+                    <div id="dataFolder"></div>
+                    <hr>
+                    <div id="dataImage"></div>
+                </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
                     <textarea name="txtTeaser" id="txtTeaser" class="col-md-12 md12">{{>fields.teaser}}</textarea>
@@ -121,6 +131,12 @@
         <label class="col-md-12">tags</label>
         {{for items}}
             <input type="checkbox" name="_tag" value="{{>fields.slug}}" id="tag_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="tag_btn_{{>fields.slug}}" onclick="check_tag('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
+        {{/for}}
+    </script>
+    <script id="dataTemplateFolder" type="text/x-jsrender">
+        <label class="col-md-12">folders</label>
+        {{for items}}
+            <a href="#" id="folder_{{:pk}}" onclick="return false;">{{:fields.name}}</a>
         {{/for}}
     </script>
 {% endverbatim %}
@@ -217,6 +233,18 @@
         }
     }
 
+    function loadFolders()
+    {
+        $.ajax({
+            url :'{% url 'admin_folder_get' 0 %}',
+            cashe: false
+        }).done(function(data){
+            var jdata = jQuery.parseJSON(data);
+            var template = $.templates('#dataTemplateFolder');
+            $('#dataFolder').html(template.render(jdata));
+        });
+    }
+
     function loadTag(key)
     {
         $.ajax({
@@ -268,6 +296,7 @@
             $('#dataForm').html(template.render(jdata));
             loadTag(key);
             loadCategory(key);
+            loadFolders();
         });
 
         $('#dataContainer').hide();
