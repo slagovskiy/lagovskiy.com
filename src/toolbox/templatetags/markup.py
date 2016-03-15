@@ -9,14 +9,16 @@ register = template.Library()
 def medial_file(value):
     p = re.compile('\%\%img:[A-Za-z0-9-]+[A-Za-z0-9:=]*\%\%')
     m = p.findall(value)
-    type = ''
-    align = 'left'
-    param = ''
-    uuid = ''
-    tmpl = ''
     for _m in m:
+        type = ''
+        align = 'left'
+        param = ''
+        uuid = ''
+        tmpl = ''
         for __m in _m.replace('%%', '').lower().split(':'):
-            if __m == 'img':
+            if __m == '':
+                pass
+            elif __m == 'img':
                 type = 'img'
             elif __m in ['left', 'right', 'center']:
                 align = __m
