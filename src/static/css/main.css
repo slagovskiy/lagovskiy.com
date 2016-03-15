@@ -36,6 +36,11 @@ a.active {
     color: #f52a0e;
 }
 
+a.activeBlue {
+    text-decoration: none;
+    color: #006ED2;
+}
+
 /* input active */
 input, textarea
 {

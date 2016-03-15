@@ -147,15 +147,36 @@
             onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
         >
             <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/file.img" class="fancybox" data-fancybox-group="gallery">
-                <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110" />
+                <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110" id="file{{:pk}}" paramLimit="" paramLimitValue="" paramType="{{if fields.image}}image{{else}}file{{/if}}" paramAlign="left" />
             </a>
             <div id="imagePanel{{:pk}}" class="imagePanel">
                 <div class="imagePanelButtons">
-                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="left align"><i class="fa fa-align-left"></i></a>
-                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="center align"><i class="fa fa-align-center"></i></a>
-                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="right align"><i class="fa fa-align-right"></i></a>
-                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="link"><i class="fa fa-link"></i></a>
+                    <a href="#" onclick="setAlign('{{:pk}}', 'left');return false;" title="left align" id="fileAlignLeft{{:pk}}"><i class="fa fa-align-left"></i></a>
+                    <a href="#" onclick="setAlign('{{:pk}}', 'center');return false;" title="center align" id="fileAlignCenter{{:pk}}"><i class="fa fa-align-center"></i></a>
+                    <a href="#" onclick="setAlign('{{:pk}}', 'right');return false;" title="right align" id="fileAlignRight{{:pk}}"><i class="fa fa-align-right"></i></a>
+                    <i class="fa fa-ellipsis-v" style="font-size: 10px;"></i>
+                    <a href="#" onclick="return false;" title="get code"><i class="fa fa-picture-o"></i></a>
+                    <a href="#" onclick="return false;" title="get link"><i class="fa fa-link"></i></a>
                     <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="delete"><i class="fa fa-times-circle"></i></a>
+                    <br>
+                    <a href="#" onclick="setLimit('{{:pk}}', 'h');return false;" title="height limit" id="fileLimitHeight{{:pk}}"><i class="fa fa-arrows-v"></i></a>
+                    <a href="#" onclick="setLimit('{{:pk}}', 'w');return false;" title="width limit" id="fileLimitWidth{{:pk}}"><i class="fa fa-arrows-h"></i></a>
+                    <a href="#" onclick="setLimit('{{:pk}}', 's');return false;" title="square limit" id="fileLimitSquare{{:pk}}"><i class="fa fa-arrows-alt"></i></a>
+                    <select style="font-size: 9px;" id="imageParamValue{{:pk}}" onchange="setLimit('{{:pk}}', '')">
+                        <option value="24">24</option>
+                        <option value="32">32</option>
+                        <option value="64">64</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                        <option value="250">250</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                        <option value="600">600</option>
+                        <option value="700">700</option>
+                    </select>
+                    <a href="#" onclick="setLimit('{{:pk}}', 'n');return false;" title="no limit" id="fileLimitNo{{:pk}}"><i class="fa fa-times"></i></a>
                 </div>
             </div>
         </div>
@@ -180,6 +201,87 @@
             var template = $.templates('#dataTemplate');
             $('#dataContainer').html(template.render(jdata));
         });
+    }
+
+    function setLimit(key, limit)
+    {
+        switch(limit) {
+            case '':
+            {
+                if ($('#file' + key).attr('paramLimit') != '')
+                    $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+                break;
+            }
+            case 'h':
+            {
+                $('#fileLimitNo' + key).removeClass('activeBlue');
+                $('#fileLimitHeight' + key).addClass('activeBlue');
+                $('#fileLimitWidth' + key).removeClass('activeBlue');
+                $('#fileLimitSquare' + key).removeClass('activeBlue');
+                $('#file' + key).attr('paramLimit', 'h');
+                $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+                break;
+            }
+            case 'w':
+            {
+                $('#fileLimitNo' + key).removeClass('activeBlue');
+                $('#fileLimitHeight' + key).removeClass('activeBlue');
+                $('#fileLimitWidth' + key).addClass('activeBlue');
+                $('#fileLimitSquare' + key).removeClass('activeBlue');
+                $('#file' + key).attr('paramLimit', 'w');
+                $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+                break;
+            }
+            case 's':
+            {
+                $('#fileLimitNo' + key).removeClass('activeBlue');
+                $('#fileLimitHeight' + key).removeClass('activeBlue');
+                $('#fileLimitWidth' + key).removeClass('activeBlue');
+                $('#fileLimitSquare' + key).addClass('activeBlue');
+                $('#file' + key).attr('paramLimit', 's');
+                $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+                break;
+            }
+            case 'n':
+            {
+                $('#fileLimitNo' + key).removeClass('activeBlue');
+                $('#fileLimitHeight' + key).removeClass('activeBlue');
+                $('#fileLimitWidth' + key).removeClass('activeBlue');
+                $('#fileLimitSquare' + key).removeClass('activeBlue');
+                $('#file' + key).attr('paramLimit', '');
+                $('#file' + key).attr('paramLimitValue', '');
+                break;
+            }
+        }
+    }
+    function setAlign(key, align)
+    {
+        switch(align) {
+            case 'left':
+            {
+                $('#fileAlignLeft' + key).addClass('activeBlue');
+                $('#fileAlignCenter' + key).removeClass('activeBlue');
+                $('#fileAlignRight' + key).removeClass('activeBlue');
+                $('#file' + key).attr('paramAlign', align);
+                break;
+            }
+            case 'center':
+            {
+                $('#fileAlignLeft' + key).removeClass('activeBlue');
+                $('#fileAlignCenter' + key).addClass('activeBlue');
+                $('#fileAlignRight' + key).removeClass('activeBlue');
+                $('#file' + key).attr('paramAlign', align);
+                break;
+            }
+            case 'right':
+            {
+                $('#fileAlignLeft' + key).removeClass('activeBlue');
+                $('#fileAlignCenter' + key).removeClass('activeBlue');
+                $('#fileAlignRight' + key).addClass('activeBlue');
+                $('#file' + key).attr('paramAlign', align);
+                break;
+            }
+        }
     }
 
     function publishedNow()
