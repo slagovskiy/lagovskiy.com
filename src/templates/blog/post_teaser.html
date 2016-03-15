@@ -1,4 +1,5 @@
 {% load django_markdown %}
+{% load markup %}
 {% if post %}
     <article id="post1" class="post">
         <header>
@@ -13,7 +14,7 @@
             <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
-            {{ post.teaser|markdown }}
+            {{ post.teaser|medial_file|markdown }}
         </div>
         <div class="post-button">
             <a href="{{ post.get_absolute_url }}">Read more&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
