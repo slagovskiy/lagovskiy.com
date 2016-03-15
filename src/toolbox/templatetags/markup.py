@@ -14,15 +14,21 @@ def medial_file(value):
         align = 'left'
         param = ''
         uuid = ''
+        nolink = False
+        border = False
         tmpl = ''
         for __m in _m.replace('%%', '').lower().split(':'):
             if __m == '':
                 pass
             elif __m == 'img':
                 type = 'img'
+            elif __m == 'nolink':
+                nolink = True
+            elif __m == 'border':
+                border = True
             elif __m in ['left', 'right', 'center']:
                 align = __m
-            elif (__m[0] in ['w', 'h', 'c']) and (__m[1] == '='):
+            elif (__m[0] in ['w', 'h', 's']) and (__m[1] == '='):
                 param = __m
             else:
                 uuid = __m
@@ -32,7 +38,9 @@ def medial_file(value):
                 {
                     'align': align,
                     'param': param,
-                    'uuid': uuid
+                    'uuid': uuid,
+                    'nolink': nolink,
+                    'border': border
                 }
             )
         value = value.replace(_m, tmpl)

@@ -34,6 +34,7 @@
     <script src="{% static 'libs/jbox/jBox.min.js' %}"></script>
     <script src="{% static 'libs/highlight/highlight.pack.js' %}"></script>
     <script src="{% static 'libs/jquery-mask/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'libs/clipboardjs/clipboard.min.js' %}"></script>
 
 	<script src="{% static 'js/main.js' %}"></script>
     {% block ext_js %}
@@ -87,6 +88,7 @@
         $(document).ready(function() {
             hljs.initHighlightingOnLoad();
             $(".fancybox").fancybox();
+            var clipboard = new Clipboard('.clipboard');
         });
     </script>
 	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->

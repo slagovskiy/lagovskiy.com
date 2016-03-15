@@ -243,9 +243,9 @@ button .fa{
 
 
 .post-body img.img-border {
-    border: 1px solid #DDDDDD;
-    background-color: #F0F0F0;
-    padding: 10px;
+    border: 1px solid #E0E0E0;
+    background-color: #F6F6F6;
+    padding: 0.5em;
 }
 
 /* right menu */

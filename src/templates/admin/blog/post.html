@@ -146,18 +146,18 @@
             onmouseover="$('#imagePanel{{:pk}}').css({'display': 'block'});"
             onmouseout="$('#imagePanel{{:pk}}').css({'display': 'none'});"
         >
-            <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/file.img" class="fancybox" data-fancybox-group="gallery">
-                <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110" id="file{{:pk}}" paramLimit="" paramLimitValue="" paramType="{{if fields.image}}image{{else}}file{{/if}}" paramAlign="left" />
+            <a href="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/{{if fields.image}}{{:fields.name}}{{else}}icon.jpg{{/if}}" class="fancybox" data-fancybox-group="gallery">
+                <img src="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/?s=110" id="file{{:pk}}" paramLimit="" paramLimitValue="" paramType="{{if fields.image}}img{{else}}file{{/if}}" paramUUID="{{:fields.uuid}}" paramAlign="left" paramNoLink="0" paramBorder="1" />
             </a>
             <div id="imagePanel{{:pk}}" class="imagePanel">
                 <div class="imagePanelButtons">
                     <a href="#" onclick="setAlign('{{:pk}}', 'left');return false;" title="left align" id="fileAlignLeft{{:pk}}"><i class="fa fa-align-left"></i></a>
                     <a href="#" onclick="setAlign('{{:pk}}', 'center');return false;" title="center align" id="fileAlignCenter{{:pk}}"><i class="fa fa-align-center"></i></a>
                     <a href="#" onclick="setAlign('{{:pk}}', 'right');return false;" title="right align" id="fileAlignRight{{:pk}}"><i class="fa fa-align-right"></i></a>
+                    <a href="#" onclick="setBorder('{{:pk}}');return false;" title="border" id="fileBorder{{:pk}}" class="activeBlue"><i class="fa fa-square-o"></i></a>
                     <i class="fa fa-ellipsis-v" style="font-size: 10px;"></i>
-                    <a href="#" onclick="return false;" title="get code"><i class="fa fa-picture-o"></i></a>
-                    <a href="#" onclick="return false;" title="get link"><i class="fa fa-link"></i></a>
-                    <a href="#" onclick="deleteImage('{{:pk}}');return false;" title="delete"><i class="fa fa-times-circle"></i></a>
+                    <a href="#" onclick="setCode('{{:pk}}');notice('green', 'coped');return false;" title="get code" class="clipboard" id="fileGetCode{{:pk}}" data-clipboard-text="code"><i class="fa fa-picture-o"></i></a>
+                    <a href="#" onclick="notice('green', 'coped');return false;" title="get link" class="clipboard" id="fileGetLink{{:pk}}" data-clipboard-text="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/{{:fields.name}}"><i class="fa fa-link"></i></a>
                     <br>
                     <a href="#" onclick="setLimit('{{:pk}}', 'h');return false;" title="height limit" id="fileLimitHeight{{:pk}}"><i class="fa fa-arrows-v"></i></a>
                     <a href="#" onclick="setLimit('{{:pk}}', 'w');return false;" title="width limit" id="fileLimitWidth{{:pk}}"><i class="fa fa-arrows-h"></i></a>
@@ -176,7 +176,7 @@
                         <option value="600">600</option>
                         <option value="700">700</option>
                     </select>
-                    <a href="#" onclick="setLimit('{{:pk}}', 'n');return false;" title="no limit" id="fileLimitNo{{:pk}}"><i class="fa fa-times"></i></a>
+                    <a href="#" onclick="setNoLink('{{:pk}}');return false;" title="without link" id="fileNoLink{{:pk}}"><i class="fa fa-chain-broken"></i></a>
                 </div>
             </div>
         </div>
@@ -203,6 +203,48 @@
         });
     }
 
+    function setCode(key)
+    {
+        var str = '';
+        str += '%%';
+        str += $('#file' + key).attr('paramType') + ':';
+        str += $('#file' + key).attr('paramUUID');
+        if ($('#file' + key).attr('paramNoLink') == '1') str += ':' + 'nolink';
+        if ($('#file' + key).attr('paramBorder') == '1') str += ':' + 'border';
+        if ($('#file' + key).attr('paramAlign') != '') str += ':' + $('#file' + key).attr('paramAlign');
+        if ($('#file' + key).attr('paramLimit') != '') str += ':' + $('#file' + key).attr('paramLimit') + '=' + $('#file' + key).attr('paramLimitValue');
+        str += '%%';
+        $('#fileGetCode' + key).attr('data-clipboard-text', str);
+    }
+
+    function setBorder(key)
+    {
+        if ($('#file' + key).attr('paramBorder') == '1')
+        {
+            $('#file' + key).attr('paramBorder', 0);
+            $('#fileBorder' + key).removeClass('activeBlue');
+        }
+        else
+        {
+            $('#file' + key).attr('paramBorder', 1);
+            $('#fileBorder' + key).addClass('activeBlue');
+        }
+    }
+
+    function setNoLink(key)
+    {
+        if ($('#file' + key).attr('paramNoLink') == '1')
+        {
+            $('#file' + key).attr('paramNoLink', 0);
+            $('#fileNoLink' + key).removeClass('activeBlue');
+        }
+        else
+        {
+            $('#file' + key).attr('paramNoLink', 1);
+            $('#fileNoLink' + key).addClass('activeBlue');
+        }
+    }
+
     function setLimit(key, limit)
     {
         switch(limit) {
@@ -214,7 +256,6 @@
             }
             case 'h':
             {
-                $('#fileLimitNo' + key).removeClass('activeBlue');
                 $('#fileLimitHeight' + key).addClass('activeBlue');
                 $('#fileLimitWidth' + key).removeClass('activeBlue');
                 $('#fileLimitSquare' + key).removeClass('activeBlue');
@@ -224,7 +265,6 @@
             }
             case 'w':
             {
-                $('#fileLimitNo' + key).removeClass('activeBlue');
                 $('#fileLimitHeight' + key).removeClass('activeBlue');
                 $('#fileLimitWidth' + key).addClass('activeBlue');
                 $('#fileLimitSquare' + key).removeClass('activeBlue');
@@ -234,22 +274,11 @@
             }
             case 's':
             {
-                $('#fileLimitNo' + key).removeClass('activeBlue');
                 $('#fileLimitHeight' + key).removeClass('activeBlue');
                 $('#fileLimitWidth' + key).removeClass('activeBlue');
                 $('#fileLimitSquare' + key).addClass('activeBlue');
                 $('#file' + key).attr('paramLimit', 's');
                 $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
-                break;
-            }
-            case 'n':
-            {
-                $('#fileLimitNo' + key).removeClass('activeBlue');
-                $('#fileLimitHeight' + key).removeClass('activeBlue');
-                $('#fileLimitWidth' + key).removeClass('activeBlue');
-                $('#fileLimitSquare' + key).removeClass('activeBlue');
-                $('#file' + key).attr('paramLimit', '');
-                $('#file' + key).attr('paramLimitValue', '');
                 break;
             }
         }
@@ -392,6 +421,7 @@
             var jdata = jQuery.parseJSON(data);
             var template = $.templates('#dataTemplateImage');
             $('#dataImage').html(template.render(jdata));
+            var clipboard = new Clipboard('.clipboard');
         });
     }
 
