@@ -192,7 +192,7 @@ def post(request, id=None):
         if request.POST.get('do_ping', 'false') == 'on':
             do_ping = True
         if published:
-            published = parse_datetime(published)
+            published = parse_datetime(published.replace('/', '-'))
         else:
             published = None
         if id > 0:
