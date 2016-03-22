@@ -64,23 +64,14 @@
                         <a href="#" class="col-md-1 abtn" onClick="publishedNow(); return false;">now</a>
                     </div>
                     <br>
-                    <input type="checkbox" name="sticked" id="sticked"{{if fields.sticked}} checked{{/if}}>
-                    <label for="sticked" class="checkbox"> sticked</label>
-                    <br>
                     <label for="txtDescription" class="col-md-2">description</label>
                     <textarea name="txtDescription" id="txtDescription" class="col-md-10 text2">{{>fields.description}}</textarea>
                     <br>
                     <label for="txtKeywords" class="col-md-2">keywords</label>
                     <textarea name="txtKeywords" id="txtKeywords" class="col-md-10 text2">{{>fields.keywords}}</textarea>
                     <br>
-                    <input type="checkbox" name="comments_enabled" id="comments_enable"{{if fields.comments_enabled}} checked{{/if}}>
-                    <label for="comments_enabled" class="checkbox"> comments enable</label>
-                    <br>
-                    <input type="checkbox" name="comments_moderated" id="comments_moderated"{{if fields.comments_moderated}} checked{{/if}}>
-                    <label for="comments_moderated" class="checkbox"> comments moderated</label>
-                    <br>
-                    <input type="checkbox" name="do_ping" id="do_ping"{{if fields.do_ping}} checked{{/if}}>
-                    <label for="do_ping" class="checkbox"> ping</label>
+                    <input type="checkbox" name="sticked" id="sticked"{{if fields.sticked}} checked{{/if}}>
+                    <label for="sticked" class="checkbox"> sticked</label>
                     <br>
                 </div>
                 <div id="labels" class="tab-pane fade">
@@ -89,7 +80,18 @@
                     <div id="dataTag" class="checkboxes"></div>
                 </div>
                 <div id="social" class="tab-pane fade">
-                    social
+                    <label for="txtSocialImage" class="col-md-2">image for social</label>
+                    <textarea name="txtSocialImage" id="txtSocialImage" class="col-md-10 text">{{>fields.social_image}}</textarea>
+                    <br>
+                    <input type="checkbox" name="comments_enabled" id="comments_enabled"{{if fields.comments_enabled}} checked{{/if}}>
+                    <label for="comments_enabled" class="checkbox"> comments enable</label>
+                    <br>
+                    <input type="checkbox" name="comments_moderated" id="comments_moderated"{{if fields.comments_moderated}} checked{{/if}}>
+                    <label for="comments_moderated" class="checkbox"> comments moderated</label>
+                    <br>
+                    <input type="checkbox" name="do_ping" id="do_ping"{{if fields.do_ping}} checked{{/if}}>
+                    <label for="do_ping" class="checkbox"> ping</label>
+                    <br>
                 </div>
                 <div id="media" class="tab-pane fade">
                     <div id="dataFolder" class="col-md-12"></div>
