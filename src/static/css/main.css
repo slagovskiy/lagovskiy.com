@@ -132,6 +132,10 @@ button .fa{
     padding-top: 0.5em;
 }
 
+.post header {
+    padding-bottom: 1.3em;
+}
+
 .post-header1 {
     line-height: 2em;
 }
