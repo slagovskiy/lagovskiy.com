@@ -1,57 +1,62 @@
+{% extends 'site.html' %}
 {% load django_markdown %}
 {% load markup %}
+{% load tags %}
 
 
 {% block ext_meta %}
     {% if post %}
+        {% url 'blog_post' post.slug as post_url %}
         <meta name="description" content="{{ post.description }}" />
 
         <!-- Schema.org markup for Google+ -->
         <meta itemprop="name" content="{{ post.title }}">
         <meta itemprop="description" content="{{ post.description }}">
-        <meta itemprop="image" content="{{ post.social_image }}">
+        <meta itemprop="image" content="{% make_absoulute_url post.social_image %}">
 
         <!-- Twitter Card data -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@publisher_handle">
-        <meta name="twitter:title" content="Page Title">
-        <meta name="twitter:description" content="Page description less than 200 characters">
-        <meta name="twitter:creator" content="@author_handle">
+        <meta name="twitter:card" content="{% make_absoulute_url post.social_image %}">
+        <!--<meta name="twitter:site" content="@publisher_handle">-->
+        <meta name="twitter:title" content="{{ post.title }}">
+        <meta name="twitter:description" content="{{ post.description }}">
+        <!--<meta name="twitter:creator" content="@author_handle">-->
         <!-- Twitter summary card with large image must be at least 280x150px -->
-        <meta name="twitter:image:src" content="http://www.example.com/image.html">
+        <!--<meta name="twitter:image:src" content="http://www.example.com/image.html">-->
 
         <!-- Open Graph data -->
-        <meta property="og:title" content="Title Here" />
+        <meta property="og:title" content="{{ post.title }}" />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content="http://www.example.com/" />
-        <meta property="og:image" content="http://example.com/image.jpg" />
-        <meta property="og:description" content="Description Here" />
-        <meta property="og:site_name" content="Site Name, i.e. Moz" />
-        <meta property="article:published_time" content="2013-09-17T05:59:00+01:00" />
-        <meta property="article:modified_time" content="2013-09-16T19:08:47+01:00" />
-        <meta property="article:section" content="Article Section" />
-        <meta property="article:tag" content="Article Tag" />
-        <meta property="fb:admins" content="Facebook numberic ID" />
+        <meta property="og:url" content="{% make_absoulute_url post_url %}" />
+        <meta property="og:image" content="{% make_absoulute_url post.social_image %}" />
+        <meta property="og:description" content="{{ post.description }}" />
+        <meta property="og:site_name" content="{{ request.session.global.site_name }}" />
+        <meta property="article:published_time" content="{{ post.published }}" />
+        <meta property="article:modified_time" content="{{ post.published }}" />
+        {% for category in post.categories.all %}<meta property="article:section" content="{{ category.name }}" />{% endfor %}
+        {% for tag in post.tags.all %}<meta property="article:tag" content="{{ tag.name }}" />{% endfor %}
+        <!--<meta property="fb:admins" content="Facebook numberic ID" />-->
     {% endif %}
 {% endblock %}
 
-{% if post %}
-    <article id="post1" class="post">
-        <header>
-            <div class="post-header1">
-                <h2 class="post-category col-md-9">
-                    {% if post.id %}
-                        {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
-                    {% endif %}
-                </h2>
-                <div class="col-md-3 post-date">{{ post.published }}</div>
+{% block content %}
+    {% if post %}
+        <article id="post_{{ post.id }}" class="post">
+            <header>
+                <div class="post-header1">
+                    <h2 class="post-category col-md-9">
+                        {% if post.id %}
+                            {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
+                        {% endif %}
+                    </h2>
+                    <div class="col-md-3 post-date">{{ post.published }}</div>
+                </div>
+                <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+            </header>
+            <div class="post-body clearfix">
+                {{ post.teaser|medial_file|markdown }}
+                <hr>
+                {{ post.content|medial_file|markdown }}
             </div>
-            <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
-        </header>
-        <div class="post-body clearfix">
-            {{ post.teaser|medial_file|markdown }}
-            <hr>
-            {{ post.content|medial_file|markdown }}
-        </div>
-    </article>
-{% endif %}
+        </article>
+    {% endif %}
+{% endblock %}
