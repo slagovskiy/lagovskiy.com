@@ -217,6 +217,7 @@ def post(request, id=None):
         keywords = str(request.POST.get('txtKeywords', ''))
         teaser = str(request.POST.get('txtTeaser', ''))
         content = str(request.POST.get('txtContent', ''))
+        social_image = str(request.POST.get('txtSocialImage', ''))
         categories = request.POST.getlist('_category', [])
         tags = request.POST.getlist('_tag', [])
         sticked = False
@@ -251,6 +252,7 @@ def post(request, id=None):
                 post.comments_enabled = comments_enabled
                 post.comments_moderated = comments_moderated
                 post.do_ping = do_ping
+                post.social_image = social_image
                 post.categories.clear()
                 for _category in categories:
                     c = Category.objects.filter(slug=_category).first()

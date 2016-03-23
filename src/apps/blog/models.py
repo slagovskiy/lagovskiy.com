@@ -154,6 +154,10 @@ class Post(models.Model):
     content_prev = models.TextField(
         default=''
     )
+    social_image = models.TextField(
+        max_length=255
+    )
+
 
     def __str__(self):
         return '<Post %s>' % self.title
