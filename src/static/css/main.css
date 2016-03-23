@@ -281,7 +281,6 @@ button .fa{
 }
 .right-menu section ul.tag li {
     display: inline;
-    white-space: nowrap;
 }
 
 .right-menu section ul.tag li a {
