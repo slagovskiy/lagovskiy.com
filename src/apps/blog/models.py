@@ -155,7 +155,8 @@ class Post(models.Model):
         default=''
     )
     social_image = models.TextField(
-        max_length=255
+        max_length=255,
+        default=''
     )
 
 
