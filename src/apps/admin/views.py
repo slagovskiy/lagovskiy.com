@@ -14,6 +14,7 @@ from apps.media.models import Folder, File
 from apps.media.utils import create_icon
 from odyssey.settings import UPLOAD_DIR
 from toolbox.imghdr import what
+from toolbox.models import Global
 
 
 @login_required()
@@ -44,6 +45,45 @@ def login_action(request):
 def logout_action(request):
     logout(request)
     return redirect('/')
+
+
+@login_required()
+@user_passes_test(admin_check)
+def global_view(request, id=None):
+    data = None
+    if request.POST:
+        # save data
+        id = int(request.POST.get('id', 0))
+        slug = str(request.POST.get('txtSlug', ''))
+        value = str(request.POST.get('txtValue', ''))
+        if id == -1:    # new object
+            if Global.set(slug, value):
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('Global value save error')
+        else:   # save object
+            if Global.set(slug, value):
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('Global value save error')
+    elif id is None:
+        # return admin form
+        return render(request, 'admin/toolbox/global.html')
+    elif id == '0':
+        # return all in json
+        data = serializers.serialize('json', Global.objects.all())
+        return JsonResponse('{"items": %s}' % data, safe=False)
+    else:
+        # return one in json
+        g = Global.objects.all().filter(id=id).first()
+        if g is None:
+            g = Global(
+                id=-1,
+                slug='new_global',
+                value='new global'
+            )
+        data = serializers.serialize('json', [g, ])
+        return JsonResponse('{"items": %s}' % data, safe=False)
 
 
 @login_required()
