@@ -11,7 +11,7 @@
                 </h2>
                 <div class="col-md-3 post-date">{{ post.published }}</div>
             </div>
-            <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+            <h1 class="post-title"><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
             {{ post.teaser|medial_file|markdown }}
