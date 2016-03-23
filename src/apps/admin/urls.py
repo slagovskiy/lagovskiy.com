@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from .views import index, login_action, logout_action
+from .views import global_view
 from .views import tag, category, post, post_tag, post_category, post_preview
 from .views import mylink
 from .views import media_folder, upload, media_files, media_file
@@ -10,6 +11,10 @@ urlpatterns = [
 
     url(r'^login/$', login_action, name='login'),
     url(r'^logout/$', logout_action, name='logout'),
+
+    url(r'^blog/global/$', global_view, name='admin_global'),
+    url(r'^blog/global/(?P<id>[-\w]+)/$', global_view, name='admin_global_get'),
+    url(r'^blog/global/save/$', global_view, name='admin_global_save'),
 
     url(r'^blog/tag/$', tag, name='admin_tag'),
     url(r'^blog/tag/(?P<id>[-\w]+)/$', tag, name='admin_tag_get'),
