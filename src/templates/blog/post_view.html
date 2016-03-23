@@ -21,7 +21,7 @@
         <meta name="twitter:description" content="{{ post.description }}">
         <!--<meta name="twitter:creator" content="@author_handle">-->
         <!-- Twitter summary card with large image must be at least 280x150px -->
-        <!--<meta name="twitter:image:src" content="http://www.example.com/image.html">-->
+        <meta name="twitter:image:src" content="{% make_absoulute_url post.social_image %}">
 
         <!-- Open Graph data -->
         <meta property="og:title" content="{{ post.title }}" />
