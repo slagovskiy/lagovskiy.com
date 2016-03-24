@@ -71,8 +71,8 @@
 {% verbatim %}
 
             <div class="fields">
-                <select name="folder_key">
-                    {{for items}}<option value="{{:pk}}">{{:fields.name}}</option>{{/for}}
+                <select name="folder">
+                    {{for items}}<option value="{{:fields.uuid}}">{{:fields.name}}</option>{{/for}}
                 </select>
                 <hr>
                 <div class="col-md-12">
