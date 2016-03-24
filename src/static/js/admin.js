@@ -144,6 +144,80 @@ function saveCategoryData() {
     });
 }
 
+//MYLINK
+//url_mylink_get_all = '{% url 'admin_mylink_get' 0 %}';
+//url_mylink_get = '{% url 'admin_mylink' %}';
+//url_mylink_save = '{% url 'admin_mylink_save' %}';
+
+
+function loadLinkData()
+{
+    $('#dataContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_mylink_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataLinkTemplate');
+        $('#dataLinkContainer').html(template.render(jdata));
+    });
+}
+
+function editLinkData(key)
+{
+    $.ajax({
+        url : url_mylink_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataLinkEdit');
+        $('#dataLinkForm').html(template.render(jdata));
+    });
+
+    $('.open-data-form').fancybox({
+        padding: 0,
+        type: 'inline',
+        title: '',
+        modal: false,
+        autoSize: true
+    });
+}
+
+function deleteLinkItem() {
+    $("#dataLinkForm form #deleted").val('true');
+    saveLinkData();
+}
+
+function restoreLinkItem() {
+    $("#dataLinkForm form #deleted").val('false');
+    saveLinkData();
+}
+
+function saveLinkData() {
+    $.ajax({
+        type: 'POST',
+        url: url_mylink_save,
+        data: $("#dataLinkForm form").serialize()
+        })
+        .done(function(data){
+            if(data=='ok') {
+                notice('green', 'saved');
+                $.fancybox.close();
+                loadLinkData();
+            }
+            else {
+                notice('red', data);
+            }
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+$("#dataLinkForm form").submit(function(){
+        return false;
+    });
+}
+
+
 $(document).ready(function() {
     $('.dateMask').mask('0000/00/00');
     $('.datetimeMask').mask('0000/00/00 00:00:00');
