@@ -108,11 +108,6 @@
 <div id="dataFolderContainer" class="dataContainer"></div>
 <div id="dataFolderContainerImages" class="pageform"></div>
 
-<script src="{% static 'js/upload.js' %}" rel="script"></script>
-<script>
-    UPLOAD_URL = "{% url "admin_upload" %}";
-</script>
-
 <script>
     $(document).ready(function(){
         url_folder_get_all = '{% url 'admin_folder_get' 0 %}';
@@ -120,6 +115,7 @@
         url_files_get = '{% url 'admin_files' %}';
         url_file_get = '{% url 'admin_file' %}';
         url_folder_save = '{% url 'admin_folder_save' %}';
+        UPLOAD_URL = "{% url "admin_upload" %}";
 
         loadFolderData();
     });
