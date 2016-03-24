@@ -5,7 +5,7 @@
 <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
 
 {% verbatim %}
-    <script id="dataTemplate" type="text/x-jsrender">
+    <script id="dataTagTemplate" type="text/x-jsrender">
         <table class="data">
         <thead>
             <tr>
@@ -16,14 +16,14 @@
         {{for items}}
             <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
                 <td>
-                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
+                    <a href="#dataTagForm" onclick="editTagData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
                 </td>
                 <td>{{>fields.slug}}</td>
             </tr>
         {{/for}}
         </table>
     </script>
-    <script id="dataEdit" type="text/x-jsrender">
+    <script id="dataTagEdit" type="text/x-jsrender">
         <form id="editForm">{{for items}}
             <div class="fields">
 {% endverbatim %}
@@ -39,11 +39,11 @@
                 <br>
             </div>
             <div class="action">
-                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                <button onclick="saveTagData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
                 {{if fields.deleted}}
-                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                <button onclick="restoreTagItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
                 {{else}}
-                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                <button onclick="deleteTagItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
                 {{/if}}
             </div>
         {{/for}}</form>
@@ -51,82 +51,19 @@
 {% endverbatim %}
 
 <div class="admin-action">
-    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
-    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+    <a href="#dataTagForm" onclick="editTagData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new tag</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadTagData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
-<div id="dataForm" class="window" style="display: none;"></div>
-<div id="dataContainer" class="dataContainer"></div>
+<div id="dataTagForm" class="window" style="display: none;"></div>
+<div id="dataTagContainer" class="dataContainer"></div>
 
 <script>
-    function loadData()
-    {
-        $('#dataContainer').html('<div class="loader"></div>');
-        $.ajax({
-            url :'{% url 'admin_tag_get' 0 %}',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplate');
-            $('#dataContainer').html(template.render(jdata));
-        });
-    }
-
-    function editData(key)
-    {
-        $.ajax({
-            url :'{% url 'admin_tag' %}' + key + '/',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataEdit');
-            $('#dataForm').html(template.render(jdata));
-        });
-
-        $('.open-data-form').fancybox({
-            padding: 0,
-            type: 'inline',
-            title: '',
-            modal: false,
-            autoSize: true
-        });
-    }
-
-    function deleteItem() {
-        $("#dataForm form #deleted").val('true');
-        saveData();
-    }
-
-    function restoreItem() {
-        $("#dataForm form #deleted").val('false');
-        saveData();
-    }
-
-    function saveData() {
-        $.ajax({
-                type: 'POST',
-                url: '{% url 'admin_tag_save' %}',
-                data: $("#dataForm form").serialize()
-            })
-            .done(function(data){
-                if(data=='ok') {
-                    notice('green', 'saved');
-                    $.fancybox.close();
-                    loadData();
-                }
-                else {
-                    notice('red', data);
-                }
-            })
-            .fail(function(){
-                notice('red', 'data transfer error');
-            });
-        $("#dataForm form").submit(function(){
-            return false;
-        });
-    }
+    url_tag_get_all = '{% url 'admin_tag_get' 0 %}';
+    url_tag_get = '{% url 'admin_tag' %}';
+    url_tag_save = '{% url 'admin_tag_save' %}';
 
     $(document).ready(function(){
-        loadData();
+        loadTagData();
     });
 </script>
 {% endblock %}

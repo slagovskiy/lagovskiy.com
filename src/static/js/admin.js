@@ -1,3 +1,75 @@
+// TAG
+//url_tag_get_all = '{% url 'admin_tag_get' 0 %}';
+//url_tag_get = '{% url 'admin_tag' %}';
+//url_tag_save = '{% url 'admin_tag_save' %}';
+
+function loadTagData()
+{
+    $('#dataContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_tag_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataTagTemplate');
+        $('#dataTagContainer').html(template.render(jdata));
+    });
+}
+
+function editTagData(key)
+{
+    $.ajax({
+        url :url_tag_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataTagEdit');
+        $('#dataTagForm').html(template.render(jdata));
+    });
+
+    $('.open-data-form').fancybox({
+        padding: 0,
+        type: 'inline',
+        title: '',
+        modal: false,
+        autoSize: true
+    });
+}
+
+function deleteTagItem() {
+    $("#dataTagForm form #deleted").val('true');
+    saveTagData();
+}
+
+function restoreTagItem() {
+    $("#dataTagForm form #deleted").val('false');
+    saveTagData();
+}
+
+function saveTagData() {
+    $.ajax({
+            type: 'POST',
+            url: url_tag_save,
+            data: $("#dataTagForm form").serialize()
+        })
+        .done(function(data){
+            if(data=='ok') {
+                notice('green', 'saved');
+                $.fancybox.close();
+                loadTagData();
+            }
+            else {
+                notice('red', data);
+            }
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+    $("#dataTagForm form").submit(function(){
+        return false;
+    });
+}
+
 $(document).ready(function() {
     $('.dateMask').mask('0000/00/00');
     $('.datetimeMask').mask('0000/00/00 00:00:00');
