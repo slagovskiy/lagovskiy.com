@@ -274,7 +274,7 @@ def post(request, id=None):
         return render(request, 'admin/blog/post.html')
     elif id == '0':
         # return all in json
-        data = serializers.serialize('json', Post.objects.all().order_by('status', 'created'))
+        data = serializers.serialize('json', Post.objects.all().order_by('status', '-created'))
         jdata = json.loads(data)
         for _jdata in jdata:
             _jdata['fields']['statusname'] = Post.STATUS_CHOICES[_jdata['fields']['status']][1]
