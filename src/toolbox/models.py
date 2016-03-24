@@ -39,6 +39,7 @@ class Global(models.Model):
                 return True
             else:
                 g.value = value
+                g.save()
                 return True
 
     class Meta:

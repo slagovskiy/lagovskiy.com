@@ -590,6 +590,71 @@ $("#dataFileForm form").submit(function(){
 
 
 /////////////////////////////////////////////////////
+//                     GLOBAL
+/////////////////////////////////////////////////////
+//url_global_get_all = '{% url 'admin_global_get' 0 %}'
+//url_global_get = '{% url 'admin_global' %}';
+//url_global_save = '{% url 'admin_global_save' %}';
+
+function loadGlobalData()
+{
+    $('#dataContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_global_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataGlobalTemplate');
+        $('#dataGlobalContainer').html(template.render(jdata));
+    });
+}
+
+function editGlobalData(key)
+{
+    $.ajax({
+        url : url_global_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataGlobalEdit');
+        $('#dataGlobalForm').html(template.render(jdata));
+    });
+
+    $('.open-data-form').fancybox({
+        padding: 0,
+        type: 'inline',
+        title: '',
+        modal: false,
+        autoSize: true
+    });
+}
+
+function saveGlobalData() {
+    $.ajax({
+            type: 'POST',
+            url: url_global_save,
+            data: $("#dataGlobalForm form").serialize()
+        })
+        .done(function(data){
+            if(data=='ok') {
+                notice('green', 'saved');
+                $.fancybox.close();
+                loadGlobalData();
+            }
+            else {
+                notice('red', data);
+            }
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+    $("#dataGlobalForm form").submit(function(){
+        return false;
+    });
+}
+
+
+/////////////////////////////////////////////////////
 //                     READY
 /////////////////////////////////////////////////////
 

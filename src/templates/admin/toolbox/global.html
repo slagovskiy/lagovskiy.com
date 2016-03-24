@@ -5,7 +5,7 @@
 <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
 
 {% verbatim %}
-    <script id="dataTemplate" type="text/x-jsrender">
+    <script id="dataGlobalTemplate" type="text/x-jsrender">
         <table class="data">
         <thead>
             <tr>
@@ -16,15 +16,15 @@
         {{for items}}
             <tr class="{{if #getIndex()%2}}even{{/if}}">
                 <td>
-                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.slug}}</a>
+                    <a href="#dataGlobalForm" onclick="editGlobalData({{:pk}});return false;" class="open-data-form">{{>fields.slug}}</a>
                 </td>
                 <td>{{>fields.value}}</td>
             </tr>
         {{/for}}
         </table>
     </script>
-    <script id="dataEdit" type="text/x-jsrender">
-        <form id="editForm">{{for items}}
+    <script id="dataGlobalEdit" type="text/x-jsrender">
+        <form id="editGlobalForm">{{for items}}
             <div class="fields">
 {% endverbatim %}
                 {% csrf_token %}
@@ -38,79 +38,26 @@
                 <br>
             </div>
             <div class="action">
-                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                <button onclick="saveGlobalData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
             </div>
         {{/for}}</form>
     </script>
 {% endverbatim %}
 
 <div class="admin-action">
-    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new value</a>&nbsp;&nbsp;&nbsp;
-    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+    <a href="#dataGlobalForm" onclick="editGlobalData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new value</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadGlobalData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
-<div id="dataForm" class="window" style="display: none;"></div>
-<div id="dataContainer" class="dataContainer"></div>
+<div id="dataGlobalForm" class="window" style="display: none;"></div>
+<div id="dataGlobalContainer" class="dataContainer"></div>
 
 <script>
-    function loadData()
-    {
-        $('#dataContainer').html('<div class="loader"></div>');
-        $.ajax({
-            url :'{% url 'admin_global_get' 0 %}',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplate');
-            $('#dataContainer').html(template.render(jdata));
-        });
-    }
-
-    function editData(key)
-    {
-        $.ajax({
-            url :'{% url 'admin_global' %}' + key + '/',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataEdit');
-            $('#dataForm').html(template.render(jdata));
-        });
-
-        $('.open-data-form').fancybox({
-            padding: 0,
-            type: 'inline',
-            title: '',
-            modal: false,
-            autoSize: true
-        });
-    }
-
-    function saveData() {
-        $.ajax({
-                type: 'POST',
-                url: '{% url 'admin_global_save' %}',
-                data: $("#dataForm form").serialize()
-            })
-            .done(function(data){
-                if(data=='ok') {
-                    notice('green', 'saved');
-                    $.fancybox.close();
-                    loadData();
-                }
-                else {
-                    notice('red', data);
-                }
-            })
-            .fail(function(){
-                notice('red', 'data transfer error');
-            });
-        $("#dataForm form").submit(function(){
-            return false;
-        });
-    }
-
     $(document).ready(function(){
-        loadData();
+        url_global_get_all = '{% url 'admin_global_get' 0 %}'
+        url_global_get = '{% url 'admin_global' %}';
+        url_global_save = '{% url 'admin_global_save' %}';
+
+        loadGlobalData();
     });
 </script>
 {% endblock %}
