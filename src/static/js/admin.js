@@ -217,6 +217,125 @@ $("#dataLinkForm form").submit(function(){
     });
 }
 
+//FOLDER
+//url_folder_get_all = '{% url 'admin_folder_get' 0 %}';
+//url_folder_get = '{% url 'admin_folder' %}';
+//url_files_get = '{% url 'admin_files' %}';
+//url_file_get = '{% url 'admin_file' %}';
+//url_folder_save = '{% url 'admin_folder_save' %}';
+
+function loadFolderData()
+{
+    $('#dataFolderContainer').html('<div class="loader"></div>');
+    $('#dataFolderContainerImages').html('');
+    $.ajax({
+        url : url_folder_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFolderTemplate');
+        $('#dataFolderContainer').html(template.render(jdata));
+    });
+}
+
+function editFolderData(key)
+{
+    $.ajax({
+        url : url_folder_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFolderEdit');
+        $('#dataFolderForm').html(template.render(jdata));
+    });
+
+    $('.open-data-form').fancybox({
+        padding: 0,
+        type: 'inline',
+        title: '',
+        modal: false,
+        autoSize: true
+    });
+}
+
+function deleteFolderItem() {
+    $("#dataFolderForm form #deleted").val('true');
+    saveFolderData();
+}
+
+function restoreFolderItem() {
+    $("#dataFolderForm form #deleted").val('false');
+    saveFolderData();
+}
+
+function saveFolderData() {
+    $.ajax({
+        type: 'POST',
+        url: url_folder_save,
+        data: $("#dataFolderForm form").serialize()
+        })
+        .done(function(data){
+            if(data=='ok') {
+                notice('green', 'saved');
+                $.fancybox.close();
+                loadFolderData();
+            }
+            else {
+                notice('red', data);
+            }
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+$("#dataFolderForm form").submit(function(){
+        return false;
+    });
+}
+
+
+function loadFolderImagesData(key)
+{
+    $('#dataFolderContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_folder_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFolderUpload');
+        $('#dataFolderContainer').html(template.render(jdata));
+        initUpload();
+        loadFolderImages(key);
+    });
+}
+
+function loadFolderImages(key)
+{
+    $('#dataContainerImages').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_files_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFolderImages');
+        $('#dataFolderContainerImages').html(template.render(jdata));
+    });
+}
+
+function deleteFolderImage(key)
+{
+    $.ajax({
+        url : url_file_get + key + '/?action=delete',
+        cashe: false
+    }).done(function(data){
+        if (data=='ok')
+        {
+            $('#imageItem' + key).hide();
+            notice('green', 'file deleted');
+        }
+    });
+}
+
+
 
 $(document).ready(function() {
     $('.dateMask').mask('0000/00/00');

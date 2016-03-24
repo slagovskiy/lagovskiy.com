@@ -6,7 +6,7 @@
 
 
     {% verbatim %}
-    <script id="dataTemplate" type="text/x-jsrender">
+    <script id="dataFolderTemplate" type="text/x-jsrender">
         <table class="data">
         <thead>
             <tr>
@@ -17,15 +17,15 @@
         {{for items}}
             <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
                 <td>
-                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{cutstr max=70}}{{>fields.name}}{{/cutstr}}</a>
+                    <a href="#dataFolderForm" onclick="editFolderData({{:pk}});return false;" class="open-data-form">{{cutstr max=70}}{{>fields.name}}{{/cutstr}}</a>
                 </td>
-                <td><a href="#" onClick="loadFolderData({{:pk}});return false;">view</a></td>
+                <td><a href="#" onClick="loadFolderImagesData({{:pk}});return false;">view</a></td>
             </tr>
         {{/for}}
         </table>
     </script>
-    <script id="dataEdit" type="text/x-jsrender">
-        <form id="editForm">{{for items}}
+    <script id="dataFolderEdit" type="text/x-jsrender">
+        <form id="editFolderForm">{{for items}}
             <div class="fields">
 {% endverbatim %}
                 {% csrf_token %}
@@ -40,16 +40,16 @@
                 <br>
             </div>
             <div class="action">
-                <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                <button onclick="saveFolderData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
                 {{if fields.deleted}}
-                <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                <button onclick="restoreFolderItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
                 {{else}}
-                <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                <button onclick="deleteFolderItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
                 {{/if}}
             </div>
         {{/for}}</form>
     </script>
-    <script id="dataUpload" type="text/x-jsrender">
+    <script id="dataFolderUpload" type="text/x-jsrender">
         <form id="upload-form" action="" method="POST" enctype="multipart/form-data">{{for items}}
             <input type="hidden" name="folder" value="{{:fields.uuid}}">
             <input type="hidden" name="folder_key" id="folder_key" value="{{:pk}}">
@@ -82,7 +82,7 @@
             </div>
         {{/for}}</form>
     </script>
-    <script id="dataImages" type="text/x-jsrender">
+    <script id="dataFolderImages" type="text/x-jsrender">
     {{for items}}
     <div class="col-md-2 imagePreview" id="imageItem{{:pk}}"
         onmouseover="$('#imagePanel{{:pk}}').css({'display': 'block'});"
@@ -93,7 +93,7 @@
         </a>
         <div id="imagePanel{{:pk}}" class="imagePanel">
             <div class="imagePanelButtons">
-                <a href="#" onclick="deleteImage('{{:pk}}');return false;">delete</a>
+                <a href="#" onclick="deleteFolderImage('{{:pk}}');return false;">delete</a>
             </div>
         </div>
     </div>
@@ -101,12 +101,12 @@
     </script>
 {% endverbatim %}
 <div class="admin-action">
-    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new folder</a>&nbsp;&nbsp;&nbsp;
-    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+    <a href="#dataFolderForm" onclick="editFolderData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new folder</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadFolderData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
-<div id="dataForm" class="window" style="display: none;"></div>
-<div id="dataContainer" class="dataContainer"></div>
-<div id="dataContainerImages" class="pageform"></div>
+<div id="dataFolderForm" class="window" style="display: none;"></div>
+<div id="dataFolderContainer" class="dataContainer"></div>
+<div id="dataFolderContainerImages" class="pageform"></div>
 
 <script src="{% static 'js/upload.js' %}" rel="script"></script>
 <script>
@@ -114,118 +114,14 @@
 </script>
 
 <script>
-    function loadData()
-    {
-        $('#dataContainer').html('<div class="loader"></div>');
-        $('#dataContainerImages').html('');
-        $.ajax({
-            url :'{% url 'admin_folder_get' 0 %}',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplate');
-            $('#dataContainer').html(template.render(jdata));
-        });
-    }
-
-    function loadFolderData(key)
-    {
-        $('#dataContainer').html('<div class="loader"></div>');
-        $.ajax({
-            url :'{% url 'admin_folder' %}' + key + '/',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataUpload');
-            $('#dataContainer').html(template.render(jdata));
-            initUpload();
-            loadFolderImages(key);
-        });
-    }
-
-    function loadFolderImages(key)
-    {
-        $('#dataContainerImages').html('<div class="loader"></div>');
-        $.ajax({
-            url :'{% url 'admin_files' %}' + key + '/',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataImages');
-            $('#dataContainerImages').html(template.render(jdata));
-        });
-    }
-
-    function deleteImage(key)
-    {
-        $.ajax({
-            url :'{% url 'admin_file' %}' + key + '/?action=delete',
-            cashe: false
-        }).done(function(data){
-            if (data=='ok')
-            {
-                $('#imageItem' + key).hide();
-                notice('green', 'file deleted');
-            }
-        });
-    }
-
-    function editData(key)
-    {
-        $.ajax({
-            url :'{% url 'admin_folder' %}' + key + '/',
-            cashe: false
-        }).done(function(data){
-            var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataEdit');
-            $('#dataForm').html(template.render(jdata));
-        });
-
-        $('.open-data-form').fancybox({
-            padding: 0,
-            type: 'inline',
-            title: '',
-            modal: false,
-            autoSize: true
-        });
-    }
-
-    function deleteItem() {
-        $("#dataForm form #deleted").val('true');
-        saveData();
-    }
-
-    function restoreItem() {
-        $("#dataForm form #deleted").val('false');
-        saveData();
-    }
-
-    function saveData() {
-        $.ajax({
-            type: 'POST',
-            url: '{% url 'admin_folder_save' %}',
-            data: $("#dataForm form").serialize()
-            })
-            .done(function(data){
-                if(data=='ok') {
-                    notice('green', 'saved');
-                    $.fancybox.close();
-                    loadData();
-                }
-                else {
-                    notice('red', data);
-                }
-            })
-            .fail(function(){
-                notice('red', 'data transfer error');
-            });
-    $("#dataForm form").submit(function(){
-            return false;
-        });
-    }
-
     $(document).ready(function(){
-        loadData();
+        url_folder_get_all = '{% url 'admin_folder_get' 0 %}';
+        url_folder_get = '{% url 'admin_folder' %}';
+        url_files_get = '{% url 'admin_files' %}';
+        url_file_get = '{% url 'admin_file' %}';
+        url_folder_save = '{% url 'admin_folder_save' %}';
+
+        loadFolderData();
     });
 </script>
 {% endblock %}

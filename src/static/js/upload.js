@@ -59,7 +59,7 @@ function doUpload() {
         $progressBar.css({"width": "100%"});
         $("#progress").hide();
         $("#upload-form :input").removeAttr("disabled");
-        loadFolderData($('#folder_key').val());
+        loadFolderImagesData($('#folder_key').val());
     })
     .fail(function() {
         notice("red", "error send file");
