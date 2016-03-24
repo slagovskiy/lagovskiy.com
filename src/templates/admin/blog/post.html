@@ -5,7 +5,7 @@
 <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
 
 {% verbatim %}
-    <script id="dataTemplate" type="text/x-jsrender">
+    <script id="dataPostTemplate" type="text/x-jsrender">
         <table class="data">
         <thead>
             <tr>
@@ -17,7 +17,7 @@
         {{for items}}
             <tr class="{{if #getIndex()%2}}even{{/if}}">
                 <td>
-                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.title}}</a>
+                    <a href="#dataPostForm" onclick="editPostData({{:pk}});return false;" class="open-data-form">{{>fields.title}}</a>
                 </td>
                 <td>{{>fields.slug}}</td>
                 <td>{{>fields.statusname}}</td>
@@ -25,8 +25,8 @@
         {{/for}}
         </table>
     </script>
-    <script id="dataEdit" type="text/x-jsrender">
-        <form id="editForm">{{for items}}
+    <script id="dataPostEdit" type="text/x-jsrender">
+        <form id="editPostForm">{{for items}}
         <input type="hidden" value="{{:pk}}" name="id">
 {% endverbatim %}
             {% csrf_token %}
@@ -37,7 +37,7 @@
               <li><a data-toggle="tab" href="#social">social</a></li>
               <li><a data-toggle="tab" href="#media">media</a></li>
               <li><a data-toggle="tab" href="#content">content</a></li>
-              <li><a data-toggle="tab" href="#preview" onclick="loadPreview();">preview</a></li>
+              <li><a data-toggle="tab" href="#preview" onclick="loadPostPreview();">preview</a></li>
             </ul>
             <div class="tab-content fields">
                 <div id="meta" class="tab-pane fade in active">
@@ -53,7 +53,7 @@
                             <input type="radio" name="status" value="0" id="status_0" class="hide"><a href="#" id="status_btn_0" onclick="check_status('0');return false;">draft</a>
                             <input type="radio" name="status" value="1" id="status_1" class="hide"><a href="#" id="status_btn_1" onclick="check_status('1');return false;">hidden</a>
                             <input type="radio" name="status" value="2" id="status_2" class="hide"><a href="#" id="status_btn_2" onclick="check_status('2');return false;">public</a>
-                            <script>check_status('{{:fields.status}}');{{:'<'}}/script>
+                            <script>PostCheck_status('{{:fields.status}}');{{:'<'}}/script>
                         </div>
                         <br>
                     </div>
@@ -61,7 +61,7 @@
                     <div class="col-md-12">
                         <label for="txtPublished" class="col-md-2">published</label>
                         <input type="text" name="txtPublished" id="txtPublished" class="col-md-9 text datetimeMask" value="{{datetime:fields.published}}">
-                        <a href="#" class="col-md-1 abtn" onClick="publishedNow(); return false;">now</a>
+                        <a href="#" class="col-md-1 abtn" onClick="PostPublishedNow(); return false;">now</a>
                     </div>
                     <br>
                     <label for="txtDescription" class="col-md-2">description</label>
@@ -75,9 +75,9 @@
                     <br>
                 </div>
                 <div id="labels" class="tab-pane fade">
-                    <div id="dataCategory" class="checkboxes"></div>
+                    <div id="dataPostCategory" class="checkboxes"></div>
                     <hr>
-                    <div id="dataTag" class="checkboxes"></div>
+                    <div id="dataPostTag" class="checkboxes"></div>
                 </div>
                 <div id="social" class="tab-pane fade">
                     <label for="txtSocialImage" class="col-md-2">image for social</label>
@@ -94,9 +94,9 @@
                     <br>
                 </div>
                 <div id="media" class="tab-pane fade">
-                    <div id="dataFolder" class="col-md-12"></div>
+                    <div id="dataPostFolder" class="col-md-12"></div>
                     <hr class="col-md-12">
-                    <div id="dataImage" class="col-md-12"></div>
+                    <div id="dataPostImage" class="col-md-12"></div>
                 </div>
                 <div id="content" class="tab-pane fade">
                     <label for="txtTeaser" class="col-md-12">teaser</label>
@@ -113,35 +113,35 @@
                     <script>$('#content_prev_block').hide();{{:"<"}}/script>
                 </div>
                 <div id="preview" class="tab-pane fade">
-                    <div id="dataPreview"></div>
+                    <div id="dataPostPreview"></div>
                 </div>
             </div>
             <div class="action">
-                <button onclick="saveData();return false;" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                <button onclick="savePostData();return false;" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
             </div>
         {{/for}}</form>
         <hr>
         <a href="{% endverbatim %}{% url "admin_post" %}{% verbatim %}"><i class="fa fa-arrow-left"></i> back</a>
     </script>
-    <script id="dataTemplateCategory" type="text/x-jsrender">
+    <script id="dataPostTemplateCategory" type="text/x-jsrender">
         <label class="col-md-12">notepads</label>
         {{for items}}
-            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="category_btn_{{>fields.slug}}" onclick="check_category('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
+            <input type="checkbox" name="_category" value="{{>fields.slug}}" id="category_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="category_btn_{{>fields.slug}}" onclick="PostCheck_category('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
         {{/for}}
     </script>
-    <script id="dataTemplateTag" type="text/x-jsrender">
+    <script id="dataPostTemplateTag" type="text/x-jsrender">
         <label class="col-md-12">tags</label>
         {{for items}}
-            <input type="checkbox" name="_tag" value="{{>fields.slug}}" id="tag_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="tag_btn_{{>fields.slug}}" onclick="check_tag('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
+            <input type="checkbox" name="_tag" value="{{>fields.slug}}" id="tag_{{>fields.slug}}"{{if fields.select}} checked{{/if}} class="hide"><a href="#" id="tag_btn_{{>fields.slug}}" onclick="PostCheck_tag('{{>fields.slug}}');return false;" class="{{if fields.select}}checked{{/if}}">{{:fields.name}}</a>
         {{/for}}
     </script>
-    <script id="dataTemplateFolder" type="text/x-jsrender">
+    <script id="dataPostTemplateFolder" type="text/x-jsrender">
         <label class="col-md-12">folders</label>
         {{for items}}
-            <a href="#" id="folder_{{:pk}}" onclick="loadFolderData('{{:pk}}');return false;"><i class="fa fa-folder-o"></i> {{:fields.name}}</a>&nbsp;&nbsp;
+            <a href="#" id="folder_{{:pk}}" onclick="loadPostFolderData('{{:pk}}');return false;"><i class="fa fa-folder-o"></i> {{:fields.name}}</a>&nbsp;&nbsp;
         {{/for}}
     </script>
-    <script id="dataTemplateImage" type="text/x-jsrender">
+    <script id="dataPostTemplateImage" type="text/x-jsrender">
         <label class="col-md-12">images</label>
         {{for items}}
         <div class="col-md-2 imagePreview" id="imageItem{{:pk}}"
@@ -153,18 +153,18 @@
             </a>
             <div id="imagePanel{{:pk}}" class="imagePanel">
                 <div class="imagePanelButtons">
-                    <a href="#" onclick="setAlign('{{:pk}}', 'left');return false;" title="left align" id="fileAlignLeft{{:pk}}"><i class="fa fa-align-left"></i></a>
-                    <a href="#" onclick="setAlign('{{:pk}}', 'center');return false;" title="center align" id="fileAlignCenter{{:pk}}"><i class="fa fa-align-center"></i></a>
-                    <a href="#" onclick="setAlign('{{:pk}}', 'right');return false;" title="right align" id="fileAlignRight{{:pk}}"><i class="fa fa-align-right"></i></a>
-                    <a href="#" onclick="setBorder('{{:pk}}');return false;" title="border" id="fileBorder{{:pk}}" class="activeBlue"><i class="fa fa-square-o"></i></a>
+                    <a href="#" onclick="PostSetAlign('{{:pk}}', 'left');return false;" title="left align" id="fileAlignLeft{{:pk}}"><i class="fa fa-align-left"></i></a>
+                    <a href="#" onclick="PostSetAlign('{{:pk}}', 'center');return false;" title="center align" id="fileAlignCenter{{:pk}}"><i class="fa fa-align-center"></i></a>
+                    <a href="#" onclick="PostSetAlign('{{:pk}}', 'right');return false;" title="right align" id="fileAlignRight{{:pk}}"><i class="fa fa-align-right"></i></a>
+                    <a href="#" onclick="PostSetBorder('{{:pk}}');return false;" title="border" id="fileBorder{{:pk}}" class="activeBlue"><i class="fa fa-square-o"></i></a>
                     <i class="fa fa-ellipsis-v" style="font-size: 10px;"></i>
-                    <a href="#" onclick="setCode('{{:pk}}');notice('green', 'coped');return false;" title="get code" class="clipboard" id="fileGetCode{{:pk}}" data-clipboard-text="code"><i class="fa fa-picture-o"></i></a>
-                    <a href="#" onclick="notice('green', 'coped');return false;" title="get link" class="clipboard" id="fileGetLink{{:pk}}" data-clipboard-text="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/{{:fields.name}}"><i class="fa fa-link"></i></a>
+                    <a href="#" onclick="PostSetCode('{{:pk}}');notice('green', 'coped');return false;" title="get code" class="clipboard" id="fileGetCode{{:pk}}" data-clipboard-text="code"><i class="fa fa-picture-o"></i></a>
+                    <a href="#" onclick="PostNotice('green', 'coped');return false;" title="get link" class="clipboard" id="fileGetLink{{:pk}}" data-clipboard-text="{% endverbatim %}{% url "media_file" %}{% verbatim %}{{:fields.uuid}}/{{:fields.name}}"><i class="fa fa-link"></i></a>
                     <br>
-                    <a href="#" onclick="setLimit('{{:pk}}', 'h');return false;" title="height limit" id="fileLimitHeight{{:pk}}"><i class="fa fa-arrows-v"></i></a>
-                    <a href="#" onclick="setLimit('{{:pk}}', 'w');return false;" title="width limit" id="fileLimitWidth{{:pk}}"><i class="fa fa-arrows-h"></i></a>
-                    <a href="#" onclick="setLimit('{{:pk}}', 's');return false;" title="square limit" id="fileLimitSquare{{:pk}}"><i class="fa fa-arrows-alt"></i></a>
-                    <select style="font-size: 9px;" id="imageParamValue{{:pk}}" onchange="setLimit('{{:pk}}', '')">
+                    <a href="#" onclick="PostSetLimit('{{:pk}}', 'h');return false;" title="height limit" id="fileLimitHeight{{:pk}}"><i class="fa fa-arrows-v"></i></a>
+                    <a href="#" onclick="PostSetLimit('{{:pk}}', 'w');return false;" title="width limit" id="fileLimitWidth{{:pk}}"><i class="fa fa-arrows-h"></i></a>
+                    <a href="#" onclick="PostSetLimit('{{:pk}}', 's');return false;" title="square limit" id="fileLimitSquare{{:pk}}"><i class="fa fa-arrows-alt"></i></a>
+                    <select style="font-size: 9px;" id="imageParamValue{{:pk}}" onchange="PostSetLimit('{{:pk}}', '')">
                         <option value="24">24</option>
                         <option value="32">32</option>
                         <option value="64">64</option>
@@ -178,7 +178,7 @@
                         <option value="600">600</option>
                         <option value="700">700</option>
                     </select>
-                    <a href="#" onclick="setNoLink('{{:pk}}');return false;" title="without link" id="fileNoLink{{:pk}}"><i class="fa fa-chain-broken"></i></a>
+                    <a href="#" onclick="PostSetNoLink('{{:pk}}');return false;" title="without link" id="fileNoLink{{:pk}}"><i class="fa fa-chain-broken"></i></a>
                 </div>
             </div>
         </div>
@@ -186,26 +186,26 @@
     </script>
 {% endverbatim %}
 <div class="admin-action">
-    <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new post</a>&nbsp;&nbsp;&nbsp;
-    <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+    <a href="#dataPostForm" onclick="editPostData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new post</a>&nbsp;&nbsp;&nbsp;
+    <a href="#" onclick="loadPostData();return false;"><i class="fa fa-refresh"></i> refresh</a>
 </div>
-<div id="dataForm" class="pageform"></div>
-<div id="dataContainer" class="dataContainer"></div>
+<div id="dataPostForm" class="pageform"></div>
+<div id="dataPostContainer" class="dataContainer"></div>
 <script>
-    function loadData()
+    function loadPostData()
     {
-        $('#dataContainer').html('<div class="loader"></div>');
+        $('#dataPostContainer').html('<div class="loader"></div>');
         $.ajax({
             url :'{% url 'admin_post_get' 0 %}',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplate');
-            $('#dataContainer').html(template.render(jdata));
+            var template = $.templates('#dataPostTemplate');
+            $('#dataPostContainer').html(template.render(jdata));
         });
     }
 
-    function setCode(key)
+    function PostSetCode(key)
     {
         var str = '';
         str += '%%';
@@ -219,7 +219,7 @@
         $('#fileGetCode' + key).attr('data-clipboard-text', str);
     }
 
-    function setBorder(key)
+    function PostSetBorder(key)
     {
         if ($('#file' + key).attr('paramBorder') == '1')
         {
@@ -233,7 +233,7 @@
         }
     }
 
-    function setNoLink(key)
+    function PostSetNoLink(key)
     {
         if ($('#file' + key).attr('paramNoLink') == '1')
         {
@@ -247,7 +247,7 @@
         }
     }
 
-    function setLimit(key, limit)
+    function PostSetLimit(key, limit)
     {
         switch(limit) {
             case '':
@@ -285,7 +285,7 @@
             }
         }
     }
-    function setAlign(key, align)
+    function PostSetAlign(key, align)
     {
         switch(align) {
             case 'left':
@@ -315,7 +315,7 @@
         }
     }
 
-    function publishedNow()
+    function PostPublishedNow()
     {
         var d = new Date();
         var ds = d.getFullYear() + '/' +
@@ -327,7 +327,7 @@
         $('#txtPublished').val(ds)
     }
 
-    function check_category(key)
+    function PostCheck_category(key)
     {
         var c = $('#category_' + key).prop('checked');
         if (c) {
@@ -339,7 +339,7 @@
         }
     }
 
-    function check_tag(key)
+    function PostCheck_tag(key)
     {
         var c = $('#tag_' + key).prop('checked');
         if (c) {
@@ -351,7 +351,7 @@
         }
     }
 
-    function check_status(key)
+    function PostCheck_status(key)
     {
         var c = $('#status_' + key).prop('checked');
         switch (key) {
@@ -388,118 +388,94 @@
         }
     }
 
-    function deleteImage(key)
-    {
-        $.ajax({
-            url :'{% url 'admin_file' %}' + key + '/?action=delete',
-            cashe: false
-        }).done(function(data){
-            if (data=='ok')
-            {
-                $('#imageItem' + key).hide();
-                notice('green', 'file deleted');
-            }
-        });
-    }
-
-    function loadFolders()
+    function loadPostFolders()
     {
         $.ajax({
             url :'{% url 'admin_folder_get' 0 %}',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplateFolder');
-            $('#dataFolder').html(template.render(jdata));
+            var template = $.templates('#dataPostTemplateFolder');
+            $('#dataPostFolder').html(template.render(jdata));
         });
     }
 
-    function loadFolderData(key)
+    function loadPostFolderData(key)
     {
         $.ajax({
             url :'{% url 'admin_files' %}' + key + '/',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplateImage');
-            $('#dataImage').html(template.render(jdata));
+            var template = $.templates('#dataPostTemplateImage');
+            $('#dataPostImage').html(template.render(jdata));
             var clipboard = new Clipboard('.clipboard');
         });
     }
 
-    function loadTag(key)
+    function loadPostTag(key)
     {
         $.ajax({
             url :'{% url 'admin_post_tag_get' %}?id=' + key,
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplateTag');
-            $('#dataTag').html(template.render(jdata));
+            var template = $.templates('#dataPostTemplateTag');
+            $('#dataPostTag').html(template.render(jdata));
         });
     }
 
-    function loadCategory(key)
+    function loadPostCategory(key)
     {
         $.ajax({
             url :'{% url 'admin_post_category_get' %}?id=' + key,
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataTemplateCategory');
-            $('#dataCategory').html(template.render(jdata));
+            var template = $.templates('#dataPostTemplateCategory');
+            $('#dataPostCategory').html(template.render(jdata));
         });
     }
 
-    function loadPreview()
+    function loadPostPreview()
     {
         $.ajax({
             url: '{% url 'admin_post_preview' %}',
             cashe: false,
             method: 'POST',
-            data: $("#dataForm form").serialize()
+            data: $("#dataPostForm form").serialize()
         })
         .done(function(code){
-            $('#dataPreview').html(code);
+            $('#dataPostPreview').html(code);
         })
         .fail(function(){
             notice('red', 'load preview error');
         });
     }
 
-    function editData(key)
+    function editPostData(key)
     {
         $.ajax({
             url :'{% url 'admin_post' %}' + key + '/',
             cashe: false
         }).done(function(data){
             var jdata = jQuery.parseJSON(data);
-            var template = $.templates('#dataEdit');
-            $('#dataForm').html(template.render(jdata));
-            loadTag(key);
-            loadCategory(key);
-            loadFolders();
+            var template = $.templates('#dataPostEdit');
+            $('#dataPostForm').html(template.render(jdata));
+            loadPostTag(key);
+            loadPostCategory(key);
+            loadPostFolders();
         });
 
-        $('#dataContainer').hide();
+        $('#dataPostContainer').hide();
     }
 
-    function deleteItem() {
-        $("#dataForm form #deleted").val('true');
-        saveData();
-    }
-
-    function restoreItem() {
-        $("#dataForm form #deleted").val('false');
-        saveData();
-    }
-
-    function saveData() {
-        console.log($("#dataForm form"));
+    function savePostData() {
+        console.log($("#dataPostForm form"));
         $.ajax({
                 type: 'POST',
                 url: '{% url 'admin_post_save' %}',
-                data: $("#dataForm form").serialize()
+                data: $("#dataPostForm form").serialize()
             })
             .done(function(data){
                 /*
@@ -525,7 +501,7 @@
     }
 
     $(document).ready(function(){
-        loadData();
+        loadPostData();
     });
 </script>
 {% endblock %}
