@@ -5,7 +5,7 @@
     <script src="{% static 'libs/jsrender/jsrender.min.js' %}"></script>
 
 {% verbatim %}
-    <script id="dataTemplate" type="text/x-jsrender">
+    <script id="dataCategoryTemplate" type="text/x-jsrender">
         <table class="data">
         <thead>
             <tr>
@@ -17,15 +17,15 @@
         {{for items}}
             <tr class="{{if fields.deleted}}deleted {{/if}}{{if #getIndex()%2}}even{{/if}}">
                 <td>
-                    <a href="#dataForm" onclick="editData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
+                    <a href="#dataCategoryForm" onclick="editCategoryData({{:pk}});return false;" class="open-data-form">{{>fields.name}}</a>
                 </td>
                 <td>{{>fields.slug}}</td>
                 <td>{{>fields.order}}</td>
             </tr>
             {{/for}}</table>
     </script>
-    <script id="dataEdit" type="text/x-jsrender">
-        <form id="editForm">{{for items}}
+    <script id="dataCategoryEdit" type="text/x-jsrender">
+        <form id="editCategoryForm">{{for items}}
             <div class="fields">
 {% endverbatim %}
                 {% csrf_token %}
@@ -43,11 +43,11 @@
                 <br>
             </div>
             <div class="action">
-                    <button onclick="saveData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
+                    <button onclick="saveCategoryData();" class="btn btn-success"><i class="fa fa-floppy-o"></i> save</button>
                     {{if fields.deleted}}
-                    <button onclick="restoreItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
+                    <button onclick="restoreCategoryItem();" class="btn btn-info"><i class="fa fa-undo"></i> restore</button>
                     {{else}}
-                    <button onclick="deleteItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
+                    <button onclick="deleteCategoryItem();" class="btn btn-danger"><i class="fa fa-times"></i> delete</button>
                     {{/if}}
             </div>
             {{/for}}
@@ -56,83 +56,19 @@
 {% endverbatim %}
 
     <div class="admin-action">
-        <a href="#dataForm" onclick="editData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new category</a>&nbsp;&nbsp;&nbsp;
-        <a href="#" onclick="loadData();return false;"><i class="fa fa-refresh"></i> refresh</a>
+        <a href="#dataCategoryForm" onclick="editCategoryData(-1);return false;" class="open-data-form"><i class="fa fa-plus"></i> add new category</a>&nbsp;&nbsp;&nbsp;
+        <a href="#" onclick="loadCategoryData();return false;"><i class="fa fa-refresh"></i> refresh</a>
     </div>
-    <div id="dataForm" class="window" style="display: none;"></div>
-    <div id="dataContainer" class="dataContainer"></div>
+    <div id="dataCategoryForm" class="window" style="display: none;"></div>
+    <div id="dataCategoryContainer" class="dataContainer"></div>
 
     <script>
-        function loadData()
-        {
-            $('#dataContainer').html('<div class="loader"></div>');
-            $.ajax({
-                url :'{% url 'admin_category_get' 0 %}',
-                cashe: false
-            }).done(function(data){
-                var jdata = jQuery.parseJSON(data);
-                var template = $.templates('#dataTemplate');
-                $('#dataContainer').html(template.render(jdata));
-            });
-
-        }
-
-        function editData(key)
-        {
-            $.ajax({
-                url :'{% url 'admin_category' %}' + key + '/',
-                cashe: false
-            }).done(function(data){
-                var jdata = jQuery.parseJSON(data);
-                var template = $.templates('#dataEdit');
-                $('#dataForm').html(template.render(jdata));
-            });
-
-            $('.open-data-form').fancybox({
-                padding: 0,
-                type: 'inline',
-                title: '',
-                modal: false,
-                autoSize: true
-            });
-        }
-
-        function deleteItem() {
-            $("#dataForm form #deleted").val('true');
-            saveData();
-        }
-
-        function restoreItem() {
-            $("#dataForm form #deleted").val('false');
-            saveData();
-        }
-
-        function saveData() {
-            $.ajax({
-                        type: 'POST',
-                        url: '{% url 'admin_category_save' %}',
-                        data: $("#dataForm form").serialize()
-                    })
-                    .done(function(data){
-                        if(data=='ok') {
-                            notice('green', 'saved');
-                            $.fancybox.close();
-                            loadData();
-                        }
-                        else {
-                            notice('red', data);
-                        }
-                    })
-                    .fail(function(){
-                        notice('red', 'data transfer error');
-                    });
-            $("#dataForm form").submit(function(){
-                return false;
-            });
-        }
-
         $(document).ready(function(){
-            loadData();
+            url_category_get_all = '{% url 'admin_category_get' 0 %}';
+            url_category_get = '{% url 'admin_category' %}';
+            url_category_save = '{% url 'admin_category_save' %}';
+
+            loadCategoryData();
         });
     </script>
 {% endblock %}

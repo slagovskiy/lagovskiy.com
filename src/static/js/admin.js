@@ -70,6 +70,80 @@ function saveTagData() {
     });
 }
 
+//CATEGORY
+//url_category_get_all = '{% url 'admin_category_get' 0 %}';
+//url_category_get = '{% url 'admin_category' %}';
+//url_category_save = '{% url 'admin_category_save' %}';
+
+
+function loadCategoryData()
+{
+    $('#dataCategoryContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_category_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataCategoryTemplate');
+        $('#dataCategoryContainer').html(template.render(jdata));
+    });
+
+}
+
+function editCategoryData(key)
+{
+    $.ajax({
+        url : url_category_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataCategoryEdit');
+        $('#dataCategoryForm').html(template.render(jdata));
+    });
+
+    $('.open-data-form').fancybox({
+        padding: 0,
+        type: 'inline',
+        title: '',
+        modal: false,
+        autoSize: true
+    });
+}
+
+function deleteCategoryItem() {
+    $("#dataCategoryForm form #deleted").val('true');
+    saveCategoryData();
+}
+
+function restoreCategoryItem() {
+    $("#dataCategoryForm form #deleted").val('false');
+    saveCategoryData();
+}
+
+function saveCategoryData() {
+    $.ajax({
+                type: 'POST',
+                url:  url_category_save,
+                data: $("#dataCategoryForm form").serialize()
+            })
+            .done(function(data){
+                if(data=='ok') {
+                    notice('green', 'saved');
+                    $.fancybox.close();
+                    loadCategoryData();
+                }
+                else {
+                    notice('red', data);
+                }
+            })
+            .fail(function(){
+                notice('red', 'data transfer error');
+            });
+    $("#dataCategoryForm form").submit(function(){
+        return false;
+    });
+}
+
 $(document).ready(function() {
     $('.dateMask').mask('0000/00/00');
     $('.datetimeMask').mask('0000/00/00 00:00:00');
