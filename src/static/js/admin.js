@@ -313,8 +313,21 @@ function loadFolderImagesData(key)
         var jdata = jQuery.parseJSON(data);
         var template = $.templates('#dataFolderUpload');
         $('#dataFolderContainer').html(template.render(jdata));
-        initUpload();
+        initUpload('folder');
         loadFolderImages(key);
+    });
+}
+
+function loadFoldersData()
+{
+    $.ajax({
+        url : url_folder_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFileUpload');
+        $('#dataFolderContainer').html(template.render(jdata));
+        initUpload('file');
     });
 }
 
@@ -350,9 +363,10 @@ function deleteFolderImage(key)
 /////////////////////////////////////////////////////
 
 var PENDING_FILES  = [];
+var UPLOADER_TYPE = 'folder';
 
 
-function initUpload() {
+function initUpload(type) {
     initDropbox();
     $("#filePicker").on("change", function() {
         handleFiles(this.files);
@@ -364,6 +378,7 @@ function initUpload() {
     });
     $("#progress").hide();
     PENDING_FILES = [];
+    UPLOADER_TYPE = type;
 }
 
 
@@ -373,13 +388,10 @@ function doUpload() {
     $progressBar.css({"width": "0%"});
     $("#progress").show();
     fd = collectFormData();
-
     for (var i = 0, ie = PENDING_FILES.length; i < ie; i++) {
         fd.append("file", PENDING_FILES[i]);
     }
-
     fd.append("__ajax", "true");
-
     var xhr = $.ajax({
         xhr: function () {
             var xhrobj = $.ajaxSettings.xhr();
@@ -408,7 +420,13 @@ function doUpload() {
         $progressBar.css({"width": "100%"});
         $("#progress").hide();
         $("#upload-form :input").removeAttr("disabled");
-        loadFolderImagesData($('#folder_key').val());
+        if (UPLOADER_TYPE=='folder')
+            loadFolderImagesData($('#folder_key').val());
+        else
+        {
+            $('#dataFolderContainer').html('');
+            loadFileData();
+        }
     })
     .fail(function() {
         notice("red", "error send file");
@@ -494,6 +512,81 @@ function initDropbox() {
     $(document).on("drop", stopDefault);
 }
 
+
+
+/////////////////////////////////////////////////////
+//                     FILE
+/////////////////////////////////////////////////////
+//url_file_get_all = '{% url 'admin_file_get' 0 %}';
+//url_file_get = '{% url 'admin_file' %}';
+//url_file_save = '{% url 'admin_file_save' %}';
+
+function loadFileData()
+{
+    $('#dataFileContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_file_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFileTemplate');
+        $('#dataFileContainer').html(template.render(jdata));
+    });
+}
+
+function editFileData(key)
+{
+    $.ajax({
+        url : url_file_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataFileEdit');
+        $('#dataFileForm').html(template.render(jdata));
+    });
+
+    $('.open-data-form').fancybox({
+        padding: 0,
+        type: 'inline',
+        title: '',
+        modal: false,
+        autoSize: true
+    });
+}
+
+function deleteFileItem() {
+    $("#dataFileForm form #deleted").val('true');
+    saveFileData();
+}
+
+function restoreFileItem() {
+    $("#dataFileForm form #deleted").val('false');
+    saveFileData();
+}
+
+function saveFileData() {
+    $.ajax({
+        type: 'POST',
+        url: url_file_save,
+        data: $("#dataFileForm form").serialize()
+        })
+        .done(function(data){
+            if(data=='ok') {
+                notice('green', 'saved');
+                $.fancybox.close();
+                loadFileData();
+            }
+            else {
+                notice('red', data);
+            }
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+$("#dataFileForm form").submit(function(){
+        return false;
+    });
+}
 
 
 /////////////////////////////////////////////////////
