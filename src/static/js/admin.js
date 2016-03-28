@@ -655,6 +655,327 @@ function saveGlobalData() {
 
 
 /////////////////////////////////////////////////////
+//                     POST
+/////////////////////////////////////////////////////
+//url_post_get_all = '{% url 'admin_post_get' 0 %}';
+//url_post_get = '{% url 'admin_post' %}';
+//url_post_save = '{% url 'admin_post_save' %}';
+//url_folder_get_all = '{% url 'admin_folder_get' 0 %}';
+//url_files_get = '{% url 'admin_files' %}';
+//url_post_get_tag = '{% url 'admin_post_tag_get' %};
+//url_post_get_category = '{% url 'admin_post_category_get' %};
+//url_post_preview = '{% url 'admin_post_preview' %}';
+
+function loadPostData()
+{
+    $('#dataPostContainer').html('<div class="loader"></div>');
+    $.ajax({
+        url : url_post_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataPostTemplate');
+        $('#dataPostContainer').html(template.render(jdata));
+    });
+}
+
+function PostSetCode(key)
+{
+    var str = '';
+    str += '%%';
+    str += $('#file' + key).attr('paramType') + ':';
+    str += $('#file' + key).attr('paramUUID');
+    if ($('#file' + key).attr('paramNoLink') == '1') str += ':' + 'nolink';
+    if ($('#file' + key).attr('paramBorder') == '1') str += ':' + 'border';
+    if ($('#file' + key).attr('paramAlign') != '') str += ':' + $('#file' + key).attr('paramAlign');
+    if ($('#file' + key).attr('paramLimit') != '') str += ':' + $('#file' + key).attr('paramLimit') + '=' + $('#file' + key).attr('paramLimitValue');
+    str += '%%';
+    $('#fileGetCode' + key).attr('data-clipboard-text', str);
+}
+
+function PostSetBorder(key)
+{
+    if ($('#file' + key).attr('paramBorder') == '1')
+    {
+        $('#file' + key).attr('paramBorder', 0);
+        $('#fileBorder' + key).removeClass('activeBlue');
+    }
+    else
+    {
+        $('#file' + key).attr('paramBorder', 1);
+        $('#fileBorder' + key).addClass('activeBlue');
+    }
+}
+
+function PostSetNoLink(key)
+{
+    if ($('#file' + key).attr('paramNoLink') == '1')
+    {
+        $('#file' + key).attr('paramNoLink', 0);
+        $('#fileNoLink' + key).removeClass('activeBlue');
+    }
+    else
+    {
+        $('#file' + key).attr('paramNoLink', 1);
+        $('#fileNoLink' + key).addClass('activeBlue');
+    }
+}
+
+function PostSetLimit(key, limit)
+{
+    switch(limit) {
+        case '':
+        {
+            if ($('#file' + key).attr('paramLimit') != '')
+                $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+            break;
+        }
+        case 'h':
+        {
+            $('#fileLimitHeight' + key).addClass('activeBlue');
+            $('#fileLimitWidth' + key).removeClass('activeBlue');
+            $('#fileLimitSquare' + key).removeClass('activeBlue');
+            $('#file' + key).attr('paramLimit', 'h');
+            $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+            break;
+        }
+        case 'w':
+        {
+            $('#fileLimitHeight' + key).removeClass('activeBlue');
+            $('#fileLimitWidth' + key).addClass('activeBlue');
+            $('#fileLimitSquare' + key).removeClass('activeBlue');
+            $('#file' + key).attr('paramLimit', 'w');
+            $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+            break;
+        }
+        case 's':
+        {
+            $('#fileLimitHeight' + key).removeClass('activeBlue');
+            $('#fileLimitWidth' + key).removeClass('activeBlue');
+            $('#fileLimitSquare' + key).addClass('activeBlue');
+            $('#file' + key).attr('paramLimit', 's');
+            $('#file' + key).attr('paramLimitValue', $('#imageParamValue' + key).val());
+            break;
+        }
+    }
+}
+function PostSetAlign(key, align)
+{
+    switch(align) {
+        case 'left':
+        {
+            $('#fileAlignLeft' + key).addClass('activeBlue');
+            $('#fileAlignCenter' + key).removeClass('activeBlue');
+            $('#fileAlignRight' + key).removeClass('activeBlue');
+            $('#file' + key).attr('paramAlign', align);
+            break;
+        }
+        case 'center':
+        {
+            $('#fileAlignLeft' + key).removeClass('activeBlue');
+            $('#fileAlignCenter' + key).addClass('activeBlue');
+            $('#fileAlignRight' + key).removeClass('activeBlue');
+            $('#file' + key).attr('paramAlign', align);
+            break;
+        }
+        case 'right':
+        {
+            $('#fileAlignLeft' + key).removeClass('activeBlue');
+            $('#fileAlignCenter' + key).removeClass('activeBlue');
+            $('#fileAlignRight' + key).addClass('activeBlue');
+            $('#file' + key).attr('paramAlign', align);
+            break;
+        }
+    }
+}
+
+function PostPublishedNow()
+{
+    var d = new Date();
+    var ds = d.getFullYear() + '/' +
+            ('0'+(d.getMonth()+1)).slice(-2) + '/' +
+            ('0' + d.getDate()).slice(-2) + ' ' +
+            ('0' + d.getHours()).slice(-2) + ':' +
+            ('0' + d.getMinutes()).slice(-2) + ':' +
+            ('0' + d.getSeconds()).slice(-2);
+    $('#txtPublished').val(ds)
+}
+
+function PostCheck_category(key)
+{
+    var c = $('#category_' + key).prop('checked');
+    if (c) {
+        $('#category_' + key).prop('checked', false);
+        $('#category_btn_' + key).removeClass('checked');
+    } else {
+        $('#category_' + key).prop('checked', true);
+        $('#category_btn_' + key).addClass('checked');
+    }
+}
+
+function PostCheck_tag(key)
+{
+    var c = $('#tag_' + key).prop('checked');
+    if (c) {
+        $('#tag_' + key).prop('checked', false);
+        $('#tag_btn_' + key).removeClass('checked');
+    } else {
+        $('#tag_' + key).prop('checked', true);
+        $('#tag_btn_' + key).addClass('checked');
+    }
+}
+
+function PostCheck_status(key)
+{
+    var c = $('#status_' + key).prop('checked');
+    switch (key) {
+        case '0':
+        {
+            $('#status_0').prop('checked', true);
+            $('#status_btn_0').addClass('checked');
+            $('#status_1').prop('checked', false);
+            $('#status_btn_1').removeClass('checked');
+            $('#status_2').prop('checked', false);
+            $('#status_btn_2').removeClass('checked');
+            break;
+        }
+        case '1':
+        {
+            $('#status_1').prop('checked', true);
+            $('#status_btn_1').addClass('checked');
+            $('#status_0').prop('checked', false);
+            $('#status_btn_0').removeClass('checked');
+            $('#status_2').prop('checked', false);
+            $('#status_btn_2').removeClass('checked');
+            break;
+        }
+        case '2':
+        {
+            $('#status_2').prop('checked', true);
+            $('#status_btn_2').addClass('checked');
+            $('#status_1').prop('checked', false);
+            $('#status_btn_1').removeClass('checked');
+            $('#status_0').prop('checked', false);
+            $('#status_btn_0').removeClass('checked');
+            break;
+        }
+    }
+}
+
+function loadPostFolders()
+{
+    $.ajax({
+        url : url_folder_get_all,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataPostTemplateFolder');
+        $('#dataPostFolder').html(template.render(jdata));
+    });
+}
+
+function loadPostFolderData(key)
+{
+    $.ajax({
+        url : url_files_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataPostTemplateImage');
+        $('#dataPostImage').html(template.render(jdata));
+        var clipboard = new Clipboard('.clipboard');
+    });
+}
+
+function loadPostTag(key)
+{
+    $.ajax({
+        url : url_post_get_tag + '?id=' + key,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataPostTemplateTag');
+        $('#dataPostTag').html(template.render(jdata));
+    });
+}
+
+function loadPostCategory(key)
+{
+    $.ajax({
+        url : url_post_get_category + '?id=' + key,
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataPostTemplateCategory');
+        $('#dataPostCategory').html(template.render(jdata));
+    });
+}
+
+function loadPostPreview()
+{
+    $.ajax({
+        url: url_post_preview,
+        cashe: false,
+        method: 'POST',
+        data: $("#dataPostForm form").serialize()
+    })
+    .done(function(code){
+        $('#dataPostPreview').html(code);
+    })
+    .fail(function(){
+        notice('red', 'load preview error');
+    });
+}
+
+function editPostData(key)
+{
+    $.ajax({
+        url : url_post_get + key + '/',
+        cashe: false
+    }).done(function(data){
+        var jdata = jQuery.parseJSON(data);
+        var template = $.templates('#dataPostEdit');
+        $('#dataPostForm').html(template.render(jdata));
+        loadPostTag(key);
+        loadPostCategory(key);
+        loadPostFolders();
+    });
+
+    $('#dataPostContainer').hide();
+}
+
+function savePostData() {
+    console.log($("#dataPostForm form"));
+    $.ajax({
+            type: 'POST',
+            url: url_post_save,
+            data: $("#dataPostForm form").serialize()
+        })
+        .done(function(data){
+            /*
+            if(data=='ok') {
+                notice('green', 'saved');
+                $.fancybox.close();
+                loadData();
+            }
+            else {
+                notice('red', data);
+            }
+            */
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+    /*
+    $("#dataForm form").submit(function(){
+        return false;
+    });
+    */
+    //$('#dataContainer').show();
+}
+
+
+/////////////////////////////////////////////////////
 //                     READY
 /////////////////////////////////////////////////////
 
