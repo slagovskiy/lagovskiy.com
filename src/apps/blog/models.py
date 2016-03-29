@@ -180,3 +180,45 @@ class Post(models.Model):
         ordering = ['-created']
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post)
+    path = models.TextField(
+        default=''
+    )
+    username = models.CharField(
+        max_length=255,
+        default=''
+    )
+    email = models.CharField(
+        max_length=255,
+        default=''
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        editable=True,
+        blank=True
+    )
+    allowed = models.BooleanField(
+        default=True
+    )
+    content = models.TextField(
+        default=''
+    )
+    agent = models.CharField(
+        max_length=255,
+        default=''
+    )
+    ip = models.CharField(
+        max_length=15,
+        default=''
+    )
+
+    def __str__(self):
+        return '<Comment %s, %s, %s>' % (self.username, self.created, self.path)
+
+    class Meta:
+        ordering = ['path', ]
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
