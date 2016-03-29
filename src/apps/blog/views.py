@@ -1,13 +1,22 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from .models import Post, Category, Tag, Comment
+from .settings import PAGE_SIZE
 
 
 def blog_view(request):
+    page = int(request.GET.get('page', 1))
     posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS)
+    paginator = Paginator(posts, PAGE_SIZE)
+    if page <= 0:
+        page = 1
+        if page > paginator.num_pages:
+            page = paginator.num_pages
+
     content = {
-        'posts': posts
+        'posts': paginator.page(page)
     }
-    return render(request, 'index.html', content)
+    return render(request, 'blog/index.html', content)
 
 def blog_post_view(request, slug=''):
     post = Post.objects.filter(slug=slug, status=Post.PUBLISHED_STATUS).first()

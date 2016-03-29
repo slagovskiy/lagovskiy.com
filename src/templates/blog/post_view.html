@@ -59,16 +59,24 @@
             </div>
         </article>
 
-        <section role="comments">
+        <section role="comments" class="comments">
             <h2>Comments: {{ post.comment_set.all.count }}</h2>
+            <div class="comments-tree">
             {% for comment in post.comment_set.all %}
                 {% if comment.allowed %}
-                <div>
-                {{ comment.username }} {{ comment.created }}<br>
-                {{ comment.content }}
+                <div style="padding-left: {% get_comment_level comment.path 2 %}em;" class="level">
+                    <header>
+                        <div class="username">{{ comment.username }}</div>
+                        <div class="date">{{ comment.created }}</div>
+                        <div class="clearfix"></div>
+                    </header>
+                    <div class="content">
+                        {{ comment.content }}
+                    </div>
                 </div>
                 {% endif %}
             {% endfor %}
+            </div>
         </section>
     {% endif %}
 {% endblock %}

@@ -252,6 +252,54 @@ button .fa{
     padding: 0.5em;
 }
 
+/* comment */
+
+.comments {}
+
+.comments h2 {
+    padding-bottom: 1em;
+}
+
+.comments .comments-tree {
+    margin-left: -2em;
+}
+
+.comments .level {
+    padding-bottom: 2em;
+}
+
+.comments header {
+    padding-bottom: .5em;
+}
+
+.comments .username {
+    float: left;
+    font-size: 1.3em;
+}
+
+.comments .date {
+    float: right;
+    font-size: .8em;
+    padding-top: 0.2em;
+}
+
+.comments .content {
+    font-size: 1em;
+    line-height: 1.6em;
+    padding-left: 0.5em;
+}
+
+
+/* pager */
+
+.pager li>a {
+    border: 0px;
+}
+
+.pager li>a:hover {
+    background: #FFFFFF;
+    color: #006ED2;
+}
 /* right menu */
 
 .right-menu {
