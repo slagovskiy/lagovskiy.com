@@ -13,3 +13,38 @@ def make_absoulute_url(val=False):
             return Global.get('site_url') + val
     else:
         return Global.get('site_url') + val
+
+
+@register.simple_tag
+def get_comment_level(val='', multiplier=1):
+    return len(str(val).split('-')) * multiplier
+
+
+@register.filter
+def mul(value, arg):
+    return value * arg
+
+
+@register.filter
+def div(value, arg):
+    return value / arg
+
+
+@register.filter
+def sub(value, arg):
+    return value / arg
+
+
+@register.filter
+def fmul(value, arg):
+    return float(value) * float(arg)
+
+
+@register.filter
+def fdiv(value, arg):
+    return float(value) / float(arg)
+
+
+@register.filter
+def fsub(value, arg):
+    return float(value) / float(arg)
