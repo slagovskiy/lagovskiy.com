@@ -31,6 +31,11 @@ def top(val=[''], top_cnt=1):
 
 
 @register.filter
+def date_from_now(val):
+    return '<script>\ndocument.write(moment("%s").fromNow());\n</script>' % val
+
+
+@register.filter
 def mul(value, arg):
     return value * arg
 
