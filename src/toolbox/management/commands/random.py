@@ -246,7 +246,8 @@ def blog_comments():
 
 def blog_subcomments():
     comments = Comment.objects.all()
-    for c in comments:
+    for _ in range(0, int(comments.count()/3)):
+        c = choice(comments)
         for _ in range(0, randint(0, 2)):
             blog_comment(c.post, c)
 
