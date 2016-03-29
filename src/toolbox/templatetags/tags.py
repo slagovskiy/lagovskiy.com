@@ -26,8 +26,8 @@ def first(val=['']):
 
 
 @register.simple_tag
-def ten(val=['']):
-    return val[0:10]
+def top(val=[''], top_cnt=1):
+    return val[0:int(top_cnt)]
 
 
 @register.filter
