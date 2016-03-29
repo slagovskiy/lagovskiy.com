@@ -3,7 +3,7 @@ from apps.blog.models import Post
 
 
 def index(request):
-    posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS)
+    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS)
     content = {
         'posts': posts
     }

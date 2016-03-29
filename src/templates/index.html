@@ -1,9 +1,22 @@
 {% extends 'site.html' %}
 {% load django_markdown %}
+{% load tags %}
 
 {% block content %}
-    {% for post in posts %}
+    {% if posts %}
+        {% first posts as post %}
         {% include 'blog/post_teaser.html' %}
-    {% if not loop.last %}<hr>{% endif %}
+    {% endif %}
+    <hr>
+    {% ten posts as posts10 %}
+    <h2>Last 10 posts</h2>
+    <ul class="top-posts">
+    {% for post in posts10 %}
+        <li>
+            <a href="{% url 'blog_post' post.slug %}" class="title">{{ post.title }}</a> <span class="date">{{ post.published }}</span>
+            <div class="clearfix"></div>
+        </li>
     {% endfor %}
+    </ul>
+
 {% endblock %}

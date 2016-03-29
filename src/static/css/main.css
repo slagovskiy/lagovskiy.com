@@ -127,6 +127,20 @@ button .fa{
     color: #DDDDDD;
 }
 
+.top-posts {
+    list-style: none;
+    padding-left: 0;
+    font-size: 1.2em;
+    line-height: 1.6em;
+}
+
+.top-posts .title {
+}
+
+.top-posts .date{
+    font-size: 0.6em;
+}
+
 .post {
     padding-bottom: 3em;
     padding-top: 0.5em;
