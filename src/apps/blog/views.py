@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Comment
 
 
 def blog_view(request):

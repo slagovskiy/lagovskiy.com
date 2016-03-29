@@ -58,5 +58,17 @@
                 {{ post.content|medial_file|markdown }}
             </div>
         </article>
+
+        <section role="comments">
+            <h2>Comments: {{ post.comment_set.all.count }}</h2>
+            {% for comment in post.comment_set.all %}
+                {% if comment.allowed %}
+                <div>
+                {{ comment.username }} {{ comment.created }}<br>
+                {{ comment.content }}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </section>
     {% endif %}
 {% endblock %}
