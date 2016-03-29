@@ -1,6 +1,6 @@
 from datetime import datetime
 from random import randint, choice
-from apps.blog.models import Tag, Category, Post
+from apps.blog.models import Tag, Category, Post, Comment
 from apps.links.models import MyLink
 from apps.userext.models import User
 from faker import Factory
@@ -15,6 +15,7 @@ fake = None
 def clean():
     MyLink.objects.all().delete()
     Post.objects.all().delete()
+    Comment.objects.all().delete()
     Tag.objects.all().delete()
     Category.objects.all().delete()
 
@@ -214,12 +215,53 @@ def blog_post(count):
             print(p)
 
 
+def blog_comment(post, parent=None):
+    if randint(0, 1):
+        fake = fake_ru
+    else:
+        fake = fake_en
+    c = Comment.objects.create(
+        post=post,
+        username=fake.name(),
+        email=fake.email(),
+        agent=fake.user_agent(),
+        ip=fake.ipv4(),
+        content='\n\n'.join(fake.paragraphs(randint(1, 3)))
+    )
+    c.save()
+    if parent is None:
+        c.path = str(c.id)
+    else:
+        c.path = parent.path + '-' + str(c.id)
+    c.save()
+    print(c)
+
+
+def blog_comments():
+    posts = Post.objects.all()
+    for post in posts:
+        for _ in range(0, randint(10, 20)):
+            blog_comment(post)
+
+
+def blog_subcomments():
+    comments = Comment.objects.all()
+    for c in comments:
+        for _ in range(0, randint(0, 2)):
+            blog_comment(c.post, c)
+
+
 class Command(BaseCommand):
     help = 'generate random data'
 
     def handle(self, **options):
         clean()
         blog_category(5)
-        blog_tag(50)
-        blog_post(100)
+        blog_tag(25)
+        blog_post(20)
+        blog_comments()
+        blog_subcomments()
+        blog_subcomments()
+        blog_subcomments()
+        blog_subcomments()
         links_mylink()
