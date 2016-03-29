@@ -20,6 +20,16 @@ def get_comment_level(val='', multiplier=1):
     return len(str(val).split('-')) * multiplier
 
 
+@register.simple_tag
+def first(val=['']):
+    return val[0]
+
+
+@register.simple_tag
+def ten(val=['']):
+    return val[0:10]
+
+
 @register.filter
 def mul(value, arg):
     return value * arg
