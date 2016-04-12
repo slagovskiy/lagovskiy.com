@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView
-from .views import index
+from .views import index, capcha, capcha_check
 from toolbox.sitemap import BlogSitemap
 
 
@@ -16,6 +16,9 @@ urlpatterns = [
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
+
+    url(r'^capcha/$', capcha),
+    url(r'^capcha_check/(?P<code>[-\w]+)/$', capcha_check),
 
     url(r'^blog/', include('apps.blog.urls')),
     url(r'^media/', include('apps.media.urls')),
