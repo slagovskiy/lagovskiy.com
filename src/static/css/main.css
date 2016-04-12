@@ -306,15 +306,75 @@ button .fa{
 
 /* comment */
 
+.comment-form {
+    padding-bottom: 15px;
+}
+
+.comment-form .col-md-12,
+.comment-form .col-md-2,
+.comment-form .col-md-10
+{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.comment-form .row {
+    padding-bottom: 10px;
+}
+
+.comment-form textarea{
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 1.5em;
+    height: 2em;
+    width: 100%;
+}
+
+.comment-form textarea.open {
+    height: 8em;
+}
+
+.comment-form input[type=text]{
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.comment-form label{
+    font-size: 1.2em;
+    padding-top: .4em;
+    color: #C0C0C0;
+}
+
+.comment-form .comment-user {
+    display: none;
+}
+
+.comment-form  .comment-buttons {
+    text-align: right;
+}
+
+.comment-form  .comment-buttons input[type=button] {
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 1px solid #E0E0E0;
+    background-color: #E0E0E0;
+}
+
 .comments {}
 
 .comments h2 {
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
 }
 
 .comments .comments-tree {
     margin-left: -2em;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    padding-top: 0.5em;
 }
 
 .comments .level {

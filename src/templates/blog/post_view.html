@@ -61,6 +61,29 @@
 
         <section role="comments" class="comments">
             <h2>Comments: {{ post.comment_set.all.count }}</h2>
+            <div id="comment-form-container">
+                <form name="comment-form" class="comment-form">
+                    <input type="hidden" name="parent" value="0">
+                    <div class="row">
+                        <textarea placeholder="leave commentary" id="comment-message" name="comment-message" onclick="$('#comment-user').css({'display': 'block'}); $('#comment-message').animate({'height': '6em'}, 500);"></textarea>
+                    </div>
+                    <div class="comment-user" id="comment-user">
+                        <div class="row">
+                            <div class="col-md-2"><label for="comment-username">Username</label></div>
+                            <div class="col-md-10"><input type="text" id="comment-username" name="comment-username"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label for="comment-email">Email</label></div>
+                            <div class="col-md-10"><input type="text" id="comment-email" name="comment-email"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 comment-buttons">
+                                <input type="button" value="Опубликовать">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="comments-tree">
             {% for comment in post.comment_set.all %}
                 {% if comment.allowed %}
