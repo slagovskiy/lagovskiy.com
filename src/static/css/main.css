@@ -325,8 +325,10 @@ button .fa{
 .comment-form textarea{
     border: 1px solid #E0E0E0;
     border-radius: 3px;
-    padding: 10px 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-size: 1.5em;
+    line-height: 1.9em;
     height: 2.2em;
     width: 100%;
 }

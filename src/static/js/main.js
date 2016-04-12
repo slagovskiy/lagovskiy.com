@@ -16,9 +16,9 @@ function isValidEmailAddress(emailAddress) {
 };
 
 function moveReply(id) {
-    if ($('#comment-form-container').html() != '') {
-        comment_form = $('#comment-form-container').html();
-        $('#comment-form-container').html('');
+    if ($('#reply_0').html() != '') {
+        comment_form = $('#reply_0').html();
+        $('#reply_0').html('');
     }
     if (comment_last != '') {
         $(comment_last).html('');
