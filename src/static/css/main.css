@@ -325,14 +325,10 @@ button .fa{
 .comment-form textarea{
     border: 1px solid #E0E0E0;
     border-radius: 3px;
-    padding: 5px 10px;
+    padding: 10px 10px;
     font-size: 1.5em;
-    height: 2em;
+    height: 2.2em;
     width: 100%;
-}
-
-.comment-form textarea.open {
-    height: 8em;
 }
 
 .comment-form input[type=text]{
@@ -353,11 +349,11 @@ button .fa{
     display: none;
 }
 
-.comment-form  .comment-buttons {
+.comment-form  .buttons {
     text-align: right;
 }
 
-.comment-form  .comment-buttons input[type=button] {
+.comment-form .buttons input[type=button] {
     text-transform: uppercase;
     padding: 10px 20px;
     border-radius: 4px;
@@ -402,6 +398,15 @@ button .fa{
     padding-left: 0.5em;
 }
 
+.comments .reply {
+    font-size: 1em;
+    line-height: 1.6em;
+    padding: 0.5em 0 0 1em;
+}
+
+.comments .reply div {
+    padding: 10px 0 0 10px;
+}
 
 /* pager */
 

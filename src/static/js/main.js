@@ -15,10 +15,25 @@ function isValidEmailAddress(emailAddress) {
     return pattern.test(emailAddress);
 };
 
+function moveReply(id) {
+    if ($('#comment-form-container').html() != '') {
+        comment_form = $('#comment-form-container').html();
+        $('#comment-form-container').html('');
+    }
+    if (comment_last != '') {
+        $(comment_last).html('');
+    }
+    $('#reply_' + id).html(comment_form);
+    $("#reply_" + id).find("form").find("input[name='parent']").val(id);
+    comment_last = '#reply_' + id;
+}
+
+
+var comment_form = '';
+var comment_last = '';
 
 $(document).ready(function() {
     $('#head-menu-link').click(function(){
         $('#head-menu-line').slideToggle();
     });
-
 });

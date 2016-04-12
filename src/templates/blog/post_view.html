@@ -76,10 +76,8 @@
                             <div class="col-md-2"><label for="comment-email">Email</label></div>
                             <div class="col-md-10"><input type="text" id="comment-email" name="comment-email"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 comment-buttons">
-                                <input type="button" value="Опубликовать">
-                            </div>
+                        <div class="row buttons">
+                            <input type="button" value="Опубликовать">
                         </div>
                     </div>
                 </form>
@@ -95,6 +93,10 @@
                     </header>
                     <div class="content">
                         {{ comment.content }}
+                    </div>
+                    <div class="reply">
+                        <a href="#" onclick="moveReply({{ comment.id }}); return false;"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+                        <div id="reply_{{ comment.id }}"></div>
                     </div>
                 </div>
                 {% endif %}
