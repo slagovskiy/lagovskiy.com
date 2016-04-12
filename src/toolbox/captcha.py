@@ -33,11 +33,11 @@ CAPTCHA_FOREGROUND_COLOR = '#001100'
 NON_DIGITS_RX = re.compile('[^\d]')
 
 
-def capcha_code(size):
+def captcha_code(size):
     return ''.join(random.choice('QWERTYUIOPASDFGHJKLZXCVBNM1234567890') for x in range(size))
 
 
-def capcha_dark_color():
+def captcha_dark_color():
     c = ['#00267C', '#AF0000', '#3400C4', '#005089', '#347F3D',
          '#CE9300', '#282828', '#580082', '#008E8E', '#A84300']
     return random.choice(c)
@@ -66,7 +66,7 @@ def captcha_image(text, scale=1):
     for char in text:
         charlist.append(char)
     for char in charlist:
-        fgimage = Image.new('RGB', size, capcha_dark_color())
+        fgimage = Image.new('RGB', size, captcha_dark_color())
         fsize = (50, 50)
         charimage = Image.new('L', fsize, '#000000')
         chardraw = ImageDraw.Draw(charimage)
