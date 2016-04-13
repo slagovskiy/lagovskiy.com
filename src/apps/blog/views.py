@@ -89,6 +89,7 @@ def blog_comment_save(request):
                 if parent > 0:
                     parent_comment = Comment.objects.get(id=parent)
                 comment = Comment()
+                comment.allowed = not post.comments_moderated
                 comment.post = post
                 comment.content = message
                 comment.username = username
