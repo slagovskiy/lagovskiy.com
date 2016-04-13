@@ -26,6 +26,12 @@ function moveReply(id) {
     $('#reply_' + id).html(comment_form);
     $("#reply_" + id).find("form").find("input[name='parent']").val(id);
     comment_last = '#reply_' + id;
+    reloadCaptcha();
+}
+
+function reloadCaptcha(){
+    var s = $('#comment-image').attr('src');
+    $('#comment-image').attr('src', (s.indexOf('?')>0?s.substr(0, s.indexOf('?')):s) + '?' + new Date().getTime());
 }
 
 

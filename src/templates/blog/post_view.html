@@ -80,12 +80,12 @@
                             <div class="col-md-2"><label for="comment-captcha"></label></div>
                             <div class="col-md-10 comment-code-row">
                                 <span class="comment-code-img"><img src="{% url 'captcha' %}" border="0" id="comment-image"></span>
-                                <span class="comment-code-update"><a href="#" title="update confirmation code" onclick="$('#comment-image').attr('src', '{% url 'captcha' %}?' + new Date().getTime());return false;"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+                                <span class="comment-code-update"><a href="#" title="update confirmation code" onclick="reloadCaptcha();return false;"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
                                 <span class="comment-code-text"><input type="text" id="comment-captcha" name="comment-captcha" placeholder="enter confirmation code"><span>
                             </div>
                         </div>
                         <div class="row buttons">
-                            <input type="button" value="publish">
+                            <button>send&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </form>
