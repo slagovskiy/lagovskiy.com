@@ -34,6 +34,36 @@ function reloadCaptcha(){
     $('#comment-image').attr('src', (s.indexOf('?')>0?s.substr(0, s.indexOf('?')):s) + '?' + new Date().getTime());
 }
 
+function sendComment(){
+   $.ajax({
+            type: 'POST',
+            url: $('#comment-form').attr('action'),
+            data: $('#comment-form').serialize()
+        })
+        .done(function(data){
+            var data_mes = data.split(':')[0];
+            var data_code = data.split(':')[1];
+            if(data_mes=='ok') {
+                notice('green', 'saved');
+                var id = $('#comment-parent').val();
+                $.ajax({
+                    url: '/blog/comment/' + data_code
+                })
+                    .done(function(_data){
+                        $('#comment_reply_' + id).html(_data);
+                        $('#reply_' + id).html('');
+                        location.href = '#comment' + data_code;
+                    });
+            }
+            else {
+                notice('red', data_mes);
+            }
+        })
+        .fail(function(){
+            notice('red', 'data transfer error');
+        });
+}
+
 
 var comment_form = '';
 var comment_last = '';

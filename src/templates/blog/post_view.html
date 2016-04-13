@@ -62,8 +62,10 @@
         <section role="comments" class="comments">
             <h2><a href="#" onclick="moveReply(0); return false;">Comments: {{ post.comment_set.all.count }}</a></h2>
             <div id="reply_0">
-                <form name="comment-form" class="comment-form">
-                    <input type="hidden" name="parent" value="0">
+                <form name="comment-form" class="comment-form" action="{% url 'blog_comment_save' %}" id="comment-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" id="comment-parent" value="0">
+                    <input type="hidden" name="post" value="{{ post.id }}">
                     <div class="row">
                         <textarea placeholder="leave commentary" id="comment-message" name="comment-message" onclick="$('#comment-user').css({'display': 'block'}); $('#comment-message').animate({'height': '6em'}, 500);"></textarea>
                     </div>
@@ -85,7 +87,7 @@
                             </div>
                         </div>
                         <div class="row buttons">
-                            <button>send&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            <button onclick="sendComment();return false;">send&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </form>
@@ -93,22 +95,10 @@
             <div class="comments-tree">
             {% for comment in post.comment_set.all %}
                 {% if comment.allowed %}
-                <div style="padding-left: {% get_comment_level comment.path 2 %}em;" class="level">
-                    <header>
-                        <div class="username">{{ comment.username }}</div>
-                        <div class="date">{{ comment.created|date_from_now|safe }}</div>
-                        <div class="clearfix"></div>
-                    </header>
-                    <div class="content">
-                        {{ comment.content }}
-                    </div>
-                    <div class="reply">
-                        <a href="#" onclick="moveReply({{ comment.id }}); return false;"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
-                        <div id="reply_{{ comment.id }}"></div>
-                    </div>
-                </div>
+                    {% include "blog/comment_view.html" %}
                 {% endif %}
             {% endfor %}
+            <div id="comment_reply_0"></div>
             </div>
         </section>
     {% endif %}
