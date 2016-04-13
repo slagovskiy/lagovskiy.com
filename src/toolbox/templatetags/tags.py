@@ -1,3 +1,4 @@
+import uuid
 from django import template
 from ..models import Global
 
@@ -32,7 +33,8 @@ def top(val=[''], top_cnt=1):
 
 @register.filter
 def date_from_now(val):
-    return '<script>\ndocument.write(moment("%s").fromNow());\n</script>' % val
+    u = str(uuid.uuid4())
+    return '<span id="date_' + u + '"><script>$("#date_' + u + '").html(moment("%s").fromNow());\n</script></span>' % val
 
 
 @register.filter
