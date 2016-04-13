@@ -61,6 +61,7 @@
 
         <section role="comments" class="comments">
             <h2><a href="#" onclick="moveReply(0); return false;">Comments: {{ post.comment_set.all.count }}</a></h2>
+        {% if post.comments_enabled %}
             <div id="reply_0">
                 <form name="comment-form" class="comment-form" action="{% url 'blog_comment_save' %}" id="comment-form">
                     {% csrf_token %}
@@ -92,6 +93,7 @@
                     </div>
                 </form>
             </div>
+        {% endif %}
             <div class="comments-tree">
             {% for comment in post.comment_set.all %}
                 {% if comment.allowed %}
@@ -101,10 +103,12 @@
             <div id="comment_reply_0"></div>
             </div>
         </section>
+        {% if post.comments_enabled %}
         <script>
         $(document).ready(function() {
             moveReply(0);
         });
         </script>
+        {% endif %}
     {% endif %}
 {% endblock %}

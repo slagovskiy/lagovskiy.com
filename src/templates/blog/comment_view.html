@@ -12,9 +12,11 @@
     <div class="content">
         {{ comment.content }}
     </div>
+{% if comment.post.comments_enabled %}
     <div class="reply">
         <a href="#" onclick="moveReply({{ comment.id }}); return false;"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
         <div id="reply_{{ comment.id }}"></div>
     </div>
+{% endif %}
 </div>
 <div id="comment_reply_{{ comment.id }}"></div>
