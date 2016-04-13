@@ -70,19 +70,22 @@
                     <div class="comment-user" id="comment-user">
                         <div class="row">
                             <div class="col-md-2"><label for="comment-username">Username</label></div>
-                            <div class="col-md-10"><input type="text" id="comment-username" name="comment-username"></div>
+                            <div class="col-md-10"><input type="text" id="comment-username" name="comment-username" placeholder="enter your name here"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"><label for="comment-email">Email</label></div>
-                            <div class="col-md-10"><input type="text" id="comment-email" name="comment-email"></div>
+                            <div class="col-md-10"><input type="text" id="comment-email" name="comment-email" placeholder="if you want to receive updates, enter your email"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-2"><label for="comment-captcha"></label></div>
-                            <div class="col-md-2"><img src="{% url 'captcha' %}" border="0"></div>
-                            <div class="col-md-8"><input type="text" id="comment-captcha" name="comment-captcha"></div>
+                            <div class="col-md-10 comment-code-row">
+                                <span class="comment-code-img"><img src="{% url 'captcha' %}" border="0" id="comment-image"></span>
+                                <span class="comment-code-update"><a href="#" title="update confirmation code" onclick="$('#comment-image').attr('src', '{% url 'captcha' %}?' + new Date().getTime());return false;"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+                                <span class="comment-code-text"><input type="text" id="comment-captcha" name="comment-captcha" placeholder="enter confirmation code"><span>
+                            </div>
                         </div>
                         <div class="row buttons">
-                            <input type="button" value="Опубликовать">
+                            <input type="button" value="publish">
                         </div>
                     </div>
                 </form>
