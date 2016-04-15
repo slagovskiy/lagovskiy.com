@@ -5,7 +5,7 @@ from toolbox.captcha import captcha_code, captcha_image
 
 
 def index(request):
-    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS)
+    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('-published')
     content = {
         'posts': posts
     }
