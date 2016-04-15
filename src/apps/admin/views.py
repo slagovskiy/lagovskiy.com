@@ -284,9 +284,11 @@ def post(request, id=None):
         # return on in json
         post = Post.objects.all().filter(id=id).first()
         if post is None:
-            post = Post(
-                id=-1
-            )
+            post = Post()
+            post.slug = str(uuid4())
+            post.title = post.slug
+            post.author = request.user
+            post.save()
         data = serializers.serialize('json', [post, ])
         return JsonResponse('{"items": %s}' % data, safe=False)
 
