@@ -7,6 +7,8 @@ from django.db import models
 from django.utils.html import format_html
 
 from apps.userext.models import User
+from toolbox.imghdr import what
+from .utils import create_icon
 
 
 class File(models.Model):
@@ -18,7 +20,7 @@ class File(models.Model):
         dd = str(datetime.now().day)
         if len(dd) == 1:
             dd = '0' + dd
-        if self.uuid == '':
+        if self.uuid is None:
             self.uuid = str(uuid4())
         path = os.path.join(
             os.path.join(
@@ -35,7 +37,7 @@ class File(models.Model):
         blank=True,
         null=True
     )
-    f = models.ImageField(
+    f = models.FileField(
         upload_to=upload_to,
         null=True
     )
@@ -57,12 +59,20 @@ class File(models.Model):
         return '<File %s>' % self.name
 
     def save(self, *args, **kwargs):
-        if self.uuid == '':
+        if self.uuid is None:
             self.uuid = str(uuid4())
         super(File, self).save(*args, **kwargs)
+        if what(self.f.path):
+            self.is_image = True
+        else:
+            self.is_image = False
+            create_icon(self.f.path)
 
     def preview(self):
-        return format_html('<img src="%s?s=60">' % reverse('media_file', args=(self.uuid,)))
+        if self.uuid:
+            return format_html('<img src="%s?s=60">' % reverse('media_file', args=(self.uuid,)))
+        else:
+            return ''
 
     class Meta:
         ordering = ['name']

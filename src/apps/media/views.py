@@ -12,11 +12,9 @@ def media_file(request, key=None, filename=None):
     filename = ''
     _file_path = False
     if file:
-        if file.is_image:
-            filename = file.name
-        else:
-            filename = 'icon.jpg'
         file_path = file.f.path
+        if not file.is_image:
+            file_path = os.path.join(os.path.dirname(file_path), 'icon.jpg')
         if 'w' in request.GET:
             _file_path = image_resize(file_path, 'w', request.GET.get('w', 600))
         if 'h' in request.GET:

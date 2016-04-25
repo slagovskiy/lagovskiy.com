@@ -8,7 +8,7 @@ class FileAdmin(admin.ModelAdmin):
     list_filter = ['name', 'added']
     fieldsets = [
         (None, {'fields': ['name']}),
-        ('File', {'fields': ['preview', 'f', 'is_image']}),
+        ('File', {'fields': ['preview', 'f']}),
         (None, {'fields': ['author', 'deleted']})
     ]
 
