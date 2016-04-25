@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # my apps
     'toolbox',
     'apps.userext',
-    'apps.admin.apps.AdminConfig',
+    #'apps.admin.apps.AdminConfig',
     'apps.media',
     'apps.blog',
     'apps.links',

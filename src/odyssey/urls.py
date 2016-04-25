@@ -22,6 +22,6 @@ urlpatterns = [
 
     url(r'^blog/', include('apps.blog.urls')),
     url(r'^media/', include('apps.media.urls')),
-    url(r'^admin/', include('apps.admin.urls')),
-    url(r'^djadmin/', admin.site.urls, name='djadmin'),
+    #url(r'^admin/', include('apps.admin.urls')),
+    url(r'^admin/', admin.site.urls, name='admin'),
 ]
