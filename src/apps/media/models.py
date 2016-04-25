@@ -39,7 +39,8 @@ class File(models.Model):
     )
     f = models.FileField(
         upload_to=upload_to,
-        null=True
+        null=True,
+        verbose_name='File'
     )
     is_image = models.BooleanField(
         default=False
