@@ -1,7 +1,11 @@
 import os
 from uuid import uuid4
 from datetime import datetime
+
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.html import format_html
+
 from apps.userext.models import User
 
 
@@ -56,6 +60,9 @@ class File(models.Model):
         if self.uuid == '':
             self.uuid = str(uuid4())
         super(File, self).save(*args, **kwargs)
+
+    def preview(self):
+        return format_html('<img src="%s?s=60">' % reverse('media_file', args=(self.uuid,)))
 
     class Meta:
         ordering = ['name']
