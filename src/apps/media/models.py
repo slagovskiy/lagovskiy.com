@@ -13,15 +13,17 @@ from .utils import create_icon
 
 class File(models.Model):
     def upload_to(self, filename):
-        dy = str(datetime.now().year)
-        dm = str(datetime.now().month)
-        if len(dm) == 1:
-            dm = '0' + dm
-        dd = str(datetime.now().day)
-        if len(dd) == 1:
-            dd = '0' + dd
+        if self.added is None:
+            self.added = datetime.utcnow()
         if self.uuid is None:
             self.uuid = str(uuid4())
+        dy = str(self.added.year)
+        dm = str(self.added.month)
+        if len(dm) == 1:
+            dm = '0' + dm
+        dd = str(self.added.day)
+        if len(dd) == 1:
+            dd = '0' + dd
         path = os.path.join(
             os.path.join(
                 os.path.join(
@@ -68,12 +70,13 @@ class File(models.Model):
         else:
             self.is_image = False
             create_icon(self.f.path)
+        super(File, self).save(*args, **kwargs)
 
     def preview(self):
-        if self.uuid:
+        if self.f:
             return format_html('<img src="%s?s=60">' % reverse('media_file', args=(self.uuid,)))
         else:
-            return ''
+            return '-=file=-'
 
     class Meta:
         ordering = ['name']
