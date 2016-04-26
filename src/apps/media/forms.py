@@ -7,7 +7,8 @@ from .widgets import FileWidgetAdmin
 class FileAdminForm(forms.ModelForm):
     name = forms.CharField(
         label=_('File name'),
-        max_length=255
+        max_length=255,
+        widget=forms.TextInput(attrs={'size': '50'})
     )
     f = forms.FileField(
         label=_('File'),
