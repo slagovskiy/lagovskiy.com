@@ -14,7 +14,11 @@ class FileAdminForm(forms.ModelForm):
         label=_('File'),
         widget=FileWidgetAdmin
     )
+    deleted = forms.BooleanField(
+        label=_('Deleted'),
+        required=False
+    )
 
     class Meta:
         model = File
-        fields = ['name', 'f']
+        fields = ['name', 'f', 'deleted']
