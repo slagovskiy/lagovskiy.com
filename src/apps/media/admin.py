@@ -7,7 +7,12 @@ class FileAdmin(admin.ModelAdmin):
     list_display = ['preview', 'name', 'added', 'deleted']
     ordering = ['added']
     list_filter = ['is_image', 'added']
-    #form = FileAdminForm
+    form = FileAdminForm
+
+    def save_model(self, request, obj, form, change):
+        if getattr(obj, 'author', None) is None:
+            obj.author = request.user
+            obj.save()
 
 
 admin.site.register(File, FileAdmin)
