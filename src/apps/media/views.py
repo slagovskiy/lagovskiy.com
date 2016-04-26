@@ -1,12 +1,11 @@
 import os
 from PIL import Image
 from sendfile import sendfile
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from .models import File
-from odyssey.settings import UPLOAD_URL, UPLOAD_DIR
 
 
-def media_file(request, key=None, filename=None):
+def media_file(request, y=None, m=None, d=None, key=None, filename=None):
     file = File.objects.all().filter(uuid=key).first()
     file_path = ''
     filename = ''
@@ -30,7 +29,7 @@ def media_file(request, key=None, filename=None):
 
 def image_resize(imagefile, type, size):
     save = False
-    filename = os.path.join(os.path.dirname(imagefile), type + str(size) + '.jpg')
+    filename = imagefile + '_' + type + str(size) + '.jpg'
     try:
         if os.path.exists(filename):
             return filename
