@@ -1,11 +1,12 @@
-from datetime import datetime
 from random import randint, choice
+
 from apps.blog.models import Tag, Category, Post, Comment
-from apps.links.models import MyLink
 from apps.userext.models import User
-from faker import Factory
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from faker import Factory
+
+from odyssey.links import MyLink
 
 fake_ru = Factory.create('ru-RU')
 fake_en = Factory.create('en-US')

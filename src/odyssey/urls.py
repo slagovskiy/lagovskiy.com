@@ -20,8 +20,5 @@ urlpatterns = [
     url(r'^captcha/$', captcha, name='captcha'),
     url(r'^captcha_check/(?P<code>[-\w]+)/$', captcha_check, name='captcha_check'),
 
-    url(r'^blog/', include('apps.blog.urls')),
-    url(r'^media/', include('apps.media.urls')),
-    #url(r'^admin/', include('apps.admin.urls')),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]

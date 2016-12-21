@@ -1,13 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from apps.blog.models import Post
 from toolbox.captcha import captcha_code, captcha_image
 
 
 def index(request):
-    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('-published')
     content = {
-        'posts': posts
+        'posts': None
     }
     return render(request, 'index.html', content)
 

@@ -1,6 +1,7 @@
-from django.db import models
-from apps.userext.models import User
 from apps.media.models import File
+from django.db import models
+
+from odyssey.userext import User
 
 
 class Category(models.Model):

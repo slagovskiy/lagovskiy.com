@@ -1,6 +1,7 @@
-from django import template
 from apps.blog.models import Category, Tag
-from apps.links.models import MyLink
+from django import template
+
+from odyssey.links import MyLink
 
 register = template.Library()
 
