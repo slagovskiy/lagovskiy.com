@@ -1,11 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from toolbox.captcha import captcha_code, captcha_image
+
+from odyssey.blog.models import Post
+from odyssey.toolbox.captcha import captcha_code, captcha_image
 
 
 def index(request):
+    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('-published')
     content = {
-        'posts': None
+        'posts': posts
     }
     return render(request, 'index.html', content)
 

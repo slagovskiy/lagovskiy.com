@@ -21,6 +21,8 @@ INSTALLED_APPS = [
 
     # my apps
     'odyssey.userext',
+    'odyssey.toolbox',
+    'odyssey.blog',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -34,7 +36,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # my
-    'toolbox.middleware.GlobalsMiddleware',
+    'odyssey.toolbox.middleware.GlobalsMiddleware',
 ]
 
 ROOT_URLCONF = 'odyssey.urls'

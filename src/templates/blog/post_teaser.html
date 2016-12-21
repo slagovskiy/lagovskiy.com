@@ -7,12 +7,12 @@
             <div class="post-header1">
                 <h2 class="post-category col-md-9">
                     {% if post.id %}
-                        {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
+                        {% for category in post.categories.all %}<a href="#">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
                     {% endif %}
                 </h2>
                 <div class="col-md-3 post-date">{{ post.published|date_from_now|safe }}</div>
             </div>
-            <h1 class="post-title"><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></h1>
+            <h1 class="post-title"><a href="#">{{ post.title }}</a></h1>
         </header>
         <div class="post-body clearfix">
             {{ post.teaser|medial_file|markdown }}

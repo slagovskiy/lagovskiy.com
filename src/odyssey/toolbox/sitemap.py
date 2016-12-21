@@ -1,8 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.core.urlresolvers import reverse
 
-from odyssey.blog import Post
-
 
 class BlogSitemap(Sitemap):
     # always
@@ -16,7 +14,8 @@ class BlogSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')
+        pass
+        #return Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')
 
     def location(self, item):
         return reverse('blog_post', args=(item.slug,))

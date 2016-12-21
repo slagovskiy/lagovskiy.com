@@ -14,6 +14,7 @@ def make_absoulute_url(val=False):
             return Global.get('site_url') + val
     else:
         return Global.get('site_url') + val
+    pass
 
 
 @register.simple_tag

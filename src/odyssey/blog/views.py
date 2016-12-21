@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
-from toolbox.utils import get_ip
+
+from ..toolbox.utils import get_ip
 from .models import Post, Category, Tag, Comment
 from .settings import PAGE_SIZE
 

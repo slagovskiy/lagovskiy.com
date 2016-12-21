@@ -9,20 +9,22 @@
         {% include 'blog/post_teaser.html' %}
     {% endif %}
     <hr>
-    {% top posts 4 as posts4 %}
-    <h2 class="top-posts-head">Last posts</h2>
-    <div class="top-posts">
-    {% for post in posts4 %}
-        <div class="col-md-3">
-            <div class="top-post">
-                <div class="image"><img src="{% if post.social_image %}{{ post.social_image }}{% else %}{% static 'img/image-not-found.jpg' %}{% endif %}"></div>
-                <div class="category">{% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %} &#183; {% endif %}{% endfor %}</div>
-                <div class="title"><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></div>
-                <div class="date">{{ post.published|date_from_now|safe }}</div>
-                <div class="clearfix"></div>
+    {% if posts %}
+        {% top posts 4 as posts4 %}
+        <h2 class="top-posts-head">Last posts</h2>
+        <div class="top-posts">
+        {% for post in posts4 %}
+            <div class="col-md-3">
+                <div class="top-post">
+                    <div class="image"><img src="{% if post.social_image %}{{ post.social_image }}{% else %}{% static 'img/image-not-found.jpg' %}{% endif %}"></div>
+                    <div class="category">{% for category in post.categories.all %}<a href="#">{{ category.name }}</a>{% if not forloop.last %} &#183; {% endif %}{% endfor %}</div>
+                    <div class="title"><a href="#">{{ post.title }}</a></div>
+                    <div class="date">{{ post.published|date_from_now|safe }}</div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
     </div>
 
 {% endblock %}

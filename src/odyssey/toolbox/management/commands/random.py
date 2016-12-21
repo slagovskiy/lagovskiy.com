@@ -1,5 +1,5 @@
 from random import randint, choice
-
+'''
 from apps.blog.models import Tag, Category, Post, Comment
 from apps.userext.models import User
 from django.core.management.base import BaseCommand
@@ -267,3 +267,4 @@ class Command(BaseCommand):
         blog_subcomments()
         blog_subcomments()
         links_mylink()
+'''

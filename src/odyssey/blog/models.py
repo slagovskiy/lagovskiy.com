@@ -1,7 +1,7 @@
-from apps.media.models import File
+#from apps.media.models import File
 from django.db import models
 
-from odyssey.userext import User
+from ..userext.models import User
 
 
 class Category(models.Model):
@@ -156,11 +156,11 @@ class Post(models.Model):
     content_prev = models.TextField(
         default=''
     )
-    social_image = models.ForeignKey(
-        File,
-        blank=True,
-        null=True
-    )
+    #social_image = models.ForeignKey(
+    #    File,
+    #    blank=True,
+    #    null=True
+    #)
 
     def __str__(self):
         return '<Post %s>' % self.title
