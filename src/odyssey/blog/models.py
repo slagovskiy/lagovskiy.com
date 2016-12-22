@@ -82,6 +82,8 @@ class Tag(models.Model):
 
 class Post(models.Model):
     def images_path(instance, filename):
+        if instance.uid == None:
+            instance.uid = str(uuid.uuid1())
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(str(uuid.uuid1()), ext)
         return os.path.join(os.path.join('blog', instance.uid), filename)
@@ -167,11 +169,6 @@ class Post(models.Model):
         null=True,
         upload_to=images_path
     )
-
-    def save(self):
-        if self.uid == '':
-            self.uid = str(uuid.uuid1())
-        super(Post, self).save()
 
     def __str__(self):
         return '<Post %s>' % self.title

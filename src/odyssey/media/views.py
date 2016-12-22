@@ -1,6 +1,6 @@
 import os
 from sendfile import sendfile
-from ..settings import MEDIA_ROOT
+from ..settings import MEDIA_ROOT, STATIC_DIR
 from ..toolbox.image import image_resize, what
 
 
@@ -17,4 +17,6 @@ def media(request, path):
             _file_path = image_resize(file_path, 's', request.GET.get('s', 600))
         if _file_path:
             file_path = _file_path
+    if not os.path.exists(file_path):
+        file_path = os.path.join(STATIC_DIR, 'img/image-not-found.jpg')
     return sendfile(request, file_path)
