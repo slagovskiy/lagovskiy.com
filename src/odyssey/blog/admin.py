@@ -16,6 +16,7 @@ class TagAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'sticked')
     ordering = ('status', 'sticked', 'created', 'title')
+    exclude = ('uid',)
     #form = PostAdminForm
     #fieldsets = [
     #    ('Title', {'fields': ['slug', 'title', 'status', 'published', 'sticked']}),

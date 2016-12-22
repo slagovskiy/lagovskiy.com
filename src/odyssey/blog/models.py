@@ -1,4 +1,5 @@
-#from apps.media.models import File
+import os
+import uuid
 from django.db import models
 
 from ..userext.models import User
@@ -28,9 +29,6 @@ class Category(models.Model):
 
     def __str__(self):
         return '<Category %s>' % self.name
-
-    def get_absolute_url(self):
-        return '/blog/category/%s/' % self.slug
 
     @staticmethod
     def exist(slug=None):
@@ -63,9 +61,6 @@ class Tag(models.Model):
     def __str__(self):
         return '<Tag %s>' % self.name
 
-    def get_absolute_url(self):
-        return '/blog/tag/%s/' % self.slug
-
     def post_count(self):
         return self.post_set.all().filter(status=Post.PUBLISHED_STATUS).count()
 
@@ -86,6 +81,11 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
+    def images_path(instance, filename):
+        ext = filename.split('.')[-1]
+        filename = '{}.{}'.format(str(uuid.uuid1()), ext)
+        return os.path.join(os.path.join('blog', instance.uid), filename)
+
     DRAFT_STATUS = 0
     HIDDEN_STATUS = 1
     PUBLISHED_STATUS = 2
@@ -96,6 +96,11 @@ class Post(models.Model):
         (PUBLISHED_STATUS, 'Public'),
     )
 
+    uid = models.TextField(
+        max_length=40,
+        blank=True,
+        null=True
+    )
     slug = models.SlugField(
         max_length=255
     )
@@ -156,17 +161,20 @@ class Post(models.Model):
     content_prev = models.TextField(
         default=''
     )
-    #social_image = models.ForeignKey(
-    #    File,
-    #    blank=True,
-    #    null=True
-    #)
+    social_image = models.ImageField(
+        'Social image',
+        blank=True,
+        null=True,
+        upload_to=images_path
+    )
+
+    def save(self):
+        if self.uid == '':
+            self.uid = str(uuid.uuid1())
+        super(Post, self).save()
 
     def __str__(self):
         return '<Post %s>' % self.title
-
-    def get_absolute_url(self):
-        return '/blog/view/%s/' % self.slug
 
     @staticmethod
     def exist(slug=None):

@@ -16,9 +16,9 @@
         {% for post in posts4 %}
             <div class="col-md-3">
                 <div class="top-post">
-                    <div class="image"><img src="{% if post.social_image %}{{ post.social_image }}{% else %}{% static 'img/image-not-found.jpg' %}{% endif %}"></div>
-                    <div class="category">{% for category in post.categories.all %}<a href="#">{{ category.name }}</a>{% if not forloop.last %} &#183; {% endif %}{% endfor %}</div>
-                    <div class="title"><a href="#">{{ post.title }}</a></div>
+                    <div class="image"><img src="{% if post.social_image %}{{ post.social_image.url }}{% else %}{% static 'img/image-not-found.jpg' %}{% endif %}"></div>
+                    <div class="category">{% for category in post.categories.all %}<a href="{% url 'blog_post_by_category' category.slug %}">{{ category.name }}</a>{% if not forloop.last %} &#183; {% endif %}{% endfor %}</div>
+                    <div class="title"><a href="{% url 'blog_post' post.slug %}">{{ post.title }}</a></div>
                     <div class="date">{{ post.published|date_from_now|safe }}</div>
                     <div class="clearfix"></div>
                 </div>

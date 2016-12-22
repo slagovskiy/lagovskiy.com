@@ -14,8 +14,8 @@ sitemaps = {
 urlpatterns = [
     url(r'^$', index, name='home'),
 
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico'), name='favicon'),
 
     url(r'^captcha/$', captcha, name='captcha'),
     url(r'^captcha_check/(?P<code>[-\w]+)/$', captcha_check, name='captcha_check'),

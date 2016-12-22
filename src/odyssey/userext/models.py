@@ -31,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def avatar_path(instance, filename):
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(str(uuid.uuid1()), ext)
-        return os.path.join(os.path.join('user', 'avatar'), filename)
+        return os.path.join(os.path.join(instance.email, 'avatar'), filename)
 
     email = models.EmailField(
         'Email',
