@@ -5,6 +5,7 @@ from django.views.generic.base import RedirectView
 
 from odyssey.toolbox.sitemap import BlogSitemap
 from .views import index, captcha, captcha_check
+from .media.views import media
 
 sitemaps = {
     'pages': BlogSitemap()
@@ -21,6 +22,8 @@ urlpatterns = [
     url(r'^captcha_check/(?P<code>[-\w]+)/$', captcha_check, name='captcha_check'),
 
     url(r'^blog/', include('odyssey.blog.urls')),
+
+    url(r'^media/(?P<path>.*)$', media),
 
     url(r'^admin/', admin.site.urls, name='admin'),
 ]
