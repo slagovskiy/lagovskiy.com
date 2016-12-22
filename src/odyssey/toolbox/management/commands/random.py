@@ -1,12 +1,11 @@
 from random import randint, choice
-'''
-from apps.blog.models import Tag, Category, Post, Comment
-from apps.userext.models import User
+from ....blog.models import Tag, Category, Post, Comment
+from ....userext.models import User
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from faker import Factory
+from faker.factory import Factory
 
-from odyssey.links import MyLink
+#from odyssey.links import MyLink
 
 fake_ru = Factory.create('ru-RU')
 fake_en = Factory.create('en-US')
@@ -14,13 +13,13 @@ fake = None
 
 
 def clean():
-    MyLink.objects.all().delete()
+    #MyLink.objects.all().delete()
     Post.objects.all().delete()
     Comment.objects.all().delete()
     Tag.objects.all().delete()
     Category.objects.all().delete()
 
-
+'''
 def links_mylink():
     slug = 'facebook'
     name = '<i class="fa fa-facebook-official"></i> i on facebook'
@@ -79,7 +78,7 @@ def links_mylink():
     )
     ml.save()
     print(ml)
-
+'''
 
 def blog_tag(count):
     for _ in range(0, count):
@@ -266,5 +265,4 @@ class Command(BaseCommand):
         blog_subcomments()
         blog_subcomments()
         blog_subcomments()
-        links_mylink()
-'''
+        #links_mylink()
