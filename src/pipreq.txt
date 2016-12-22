@@ -2,4 +2,4 @@ django
 django_markdown
 django-sendfile
 pillow
-fake-factory
+faker
