@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .forms import UserChangeForm
-from .forms import UserCreationForm
+from .forms import UserCreationForm, UserChangeForm
 from .models import User
+
 
 
 class UserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
+    readonly_fields = ('avatar_preview',)
 
     list_display = [
         'email',
@@ -22,32 +23,68 @@ class UserAdmin(UserAdmin):
     list_filter = ('is_admin', 'is_active')
 
     fieldsets = (
-        (None, {
+        ('general', {
+            'classes': ('suit-tab suit-tab-general',),
             'fields': (
                 'email',
                 'password'
             )}),
-        ('Personal info', {
+        ('info', {
+            'classes': ('suit-tab suit-tab-info',),
+            'fields': (
+                'avatar',
+                'avatar_preview',
+                'firstname',
+                'lastname',
+            )}),
+        ('permissions', {
+            'classes': ('suit-tab suit-tab-permissions',),
+            'fields': (
+                'is_active',
+                'is_admin',
+                'is_superuser',
+                'groups',
+                'user_permissions'
+            )}),
+        ('other', {
+            'classes': ('suit-tab suit-tab-other',),
+            'fields': (
+                'last_login',
+            )}),
+    )
+
+    add_fieldsets = (
+        ('general', {
+            'classes': ('suit-tab suit-tab-general',),
+            'fields': (
+                'email',
+                'password1',
+                'password2',
+            )}),
+        ('info', {
+            'classes': ('suit-tab suit-tab-info',),
             'fields': (
                 'avatar',
                 'firstname',
                 'lastname',
             )}),
-        ('Permissions', {'fields': ('is_active', 'is_admin', 'is_superuser',
-                                    'groups', 'user_permissions')}),
-        ('Important dates', {'fields': ('last_login',)}),
+        ('permissions', {
+            'classes': ('suit-tab suit-tab-permissions',),
+            'fields': (
+                'is_active',
+                'is_admin',
+                'is_superuser',
+                'groups',
+                'user_permissions'
+            )}),
+        ('other', {
+            'classes': ('suit-tab suit-tab-other',),
+            'fields': ()
+        }),
     )
 
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': (
-                'email',
-                'password1',
-                'password2'
-            )}
-         ),
-    )
+    suit_form_tabs = (('general', 'General'), ('info', 'Personal info'),
+                      ('permissions', 'Permissions'), ('other', 'Other'))
 
     search_fields = ('email',)
     ordering = ('email',)

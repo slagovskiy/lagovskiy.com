@@ -59,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     register_date = models.DateField(
         'Register',
-        auto_now_add=True
+        auto_now_add=True,
     )
     is_active = models.BooleanField(
         'is active',
@@ -69,6 +69,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         'is superuser',
         default=False
     )
+
+    def avatar_preview(self):
+        return '<img src="%s?h=100" border="0"/>' % self.avatar.url
+
+    avatar_preview.short_description = 'Avatar preview'
+    avatar_preview.allow_tags = True
 
     def get_full_name(self):
         return self.email
