@@ -135,7 +135,7 @@ SUIT_CONFIG = {
     'MENU': (
         #'sites',
         {'label': 'Auth', 'icon':'icon-lock', 'models': ('userext.user', 'auth.group')},
-        #{'label': 'Settings', 'icon':'icon-cog', 'models': ('userext.user',)},
+        {'label': 'Blog', 'icon':'icon-leaf', 'models': ('blog.post', 'blog.category', 'blog.tag')},
         #{'label': 'Support', 'icon':'icon-question-sign', 'url': '/support/'},
     ),
 

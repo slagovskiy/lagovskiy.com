@@ -71,7 +71,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     def avatar_preview(self):
-        return '<img src="%s?h=100" border="0"/>' % self.avatar.url
+        if self.avatar:
+            return '<img src="%s?h=100" border="0"/>' % self.avatar.url
+        else:
+            return ''
 
     avatar_preview.short_description = 'Avatar preview'
     avatar_preview.allow_tags = True
