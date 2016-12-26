@@ -110,3 +110,5 @@ STATICFILES_DIRS = (
 LOGIN_URL = r'/admin/login/'
 
 AUTH_USER_MODEL = 'userext.User'
+
+SITE_URL = 'http://127.0.0.1:8000'

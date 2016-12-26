@@ -1,8 +1,10 @@
 import os
 import uuid
 from django.db import models
+from django.urls import reverse
 
 from ..userext.models import User
+from ..settings import SITE_URL
 
 
 class Category(models.Model):
@@ -172,6 +174,14 @@ class Post(models.Model):
 
     def __str__(self):
         return '<Post %s>' % self.title
+
+    def get_social_image_url(self):
+        path = SITE_URL + self.social_image.url
+        return path
+
+    def get_post_url(self):
+        path = SITE_URL + reverse('blog_post', args=[self.slug])
+        return path
 
     @staticmethod
     def exist(slug=None):
