@@ -18,11 +18,60 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ('status', 'sticked', 'created', 'title')
     exclude = ('uid',)
     form = PostAdminForm
-    #fieldsets = [
-    #    ('Title', {'fields': ['slug', 'title', 'status', 'published', 'sticked']}),
-    #    ('Meta', {'fields': ['description', 'keywords']}),
-    #    ('Social', {'fields': ['categories', 'tags']})
-    #]
+    readonly_fields = ('created', 'social_image_preview',)
+
+    fieldsets = [
+        (
+            'general', {
+                'classes': ('suit-tab suit-tab-general',),
+                'fields': [
+                    'slug',
+                    'title',
+                    'teaser',
+                    'content',
+                    'content_prev',
+                ]
+            }
+        ),
+        (
+            'status', {
+                'classes': ('suit-tab suit-tab-status',),
+                'fields': [
+                    'status',
+                    'created',
+                    'published',
+                    'sticked',
+                    'author',
+                ]
+            }
+        ),
+        (
+            'seo', {
+                'classes': ('suit-tab suit-tab-seo',),
+                'fields': [
+                    'description',
+                    'keywords',
+                    'social_image',
+                    'social_image_preview',
+                    'do_ping',
+                    'categories',
+                    'tags'
+                ]
+            }
+        ),
+        (
+            'comments', {
+                'classes': ('suit-tab suit-tab-comments',),
+                'fields': [
+                    'comments_enabled',
+                    'comments_moderated',
+                ]
+            }
+        )
+    ]
+
+    suit_form_tabs = (('general', 'General'), ('status', 'Status'),
+                      ('seo', 'SEO'), ('comments', 'Comments'))
 
     #def __init__(self, *args, **kwargs):
     #    super(PostAdmin, self).__init__(*args, **kwargs)

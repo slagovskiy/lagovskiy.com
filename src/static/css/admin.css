@@ -2,3 +2,13 @@ select {
     width: auto;
     min-width: 200px;
 }
+
+input.width-max {
+    width: 99%;
+    min-width: 200px;
+}
+
+.controls textarea {
+    width: 99%;
+    min-width: 200px;
+}

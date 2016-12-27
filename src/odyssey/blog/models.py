@@ -183,6 +183,15 @@ class Post(models.Model):
         path = SITE_URL + reverse('blog_post', args=[self.slug])
         return path
 
+    def social_image_preview(self):
+        if self.social_image:
+            return '<img src="%s?h=100" border="0"/>' % self.social_image.url
+        else:
+            return ''
+
+    social_image_preview.short_description = 'Social image preview'
+    social_image_preview.allow_tags = True
+
     @staticmethod
     def exist(slug=None):
         if slug is None:

@@ -8,7 +8,7 @@ from .models import User
 class UserAdmin(UserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
-    readonly_fields = ('avatar_preview',)
+    readonly_fields = ('avatar_preview', 'last_login', 'register_date')
 
     list_display = [
         'email',
@@ -50,6 +50,7 @@ class UserAdmin(UserAdmin):
             'classes': ('suit-tab suit-tab-other',),
             'fields': (
                 'last_login',
+                'register_date'
             )}),
     )
 

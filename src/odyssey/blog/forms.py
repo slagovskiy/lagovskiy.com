@@ -1,28 +1,13 @@
 from django import forms
 from django.contrib.admin import widgets
 from django.db.models import ManyToOneRel
+from django.forms import TextInput, Textarea
+from suit.widgets import SuitSplitDateTimeWidget, AutosizedTextarea
+
 from .models import Post, Tag, Category
 
 
 class PostAdminForm(forms.ModelForm):
-
-    '''
-    def __init__(self, *args, **kwargs):
-        super(PostAdminForm, self).__init__(*args, **kwargs)
-        rel_tag = ManyToOneRel(self.instance.tags.model, 'id', 'Tag')
-        self.fields['tags'].widget = widgets.RelatedFieldWidgetWrapper(
-            self.fields['tags'].widget, rel_tag, self.admin_site
-        )
-        self.fields['tags'].queryset = Tag.objects.all()
-        self.fields['tags'].empty_label = None
-        rel_cat = ManyToOneRel(self.instance.category.model, 'id', 'Category')
-        self.fields['categories'].widget = widgets.RelatedFieldWidgetWrapper(
-            self.fields['categories'].widget, rel_cat, self.admin_site
-        )
-        self.fields['tags'].queryset = Tag.objects.all()
-        self.fields['tags'].empty_label = None
-    '''
-
 
     class Meta:
         model = Post
@@ -40,9 +25,24 @@ class PostAdminForm(forms.ModelForm):
             'comments_enabled',
             'comments_moderated',
             'do_ping',
-            #'created',
+            # 'created',
             'teaser',
             'content',
             'content_prev',
             'social_image'
         ]
+        widgets = {
+            'slug': TextInput(attrs={'class': 'width-max'}),
+            'title': TextInput(attrs={'class': 'width-max'}),
+            'teaser': AutosizedTextarea(),
+            'content': AutosizedTextarea(),
+            'content_prev': AutosizedTextarea(),
+            'published': SuitSplitDateTimeWidget(),
+            'description': AutosizedTextarea(),
+            'keywords': AutosizedTextarea(),
+            #'email': EnclosedInput(prepend='icon-envelope'),
+            #'password': HiddenInput,
+            #'firstname': EnclosedInput(prepend='icon-user'),
+            #'lastname': EnclosedInput(prepend='icon-user'),
+            #'user_permission': MultipleChoiceField()
+        }

@@ -66,7 +66,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=True
     )
     is_admin = models.BooleanField(
-        'is superuser',
+        'is admin',
         default=False
     )
 
