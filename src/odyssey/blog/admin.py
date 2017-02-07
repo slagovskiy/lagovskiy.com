@@ -1,11 +1,13 @@
 from django.contrib import admin
+from suit.admin import SortableModelAdmin
 from .models import Category, Tag, Post
 from .forms import PostAdminForm
 
 
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(SortableModelAdmin):
     list_display = ('name', 'parent', 'deleted')
     list_filter = ('name', 'parent')
+    sortable = 'order'
 
 
 class TagAdmin(admin.ModelAdmin):
