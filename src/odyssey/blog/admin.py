@@ -1,13 +1,11 @@
 from django.contrib import admin
-from suit.admin import SortableModelAdmin
-from .models import Category, Tag, Post
+from .models import Category, Tag, Post, Comment, Media
 from .forms import PostAdminForm
 
 
-class CategoryAdmin(SortableModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'parent', 'deleted')
     list_filter = ('name', 'parent')
-    sortable = 'order'
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -72,13 +70,25 @@ class PostAdmin(admin.ModelAdmin):
         )
     ]
 
-    suit_form_tabs = (('general', 'General'), ('status', 'Status'),
-                      ('seo', 'SEO'), ('comments', 'Comments'))
 
     #def __init__(self, *args, **kwargs):
     #    super(PostAdmin, self).__init__(*args, **kwargs)
     #    self.form.admin_site = self.admin_site
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('content100', 'username', 'post100', 'created', 'path', 'allowed')
+    ordering = ('-created',)
+
+
+class MediaAdmin(admin.ModelAdmin):
+    list_display = ('media_file_admin_preview', 'description')
+    ordering = ('-created',)
+    exclude = ('uid', 'media_file_admin_preview')
+    readonly_fields = ('created', 'media_file_preview')
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(Media, MediaAdmin)

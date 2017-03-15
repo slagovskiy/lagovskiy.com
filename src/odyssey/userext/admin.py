@@ -84,9 +84,6 @@ class UserAdmin(UserAdmin):
         }),
     )
 
-    suit_form_tabs = (('general', 'General'), ('info', 'Personal info'),
-                      ('permissions', 'Permissions'), ('other', 'Other'))
-
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()

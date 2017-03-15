@@ -244,7 +244,84 @@ class Comment(models.Model):
     def __str__(self):
         return '<Comment %s, %s, %s>' % (self.username, self.created, self.path)
 
+    def content100(self):
+        more = ''
+        if len(self.content) > 100:
+            more = '...'
+        return self.content[:100] + more
+
+    def post100(self):
+        return self.post.title[:100]
+
+    content100.short_description = 'Content preview'
+    post100.short_description = 'Post preview'
+
     class Meta:
         ordering = ['path', ]
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+
+class Media(models.Model):
+    def media_path(instance, filename):
+        if instance.uid == None:
+            instance.uid = str(uuid.uuid1())
+        # ext = filename.split('.')[-1]
+        # filename = '{}.{}'.format(str(uuid.uuid1()), ext)
+        return os.path.join(os.path.join('media', instance.uid), filename)
+    uid = models.TextField(
+        max_length=40,
+        blank=True,
+        null=True
+    )
+    author = models.ForeignKey(
+        User,
+        blank=True
+    )
+    description = models.CharField(
+        max_length=512,
+        default='',
+        blank=True,
+        null=True
+    )
+    media_file = models.FileField(
+        'Media file',
+        upload_to=media_path
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        blank=True
+    )
+
+    def media_file_preview(self):
+        if self.media_file:
+            return '''
+            <table>
+                <tr>
+                    <td>
+                        <img src="%s?h=100" border="0" title="%s"/>
+                    </td>
+                    <td>
+                        For height limitation: &lt;img src="%s?<b><u>h=100</u></b>" border="0" title="%s"/&gt;<br>
+                        For weight limitation: &lt;img src="%s?<b><u>w=100</u></b>" border="0" title="%s"/&gt;<br>
+                        For a square picture: &lt;img src="%s?<b><u>s=100</u></b>" border="0" title="%s"/&gt;<br>
+                        Link: %s
+                    </td>
+                </tr>
+            </table>
+            ''' % (self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url)
+        else:
+            return ''
+
+    media_file_preview.short_description = 'Media file'
+    media_file_preview.allow_tags = True
+
+    def media_file_admin_preview(self):
+        if self.media_file:
+            return '<img src="%s?s=24" border="0" title="%s"/>' % (self.media_file.url, self.description)
+        else:
+            return ''
+
+    media_file_admin_preview.short_description = 'Media'
+    media_file_admin_preview.allow_tags = True
