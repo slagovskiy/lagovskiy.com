@@ -2,6 +2,7 @@ import os
 import uuid
 from django.db import models
 from django.urls import reverse
+from ..settings import STATIC_URL
 
 from ..userext.models import User
 from ..settings import SITE_URL
@@ -276,7 +277,14 @@ class Media(models.Model):
     )
     author = models.ForeignKey(
         User,
-        blank=True
+        blank=True,
+        null=True
+    )
+    title = models.CharField(
+        max_length=512,
+        default='',
+        blank=True,
+        null=True
     )
     description = models.CharField(
         max_length=512,
@@ -286,7 +294,13 @@ class Media(models.Model):
     )
     media_file = models.FileField(
         'Media file',
-        upload_to=media_path
+        upload_to=media_path,
+        blank = True,
+        null = True
+    )
+    is_image = models.BooleanField(
+        'Is image',
+        default=True
     )
     created = models.DateTimeField(
         auto_now_add=True,
@@ -296,21 +310,25 @@ class Media(models.Model):
 
     def media_file_preview(self):
         if self.media_file:
-            return '''
-            <table>
-                <tr>
-                    <td>
-                        <img src="%s?h=100" border="0" title="%s"/>
-                    </td>
-                    <td>
-                        For height limitation: &lt;img src="%s?<b><u>h=100</u></b>" border="0" title="%s"/&gt;<br>
-                        For weight limitation: &lt;img src="%s?<b><u>w=100</u></b>" border="0" title="%s"/&gt;<br>
-                        For a square picture: &lt;img src="%s?<b><u>s=100</u></b>" border="0" title="%s"/&gt;<br>
-                        Link: %s
-                    </td>
-                </tr>
-            </table>
-            ''' % (self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url)
+            if self.is_image:
+                preview = '''
+                <table>
+                    <tr>
+                        <td>
+                            <img src="%s?h=100" border="0" title="%s"/>
+                        </td>
+                        <td>
+                            For height limitation: &lt;img src="%s?<b><u>h=100</u></b>" border="0" title="%s"/&gt;<br>
+                            For weight limitation: &lt;img src="%s?<b><u>w=100</u></b>" border="0" title="%s"/&gt;<br>
+                            For a square picture: &lt;img src="%s?<b><u>s=100</u></b>" border="0" title="%s"/&gt;<br>
+                            Link: %s
+                        </td>
+                    </tr>
+                </table>
+                ''' % (self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url, self.description, self.media_file.url)
+            else:
+                preview = "Link: %s" % self.media_file.url
+            return preview
         else:
             return ''
 
@@ -319,7 +337,11 @@ class Media(models.Model):
 
     def media_file_admin_preview(self):
         if self.media_file:
-            return '<img src="%s?s=24" border="0" title="%s"/>' % (self.media_file.url, self.description)
+            if self.is_image:
+                preview = '<img src="%s?s=24" border="0" title="%s"/>' % (self.media_file.url, self.description)
+            else:
+                preview = '<img src="%s" border="0"/>' % os.path.join(STATIC_URL, 'img/file24.jpg')
+            return preview
         else:
             return ''
 
