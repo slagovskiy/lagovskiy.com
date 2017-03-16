@@ -14,7 +14,7 @@ class MyLinkAdminForm(forms.ModelForm):
         max_length=255,
         widget=forms.TextInput(attrs={'size': '50'})
     )
-    link = forms.URLField(
+    link = forms.CharField(
         label=_('Link'),
         max_length=255,
         widget=forms.TextInput(attrs={'size': '50'})

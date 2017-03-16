@@ -1,7 +1,6 @@
 from ...blog.models import Category, Tag
 from django import template
-
-#from odyssey.links import MyLink
+from ...links.models import MyLink
 
 register = template.Library()
 
@@ -20,7 +19,7 @@ def widget_tags():
 
 @register.inclusion_tag('widgets/links.html')
 def widget_links():
-    mylinks = []#MyLink.objects.all().filter(deleted=False)
+    mylinks = MyLink.objects.all().filter(deleted=False)
     return {'mylinks': mylinks}
 
 

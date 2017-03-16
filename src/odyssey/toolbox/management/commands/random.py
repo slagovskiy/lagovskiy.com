@@ -4,8 +4,8 @@ from ....userext.models import User
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker.factory import Factory
+from ....links.models import MyLink
 
-#from odyssey.links import MyLink
 
 fake_ru = Factory.create('ru-RU')
 fake_en = Factory.create('en-US')
@@ -13,16 +13,15 @@ fake = None
 
 
 def clean():
-    #MyLink.objects.all().delete()
+    MyLink.objects.all().delete()
     Post.objects.all().delete()
     Comment.objects.all().delete()
     Tag.objects.all().delete()
     Category.objects.all().delete()
 
-'''
 def links_mylink():
     slug = 'facebook'
-    name = '<i class="fa fa-facebook-official"></i> i on facebook'
+    name = '<i class="fa fa-facebook-official"></i> i\'m on facebook'
     link = 'https://www.facebook.com/sergey.lagovskiy'
     ml = MyLink.objects.create(
         slug=slug,
@@ -78,7 +77,6 @@ def links_mylink():
     )
     ml.save()
     print(ml)
-'''
 
 def blog_tag(count):
     for _ in range(0, count):

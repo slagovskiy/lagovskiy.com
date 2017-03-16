@@ -10,7 +10,8 @@ class MyLink(models.Model):
         max_length=255,
         default=''
     )
-    link = models.URLField(
+    link = models.CharField(
+        max_length=255,
         default=''
     )
     order = models.SmallIntegerField(
