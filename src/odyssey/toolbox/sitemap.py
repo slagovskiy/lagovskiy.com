@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.core.urlresolvers import reverse
+from ..blog.models import Post
 
 
 class BlogSitemap(Sitemap):
@@ -15,7 +16,7 @@ class BlogSitemap(Sitemap):
 
     def items(self):
         pass
-        #return Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')
+        return Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')
 
     def location(self, item):
         return reverse('blog_post', args=(item.slug,))
