@@ -1,4 +1,5 @@
 from django.db import models
+from ..blog.models import Post
 
 
 class Global(models.Model):
@@ -46,3 +47,45 @@ class Global(models.Model):
         ordering = ['slug']
         verbose_name = 'Global'
         verbose_name_plural = 'Globals'
+
+
+class PingServer(models.Model):
+    address = models.CharField(
+        max_length=255,
+        verbose_name=u'Address',
+    )
+    deleted = models.BooleanField(
+        default=False,
+        verbose_name=u'Deleted',
+    )
+
+    def __str__(self):
+        return self.address
+
+    class Meta:
+        ordering = ['address']
+
+class PingResult(models.Model):
+    date = models.DateTimeField(
+        auto_now_add=True
+    )
+    pingserver = models.ForeignKey(
+        PingServer,
+        null=True,
+        blank=True
+    )
+    post = models.ForeignKey(
+        Post,
+        null=True,
+        blank=True
+    )
+    passed = models.BooleanField(
+        default=False
+    )
+    message = models.CharField(
+        max_length=255,
+        default=''
+    )
+
+    def __unicode__(self):
+        return '%s %s' %(self.date, str(self.passed))

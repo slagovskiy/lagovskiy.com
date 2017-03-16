@@ -177,8 +177,11 @@ class Post(models.Model):
         return '<Post %s>' % self.title
 
     def get_social_image_url(self):
-        path = SITE_URL + self.social_image.url
-        return path
+        if self.social_image:
+            path = SITE_URL + self.social_image.url
+            return path
+        else:
+            return ''
 
     def get_post_url(self):
         path = SITE_URL + reverse('blog_post', args=[self.slug])
