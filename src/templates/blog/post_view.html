@@ -57,6 +57,18 @@
                 <hr>
                 {{ post.content|medial_file|markdown }}
             </div>
+            <div class="post-info">
+                <i class="fa fa-user"></i>&nbsp;{{ post.author.firstname }} {{ post.author.lastname }}&nbsp;&nbsp;
+                {% if post.tags.all %}
+                    <i class="fa fa-tags"></i>&nbsp;
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'blog_post_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+                    {% endfor %}&nbsp;&nbsp;
+                {% endif %}
+                <i class="fa fa-eye"></i>&nbsp;--&nbsp;&nbsp;
+                <i class="fa fa-thumbs-o-up"></i>&nbsp;--&nbsp;&nbsp;
+                <i class="fa fa-thumbs-o-down"></i>&nbsp;--&nbsp;&nbsp;
+            </div>
         </article>
 
         <section role="comments" class="comments">

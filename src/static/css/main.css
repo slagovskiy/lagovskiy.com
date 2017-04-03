@@ -251,22 +251,18 @@ button .fa{
 }
 
 .post-title a:hover {
-    color: #006ED2;
+    color: #f52a0e; /*#006ED2;*/
 }
 
-.post-tag {
+.post-info {
+    color: #555555;
     margin: 0;
     font-family: RobotoRegular, sans-serif;
-    font-size: 1em;
+    font-size: 11px;
 }
 
-.post-tag a {
-    color: #AAAAAA;
-    opacity: 0.7;
-}
-
-.post-tag a:hover {
-    opacity: 1;
+.post-info a {
+    color: #555555;
 }
 
 .post-body {
@@ -288,8 +284,8 @@ button .fa{
 }
 
 .post-button a:hover {
-    background: #006ED2;
-    border: 2px solid #006ED2;
+    background: #f52a0e; /*#006ED2;*/
+    border: 2px solid #f52a0e; /*#006ED2*/
     color: #FFFFFF;
 }
 

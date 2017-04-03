@@ -6,15 +6,21 @@ register = template.Library()
 
 
 @register.inclusion_tag('widgets/category.html')
-def widget_category():
+def widget_category(active_category=''):
     categories = Category.objects.all().filter(deleted=False)
-    return {'categories': categories}
+    return {
+        'categories': categories,
+        'active_category': active_category
+    }
 
 
 @register.inclusion_tag('widgets/tags.html')
-def widget_tags():
+def widget_tags(active_tag=''):
     tags = Tag.objects.all().filter(deleted=False)
-    return {'tags': tags}
+    return {
+        'tags': tags,
+        'active_tag': active_tag
+    }
 
 
 @register.inclusion_tag('widgets/links.html')
