@@ -1,7 +1,7 @@
 import logging
 from django.core.management.base import BaseCommand
 
-import xmlrpc
+import xmlrpc.client
 import sys
 
 from ....blog.models import Post
@@ -18,14 +18,14 @@ from django.core.mail import send_mail
 class Command(BaseCommand):
     help = 'sending ping to search server'
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         report = []
         for p in Post.objects.all().filter(do_ping=True, status = Post.PUBLISHED_STATUS):
-            logging.info('Page: ' + SITE_URL + p.get_absolute_url())
+            logging.info('Page: ' + p.get_post_url())
             for s in PingServer.objects.all().filter(deleted=False):
                 try:
-                    rpc = xmlrpc.server(s.address)
-                    r = rpc.weblogUpdates.ping(SITE_URL, SITE_URL + p.get_absolute_url())
+                    rpc = xmlrpc.client.(s.address)
+                    r = rpc.weblogUpdates.ping(SITE_URL, p.get_post_url())
                     pr = PingResult.objects.create(
                         passed=not r['flerror'],
                         message=r['message'],
@@ -40,7 +40,7 @@ class Command(BaseCommand):
                         passed=False
                     )
                     try:
-                        pr.message = str(sys.exc_info()[0]).replace('<','').replace('>','')
+                        pr.message = str(sys.exc_info()[0]).replace('<', '').replace('>', '')
                     except:
                         pr.message = ''
                     pr.post = p
