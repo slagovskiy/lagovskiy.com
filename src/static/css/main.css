@@ -12,6 +12,10 @@ body{
     float: right;
 }
 
+.fl-clear{
+    clear: both;
+}
+
 a {
     text-decoration: none;
     color: #000000;
@@ -146,6 +150,7 @@ button .fa{
 .top-post {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
+    margin-bottom: 5px;
 }
 
 .top-post .image{
@@ -164,19 +169,37 @@ button .fa{
 .top-post .category {
     padding: 0 5px 0 5px;
     font-size: 0.6em;
+    color: #AAAAAA;
+    opacity: 0.7;
+}
+
+.top-post .category a {
+    color: #AAAAAA;
+    opacity: 0.7;
+}
+
+.top-post .category a:hover {
+    opacity: 1;
+}
+
+.top-post .date {
+    padding: 0 5px 0 5px;
+    font-size: 0.6em;
+    text-align: right;
+    color: #AAAAAA;
+    opacity: 0.7;
 }
 
 .top-post .title {
     padding: 0 5px 0 5px;
     font-family: GabrielaRegular, serif;
     font-size: 1em;
-    height: 7em;
 }
 
-.top-post .date{
+.top-post .content {
     padding: 0 5px 0 5px;
-    font-size: 0.5em;
-    text-align: right;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;;
+    font-size: .7em;
 }
 
 .post {
@@ -484,20 +507,19 @@ button .fa{
     display: inline;
 }
 
+.right-menu section ul.tag li a span{
+    position: relative;
+    font-size: .6em;
+    vertical-align: top;
+    padding-left: 2px;
+    color: #AAAAAA;
+}
+/*
 .right-menu section ul.tag li a {
     border: 2px solid #E0E0E0;
     border-radius: 3px;
     line-height: 1.8em;
     padding-left: 0.4em;
-}
-.right-menu section ul.tag li a span{
-    background-color: #DDDDDD;
-    position: relative;
-    padding: 0.6em 0.5em  0.5em 0.7em;
-    margin-left: 0.6em;
-    font-size: 0.6em;
-    vertical-align: 0.2em;
-    color: #666666;
 }
 
 .right-menu section ul.tag li a:hover {
@@ -540,7 +562,7 @@ button .fa{
     padding-right: 0.2em;
     color: #FFFFFF;
 }
-
+*/
 /* footer */
 .footer{
     text-align: center;
