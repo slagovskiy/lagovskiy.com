@@ -167,15 +167,15 @@ button .fa{
 }
 
 .top-post .category {
-    padding: 0 5px 0 5px;
-    font-size: 0.6em;
     color: #AAAAAA;
-    opacity: 0.7;
+    padding: 0 5px 0 5px;
+    font-size: 0.7em;
+    font-family: RobotoRegular, sans-serif;
 }
 
 .top-post .category a {
-    color: #AAAAAA;
-    opacity: 0.7;
+    color: #555555;
+    opacity: 0.8;
 }
 
 .top-post .category a:hover {
@@ -186,7 +186,7 @@ button .fa{
     padding: 0 5px 0 5px;
     font-size: 0.6em;
     text-align: right;
-    color: #AAAAAA;
+    color: #555555;
     opacity: 0.7;
 }
 
@@ -509,6 +509,7 @@ button .fa{
 
 .right-menu section ul.tag li a span{
     position: relative;
+    top: -5px;
     font-size: .6em;
     vertical-align: top;
     padding-left: 2px;
