@@ -5,6 +5,7 @@ from django.urls import reverse
 from ..settings import STATIC_URL
 
 from ..userext.models import User
+from ..staticstic.models import visitor_count
 from ..settings import SITE_URL
 
 
@@ -195,6 +196,10 @@ class Post(models.Model):
 
     social_image_preview.short_description = 'Social image preview'
     social_image_preview.allow_tags = True
+
+    def visitor_count(self):
+        return visitor_count(reverse('blog_post', args=[self.slug]))
+
 
     @staticmethod
     def exist(slug=None):

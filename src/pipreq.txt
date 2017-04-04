@@ -1,6 +1,6 @@
 django
 django_markdown
 django-sendfile
-django-suit
+user_agents
 pillow
 faker

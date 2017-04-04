@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'odyssey.userext',
     'odyssey.toolbox',
     'odyssey.blog',
-    'odyssey.links'
+    'odyssey.links',
+    'odyssey.staticstic'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -37,6 +38,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # my
+    'odyssey.staticstic.middleware.StatisticMiddleware',
     'odyssey.toolbox.middleware.GlobalsMiddleware',
 ]
 
@@ -92,7 +94,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
