@@ -57,18 +57,25 @@
                 <hr>
                 {{ post.content|medial_file|markdown }}
             </div>
-            <div class="post-info">
-                <i class="fa fa-user"></i>&nbsp;{{ post.author.firstname }} {{ post.author.lastname }}&nbsp;&nbsp;
-                {% if post.tags.all %}
+            {% if post.tags.all %}
+                <div class="post-tags">
                     <i class="fa fa-tags"></i>&nbsp;
                     {% for tag in post.tags.all %}
                         <a href="{% url 'blog_post_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
                     {% endfor %}&nbsp;&nbsp;
-                {% endif %}
-                <i class="fa fa-eye"></i>&nbsp;--&nbsp;&nbsp;
-                <i class="fa fa-thumbs-o-up"></i>&nbsp;--&nbsp;&nbsp;
-                <i class="fa fa-thumbs-o-down"></i>&nbsp;--&nbsp;&nbsp;
-            </div>
+                </div>
+            {% endif %}
+            <ul class="post-info">
+                <li><i class="fa fa-user"></i>&nbsp;{{ post.author.firstname }} {{ post.author.lastname }}&nbsp;&nbsp;</li>
+                <li><i class="fa fa-eye"></i>&nbsp;--&nbsp;&nbsp;</li>
+                <li><a href="#"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;--&nbsp;&nbsp;</li>
+                <li><a href="#"><i class="fa fa-thumbs-o-down"></i></a>&nbsp;--&nbsp;&nbsp;</li>
+                <li class="item-right">
+                    <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                    <script src="//yastatic.net/share2/share.js"></script>
+                    <span class="ya-share2" data-services="facebook,twitter,vkontakte,odnoklassniki,moimir,evernote" data-size="s"></span>
+                </li>
+            </ul>
         </article>
 
         <section role="comments" class="comments">

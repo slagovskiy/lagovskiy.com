@@ -16,6 +16,10 @@ body{
     clear: both;
 }
 
+.item-right {
+    margin-left: auto;
+}
+
 a {
     text-decoration: none;
     color: #000000;
@@ -254,16 +258,31 @@ button .fa{
     color: #f52a0e; /*#006ED2;*/
 }
 
-.post-info {
-    color: #555555;
-    margin: 0;
+.post-tags {
     font-family: RobotoRegular, sans-serif;
-    font-size: 11px;
+    font-size: .8em;
+    padding-top: 1em;
+    padding-bottom: 1.5em;
 }
 
-.post-info a {
-    color: #555555;
+.post-tags a:hover {
+    color: #f52a0e;
 }
+
+.post-info {
+    list-style: none;
+    margin: 0;
+    font-family: RobotoRegular, sans-serif;
+    font-size: 1em;
+    padding-left: 0;
+    width: 100%;
+    display: inline-flex;
+}
+
+.post-info li {
+    display: inline-block;
+}
+
 
 .post-body {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
