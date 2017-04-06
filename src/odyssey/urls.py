@@ -3,9 +3,10 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import RedirectView
 
-from odyssey.toolbox.sitemap import BlogSitemap
+from .toolbox.sitemap import BlogSitemap
 from .views import index, captcha, captcha_check
 from .media.views import media
+
 
 sitemaps = {
     'pages': BlogSitemap()
