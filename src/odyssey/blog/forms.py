@@ -28,7 +28,6 @@ class PostAdminForm(forms.ModelForm):
             # 'created',
             'teaser',
             'content',
-            'content_prev',
             'social_image'
         ]
         widgets = {
@@ -36,7 +35,6 @@ class PostAdminForm(forms.ModelForm):
             'title': TextInput(attrs={'class': 'width-max'}),
             'teaser': AutosizedTextarea(),
             'content': AutosizedTextarea(),
-            'content_prev': AutosizedTextarea(),
             'published': SuitSplitDateTimeWidget(),
             'description': AutosizedTextarea(),
             'keywords': AutosizedTextarea(),

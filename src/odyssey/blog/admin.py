@@ -29,7 +29,6 @@ class PostAdmin(admin.ModelAdmin):
                     'title',
                     'teaser',
                     'content',
-                    'content_prev',
                 ]
             }
         ),

@@ -164,9 +164,6 @@ class Post(models.Model):
     content = models.TextField(
         default=''
     )
-    content_prev = models.TextField(
-        default=''
-    )
     social_image = models.ImageField(
         'Social image',
         blank=True,
