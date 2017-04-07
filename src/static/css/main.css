@@ -342,6 +342,37 @@ button .fa{
     padding: 0.5em;
 }
 
+/* photo */
+
+.photo-items {
+    -moz-column-width: 260px;
+    -webkit-column-width: 260px;
+    -moz-column-gap: 0em;
+    -webkit-column-gap: 0em;
+    column-gap: 0em;
+    font-size: .85em;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.photo-items .photo-item {
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+.photo-items .photo-item img {
+    max-width: 100%; !important;
+    height: auto; !important;
+    border: 1px solid #EEEEEE;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.photo-items .photo-item a:hover img{
+    border: 1px solid #AAAAAA;
+}
+
 /* comment */
 
 .comment-form {

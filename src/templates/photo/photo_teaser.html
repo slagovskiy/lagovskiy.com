@@ -1,1 +1,10 @@
-<span class="col-md-4 image-item"><img src="{{ photo.image.url }}?w=250" border="0" /></span>
+<div class="photo-item">
+    <a href="#">
+        <img src="{{ photo.image.url }}?w=200" border="0" />
+    </a>
+    {% if photo.title %}
+    <div>
+        {{ photo.title }}
+    </div>
+    {% endif %}
+</div>

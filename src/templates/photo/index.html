@@ -2,9 +2,11 @@
 {% load django_markdown %}
 
 {% block content %}
+    <div class="photo-items">
     {% for photo in photos %}
         {% include 'photo/photo_teaser.html' %}
     {% endfor %}
+    </div>
     {% ifnotequal photos.paginator.num_pages 1 %}
         <ul class="pager">
             {% if photos.has_previous %}
