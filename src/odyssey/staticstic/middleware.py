@@ -4,7 +4,7 @@ import user_agents
 
 from .models import Visitor
 from ..toolbox.network import get_ip
-from .settings import DUBLICATE_TIME_LIMIT
+from .settings import DUBLICATE_TIME_LIMIT, EXCLUDE
 
 import logging
 from datetime import timedelta, datetime
@@ -17,6 +17,10 @@ class StatisticMiddleware:
             return
 
         point = request.path
+        for exc in EXCLUDE:
+            if point.find(exc) > -1:
+                return
+            
         agent = request.META.get('HTTP_USER_AGENT', '')
         ua = user_agents.parse(agent)
         ip = get_ip(request)
