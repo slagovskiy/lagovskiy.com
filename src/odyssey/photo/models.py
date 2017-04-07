@@ -98,22 +98,16 @@ class Photo(models.Model):
         null=True
     )
     slug = models.SlugField(
-        max_length=255
+        max_length=255,
+        unique=True
     )
     title = models.TextField(
-        max_length=255
+        max_length=255,
+        blank=True
     )
     author = models.ForeignKey(
         User,
         blank=True
-    )
-    description = models.CharField(
-        max_length=512,
-        default=''
-    )
-    keywords = models.CharField(
-        max_length=512,
-        default=''
     )
     status = models.IntegerField(
         choices=STATUS_CHOICES,
@@ -141,8 +135,7 @@ class Photo(models.Model):
     )
     image = models.ImageField(
         'Image',
-        blank=True,
-        null=True,
+        default='',
         upload_to=image_path
     )
 
@@ -160,7 +153,7 @@ class Photo(models.Model):
 
     def image_admin_preview(self):
         if self.image:
-            preview = '<img src="%s?s=24" border="0" title="%s"/>' % (self.image.url, self.description)
+            preview = '<img src="%s?s=24" border="0"/>' % self.image.url
             return preview
         else:
             return ''

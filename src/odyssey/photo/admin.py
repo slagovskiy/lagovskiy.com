@@ -15,7 +15,7 @@ class TagAdmin(admin.ModelAdmin):
 
 
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'image_admin_preview', 'status', 'sticked')
+    list_display = ('image_admin_preview', 'title', 'slug', 'status', 'sticked')
     ordering = ('status', 'sticked', 'created', 'title')
     exclude = ('uid',)
     #form = PostAdminForm
@@ -49,8 +49,6 @@ class PhotoAdmin(admin.ModelAdmin):
             'seo', {
                 'classes': ('',),
                 'fields': [
-                    'description',
-                    'keywords',
                     'albums',
                     'tags'
                 ]
