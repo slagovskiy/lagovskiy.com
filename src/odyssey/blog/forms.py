@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.admin import widgets
 from django.db.models import ManyToOneRel
 from django.forms import TextInput, Textarea
-from suit.widgets import SuitSplitDateTimeWidget, AutosizedTextarea, Textarea
 
 from .models import Post, Tag, Category
 
@@ -35,7 +34,6 @@ class PostAdminForm(forms.ModelForm):
             'title': TextInput(attrs={'class': 'width-max'}),
             'teaser': Textarea(),
             'content': Textarea(),
-            'published': SuitSplitDateTimeWidget(),
             'description': Textarea(),
             'keywords': Textarea(),
             #'email': EnclosedInput(prepend='icon-envelope'),

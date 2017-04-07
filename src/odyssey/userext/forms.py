@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.forms import HiddenInput, MultipleChoiceField
-from suit.widgets import EnclosedInput, SuitSplitDateTimeWidget
 from django.contrib.auth import get_user_model
 
 from ..userext.models import User
@@ -48,14 +47,6 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['email', ]
-        widgets = {
-            'email': EnclosedInput(prepend='icon-envelope'),
-            'password': HiddenInput,
-            'firstname': EnclosedInput(prepend='icon-user'),
-            'lastname': EnclosedInput(prepend='icon-user'),
-            'last_login': SuitSplitDateTimeWidget(),
-            'user_permission': MultipleChoiceField()
-        }
 
 
 class LoginForm(forms.Form):
