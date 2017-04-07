@@ -3,11 +3,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .settings import PAGE_SIZE
+from .models import Album, Tag, Photo
 
 
 def photo_view(request):
     page = int(request.GET.get('page', 1))
-    photos = []#Photo.objects.all().filter(status=Photo.PUBLISHED_STATUS).order_by('-published')
+    photos = Photo.objects.all().filter(status=Photo.PUBLISHED_STATUS).order_by('-published')
     paginator = Paginator(photos, PAGE_SIZE)
     if page <= 0:
         page = 1
