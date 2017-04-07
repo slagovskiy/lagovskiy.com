@@ -1,11 +1,18 @@
 from random import randint, choice
 from ....blog.models import Tag, Category, Post, Comment
+from ....photo.models import Photo, Album, Tag as PhotoTag
 from ....userext.models import User
 from ...models import PingServer
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from faker.factory import Factory
 from ....links.models import MyLink
+from ....settings import MEDIA_ROOT
+
+from django.core.files import File
+import urllib.request
+import os
+import uuid
 
 
 fake_ru = Factory.create('ru-RU')
@@ -20,9 +27,19 @@ def clean():
     Tag.objects.all().delete()
     Category.objects.all().delete()
     PingServer.objects.all().delete()
+    Album.objects.all().delete()
+    PhotoTag.objects.all().delete()
+    Photo.objects.all().delete()
+    for root, dirs, files in os.walk(os.path.join(MEDIA_ROOT, 'photo'), topdown=False):
+        for name in files:
+            os.remove(os.path.join(root, name))
+        for name in dirs:
+            os.rmdir(os.path.join(root, name))
 
 def pingserver():
-    data = '''http://1470.net/api/ping
+    data = '''http://ping.blogs.yandex.ru/RPC2
+http://blogsearch.google.com/ping/RPC2'''
+    data1 = '''http://1470.net/api/ping
 http://a2b.cc/setloc/bp.a2b
 http://api.feedster.com/ping
 http://api.moreover.com/ping
@@ -520,7 +537,7 @@ def blog_tag(count):
                 name=name
             )
             t.save()
-            print(t)
+            print('%s:%s %s' % (_, count, t))
 
 
 def blog_category(count):
@@ -613,7 +630,6 @@ def blog_post(count):
             tags.append(choice(Tag.objects.all()))
         teaser = '\n\n'.join(fake.paragraphs(randint(1, 3)))
         content = '\n\n'.join(fake.paragraphs(randint(3, 10)))
-        content_prev = '\n\n'.join(fake.paragraphs(randint(3, 10)))
         if not Post.exist(slug):
             p = Post.objects.create(
                 slug=slug,
@@ -628,8 +644,7 @@ def blog_post(count):
                 do_ping=do_ping,
                 published=published,
                 teaser=teaser,
-                content=content,
-                content_prev=content_prev
+                content=content
             )
             p.save()
             for c in categories:
@@ -638,7 +653,7 @@ def blog_post(count):
             for t in tags:
                 if t not in p.tags.all():
                     p.tags.add(t)
-            print(p)
+            print('%s:%s %s' % (_, count, p))
 
 
 def blog_comment(post, parent=None):
@@ -660,22 +675,117 @@ def blog_comment(post, parent=None):
     else:
         c.path = parent.path + '-' + str(c.id)
     c.save()
-    print(c)
 
 
 def blog_comments():
     posts = Post.objects.all()
+    c = 0
     for post in posts:
-        for _ in range(0, randint(10, 20)):
+        cnt = randint(5, 10)
+        for _ in range(0, cnt):
             blog_comment(post)
+            print('%s:%s %s:%s comment for %s' % (c, len(posts), _, cnt, post))
+        c += 1
+
 
 
 def blog_subcomments():
     comments = Comment.objects.all()
-    for _ in range(0, int(comments.count()/3)):
+    cntt = int(comments.count()/3)
+    cc = 0
+    for _ in range(0, cntt):
         c = choice(comments)
-        for _ in range(0, randint(0, 2)):
+        cnt = randint(0, 2)
+        for _ in range(0, cnt):
             blog_comment(c.post, c)
+            print('%s:%s: %s:%s subcomment for %s' % (cc, cntt, _, cnt, c.post))
+        cc += 1
+
+
+def photo_tag(count):
+    for _ in range(0, count):
+        if randint(0, 1):
+            fake = fake_ru
+        else:
+            fake = fake_en
+        slug = fake.slug()
+        name = fake.word()
+        if not PhotoTag.exist(slug):
+            t = PhotoTag.objects.create(
+                slug=slug,
+                name=name
+            )
+            t.save()
+            print('%s:%s %s' % (_, count, t))
+
+
+def photo_album(count):
+    for _ in range(0, count):
+        if randint(0, 1):
+            fake = fake_ru
+        else:
+            fake = fake_en
+        slug = fake.slug()
+        name = fake.word()
+        if not Album.exist(slug):
+            a = Album.objects.create(
+                slug=slug,
+                name=name,
+                order=randint(1, 100)
+            )
+            a.save()
+            print('%s:%s %s' % (_, count, a))
+
+def photo(count):
+    for _ in range(0, count):
+        if randint(0, 1):
+            fake = fake_ru
+        else:
+            fake = fake_en
+        slug = fake.slug()
+        uid = str(uuid.uuid1())
+        if not os.path.exists(os.path.join(MEDIA_ROOT, 'photo')):
+            os.mkdir(os.path.join(MEDIA_ROOT, 'photo'))
+        if not os.path.exists(os.path.join(os.path.join(MEDIA_ROOT, 'photo'), uid)):
+            os.mkdir(os.path.join(os.path.join(MEDIA_ROOT, 'photo'), uid))
+        path = os.path.join(os.path.join(os.path.join(MEDIA_ROOT, 'photo'), uid), 'image.jpg')
+        title = ' '.join(fake.words(randint(1, 6)))
+        title = title[0:1].upper() + title[1:]
+        author = User.objects.all().first()
+        status = randint(0, 2)
+        sticked = False
+        if randint(0, 1):
+            sticked = True
+        published = None
+        if status == 2:
+            published = timezone.now()
+        albums = []
+        for __ in range(1, randint(2, 4)):
+            albums.append(choice(Album.objects.all()))
+        tags = []
+        for __ in range(1, randint(1, 10)):
+            tags.append(choice(PhotoTag.objects.all()))
+        url = 'http://lorempixel.com/%s/%s/' % (str(randint(300, 800)), str(randint(300, 800)))
+        urllib.request.urlretrieve(url, path)
+        if os.path.exists(path) and os.path.getsize(path) > 0:
+            p = Photo.objects.create(
+                slug=slug,
+                title=title,
+                author=author,
+                status=status,
+                sticked=sticked,
+                published=published,
+                image=path
+            )
+            p.save()
+            for a in albums:
+                if a not in p.albums.all():
+                    p.albums.add(a)
+            for t in tags:
+                if t not in p.tags.all():
+                    p.tags.add(t)
+            print('%s:%s %s' % (_, count, p))
+
 
 
 class Command(BaseCommand):
@@ -685,12 +795,13 @@ class Command(BaseCommand):
         clean()
         pingserver()
         blog_category(5)
-        blog_tag(25)
-        blog_post(200)
+        blog_tag(50)
+        blog_post(150)
         blog_comments()
         blog_subcomments()
         blog_subcomments()
         blog_subcomments()
-        blog_subcomments()
-        blog_subcomments()
         links_mylink()
+        photo_album(10)
+        photo_tag(50)
+        photo(500)
