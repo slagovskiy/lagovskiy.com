@@ -18,3 +18,13 @@ def photo_view(request):
         'photos': paginator.page(page)
     }
     return render(request, 'photo/index.html', content)
+
+
+def photo_by_album(request):
+    content = []
+    return  render(request, 'photo/index.html', content)
+
+
+def photo_by_tag(request):
+    content = []
+    return  render(request, 'photo/index.html', content)

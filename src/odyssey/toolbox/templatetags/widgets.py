@@ -1,4 +1,5 @@
 from ...blog.models import Category, Tag
+from ...photo.models import Album, Tag as PhotoTag
 from django import template
 from ...links.models import MyLink
 
@@ -20,6 +21,24 @@ def widget_tags(active_tag=''):
     return {
         'tags': tags,
         'active_tag': active_tag
+    }
+
+
+@register.inclusion_tag('widgets/album.html')
+def widget_albums(active_album=''):
+    albums = Album.objects.all().filter(deleted=False)
+    return {
+        'albums': albums,
+        'active_album': active_album
+    }
+
+
+@register.inclusion_tag('widgets/phototags.html')
+def widget_phototags(active_phototag=''):
+    phototags = PhotoTag.objects.all().filter(deleted=False)
+    return {
+        'phototags': phototags,
+        'active_phototag': active_phototag
     }
 
 
