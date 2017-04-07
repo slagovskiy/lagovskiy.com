@@ -24,6 +24,8 @@ urlpatterns = [
 
     url(r'^blog/', include('odyssey.blog.urls')),
 
+    url(r'^photo/', include('odyssey.photo.urls')),
+
     url(r'^media/(?P<path>.*)$', media),
 
     url(r'^admin/', admin.site.urls, name='admin'),

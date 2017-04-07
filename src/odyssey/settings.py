@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'odyssey.userext',
     'odyssey.toolbox',
     'odyssey.blog',
+    'odyssey.photo',
     'odyssey.links',
     'odyssey.staticstic'
 ]
