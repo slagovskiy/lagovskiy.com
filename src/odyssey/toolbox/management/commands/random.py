@@ -765,7 +765,7 @@ def photo(count):
         tags = []
         for __ in range(1, randint(1, 10)):
             tags.append(choice(PhotoTag.objects.all()))
-        url = 'http://lorempixel.com/%s/%s/' % (str(randint(300, 800)), str(randint(300, 800)))
+        url = 'http://lorempixel.com/%s/%s/' % (str(randint(600, 2000)), str(randint(800, 2000)))
         urllib.request.urlretrieve(url, path)
         if os.path.exists(path) and os.path.getsize(path) > 0:
             p = Photo.objects.create(
