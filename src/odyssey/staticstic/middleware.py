@@ -21,7 +21,7 @@ class StatisticMiddleware:
             if point.find(exc) > -1 and exc != '':
                 return
 
-        if request.GET.get('stat', 1) == 0:
+        if request.GET.get('stat', 1) == '0':
             return
 
             
