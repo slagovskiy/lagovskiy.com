@@ -417,6 +417,26 @@ button .fa{
     padding-bottom: 10px;
 }
 
+.photo-view .photo-title .photo-info{
+    padding-top: 10px;
+    text-align: left;
+}
+
+.fancybox-caption {
+    font-size: 0.8em;
+    text-shadow: 2px 2px #555555;
+}
+
+.fancybox-caption a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.fancybox-caption a:hover {
+    color: #FFCCCC;
+    text-decoration: none;
+}
+
 /* comment */
 
 .comment-form {
