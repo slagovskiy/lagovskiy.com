@@ -1,0 +1,15 @@
+{% extends 'photo/base.html' %}
+{% load django_markdown %}
+
+{% block content %}
+<div class="photo-view">
+    <a data-fancybox="gallery" href="{{ photo.image.url }}">
+        <img src="{{ photo.image.url }}?h=700" border="0" />
+    </a>
+    {% if photo.title %}
+        <div class="photo-title">
+            {{ photo.title }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

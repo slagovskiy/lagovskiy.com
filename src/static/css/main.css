@@ -80,6 +80,7 @@ button .fa{
 
 .head-row{
     padding: 1.3em;
+    font-size: 1.3em;
 }
 
 .head-logo img {
@@ -107,7 +108,7 @@ button .fa{
 }
 
 .head-menu-line li a{
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 .head-menu-line li a:hover{
@@ -347,9 +348,10 @@ button .fa{
 .photo-items {
     -moz-column-width: 260px;
     -webkit-column-width: 260px;
-    -moz-column-gap: 0em;
-    -webkit-column-gap: 0em;
-    column-gap: 0em;
+    column-width: 260px;
+    -moz-column-gap: 0px;
+    -webkit-column-gap: 0px;
+    column-gap: 0px;
     font-size: .85em;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -359,6 +361,13 @@ button .fa{
     width: 100%;
     padding: 5px;
     text-align: center;
+}
+
+.photo-items .photo-item .photo-title{
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 .photo-items .photo-item img {
@@ -371,6 +380,31 @@ button .fa{
 
 .photo-items .photo-item a:hover img{
     border: 1px solid #AAAAAA;
+}
+
+.photo-view {
+    font-size: .85em;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    text-align: center;
+}
+
+.photo-view img {
+    max-width: 100%; !important;
+    height: auto; !important;
+    border: 1px solid #EEEEEE;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.photo-view a:hover img{
+    border: 1px solid #AAAAAA;
+}
+
+.photo-view .photo-title{
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 /* comment */
