@@ -18,8 +18,12 @@ class StatisticMiddleware:
 
         point = request.path
         for exc in EXCLUDE:
-            if point.find(exc) > -1:
+            if point.find(exc) > -1 and exc != '':
                 return
+
+        if request.GET.get('stat', 1) == 0:
+            return
+
             
         agent = request.META.get('HTTP_USER_AGENT', '')
         ua = user_agents.parse(agent)

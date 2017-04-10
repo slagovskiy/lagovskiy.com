@@ -1,6 +1,6 @@
 <div class="photo-item">
     <a data-fancybox="gallery" data-fancybox="ajax" data-src="{{ photo.image.url }}" href="{% url 'photo_item_view' photo.slug %}">
-        <img src="{{ photo.image.url }}?w=200" border="0" />
+        <img src="{{ photo.image.url }}?w=200&stat=0" border="0" />
     </a>
     {% if photo.title %}
     <div class="photo-title">
