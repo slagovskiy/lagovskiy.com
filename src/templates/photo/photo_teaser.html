@@ -1,5 +1,5 @@
 <div class="photo-item">
-    <a href="{% url 'photo_item_view' photo.slug %}"><!-- data-fancybox="gallery"  -->
+    <a data-fancybox="gallery" data-fancybox="ajax" data-src="{{ photo.image.url }}" href="{% url 'photo_item_view' photo.slug %}">
         <img src="{{ photo.image.url }}?w=200" border="0" />
     </a>
     {% if photo.title %}

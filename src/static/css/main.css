@@ -378,8 +378,13 @@ button .fa{
     border-radius: 3px;
 }
 
-.photo-items .photo-item a:hover img{
+.photo-items .photo-item a:hover img {
     border: 1px solid #AAAAAA;
+}
+
+.photo-items .photo-item a:focus {
+    outline: none;
+    outline-offset: 0px;
 }
 
 .photo-view {
@@ -398,6 +403,11 @@ button .fa{
 
 .photo-view a:hover img{
     border: 1px solid #AAAAAA;
+}
+
+.photo-view a:focus {
+    outline: none;
+    outline-offset: 0px;
 }
 
 .photo-view .photo-title{
