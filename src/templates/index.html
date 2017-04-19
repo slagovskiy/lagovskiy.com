@@ -10,11 +10,20 @@
     {% endif %}
     <hr>
     {% if posts %}
-        {% top posts 4 as posts4 %}
-        <h2 class="top-posts-head">Recent posts</h2>
-        <div class="top-posts">
-        {% for post in posts4 %}
-            {% include 'blog/post_top.html' %}
+        <div class="top-posts clearfix">
+        {% for post in posts %}
+            {% if not forloop.first %}
+                {% include 'blog/post_top.html' %}
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    <hr>
+    {% if photos %}
+        <div class="top-posts clearfix">
+        {% for photo in photos %}
+            {% include 'photo/photo_top.html' %}
         {% endfor %}
         </div>
     {% endif %}

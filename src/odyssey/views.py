@@ -1,14 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from odyssey.blog.models import Post
-from odyssey.toolbox.captcha import captcha_code, captcha_image
+from .blog.models import Post
+from .photo.models import Photo
+from .toolbox.captcha import captcha_code, captcha_image
 
 
 def index(request):
-    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('-published')
+    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('-published')[0:5]
+    photos = Photo.objects.filter(status=Photo.PUBLISHED_STATUS).order_by('-published')[0:4]
     content = {
-        'posts': posts
+        'posts': posts,
+        'photos': photos
     }
     return render(request, 'index.html', content)
 
