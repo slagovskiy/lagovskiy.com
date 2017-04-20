@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Album, Tag, Photo
+from .models import Album, Tag, Photo, DeviceType, Device
 
 
 class AlbumAdmin(admin.ModelAdmin):
@@ -14,8 +14,20 @@ class TagAdmin(admin.ModelAdmin):
     ordering = ['name']
 
 
+class DeviceTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'show_in_menu', 'deleted')
+    list_filter = ('name',)
+    ordering = ['name']
+
+
+class DeviceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'deleted')
+    list_filter = ('name',)
+    ordering = ['name']
+
+
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('image_admin_preview', 'title', 'slug', 'status', 'sticked')
+    list_display = ('image_admin_preview', 'title', 'slug', 'status', 'published', 'sticked')
     ordering = ('status', 'sticked', 'created', 'title')
     exclude = ('uid',)
     #form = PostAdminForm
@@ -50,7 +62,8 @@ class PhotoAdmin(admin.ModelAdmin):
                 'classes': ('',),
                 'fields': [
                     'albums',
-                    'tags'
+                    'tags',
+                    'devices'
                 ]
             }
         ),
@@ -59,4 +72,7 @@ class PhotoAdmin(admin.ModelAdmin):
 
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(DeviceType, DeviceTypeAdmin)
+admin.site.register(Device, DeviceAdmin)
 admin.site.register(Photo, PhotoAdmin)
+
