@@ -1,0 +1,22 @@
+{% extends 'photo/base.html' %}
+{% load django_markdown %}
+{% load markup %}
+{% load tags %}
+
+{% block content %}
+    {% if device %}
+        <div class="device-item">
+            <div class="device-head">
+                <div class="device-name">{{ device.name }}</div>
+                {% if device.image %}
+                    <div class="device-img">
+                        <img src="{{ device.image.url }}">
+                    </div>
+                {% endif %}
+            </div>
+            <div class="post-body clearfix">
+                {{ device.content|medial_file|markdown }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -21,9 +21,10 @@ class DeviceTypeAdmin(admin.ModelAdmin):
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'deleted')
+    list_display = ('name', 'slug', 'image_admin_preview', 'deleted')
     list_filter = ('name',)
     ordering = ['name']
+    readonly_fields = ('image_preview',)
 
 
 class PhotoAdmin(admin.ModelAdmin):

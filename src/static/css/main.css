@@ -594,6 +594,29 @@ button .fa{
     background: #FFFFFF;
     color: #006ED2;
 }
+
+/* device */
+
+.device-item {
+    padding-bottom: 2em;
+}
+
+.device-head {
+    padding-bottom: 1em;
+}
+
+.device-item .device-name {
+    font-size: 2em;
+    padding-bottom: .5em;
+}
+
+.device-item .device-name img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+
 /* right menu */
 
 .right-menu {

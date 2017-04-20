@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .settings import PAGE_SIZE
-from .models import Album, Tag, Photo
+from .models import Album, Tag, Photo, DeviceType, Device
 
 
 def photo_view(request):
@@ -53,6 +53,24 @@ def photo_by_tag(request, slug=''):
         'active_phototag': tag
     }
     return render(request, 'photo/index.html', content)
+
+
+def devices_view(request, slug=''):
+    devt = DeviceType.objects.filter(slug=slug).first()
+    devices = devt.device_set.order_by('name')
+    content = {
+        'devices': devices,
+        'active_device_type': devt
+    }
+    return render(request, 'photo/devices.html', content)
+
+
+def device_view(request, slug=''):
+    device = Device.objects.filter(slug=slug).first()
+    content = {
+        'device': device
+    }
+    return render(request, 'photo/device.html', content)
 
 
 def photo_item_view(request, slug=''):

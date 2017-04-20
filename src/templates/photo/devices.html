@@ -1,0 +1,19 @@
+{% extends 'photo/base.html' %}
+{% load django_markdown %}
+
+{% block content %}
+    <div class="device-items">
+        {% for device in devices %}
+            <div class="device-item">
+                <a href="{% url 'device_view' device.slug %}">
+                    <div class="device-name">{{ device.name }}</div>
+                    {% if device.image %}
+                    <div class="device-link">
+                        <img src="{{ device.image.url }}">
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
