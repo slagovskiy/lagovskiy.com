@@ -9,7 +9,7 @@ from .settings import PAGE_SIZE
 
 def blog_view(request):
     page = int(request.GET.get('page', 1))
-    posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('-published')
+    posts = Post.objects.all().filter(status=Post.PUBLISHED_STATUS).order_by('published')
     paginator = Paginator(posts, PAGE_SIZE)
     if page <= 0:
         page = 1
@@ -33,7 +33,7 @@ def blog_post_view(request, slug=''):
 def blog_post_by_tag(request, slug=''):
     page = int(request.GET.get('page', 1))
     tag = Tag.objects.filter(slug=slug).first()
-    posts = tag.post_set.filter(status=Post.PUBLISHED_STATUS).order_by('-published')
+    posts = tag.post_set.filter(status=Post.PUBLISHED_STATUS).order_by('published')
     paginator = Paginator(posts, PAGE_SIZE)
     if page <= 0:
         page = 1
@@ -50,7 +50,7 @@ def blog_post_by_tag(request, slug=''):
 def blog_post_by_category(request, slug=''):
     page = int(request.GET.get('page', 1))
     category = Category.objects.filter(slug=slug).first()
-    posts = category.post_set.filter(status=Post.PUBLISHED_STATUS).order_by('-published')
+    posts = category.post_set.filter(status=Post.PUBLISHED_STATUS).order_by('published')
     paginator = Paginator(posts, PAGE_SIZE)
     if page <= 0:
         page = 1

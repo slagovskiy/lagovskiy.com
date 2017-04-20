@@ -7,8 +7,8 @@ from .toolbox.captcha import captcha_code, captcha_image
 
 
 def index(request):
-    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('-published')[0:5]
-    photos = Photo.objects.filter(status=Photo.PUBLISHED_STATUS).order_by('-published')[0:4]
+    posts = Post.objects.filter(status=Post.PUBLISHED_STATUS).order_by('published')[0:5]
+    photos = Photo.objects.filter(status=Photo.PUBLISHED_STATUS).order_by('published')[0:4]
     content = {
         'posts': posts,
         'photos': photos
