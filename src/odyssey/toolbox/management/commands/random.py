@@ -1,6 +1,6 @@
 from random import randint, choice
 from ....blog.models import Tag, Category, Post, Comment
-from ....photo.models import Photo, Album, Tag as PhotoTag
+from ....photo.models import Photo, Album, Tag as PhotoTag, Device, DeviceType
 from ....userext.models import User
 from ...models import PingServer
 from django.core.management.base import BaseCommand
@@ -29,6 +29,8 @@ def clean():
     PingServer.objects.all().delete()
     Album.objects.all().delete()
     PhotoTag.objects.all().delete()
+    Device.objects.all().delete()
+    DeviceType.objects.all().delete()
     Photo.objects.all().delete()
     for root, dirs, files in os.walk(os.path.join(MEDIA_ROOT, 'photo'), topdown=False):
         for name in files:
@@ -603,7 +605,7 @@ def blog_post(count):
         slug = fake.slug()
         title = ' '.join(fake.words(randint(1, 6)))
         title = title[0:1].upper() + title[1:]
-        author = User.objects.all().first()
+        author = choice(User.objects.all())
         description = ' '.join(fake.words(randint(5, 20)))
         keywords = ', '.join(fake.words(randint(5, 20)))
         status = randint(0, 2)
@@ -736,6 +738,52 @@ def photo_album(count):
             a.save()
             print('%s:%s %s' % (_, count, a))
 
+
+def device_type():
+    d = DeviceType.objects.create(
+        slug='camera',
+        name='Camera',
+        show_in_menu=True
+    )
+    d.save()
+    print(d)
+    d = DeviceType.objects.create(
+        slug='lens',
+        name='Lens',
+        show_in_menu=True
+    )
+    d.save()
+    print(d)
+    d = DeviceType.objects.create(
+        slug='film',
+        name='Film',
+        show_in_menu=True
+    )
+    d.save()
+    print(d)
+
+
+def device(count):
+    for _ in range(0, count):
+        if randint(0, 1):
+            fake = fake_ru
+        else:
+            fake = fake_en
+        slug = fake.slug()
+        name = fake.word()
+        devt = choice(DeviceType.objects.all())
+        content = '\n\n'.join(fake.paragraphs(randint(3, 10)))
+        if not Album.exist(slug):
+            d = Device.objects.create(
+                slug=slug,
+                name=name,
+                device_type=devt,
+                content=content
+            )
+            d.save()
+            print('%s:%s %s' % (_, count, d))
+
+
 def photo(count):
     for _ in range(0, count):
         if randint(0, 1):
@@ -765,9 +813,12 @@ def photo(count):
         tags = []
         for __ in range(1, randint(1, 10)):
             tags.append(choice(PhotoTag.objects.all()))
+        devices = []
+        for __ in range(1, randint(2, 4)):
+            devices.append(choice(Device.objects.all()))
         url = 'http://lorempixel.com/%s/%s/' % (str(randint(600, 2000)), str(randint(800, 2000)))
         urllib.request.urlretrieve(url, path)
-        if os.path.exists(path) and os.path.getsize(path) > 0:
+        if os.path.exists(path) and os.path.getsize(path) > 0 and not Photo.exist(slug):
             p = Photo.objects.create(
                 slug=slug,
                 title=title,
@@ -784,6 +835,9 @@ def photo(count):
             for t in tags:
                 if t not in p.tags.all():
                     p.tags.add(t)
+            for d in devices:
+                if d not in p.devices.all():
+                    p.devices.add(d)
             print('%s:%s %s' % (_, count, p))
 
 
@@ -804,4 +858,6 @@ class Command(BaseCommand):
         links_mylink()
         photo_album(10)
         photo_tag(50)
+        device_type()
+        device(30)
         photo(500)
