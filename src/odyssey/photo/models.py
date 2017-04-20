@@ -243,6 +243,10 @@ class Photo(models.Model):
         default='',
         upload_to=image_path
     )
+    devices = models.ManyToManyField(
+        Device,
+        blank=True
+    )
 
     def __str__(self):
         return '<Image %s>' % self.title
