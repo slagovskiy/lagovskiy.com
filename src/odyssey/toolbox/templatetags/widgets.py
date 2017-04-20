@@ -1,5 +1,5 @@
 from ...blog.models import Category, Tag
-from ...photo.models import Album, Tag as PhotoTag
+from ...photo.models import Album, Tag as PhotoTag, DeviceType
 from django import template
 from ...links.models import MyLink
 
@@ -30,6 +30,15 @@ def widget_albums(active_album=''):
     return {
         'albums': albums,
         'active_album': active_album
+    }
+
+
+@register.inclusion_tag('widgets/device.html')
+def widget_device_types(active_device_type=''):
+    device_types = DeviceType.objects.all().filter(deleted=False, show_in_menu=True)
+    return {
+        'device_types': device_types,
+        'active_device_type': active_device_type
     }
 
 

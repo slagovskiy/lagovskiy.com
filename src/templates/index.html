@@ -2,6 +2,7 @@
 {% load static %}
 {% load django_markdown %}
 {% load tags %}
+{% load widgets %}
 
 {% block content %}
     {% if posts %}
@@ -28,4 +29,11 @@
         </div>
     {% endif %}
 
+{% endblock %}
+
+{% block right_menu %}
+    {% widget_category active_category %}
+    {% widget_albums active_album %}
+    {% widget_device_types active_device_type %}
+    {% widget_links %}
 {% endblock %}
