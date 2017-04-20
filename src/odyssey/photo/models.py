@@ -116,6 +116,11 @@ class Device(models.Model):
         filename = '{}.{}'.format(str(uuid.uuid1()), ext)
         return os.path.join(os.path.join('device', instance.uid), filename)
 
+    uid = models.TextField(
+        max_length=40,
+        blank=True,
+        null=True
+    )
     slug = models.SlugField(
         unique=True
     )
@@ -162,7 +167,7 @@ class Device(models.Model):
 
     def image_admin_preview(self):
         if self.image:
-            preview = '<img src="%s?s=24" border="0"/>' % self.image.url
+            preview = '<img src="%s?h=24" border="0"/>' % self.image.url
             return preview
         else:
             return ''
