@@ -1,11 +1,6 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = '-vop18rtmr(sy-1f)74-5@=mv(_9zl@xa$7=7mw4&nsq^jo)sy'
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,13 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'odyssey.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -97,23 +85,48 @@ USE_L10N = True
 
 USE_TZ = False
 
-STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
-UPLOAD_URL = '/media/'
 SENDFILE_BACKEND = 'sendfile.backends.simple'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
 
 LOGIN_URL = r'/admin/login/'
 
 AUTH_USER_MODEL = 'userext.User'
 
+try:
+    from .settings_local import *
+except ImportError:
+    pass
+
+if not SECRET_KEY:
+    raise Exception('You must provide SECRET_KEY value in settings_local.py')
+
+'''
+# settings_local.py
+
+from .settings import BASE_DIR
+import os
+
+DEBUG = True
+SECRET_KEY = '-vop18rtmr(sy-1f)74-5@=mv(_9zl@xa$7=7mw4&nsq^jo)sy'
+ALLOWED_HOSTS = []
+
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+UPLOAD_URL = '/media/'
+UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
+
 SITE_URL = 'http://127.0.0.1:8000'
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+'''
