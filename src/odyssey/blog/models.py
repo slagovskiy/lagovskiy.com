@@ -115,7 +115,8 @@ class Post(models.Model):
     )
     author = models.ForeignKey(
         User,
-        blank=True
+        blank=True,
+        null=True
     )
     description = models.CharField(
         max_length=512,
