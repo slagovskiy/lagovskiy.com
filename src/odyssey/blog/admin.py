@@ -83,7 +83,7 @@ class MediaAdmin(admin.ModelAdmin):
     list_display = ('media_file_admin_preview', 'title', 'description')
     ordering = ('-created',)
     exclude = ('uid', 'media_file_admin_preview')
-    readonly_fields = ('created', 'media_file_preview')
+    readonly_fields = ('media_file_preview',)
 
 
 admin.site.register(Category, CategoryAdmin)

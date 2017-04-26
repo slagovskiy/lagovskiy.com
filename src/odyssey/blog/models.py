@@ -229,9 +229,8 @@ class Comment(models.Model):
         default=''
     )
     created = models.DateTimeField(
-        auto_now_add=True,
-        editable=True,
-        blank=True
+        blank=True,
+        null=True
     )
     allowed = models.BooleanField(
         default=True
