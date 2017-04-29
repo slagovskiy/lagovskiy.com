@@ -92,6 +92,8 @@ def blog_comment_save(request):
                 if parent > 0:
                     parent_comment = Comment.objects.get(id=parent)
                 comment = Comment()
+                if request.user.is_authenticated:
+                    comment.user = request.user
                 comment.allowed = not post.comments_moderated
                 comment.post = post
                 comment.content = message
@@ -101,10 +103,8 @@ def blog_comment_save(request):
                 comment.ip = ip
                 comment.created = created
                 comment.save()
-                if parent == 0:
-                    comment.path = str(comment.id)
-                else:
-                    comment.path = parent_comment.path + '-' + str(comment.id)
+                if parent != 0:
+                    comment.parent = parent_comment
                 comment.save()
                 return HttpResponse('ok:' + str(comment.id))
             else:

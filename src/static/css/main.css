@@ -562,6 +562,11 @@ button .fa{
     font-size: 1.3em;
 }
 
+.comments .username-master {
+    font-weight: bold;
+    color: #006eD2;
+}
+
 .comments .date {
     float: right;
     font-size: .8em;

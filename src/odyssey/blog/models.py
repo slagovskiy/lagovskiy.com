@@ -258,7 +258,7 @@ class Comment(MPTTModel):
     )
 
     def __str__(self):
-        return '<Comment %s, %s, %s>' % (self.username, self.created, self.path)
+        return '<Comment %s, %s>' % (self.username, self.created)
 
     def content100(self):
         more = ''

@@ -92,8 +92,14 @@
                     <div class="comment-user" id="comment-user">
                         <div class="row">
                             <div class="col-md-2"><label for="comment-username">Username</label></div>
-                            <div class="col-md-10"><input type="text" id="comment-username" name="comment-username" placeholder="enter your name here"></div>
+                            <div class="col-md-10"><input type="text" id="comment-username" name="comment-username" placeholder="enter your name here" value="{% if request.user %}{{ request.user.firstname }} {{ request.user.lastname }}{% endif %}"></div>
                         </div>
+                        {% if request.user.is_authenticated %}
+                            <div class="row">
+                                <div class="col-md-2"><label for="comment-date">Date</label></div>
+                                <div class="col-md-10"><input type="text" id="comment-date" name="comment-date" placeholder="YYYY/MM/DD"></div>
+                            </div>
+                        {% endif %}
                         <div class="row">
                             <div class="col-md-2"><label for="comment-email">Email</label></div>
                             <div class="col-md-10"><input type="text" id="comment-email" name="comment-email" placeholder="if you want to receive updates, enter your email"></div>
