@@ -1,7 +1,7 @@
 django
 django_markdown
 django-sendfile
-mptt
+django-mptt
 user_agents
 pillow
 faker
