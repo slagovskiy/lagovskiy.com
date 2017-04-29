@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils import timezone
+from django.utils.timezone import get_current_timezone
+from datetime import datetime
 
 from ..toolbox.utils import get_ip
 from .models import Post, Category, Tag, Comment
@@ -84,7 +86,13 @@ def blog_comment_save(request):
         captcha = str(request.POST.get('comment-captcha', ''))
         agent = request.META.get('HTTP_USER_AGENT', '')
         ip = get_ip(request)
-        created = timezone.now()
+        if request.POST.get('comment-date', '') != '':
+            dt = datetime.strptime(
+                request.POST.get('comment-date', '') + " " + str(datetime.now().hour) + ":" + str(datetime.now().minute), '%Y/%m/%d %H:%M'
+            )
+            created = dt
+        else:
+            created = timezone.now()
         if request.session['CAPTCHA_CODE'] == str(captcha).upper():
             post = Post.objects.get(id=post)
             if post:

@@ -668,6 +668,7 @@ def blog_comment(post, parent=None):
         username=fake.name(),
         email=fake.email(),
         agent=fake.user_agent(),
+        created=timezone.now(),
         ip=fake.ipv4(),
         content='\n\n'.join(fake.paragraphs(randint(1, 3)))
     )
