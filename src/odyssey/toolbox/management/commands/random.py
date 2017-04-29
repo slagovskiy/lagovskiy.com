@@ -672,10 +672,8 @@ def blog_comment(post, parent=None):
         content='\n\n'.join(fake.paragraphs(randint(1, 3)))
     )
     c.save()
-    if parent is None:
-        c.path = str(c.id)
-    else:
-        c.path = parent.path + '-' + str(c.id)
+    if parent:
+        c.parent = parent
     c.save()
 
 
@@ -860,4 +858,4 @@ class Command(BaseCommand):
         photo_tag(50)
         device_type()
         device(30)
-        photo(500)
+        #photo(500)

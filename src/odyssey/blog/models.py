@@ -1,5 +1,6 @@
 import os
 import uuid
+from mptt.models import MPTTModel, TreeForeignKey
 from django.db import models
 from django.urls import reverse
 from ..settings import STATIC_URL
@@ -215,10 +216,19 @@ class Post(models.Model):
         verbose_name_plural = 'Posts'
 
 
-class Comment(models.Model):
+class Comment(MPTTModel):
     post = models.ForeignKey(Post)
-    path = models.TextField(
-        default=''
+    parent = TreeForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        related_name='children',
+        db_index=True
+    )
+    user = models.ForeignKey(
+        User,
+        null=True,
+        blank=True
     )
     username = models.CharField(
         max_length=255,
@@ -262,8 +272,11 @@ class Comment(models.Model):
     content100.short_description = 'Content preview'
     post100.short_description = 'Post preview'
 
+    class MPTTMeta:
+        level_attr = 'mptt_level'
+
     class Meta:
-        ordering = ['path', ]
+        ordering = ['created', ]
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
 

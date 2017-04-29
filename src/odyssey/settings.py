@@ -13,6 +13,7 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'django_markdown',
+    'mptt',
 
     # my apps
     'odyssey.userext',

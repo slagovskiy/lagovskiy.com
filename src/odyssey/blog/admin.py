@@ -1,4 +1,5 @@
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin
 from .models import Category, Tag, Post, Comment, Media
 from .forms import PostAdminForm
 
@@ -74,9 +75,9 @@ class PostAdmin(admin.ModelAdmin):
     #    super(PostAdmin, self).__init__(*args, **kwargs)
     #    self.form.admin_site = self.admin_site
 
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ('content100', 'username', 'post100', 'created', 'path', 'allowed')
-    ordering = ('-created',)
+class CommentAdmin(MPTTModelAdmin):
+    list_display = ('username', 'content100', 'post100', 'created', 'allowed')
+    mptt_level_indent = 20
 
 
 class MediaAdmin(admin.ModelAdmin):
