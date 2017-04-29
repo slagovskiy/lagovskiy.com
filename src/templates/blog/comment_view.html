@@ -1,6 +1,6 @@
 {% load tags %}
 
-<div style="padding-left: {% get_comment_level comment.path 2 %}em;" class="level">
+<div style="padding-left: {{ comment.mptt_level|mul:2 }}em;" class="level">
     <header>
         <div class="username{% if comment.user %} username-master{% endif %}">{{ comment.username }}</div>
         <div class="date">{{ comment.created|date_from_now|safe }}&nbsp;&nbsp;<a href="#comment{{ comment.id }}" name="comment{{ comment.id }}"><i class="fa fa-link" aria-hidden="true"></i></a></div>

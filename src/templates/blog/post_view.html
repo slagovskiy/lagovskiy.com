@@ -2,6 +2,7 @@
 {% load django_markdown %}
 {% load markup %}
 {% load tags %}
+{% load mptt_tags %}
 
 
 {% block ext_meta %}
@@ -120,12 +121,17 @@
             </div>
         {% endif %}
             <div class="comments-tree">
-            {% for comment in post.comment_set.all %}
-                {% if comment.allowed %}
-                    {% include "blog/comment_view.html" %}
-                {% endif %}
-            {% endfor %}
-            <div id="comment_reply_0"></div>
+                {% recursetree post.comment_set.all %}
+                        {% with node as comment %}
+                        {% if comment.allowed %}
+                            {% include "blog/comment_view.html" %}
+                        {% endif %}
+                        {% if not node.is_leaf_node %}
+                                {{ children }}
+                        {% endif %}
+                        {% endwith %}
+                {% endrecursetree  %}
+                <div id="comment_reply_0"></div>
             </div>
         </section>
         {% if post.comments_enabled %}
