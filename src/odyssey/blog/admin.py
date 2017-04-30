@@ -19,7 +19,7 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ('status', 'sticked', 'created', 'title')
     exclude = ('uid',)
     form = PostAdminForm
-    readonly_fields = ('created', 'social_image_preview',)
+    readonly_fields = ('created', 'social_image_preview', 'editor_help')
 
     fieldsets = [
         (
@@ -30,6 +30,7 @@ class PostAdmin(admin.ModelAdmin):
                     'title',
                     'teaser',
                     'content',
+                    'editor_help'
                 ]
             }
         ),

@@ -187,6 +187,20 @@ class Post(models.Model):
         path = SITE_URL + reverse('blog_post', args=[self.slug])
         return path
 
+    def editor_help(self):
+        preview = '''<a href="---" data-fancybox="gallery"><img src="---" class="img-center" /></a>
+        <a href="---" data-fancybox="gallery"><img src="---" class="img-left" /></a>
+        <a href="---" data-fancybox="gallery"><img src="---" class="img-right" /></a>
+        <a href="---" data-fancybox="gallery"><img src="---" class="img-line" /></a>
+        for images:  ?w=100 ?h=100  ?s=100
+        & - &amp;  \' - &#39;  " - &quot;  < - &lt;  > - &gt;
+        <pre><code style="lang">CODE</code></pre>
+        '''
+        return preview
+
+    editor_help.short_description = 'Editor help'
+    editor_help.allow_tags = False
+
     def social_image_preview(self):
         if self.social_image:
             return '<img src="%s?h=100" border="0"/>' % self.social_image.url
