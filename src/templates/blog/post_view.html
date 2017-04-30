@@ -4,6 +4,8 @@
 {% load tags %}
 {% load mptt_tags %}
 
+{% block ext_title %}{{ post.title }} - {% endblock %}
+
 
 {% block ext_meta %}
     {% if post %}

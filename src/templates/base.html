@@ -9,7 +9,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>lagovskiy.com</title>
+	<title>{% block ext_title %}{% endblock %}lagovskiy.com</title>
     <meta name="author" content="Sergey Lagovskiy">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -79,7 +79,7 @@
     <footer class="footer">
         <div class="container clearfix">
             <div class="col-md-12">
-                <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2010-{% now "Y" %}&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.4
+                <a href="mailto:slagovskiy@gmail.com">Sergey Lagovskiy</a> &copy; 2009-{% now "Y" %}&nbsp;&nbsp;<span title="Odyssey">Οδύσσεια</span> 0.4
             </div>
             <div class="col-md-12 admin-link">
                 <a href="/admin/">admin</a>
