@@ -333,6 +333,10 @@ button .fa{
     height: auto;
 }
 
+.post-body img.img-line {
+    display: inline;
+}
+
 .post-body img.img-left {
     margin-right: 0.5em;
     float: left;
