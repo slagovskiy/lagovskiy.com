@@ -81,10 +81,10 @@ class CommentAdmin(MPTTModelAdmin):
 
 
 class MediaAdmin(admin.ModelAdmin):
-    list_display = ('media_file_admin_preview', 'title', 'description')
+    list_display = ('media_file_admin_preview', 'title', 'media_link')
     ordering = ('-created',)
     exclude = ('uid', 'media_file_admin_preview')
-    readonly_fields = ('media_file_preview',)
+    readonly_fields = ('media_file_preview', 'media_link')
 
 
 admin.site.register(Category, CategoryAdmin)

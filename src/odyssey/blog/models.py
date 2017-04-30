@@ -355,10 +355,16 @@ class Media(models.Model):
     media_file_preview.short_description = 'Media file'
     media_file_preview.allow_tags = True
 
+    def media_link(self):
+        return self.media_file.url
+
+    media_link.short_description = 'Media link'
+    media_link.allow_tags = True
+
     def media_file_admin_preview(self):
         if self.media_file:
             if self.is_image:
-                preview = '<img src="%s?s=24" border="0" title="%s"/>' % (self.media_file.url, self.description)
+                preview = '<img src="%s?s=48" border="0" title="%s"/>' % (self.media_file.url, self.description)
             else:
                 preview = '<img src="%s" border="0"/>' % os.path.join(STATIC_URL, 'img/file24.jpg')
             return preview
