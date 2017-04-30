@@ -27,6 +27,17 @@ def first(val=['']):
     return val[0]
 
 
+@register.filter
+def escapebr(val=''):
+    return str(val)\
+        .replace('&', '&amp;') \
+        .replace('\'', '&#39;') \
+        .replace('"', ' &quot;') \
+        .replace('<', '&lt;') \
+        .replace('>', '&gt;') \
+        .replace('\n', '<br>')
+
+
 @register.simple_tag
 def top(val=[''], top_cnt=1):
     return val[0:int(top_cnt)]

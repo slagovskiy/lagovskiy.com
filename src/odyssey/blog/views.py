@@ -101,7 +101,8 @@ def blog_comment_save(request):
                     parent_comment = Comment.objects.get(id=parent)
                 comment = Comment()
                 if request.user.is_authenticated:
-                    comment.user = request.user
+                    if request.user.firstname + ' ' + request.user.lastname == username:
+                        comment.user = request.user
                 comment.allowed = not post.comments_moderated
                 comment.post = post
                 comment.content = message
