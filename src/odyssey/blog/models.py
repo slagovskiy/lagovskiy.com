@@ -188,10 +188,13 @@ class Post(models.Model):
         return path
 
     def editor_help(self):
-        preview = '''<a href="---" data-fancybox="gallery"><img src="---" class="img-center" /></a>
-        <a href="---" data-fancybox="gallery"><img src="---" class="img-left" /></a>
-        <a href="---" data-fancybox="gallery"><img src="---" class="img-right" /></a>
-        <a href="---" data-fancybox="gallery"><img src="---" class="img-line" /></a>
+        preview = '''<a href="" data-fancybox="gallery"><img src="?w=600" class="img-center" /></a>
+        <a href="" data-fancybox="gallery"><img src="?w=200" class="img-left" /></a>
+        <a href="" data-fancybox="gallery"><img src="?w=200" class="img-right" /></a>
+        <a href="" data-fancybox="gallery"><img src="?w=300" class="img-line" /></a>
+        <center>
+            <a href="" data-fancybox="gallery"><img src="?w=300" class="img-line" /></a>
+        </center>
         for images:  ?w=100 ?h=100  ?s=100
         & - &amp;  \' - &#39;  " - &quot;  < - &lt;  > - &gt;
         <pre><code style="lang">CODE</code></pre>
