@@ -183,6 +183,9 @@ class Post(models.Model):
         else:
             return ''
 
+    def comment_count(self):
+        return self.comment_set.filter(allowed=True).count()
+
     def get_post_url(self):
         path = SITE_URL + reverse('blog_post', args=[self.slug])
         return path

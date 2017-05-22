@@ -82,7 +82,7 @@
         </article>
 
         <section role="comments" class="comments">
-            <h2><a href="#" onclick="moveReply(0); return false;">Comments: {{ post.comment_set.all.count }}</a></h2>
+            <h2><a href="#" onclick="moveReply(0); return false;">Comments: {{ post.comment_count }}</a></h2>
         {% if post.comments_enabled %}
             <div id="reply_0">
                 <form name="comment-form" class="comment-form" action="{% url 'blog_comment_save' %}" id="comment-form">
