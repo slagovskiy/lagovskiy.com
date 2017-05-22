@@ -32,7 +32,7 @@
         <meta property="og:url" content="{{ post.get_post_url }}" />
         <meta property="og:image" content="{{ post.get_social_image_url }}" />
         <meta property="og:description" content="{{ post.description }}" />
-        <meta property="og:site_name" content="{{ request.session.global.site_name }}" />
+        {% comment %}<meta property="og:site_name" content="{{ request.session.global.site_name }}" />{% endcomment %}
         <meta property="article:published_time" content="{{ post.published }}" />
         <meta property="article:modified_time" content="{{ post.published }}" />
         {% for category in post.categories.all %}<meta property="article:section" content="{{ category.name }}" />{% endfor %}
