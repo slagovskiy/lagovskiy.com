@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from ..userext.models import User
 from ..staticstic.models import visitor_count
+from ..settings import SITE_URL
 
 
 class Album(models.Model):
@@ -275,8 +276,17 @@ class Photo(models.Model):
     image_admin_preview.short_description = 'Image'
     image_admin_preview.allow_tags = True
 
+    def get_photo_url(self):
+        path = SITE_URL + self.image.url
+        return path
+
+    def get_post_url(self):
+        path = SITE_URL + reverse('photo_item_view', args=[self.slug])
+        return path
+
+
     def visitor_count(self):
-        return visitor_count(reverse('photo_item', args=[self.slug]))
+        return visitor_count(self.image.url)
 
 
     @staticmethod

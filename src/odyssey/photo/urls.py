@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^view/(?P<slug>[-\w]+)/$', photo_item_view, name='photo_item_view'),
     url(r'^view/$', RedirectView.as_view(pattern_name='photo'), name='photo_item_view_index'),
     url(r'^devices/(?P<slug>[-\w]+)/$', devices_view, name='devices_by_type'),
-    url(r'^devices/$', RedirectView.as_view(pattern_name='photo'), name='photo_item_view_index'),
+    url(r'^devices/$', RedirectView.as_view(pattern_name='photo'), name='devices_by_type_index'),
     url(r'^device/(?P<slug>[-\w]+)/$', device_view, name='device_view'),
     url(r'^device/$', RedirectView.as_view(pattern_name='photo'), name='device_index'),
 ]
