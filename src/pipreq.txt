@@ -1,5 +1,5 @@
 django
-django_markdown
+django-markdown2
 django-sendfile
 django-mptt
 user_agents

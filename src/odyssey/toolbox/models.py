@@ -72,12 +72,14 @@ class PingResult(models.Model):
     pingserver = models.ForeignKey(
         PingServer,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.DO_NOTHING
     )
     post = models.ForeignKey(
         Post,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.DO_NOTHING
     )
     passed = models.BooleanField(
         default=False

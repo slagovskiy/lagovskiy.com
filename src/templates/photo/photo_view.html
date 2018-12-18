@@ -1,5 +1,5 @@
 {% extends 'photo/base.html' %}
-{% load django_markdown %}
+{% load md2 %}
 
 {% block ext_meta %}
     {% with albums=photo.albums.all tags=photo.tags.all devices=photo.devices.all %}

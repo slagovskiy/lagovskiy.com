@@ -12,7 +12,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     # 3rd party apps
-    'django_markdown',
+    'django_markdown2',
     'mptt',
 
     # my apps

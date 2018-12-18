@@ -29,7 +29,8 @@ class Category(models.Model):
         null=True,
         blank=True,
         related_name='children',
-        db_index=True
+        db_index=True,
+        on_delete=models.DO_NOTHING
     )
 
     def __str__(self):
@@ -117,7 +118,8 @@ class Post(models.Model):
     author = models.ForeignKey(
         User,
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.DO_NOTHING
     )
     description = models.CharField(
         max_length=512,
@@ -237,18 +239,23 @@ class Post(models.Model):
 
 
 class Comment(MPTTModel):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.DO_NOTHING
+    )
     parent = TreeForeignKey(
         'self',
         null=True,
         blank=True,
         related_name='children',
-        db_index=True
+        db_index=True,
+        on_delete=models.DO_NOTHING
     )
     user = models.ForeignKey(
         User,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.DO_NOTHING
     )
     username = models.CharField(
         max_length=255,
@@ -318,7 +325,8 @@ class Media(models.Model):
     author = models.ForeignKey(
         User,
         blank=True,
-        null=True
+        null=True,
+        on_delete=models.DO_NOTHING
     )
     title = models.CharField(
         max_length=512,

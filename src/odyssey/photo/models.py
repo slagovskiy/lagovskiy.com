@@ -130,7 +130,8 @@ class Device(models.Model):
         default=''
     )
     device_type = models.ForeignKey(
-        'DeviceType'
+        'DeviceType',
+        on_delete=models.DO_NOTHING
     )
     deleted = models.BooleanField(
         default=False
@@ -218,7 +219,8 @@ class Photo(models.Model):
     )
     author = models.ForeignKey(
         User,
-        blank=True
+        blank=True,
+        on_delete=models.DO_NOTHING
     )
     status = models.IntegerField(
         choices=STATUS_CHOICES,
