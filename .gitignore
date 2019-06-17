@@ -8,6 +8,7 @@ __pycache__
 # Project specific #
 ####################
 .env
+venv
 pip-log.txt
 settings_local.py
 config_local.py

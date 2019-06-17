@@ -1,32 +1,21 @@
-from django.conf.urls import url, include
+"""odyssey URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/2.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
 from django.contrib import admin
-from django.contrib.sitemaps.views import sitemap
-from django.views.generic.base import RedirectView
-
-from .toolbox.sitemap import BlogSitemap
-from .views import index, captcha, captcha_check
-from .media.views import media
-
-
-sitemaps = {
-    'pages': BlogSitemap()
-}
-
+from django.urls import path
 
 urlpatterns = [
-    url(r'^$', index, name='home'),
-
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
-    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico'), name='favicon'),
-
-    url(r'^captcha/$', captcha, name='captcha'),
-    url(r'^captcha_check/(?P<code>[-\w]+)/$', captcha_check, name='captcha_check'),
-
-    url(r'^blog/', include('odyssey.blog.urls')),
-
-    url(r'^photo/', include('odyssey.photo.urls')),
-
-    url(r'^media/(?P<path>.*)$', media),
-
-    url(r'^admin/', admin.site.urls, name='admin'),
+    path('admin/', admin.site.urls),
 ]

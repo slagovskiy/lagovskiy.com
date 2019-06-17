@@ -1,0 +1,9 @@
+django
+django-markdown2
+django-sendfile
+django-mptt
+user_agents
+pillow
+faker
+gunicorn
+mysqlclient

@@ -1,9 +1,8 @@
 django
-django-markdown2
-django-sendfile
-django-mptt
-user_agents
+django-cors-headers
+djangorestframework
+djangorestframework-jwt
+PyJWT
 pillow
-faker
 gunicorn
 mysqlclient
