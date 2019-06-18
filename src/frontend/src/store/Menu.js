@@ -27,11 +27,34 @@ export default {
                 link: router.resolve({name: 'user-logout'}).href,
                 auth: true
             },
+        ],
+        adminMenu: [
+            {
+                icon: 'far fa-folder',
+                title: 'Categories',
+                link: router.resolve({name: 'blog-category'}).href,
+                auth: true
+            },
+            {
+                icon: 'fa-tag',
+                title: 'Tags',
+                link: '/blog/tag/',
+                auth: true
+            },
+            {
+                icon: 'fa-edit',
+                title: 'Posts',
+                link: '/blog/post/',
+                auth: true
+            },
         ]
     },
     getters: {
         mainMenu(state) {
             return state.mainMenu
+        },
+        adminMenu(state) {
+            return state.adminMenu
         }
     }
 }

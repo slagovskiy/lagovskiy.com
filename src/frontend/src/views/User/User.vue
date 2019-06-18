@@ -1,39 +1,56 @@
 <template>
-    <v-container fluid>
+    <v-container grid-list-md fluid class="pt-0 pb-0 pl-0 pr-0">
         <v-layout row wrap v-if="isAuthenticated">
-            <v-flex xs4>
+            <v-flex xs12>
                 <v-card>
-                    <template v-if="user.avatar">
-                        <v-img
-                            v-bind:src="this.$config.BASE_URL + user.avatar"
-                            height="200px"
-                            contain
-                        ></v-img>
-                    </template>
-                    <v-card-actions>
-                        <v-spacer/>
-                        <v-btn color="primary" v-on:click="dialogAvatar = true">Change avatar</v-btn>
-                        <v-spacer/>
-                    </v-card-actions>
-                </v-card>
-
-            </v-flex>
-            <v-flex xs8>
-                <v-card>
-                    <v-card-title primary-title>
-                        <h1 class="uppercase">{{user.email}}</h1>
+                    <v-card-title class="headline grey lighten-4">
+                        <v-icon left>far fa-user</v-icon>
+                        User profile
                     </v-card-title>
-                    <v-card-text class="">
-                        <p class="title">First name: <span class="font-weight-light">{{user.firstname}}</span></p>
-                        <p class="title">Last name: <span class="font-weight-light">{{user.lastname}}</span></p>
+                    <v-divider></v-divider>
+                    <v-card-text>
+                        <v-layout row wrap>
+                            <v-flex xs4>
+                                <v-card flat>
+                                    <template v-if="user.avatar">
+                                        <v-img
+                                                v-bind:src="this.$config.BASE_URL + user.avatar"
+                                                height="200px"
+                                                contain
+                                        ></v-img>
+                                    </template>
+                                    <v-card-actions>
+                                        <v-spacer/>
+                                        <v-btn color="primary" v-on:click="dialogAvatar = true">Change avatar</v-btn>
+                                        <v-spacer/>
+                                    </v-card-actions>
+                                </v-card>
+
+                            </v-flex>
+                            <v-flex xs8>
+                                <v-card flat>
+                                    <v-card-title primary-title>
+                                        <h1 class="uppercase">{{user.email}}</h1>
+                                    </v-card-title>
+                                    <v-card-text class="">
+                                        <p class="title">First name: <span
+                                                class="font-weight-light">{{user.firstname}}</span>
+                                        </p>
+                                        <p class="title">Last name: <span
+                                                class="font-weight-light">{{user.lastname}}</span>
+                                        </p>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn
+                                                color="primary"
+                                                v-on:click="loadUser"
+                                        >change info
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn
-                            color="primary"
-                            v-on:click="loadUser"
-                        >change info
-                        </v-btn>
-                    </v-card-actions>
                 </v-card>
             </v-flex>
             <!-- DIALOGS -->
@@ -44,33 +61,33 @@
                             <v-card-title class="headline">Select image</v-card-title>
                             <v-card-text class="text-md-center">
                                 <img
-                                    v-bind:src="imageUrl"
-                                    height="200px"
-                                    v-if="imageUrl"
+                                        v-bind:src="imageUrl"
+                                        height="200px"
+                                        v-if="imageUrl"
                                 />
                                 <v-text-field
-                                    label="Select Image"
-                                    v-on:click='pickFile'
-                                    v-model='imageName'
-                                    prepend-icon='fa-paperclip'
-                                    ref="imageText"
+                                        label="Select Image"
+                                        v-on:click='pickFile'
+                                        v-model='imageName'
+                                        prepend-icon='fa-paperclip'
+                                        ref="imageText"
                                 ></v-text-field>
                                 <input
-                                    name="file"
-                                    type="file"
-                                    style="display: none"
-                                    ref="image"
-                                    accept="image/*"
-                                    v-on:change="onFilePicked"
+                                        name="file"
+                                        type="file"
+                                        style="display: none"
+                                        ref="image"
+                                        accept="image/*"
+                                        v-on:change="onFilePicked"
                                 />
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="" v-on:click="dialogAvatar = false">Cancel</v-btn>
                                 <v-btn
-                                    color="primary"
-                                    v-on:click.prevent="uploadAvatar"
-                                    v-bind:loading="loading"
+                                        color="primary"
+                                        v-on:click.prevent="uploadAvatar"
+                                        v-bind:loading="loading"
                                 >Upload
                                 </v-btn>
                             </v-card-actions>
@@ -83,24 +100,25 @@
                             <v-card-title class="headline">User info</v-card-title>
                             <v-card-text class="text-md-center">
                                 <v-text-field
-                                    label="First name"
-                                    v-model="userFirstname"
-                                    ref="userFirstname"
+                                        label="First name"
+                                        v-model="userFirstname"
+                                        ref="userFirstname"
                                 ></v-text-field>
                                 <v-text-field
-                                    label="Last name"
-                                    v-model="userLastname"
-                                    ref="userLastname"
+                                        label="Last name"
+                                        v-model="userLastname"
+                                        ref="userLastname"
                                 ></v-text-field>
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer/>
                                 <v-btn color="" v-on:click="dialogInfo = false">Cancel</v-btn>
                                 <v-btn
-                                    color="primary"
-                                    v-on:click.prevent="saveUser"
-                                    v-bind:loading="loading"
-                                >Save</v-btn>
+                                        color="primary"
+                                        v-on:click.prevent="saveUser"
+                                        v-bind:loading="loading"
+                                >Save
+                                </v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-form>
@@ -110,8 +128,8 @@
         <v-layout v-else>
             <v-flex xs12>
                 <v-alert
-                    v-bind:value="true"
-                    type="error"
+                        v-bind:value="true"
+                        type="error"
                 >
                     Access denied!
                 </v-alert>
@@ -214,7 +232,8 @@
                     .then(() => {
                         this.dialogInfo = false
                     })
-                    .catch(() => {})
+                    .catch(() => {
+                    })
             }
         },
         computed: {
@@ -226,6 +245,9 @@
             },
             loading() {
                 return this.$store.getters.loading
+            },
+            adminMenu() {
+                return this.$store.getters.adminMenu
             }
         }
 

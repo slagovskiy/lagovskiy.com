@@ -6,6 +6,7 @@ import Logout from './views/User/Logout'
 import Register from './views/User/Register'
 import ChangePassword from './views/User/ChangePassword'
 import RestorePassword from './views/User/RestorePassword'
+import BlogCategory from './views/Blog/Category'
 import Error404 from './views/Error'
 
 
@@ -16,6 +17,7 @@ export default new VueRouter({
             component: Home,
             name: 'home'
         },
+
         {
             path: '/user/profile',
             component: User,
@@ -52,6 +54,14 @@ export default new VueRouter({
             name: 'user-restore',
             meta: {requiresNoAuth: true}
         },
+
+        {
+            path: '/blog/category',
+            component: BlogCategory,
+            name: 'blog-category',
+            meta: {requiresAuth: true}
+        },
+
         {
             path: '*',
             component: Error404
