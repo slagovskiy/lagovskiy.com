@@ -1,6 +1,6 @@
 <template>
     <v-container grid-list-md fluid class="pt-0 pb-0 pl-0 pr-0">
-        <v-layout row wrap v-if="isAuthenticated">
+        <v-layout v-if="isAuthenticated">
             <v-flex xs12>
                 <v-card>
                     <v-card-title class="headline grey lighten-4">
@@ -10,7 +10,7 @@
                     <v-divider></v-divider>
                     <v-card-text>
                         <v-layout row wrap>
-                            <v-flex xs4>
+                            <v-flex xs12 sm5 md4 lg3>
                                 <v-card flat>
                                     <template v-if="user.avatar">
                                         <v-img
@@ -27,7 +27,7 @@
                                 </v-card>
 
                             </v-flex>
-                            <v-flex xs8>
+                            <v-flex xs12 sm7 md8 lg9>
                                 <v-card flat>
                                     <v-card-title primary-title>
                                         <h1 class="uppercase">{{user.email}}</h1>

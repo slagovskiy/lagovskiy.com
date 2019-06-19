@@ -71,8 +71,8 @@
         </v-toolbar>
         <v-content>
             <v-container fluid grid-list-md>
-                <v-layout wrap row  v-if="isAuthenticated">
-                    <v-flex xs3>
+                <v-layout wrap v-if="isAuthenticated">
+                    <v-flex xs12 sm4 md3 lg2>
                         <v-card>
                             <v-navigation-drawer width="">
                                 <v-toolbar flat>
@@ -106,7 +106,7 @@
                             </v-navigation-drawer>
                         </v-card>
                     </v-flex>
-                    <v-flex xs9>
+                    <v-flex xs12 sm8 md9 lg10>
                         <router-view></router-view>
                     </v-flex>
                 </v-layout>
