@@ -4,12 +4,27 @@
             <v-flex xs12>
                 <v-card>
                     <v-card-title class="headline grey lighten-4">
-                        <v-icon left>far fa-folder</v-icon> Categories
+                        <v-icon left>far fa-folder</v-icon>
+                        Categories
                     </v-card-title>
                     <v-divider></v-divider>
                     <v-card-text>
                         <v-layout row wrap>
-                            <v-flex></v-flex>
+                            <v-flex>
+                                <template>
+                                    <v-data-table
+                                            v-bind:items="Category"
+                                            class="elevation-1"
+                                    >
+                                         <template v-slot:items="props">
+                                            <td>{{ props.item.name }}</td>
+                                            <td class="text-xs-right">{{ props.item.slug }}</td>
+                                            <td class="text-xs-right">{{ props.item.title }}</td>
+                                            <td class="text-xs-right">{{ props.item.deleted }}</td>
+                                        </template>
+                                    </v-data-table>
+                                </template>
+                            </v-flex>
                         </v-layout>
                     </v-card-text>
                 </v-card>
@@ -34,6 +49,9 @@
         data() {
             return {}
         },
+        mounted() {
+            this.$store.dispatch('loadCategoryList', {})
+        },
         methods: {},
         computed: {
             isAuthenticated() {
@@ -45,6 +63,9 @@
             loading() {
                 return this.$store.getters.loading
             },
+            Category() {
+                return this.$store.getters.Category
+            }
         }
     }
 </script>

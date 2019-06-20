@@ -29,6 +29,7 @@ urlpatterns = [
     #url(r'^api/v1/', include('project.api', namespace='apiv1')),
 
     url(r'^api/v1/user/', include('odyssey.userext.urls')),
+    url(r'^api/v1/blog/', include('odyssey.blog.urls')),
 
     path('admin/', admin.site.urls),
 ]

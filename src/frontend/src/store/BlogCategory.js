@@ -1,54 +1,33 @@
 import api from '../common/api'
 
 const initState = {
-    Category: {},
+    Category: {}
 }
 
 export default {
     initState: initState,
     state: initState,
     mutations: {
-        /*
-        setUser(store, payload) {
-            store.User = payload.user
-            store.isAuthenticated = payload.isAuthenticated
-        },
-        updateToken(store, token) {
-            if (token != '' && token != null) {
-                store.jwt = token
-                localStorage.setItem('jwt_token', token)
-                api.http.defaults.headers.common['Authorization'] = 'JWT ' + this.getters.jwt
-            } else {
-                localStorage.removeItem('jwt_token')
-                api.http.defaults.headers.common['Authorization'] = ''
-            }
+        setCategoryList(store, payload) {
+            store.Category = payload
         }
-        */
     },
     actions: {
-        /*
-        login({commit}, payload) {
+        loadCategoryList({commit}, payload) {
             commit('clearMessages')
             commit('setLoading', true)
-            return api.http.post(api.getToken, payload)
+            return api.http.get(api.blogCategory, payload)
                 .then(
                     (response) => {
-                        commit('updateToken', response.data.token)
-                    })
-                .catch((error) => {
-                    if (error.response.status === 400) {
-                        commit('setError', 'Wrong username or password.')
-                        commit('setLoading', false)
-                    } else if (error.response.status === 500) {
-                        commit('setError', 'Error on server, please, try again later.')
-                        commit('setLoading', false)
-                    } else {
-                        commit('setError', 'Something going wrong. ' + error.response.statusText)
+                        commit('setCategoryList', response.data.data)
                         commit('setLoading', false)
                     }
+                )
+                .catch((error) => {
+                    commit('setError', 'Error loading data. ' + error)
+                    commit('setLoading', false)
                 })
-        },
-        */
+        }
     },
     getters: {
         Category(state) {

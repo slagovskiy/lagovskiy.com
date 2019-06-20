@@ -17,6 +17,8 @@ const userPassword =  baseUrl + 'api/v1/user/password/'
 const userAvatar =    baseUrl + 'api/v1/user/avatar/'
 const userRestore =   baseUrl + 'api/v1/user/restore/'
 
+const blogCategory =  baseUrl + 'api/v1/blog/category/'
+
 export default {
     http,
 
@@ -27,6 +29,8 @@ export default {
     userPassword,
     userAvatar,
     userRestore,
+
+    blogCategory,
 
     baseUrl
 }
