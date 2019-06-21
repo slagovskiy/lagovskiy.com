@@ -12,17 +12,38 @@
                         <v-layout row wrap>
                             <v-flex>
                                 <template>
-                                    <v-data-table
-                                            v-bind:items="Category"
-                                            class="elevation-1"
-                                    >
-                                         <template v-slot:items="props">
-                                            <td>{{ props.item.name }}</td>
-                                            <td class="text-xs-right">{{ props.item.slug }}</td>
-                                            <td class="text-xs-right">{{ props.item.title }}</td>
-                                            <td class="text-xs-right">{{ props.item.deleted }}</td>
-                                        </template>
-                                    </v-data-table>
+                                    <v-card>
+                                        <v-card-title>
+                                            <v-spacer></v-spacer>
+                                            <v-text-field
+                                                    v-model="search"
+                                                    append-icon="fa-search"
+                                                    label="Search"
+                                                    single-line
+                                                    hide-details
+                                            ></v-text-field>
+                                        </v-card-title>
+                                        <v-data-table
+                                                v-bind:items="filteredItems"
+                                                v-bind:headers="headers"
+                                                v-bind:pagination.sync="pagination"
+                                                v-bind:loading="loading"
+                                                prev-icon="fa-caret-left"
+                                                next-icon="fa-caret-right"
+                                                sort-icon="fa-arrow-up"
+                                                class="elevation-1"
+                                        >
+                                            <template v-slot:items="props">
+                                                <td class="text-xs-left">{{ props.item.name }}</td>
+                                                <td class="text-xs-left">{{ props.item.slug }}</td>
+                                                <td class="text-xs-center">{{ props.item.order }}</td>
+                                                <td class="text-xs-center">{{ props.item.deleted }}</td>
+                                            </template>
+                                            <template v-slot:no-data>
+                                                Sorry, nothing to display here :(
+                                            </template>
+                                        </v-data-table>
+                                    </v-card>
                                 </template>
                             </v-flex>
                         </v-layout>
@@ -47,12 +68,25 @@
     export default {
         name: "Category",
         data() {
-            return {}
+            return {
+                pagination: {
+                    sortBy: 'name',
+                    rowsPerPage: 25 // -1 for All",
+                },
+                search: '',
+                headers: [
+                    {text: 'name', align: 'center', sortable: true, value: 'name'},
+                    {text: 'slug', align: 'center', sortable: true, value: 'slug'},
+                    {text: 'order', align: 'center', sortable: true, value: 'order'},
+                    {text: 'deleted', align: 'center', sortable: true, value: 'deleted'},
+                ]
+            }
         },
         mounted() {
             this.$store.dispatch('loadCategoryList', {})
         },
-        methods: {},
+        methods: {
+        },
         computed: {
             isAuthenticated() {
                 return this.$store.getters.isAuthenticated
@@ -65,6 +99,13 @@
             },
             Category() {
                 return this.$store.getters.Category
+            },
+            filteredItems: function () {
+                return this.Category.filter(function (item, s=this.search) {
+                    var tmp = JSON.stringify(item)
+                    return tmp.includes(s)
+
+                })
             }
         }
     }

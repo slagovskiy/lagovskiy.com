@@ -1,7 +1,7 @@
 import api from '../common/api'
 
 const initState = {
-    Category: {}
+    Category: []
 }
 
 export default {
