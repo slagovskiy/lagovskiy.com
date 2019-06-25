@@ -208,4 +208,9 @@
     .toolbar-avatar {
         margin-right: 16px;
     }
+
+    .v-icon-table {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
 </style>
