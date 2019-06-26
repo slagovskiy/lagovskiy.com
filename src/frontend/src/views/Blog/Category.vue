@@ -15,8 +15,9 @@
                                 <template>
                                     <v-card>
                                         <v-card-title>
-                                            <v-btn color="primary" dark class="mb-2" v-on:click="dialog=true">New Item</v-btn>
-                                            <v-btn color="primary" dark class="mb-2" v-on:click="loadData" v-bind:loading="loading">Reload</v-btn>
+                                            <v-btn color="primary" dark class="mb-2" v-on:click="addNem">New Item</v-btn>
+                                            <v-btn color="primary" dark class="mb-2" v-on:click="loadData" v-bind:loading="loading">Reload
+                                            </v-btn>
                                             <v-spacer></v-spacer>
                                             <v-text-field
                                                     v-model="search"
@@ -57,7 +58,7 @@
                                                     <template v-if="props.item.deleted">
                                                         <v-icon
                                                                 small
-                                                                v-on:click="restoreItem(props.item)"
+                                                                v-on:click="deleteItem(props.item)"
                                                         >
                                                             fa-trash-restore-alt
                                                         </v-icon>
@@ -79,48 +80,7 @@
                                     </v-card>
                                 </template>
 
-                                <v-dialog v-model="dialog" max-width="500px">
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="headline">{{ formTitle }}</span>
-                                        </v-card-title>
-                                        <v-card-text>
-                                            <v-container grid-list-md>
-                                                <v-layout wrap>
-                                                    <v-flex xs12>
-                                                        <v-text-field
-                                                                v-model="editedItem.name"
-                                                                label="name"
-                                                        ></v-text-field>
-                                                    </v-flex>
-                                                    <v-flex xs12>
-                                                        <v-text-field
-                                                                v-model="editedItem.slug"
-                                                                label="slug"
-                                                        ></v-text-field>
-                                                    </v-flex>
-                                                    <v-flex xs12>
-                                                        <v-text-field
-                                                                v-model="editedItem.order"
-                                                                label="order"
-                                                        ></v-text-field>
-                                                    </v-flex>
-                                                    <v-flex xs12>
-                                                        <v-checkbox
-                                                                v-model="editedItem.deleted"
-                                                                label="deleted"
-                                                        ></v-checkbox>
-                                                    </v-flex>
-                                                </v-layout>
-                                            </v-container>
-                                        </v-card-text>
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn color="" v-on:click="close">Cancel</v-btn>
-                                            <v-btn color="primary" v-on:click="save">Save</v-btn>
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
+                                <app-dialog-category></app-dialog-category>
 
                             </v-flex>
                         </v-layout>
@@ -133,7 +93,8 @@
                 <v-alert
                         v-bind:value="true"
                         type="error"
-                >Access denied!</v-alert>
+                >Access denied!
+                </v-alert>
             </v-flex>
         </v-layout>
     </v-container>
@@ -141,9 +102,13 @@
 
 <script>
     import debounce from 'debounce'
+    import DialogCategory from '../../components/Blog/dialogCategory'
 
     export default {
         name: "Category",
+        components: {
+            appDialogCategory: DialogCategory,
+        },
         data() {
             return {
                 pagination: {
@@ -159,22 +124,6 @@
                     {text: 'deleted', align: 'center', sortable: true, value: 'deleted'},
                     {text: 'action', align: 'center', sortable: false},
                 ],
-
-                dialog: false,
-                formTitle: 'Category',
-                editedIndex: -1,
-                editedItem: {
-                    name: '',
-                    slug: '',
-                    order: 10,
-                    deleted: false
-                },
-                defaultItem: {
-                    name: '',
-                    slug: '',
-                    order: 10,
-                    deleted: false
-                }
             }
         },
         mounted() {
@@ -207,29 +156,15 @@
                 }
             },
             editItem(item) {
-                this.editedItem = Object.assign({}, item)
-                this.dialog = true
+                this.$store.dispatch('setEditedItem', Object.assign({}, item))
+                this.$store.dispatch('setDialog',true)
             },
             deleteItem(item) {
-                const index = item.id
-                confirm('Are you sure you want to delete this item?') && this.filteredData.splice(index, 1)
+                item.deleted = !item.deleted
+                this.$store.dispatch('saveCategory', item)
             },
-            restoreItem(item) {
-                const index = item.id
-                confirm('Are you sure you want to delete this item?') && this.filteredData.splice(index, 1)
-            },
-            close() {
-                this.dialog = false
-                setTimeout(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                }, 300)
-            },
-            save() {
-                this.$store.dispatch('saveCategory', this.editedItem)
-                    .then(() => {
-                        this.close()
-                    })
-                    .catch(() => {})
+            addNem() {
+                this.$store.dispatch('setDialog',true)
             }
         },
         computed: {

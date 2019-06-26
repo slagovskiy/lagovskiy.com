@@ -38,10 +38,8 @@ class APICategory(APIView):
         data = JSONParser().parse(request)
         category = None
         if 'id' in data:
-            if data['id'] != '-1':
+            if data['id'] != -1:
                 category = Category.objects.get(id=data['id'])
-            else:
-                category = Category.objects.create()
         item = CategorySerializer(category, data=data)
         if item.is_valid():
             item.save()

@@ -2,7 +2,9 @@ export default {
     state: {
         loading: false,
         error: null,
-        message: null
+        message: null,
+        dialog: false,
+        editedItem: {}
     },
     mutations: {
         setLoading(state, payload) {
@@ -16,6 +18,12 @@ export default {
         },
         clearMessages(state) {
             state.error = null
+        },
+        setDialog(state, payload) {
+            state.dialog = payload
+        },
+        setEditedItem(state, payload) {
+            state.editedItem = payload
         }
     },
     actions: {
@@ -30,6 +38,12 @@ export default {
         },
         clearMessages({commit}) {
             commit('clearMessages')
+        },
+        setDialog({commit}, payload) {
+            commit('setDialog', payload)
+        },
+        setEditedItem({commit}, payload) {
+            commit('setEditedItem', payload)
         }
     },
     getters: {
@@ -41,6 +55,12 @@ export default {
         },
         message(state) {
             return state.message
+        },
+        dialog(state) {
+            return state.dialog
+        },
+        editedItem(state) {
+            return state.editedItem
         }
     }
 }
