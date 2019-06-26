@@ -7,6 +7,7 @@ import Register from './views/User/Register'
 import ChangePassword from './views/User/ChangePassword'
 import RestorePassword from './views/User/RestorePassword'
 import BlogCategory from './views/Blog/Category'
+import BlogTag from './views/Blog/Tag'
 import Error404 from './views/Error'
 
 
@@ -59,6 +60,12 @@ export default new VueRouter({
             path: '/blog/category',
             component: BlogCategory,
             name: 'blog-category',
+            meta: {requiresAuth: true}
+        },
+        {
+            path: '/blog/tag',
+            component: BlogTag,
+            name: 'blog-tag',
             meta: {requiresAuth: true}
         },
 

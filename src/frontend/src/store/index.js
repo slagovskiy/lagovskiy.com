@@ -4,6 +4,7 @@ import Menu from './Menu'
 import User from './User'
 import Global from './Global'
 import blogCategory from './BlogCategory'
+import blogTag from './BlogTag'
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ export default new Vuex.Store({
         menu: Menu,
         user: User,
         blogCategory: blogCategory,
+        blogTag: blogTag,
         global: Global
     },
     state: {},

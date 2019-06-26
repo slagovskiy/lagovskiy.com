@@ -38,7 +38,7 @@ export default {
             {
                 icon: 'fa-tag',
                 title: 'Tags',
-                link: '/blog/tag/',
+                link: router.resolve({name: 'blog-tag'}).href,
                 auth: true
             },
             {
