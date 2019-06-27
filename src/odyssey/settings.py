@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'odyssey.userext',
     'odyssey.blog',
+    'odyssey.media',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',

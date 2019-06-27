@@ -90,17 +90,22 @@
                                     <template
                                             v-for="item in adminMenu"
                                     >
-                                        <v-list-tile
-                                                v-bind:key="item.title"
-                                                v-bind:to="item.link"
-                                        >
-                                            <v-list-tile-action>
-                                                <v-icon>{{ item.icon }}</v-icon>
-                                            </v-list-tile-action>
-                                            <v-list-tile-content>
-                                                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                                            </v-list-tile-content>
-                                        </v-list-tile>
+                                        <template v-if="item.title.includes('---')">
+                                            <v-divider v-bind:key="item.title"></v-divider>
+                                        </template>
+                                        <template v-else>
+                                            <v-list-tile
+                                                    v-bind:key="item.title"
+                                                    v-bind:to="item.link"
+                                            >
+                                                <v-list-tile-action>
+                                                    <v-icon>{{ item.icon }}</v-icon>
+                                                </v-list-tile-action>
+                                                <v-list-tile-content>
+                                                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                                                </v-list-tile-content>
+                                            </v-list-tile>
+                                        </template>
                                     </template>
                                 </v-list>
                             </v-navigation-drawer>

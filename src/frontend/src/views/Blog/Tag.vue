@@ -4,7 +4,7 @@
             <v-flex xs12>
                 <v-card>
                     <v-card-title class="headline grey lighten-4">
-                        <v-icon left>far fa-folder</v-icon>
+                        <v-icon left>fa-tag</v-icon>
                         Tags
                     </v-card-title>
                     <v-divider></v-divider>

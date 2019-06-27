@@ -47,6 +47,18 @@ export default {
                 link: '/blog/post/',
                 auth: true
             },
+            {
+                title: '---1',
+            },
+            {
+                icon: 'fa-photo-video',
+                title: 'Media',
+                link: router.resolve({name: 'media'}).href,
+                auth: true
+            },
+            {
+                title: '---2',
+            },
         ]
     },
     getters: {
