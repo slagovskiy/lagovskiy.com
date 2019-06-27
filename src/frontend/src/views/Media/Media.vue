@@ -15,26 +15,58 @@
                                 <template>
                                     <v-card>
                                         <v-card-title>
-                                            <v-btn color="primary" dark class="mb-2">New folder</v-btn>
+                                            <v-btn color="primary" dark class="mb-2" v-on:click="addNewMediaFolder">New
+                                                folder
+                                            </v-btn>
                                             <v-btn color="primary" dark class="mb-2">Upload photo</v-btn>
-                                            <v-btn color="primary" dark class="mb-2" v-bind:loading="loading">Reload
+                                            <v-btn color="primary" dark class="mb-2" v-on:click="loadData" v-bind:loading="loading">Reload
                                             </v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-title>
                                         <v-layout row wrap>
                                             <v-flex xs12 sm5 md4 lg3 class="pa-2">
                                                 <v-list class="elevation-1">
-                                                    <v-list-tile @click="selectFolder('')">
-                                                        <v-list-tile-action>
-                                                            <v-icon>far fa-folder</v-icon>
-                                                        </v-list-tile-action>
-
-                                                        <v-list-tile-content>
-                                                            sdgsgggs
-                                                        </v-list-tile-content>
-                                                    </v-list-tile>
+                                                    <template v-for="item in MediaFolder">
+                                                        <v-list-tile
+                                                                v-bind:key="item.id"
+                                                                v-on:click="selectFolder(item.id)"
+                                                        >
+                                                            <v-list-tile-content>
+                                                                {{item.name}}
+                                                            </v-list-tile-content>
+                                                            <v-list-tile-action>
+                                                                <v-icon
+                                                                        small
+                                                                        class="mr-2"
+                                                                        v-on:click="editMediaFolderItem(item)"
+                                                                >
+                                                                    fa-pencil-alt
+                                                                </v-icon>
+                                                            </v-list-tile-action>
+                                                            <v-list-tile-action>
+                                                                <template v-if="item.deleted">
+                                                                    <v-icon
+                                                                            small
+                                                                            v-on:click="deleteMediaFolderItem(item)"
+                                                                    >
+                                                                        fa-trash-restore-alt
+                                                                    </v-icon>
+                                                                </template>
+                                                                <template v-else>
+                                                                    <v-icon
+                                                                            small
+                                                                            v-on:click="deleteMediaFolderItem(item)"
+                                                                    >
+                                                                        fa-trash-alt
+                                                                    </v-icon>
+                                                                </template>
+                                                            </v-list-tile-action>
+                                                        </v-list-tile>
+                                                    </template>
                                                 </v-list>
+                                                <app-dialog-media-folder></app-dialog-media-folder>
                                             </v-flex>
+
                                             <v-flex xs12 sm7 md8 lg9 class="pa-2">
 
 
@@ -143,9 +175,13 @@
 </template>
 
 <script>
+    import DialogMediaFolder from '../../components/Media/dialogMediaFolder'
+
     export default {
         name: "Media",
-        components: {},
+        components: {
+            appDialogMediaFolder: DialogMediaFolder
+        },
         data() {
             return {
                 dialogPreview: false,
@@ -153,18 +189,31 @@
             }
         },
         mounted() {
-            //this.loadData()
+            this.loadData()
         },
         created() {
         },
         methods: {
+            loadData() {
+                this.$store.dispatch('loadMediaFolderList', {})
+            },
             selectFolder(folder) {
                 return folder
             },
             openImagePreview(url) {
-                console.log(url)
                 this.imagePreview = url
                 this.dialogPreview = true
+            },
+            editMediaFolderItem(item) {
+                this.$store.dispatch('setEditedItem', Object.assign({}, item))
+                this.$store.dispatch('setDialog', true)
+            },
+            deleteMediaFolderItem(item) {
+                item.deleted = !item.deleted
+                this.$store.dispatch('saveMediaFolder', item)
+            },
+            addNewMediaFolder() {
+                this.$store.dispatch('setDialog', true)
             }
         },
         computed: {
@@ -177,8 +226,8 @@
             loading() {
                 return this.$store.getters.loading
             },
-            Tag() {
-                return this.$store.getters.Tag
+            MediaFolder() {
+                return this.$store.getters.MediaFolder
             },
 
         },
@@ -203,5 +252,8 @@
 
     .image-btn-icon {
         font-size: 12px;
+    }
+    .v-list__tile__action {
+        min-width: 0px;
     }
 </style>
