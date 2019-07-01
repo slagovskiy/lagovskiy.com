@@ -205,15 +205,15 @@
                 this.dialogPreview = true
             },
             editMediaFolderItem(item) {
-                this.$store.dispatch('setEditedItem', Object.assign({}, item))
-                this.$store.dispatch('setDialog', true)
+                this.$store.dispatch('setEditedItemMediaFolder', Object.assign({}, item))
+                this.$store.dispatch('setDialogMediaFolder', true)
             },
             deleteMediaFolderItem(item) {
                 item.deleted = !item.deleted
                 this.$store.dispatch('saveMediaFolder', item)
             },
             addNewMediaFolder() {
-                this.$store.dispatch('setDialog', true)
+                this.$store.dispatch('setDialogMediaFolder', true)
             }
         },
         computed: {

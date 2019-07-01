@@ -1,7 +1,9 @@
 import api from '../common/api'
 
 const initState = {
-    Category: []
+    Category: [],
+    dialogBlogCategory: false,
+    editedItemBlogCategory: {},
 }
 
 export default {
@@ -13,8 +15,7 @@ export default {
         },
         saveCategory(store, payload) {
             let found = false
-            for(let i=0; i<store.Category.length && !found; i++)
-            {
+            for (let i = 0; i < store.Category.length && !found; i++) {
                 if (store.Category[i]['id'] === payload['id']) {
                     found = true
                     Object.assign(store.Category[i], payload)
@@ -22,7 +23,13 @@ export default {
             }
             if (!found)
                 store.Category.push(payload)
-        }
+        },
+        setDialogBlogCategory(state, payload) {
+            state.dialogBlogCategory = payload
+        },
+        setEditedItemBlogCategory(state, payload) {
+            state.editedItemBlogCategory = payload
+        },
     },
     actions: {
         loadCategoryList({commit}, payload) {
@@ -55,11 +62,23 @@ export default {
                     commit('setError', 'Error save data. ' + error)
                     commit('setLoading', false)
                 })
-        }
+        },
+        setDialogBlogCategory({commit}, payload) {
+            commit('setDialogBlogCategory', payload)
+        },
+        setEditedItemBlogCategory({commit}, payload) {
+            commit('setEditedItemBlogCategory', payload)
+        },
     },
     getters: {
         Category(state) {
             return state.Category
-        }
+        },
+        dialogBlogCategory(state) {
+            return state.dialogBlogCategory
+        },
+        editedItemBlogCategory(state) {
+            return state.editedItemBlogCategory
+        },
     }
 }

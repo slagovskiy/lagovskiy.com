@@ -154,15 +154,15 @@
                 }
             },
             editItem(item) {
-                this.$store.dispatch('setEditedItem', Object.assign({}, item))
-                this.$store.dispatch('setDialog',true)
+                this.$store.dispatch('setEditedItemBlogTag', Object.assign({}, item))
+                this.$store.dispatch('setDialogBlogTag',true)
             },
             deleteItem(item) {
                 item.deleted = !item.deleted
                 this.$store.dispatch('saveTag', item)
             },
             addNem() {
-                this.$store.dispatch('setDialog',true)
+                this.$store.dispatch('setDialogBlogTag',true)
             }
         },
         computed: {

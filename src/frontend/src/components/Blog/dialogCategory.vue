@@ -102,15 +102,15 @@
         computed: {
             dialog: {
                 get: function () {
-                    return this.$store.getters.dialog
+                    return this.$store.getters.dialogBlogCategory
                 },
                 set: function(val) {
-                    return this.$store.dispatch('setDialog', val)
+                    return this.$store.dispatch('setDialogBlogCategory', val)
                 }
             },
             editedItem: {
                 get: function () {
-                    if (this.$store.getters.editedItem === {})
+                    if (this.$store.getters.editedItemBlogCategory === {})
                         return {
                             id: 0,
                             name: '',
@@ -119,10 +119,10 @@
                             deleted: false
                         }
                     else
-                        return this.$store.getters.editedItem
+                        return this.$store.getters.editedItemBlogCategory
                 },
                 set: function (val) {
-                    this.$store.dispatch('setEditedItem', val)
+                    this.$store.dispatch('setEditedItemBlogCategory', val)
                 }
             }
         }

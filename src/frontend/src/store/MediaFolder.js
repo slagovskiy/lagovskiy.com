@@ -1,7 +1,9 @@
 import api from '../common/api'
 
 const initState = {
-    MediaFolder: []
+    MediaFolder: [],
+    dialogMediaFolder: false,
+    editedItemMediaFolder: {},
 }
 
 export default {
@@ -13,8 +15,7 @@ export default {
         },
         saveMediaFolder(store, payload) {
             let found = false
-            for(let i=0; i<store.MediaFolder.length && !found; i++)
-            {
+            for (let i = 0; i < store.MediaFolder.length && !found; i++) {
                 if (store.MediaFolder[i]['id'] === payload['id']) {
                     found = true
                     Object.assign(store.MediaFolder[i], payload)
@@ -22,6 +23,12 @@ export default {
             }
             if (!found)
                 store.MediaFolder.push(payload)
+        },
+        setDialogMediaFolder(state, payload) {
+            state.dialogMediaFolder = payload
+        },
+        setEditedItemMediaFolder(state, payload) {
+            state.editedItemMediaFolder = payload
         }
     },
     actions: {
@@ -55,11 +62,23 @@ export default {
                     commit('setError', 'Error save data. ' + error)
                     commit('setLoading', false)
                 })
-        }
+        },
+        setDialogMediaFolder({commit}, payload) {
+            commit('setDialogMediaFolder', payload)
+        },
+        setEditedItemMediaFolder({commit}, payload) {
+            commit('setEditedItemMediaFolder', payload)
+        },
     },
     getters: {
         MediaFolder(state) {
             return state.MediaFolder
-        }
+        },
+        dialogMediaFolder(state) {
+            return state.dialogMediaFolder
+        },
+        editedItemMediaFolder(state) {
+            return state.editedItemMediaFolder
+        },
     }
 }

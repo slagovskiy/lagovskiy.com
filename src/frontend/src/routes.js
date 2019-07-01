@@ -8,7 +8,7 @@ import ChangePassword from './views/User/ChangePassword'
 import RestorePassword from './views/User/RestorePassword'
 import BlogCategory from './views/Blog/Category'
 import BlogTag from './views/Blog/Tag'
-import Media from './views/Media/Media'
+import Media from './views/Media/MediaFolder'
 import Error404 from './views/Error'
 
 

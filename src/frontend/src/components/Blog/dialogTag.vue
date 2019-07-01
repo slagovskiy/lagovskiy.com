@@ -80,15 +80,15 @@
         computed: {
             dialog: {
                 get: function () {
-                    return this.$store.getters.dialog
+                    return this.$store.getters.dialogBlogTag
                 },
                 set: function(val) {
-                    return this.$store.dispatch('setDialog', val)
+                    return this.$store.dispatch('setDialogBlogTag', val)
                 }
             },
             editedItem: {
                 get: function () {
-                    if (this.$store.getters.editedItem === {})
+                    if (this.$store.getters.editedItemBlogTag === {})
                         return {
                             id: 0,
                             name: '',
@@ -96,10 +96,10 @@
                             deleted: false
                         }
                     else
-                        return this.$store.getters.editedItem
+                        return this.$store.getters.editedItemBlogTag
                 },
                 set: function (val) {
-                    this.$store.dispatch('setEditedItem', val)
+                    this.$store.dispatch('setEditedItemBlogTag', val)
                 }
             }
         }
