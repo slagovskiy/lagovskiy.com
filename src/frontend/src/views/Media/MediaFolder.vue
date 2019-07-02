@@ -18,8 +18,11 @@
                                             <v-btn color="primary" dark class="mb-2" v-on:click="addNewMediaFolder">New
                                                 folder
                                             </v-btn>
-                                            <v-btn color="primary" dark class="mb-2">Upload photo</v-btn>
-                                            <v-btn color="primary" dark class="mb-2" v-on:click="loadData" v-bind:loading="loading">Reload
+                                            <v-btn color="primary" dark class="mb-2" v-on:click="addNewMediaFile">Upload
+                                                photo
+                                            </v-btn>
+                                            <v-btn color="primary" dark class="mb-2" v-on:click="loadData"
+                                                   v-bind:loading="loading">Reload
                                             </v-btn>
                                             <v-spacer></v-spacer>
                                         </v-card-title>
@@ -155,6 +158,12 @@
                                                     </v-dialog>
                                                 </v-layout>
 
+                                                <app-dialog-media-file
+                                                        v-bind:dialog="dialogMediaFile"
+                                                        v-bind:item="editedMediaFile"
+                                                        v-on:close="dialogMediaFile = $event"
+                                                        v-on:clear="editedMediaFile = $event"
+                                                ></app-dialog-media-file>
 
                                             </v-flex>
                                         </v-layout>
@@ -181,16 +190,20 @@
 
 <script>
     import DialogMediaFolder from '../../components/Media/dialogMediaFolder'
+    import DialogMediaFile from '../../components/Media/dialogMediaFile'
 
     export default {
         name: "Media",
         components: {
-            appDialogMediaFolder: DialogMediaFolder
+            appDialogMediaFolder: DialogMediaFolder,
+            appDialogMediaFile: DialogMediaFile,
         },
         data() {
             return {
                 dialogMediaFolder: false,
                 editedMediaFolder: {},
+                dialogMediaFile: false,
+                editedMediaFile: {},
                 dialogPreview: false,
                 imagePreview: '',
             }
@@ -221,6 +234,9 @@
             },
             addNewMediaFolder() {
                 this.dialogMediaFolder = true
+            },
+            addNewMediaFile() {
+                this.dialogMediaFile = true
             }
         },
         computed: {
@@ -260,6 +276,7 @@
     .image-btn-icon {
         font-size: 12px;
     }
+
     .v-list__tile__action {
         min-width: 0px;
     }
