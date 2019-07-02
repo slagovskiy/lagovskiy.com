@@ -79,7 +79,12 @@
                                     </v-card>
                                 </template>
 
-                                <app-dialog-tag></app-dialog-tag>
+                                <app-dialog-tag
+                                        v-bind:dialog="dialog"
+                                        v-bind:item="editedItem"
+                                        v-on:close="dialog = $event"
+                                        v-on:clear="editedItem = $event"
+                                ></app-dialog-tag>
 
                             </v-flex>
                         </v-layout>
@@ -122,6 +127,8 @@
                     {text: 'deleted', align: 'center', sortable: true, value: 'deleted'},
                     {text: 'action', align: 'center', sortable: false},
                 ],
+                dialog: false,
+                editedItem: {},
             }
         },
         mounted() {
@@ -154,15 +161,15 @@
                 }
             },
             editItem(item) {
-                this.$store.dispatch('setEditedItemBlogTag', Object.assign({}, item))
-                this.$store.dispatch('setDialogBlogTag',true)
+                this.editedItem = Object.assign({}, item)
+                this.dialog =  true
             },
             deleteItem(item) {
                 item.deleted = !item.deleted
                 this.$store.dispatch('saveTag', item)
             },
             addNem() {
-                this.$store.dispatch('setDialogBlogTag',true)
+                this.dialog = true
             }
         },
         computed: {

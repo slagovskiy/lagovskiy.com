@@ -17,6 +17,7 @@ export default {
             state.message = payload
         },
         clearMessages(state) {
+            state.message = null
             state.error = null
         },
         setDialog(state, payload) {

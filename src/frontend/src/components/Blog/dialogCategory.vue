@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="500px">
+    <v-dialog v-model="show" persistent max-width="500px">
         <v-card>
             <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
@@ -46,19 +46,13 @@
 <script>
     export default {
         name: "dialogCategory",
+        props: {
+            dialog: Boolean,
+            item: Object
+        },
         data() {
             return {
                 formTitle: 'Category',
-                /*
-                dialog: false,
-                editedItem: {
-                    id: 0,
-                    name: '',
-                    slug: '',
-                    order: 10,
-                    deleted: false
-                },
-                */
                 defaultItem: {
                     id: -1,
                     name: '',
@@ -84,10 +78,8 @@
                 }
             },
             close() {
-                this.dialog = false
-                setTimeout(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                }, 300)
+                this.editedItem = Object.assign({}, this.defaultItem)
+                this.show = false
             },
             save() {
                 this.$store.dispatch('saveCategory', this.editedItem)
@@ -100,17 +92,17 @@
             }
         },
         computed: {
-            dialog: {
-                get: function () {
-                    return this.$store.getters.dialogBlogCategory
+            show: {
+                get() {
+                    return this.dialog
                 },
-                set: function(val) {
-                    return this.$store.dispatch('setDialogBlogCategory', val)
+                set(value) {
+                    this.$emit('close', value)
                 }
             },
             editedItem: {
                 get: function () {
-                    if (this.$store.getters.editedItemBlogCategory === {})
+                    if (this.item === {})
                         return {
                             id: 0,
                             name: '',
@@ -119,10 +111,10 @@
                             deleted: false
                         }
                     else
-                        return this.$store.getters.editedItemBlogCategory
+                        return this.item
                 },
-                set: function (val) {
-                    this.$store.dispatch('setEditedItemBlogCategory', val)
+                set: function (value) {
+                    this.$emit('clear', value)
                 }
             }
         }

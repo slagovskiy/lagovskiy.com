@@ -64,7 +64,12 @@
                                                         </v-list-tile>
                                                     </template>
                                                 </v-list>
-                                                <app-dialog-media-folder></app-dialog-media-folder>
+                                                <app-dialog-media-folder
+                                                        v-bind:dialog="dialogMediaFolder"
+                                                        v-bind:item="editedMediaFolder"
+                                                        v-on:close="dialogMediaFolder = $event"
+                                                        v-on:clear="editedMediaFolder = $event"
+                                                ></app-dialog-media-folder>
                                             </v-flex>
 
                                             <v-flex xs12 sm7 md8 lg9 class="pa-2">
@@ -184,6 +189,8 @@
         },
         data() {
             return {
+                dialogMediaFolder: false,
+                editedMediaFolder: {},
                 dialogPreview: false,
                 imagePreview: '',
             }
@@ -205,15 +212,15 @@
                 this.dialogPreview = true
             },
             editMediaFolderItem(item) {
-                this.$store.dispatch('setEditedItemMediaFolder', Object.assign({}, item))
-                this.$store.dispatch('setDialogMediaFolder', true)
+                this.editedMediaFolder = Object.assign({}, item)
+                this.dialogMediaFolder = true
             },
             deleteMediaFolderItem(item) {
                 item.deleted = !item.deleted
                 this.$store.dispatch('saveMediaFolder', item)
             },
             addNewMediaFolder() {
-                this.$store.dispatch('setDialogMediaFolder', true)
+                this.dialogMediaFolder = true
             }
         },
         computed: {

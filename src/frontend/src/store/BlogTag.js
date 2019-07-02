@@ -2,8 +2,6 @@ import api from '../common/api'
 
 const initState = {
     Tag: [],
-    dialogBlogTag: false,
-    editedItemBlogTag: {}
 }
 
 export default {
@@ -24,12 +22,6 @@ export default {
             if (!found)
                 store.Tag.push(payload)
         },
-        setDialogBlogTag(state, payload) {
-            state.dialogBlogTag = payload
-        },
-        setEditedItemBlogTag(state, payload) {
-            state.editedItemBlogTag = payload
-        }
     },
     actions: {
         loadTagList({commit}, payload) {
@@ -63,22 +55,10 @@ export default {
                     commit('setLoading', false)
                 })
         },
-        setDialogBlogTag({commit}, payload) {
-            commit('setDialogBlogTag', payload)
-        },
-        setEditedItemBlogTag({commit}, payload) {
-            commit('setEditedItemBlogTag', payload)
-        },
     },
     getters: {
         Tag(state) {
             return state.Tag
         },
-        dialogBlogTag(state) {
-            return state.dialogBlogTag
-        },
-        editedItemBlogTag(state) {
-            return state.editedItemBlogTag
-        }
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="500px">
+    <v-dialog v-model="show" persistent max-width="500px">
         <v-card>
             <v-card-title>
                 <span class="headline">{{ formTitle }}</span>
@@ -40,18 +40,13 @@
 <script>
     export default {
         name: "dialogMediaFolder",
+        props: {
+            dialog: Boolean,
+            item: Object,
+        },
         data() {
             return {
                 formTitle: 'Media Folder',
-                /*
-                dialog: false,
-                editedItem: {
-                    id: 0,
-                    name: '',
-                    slug: '',
-                    deleted: false
-                },
-                */
                 defaultItem: {
                     id: -1,
                     name: '',
@@ -63,10 +58,8 @@
         },
         methods: {
             close() {
-                this.dialog = false
-                setTimeout(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                }, 300)
+                this.show = false
+                this.editedItem = Object.assign({}, this.defaultItem)
             },
             save() {
                 this.$store.dispatch('saveMediaFolder', this.editedItem)
@@ -79,17 +72,17 @@
             }
         },
         computed: {
-            dialog: {
+            show: {
                 get: function () {
-                    return this.$store.getters.dialogMediaFolder
+                    return this.dialog
                 },
-                set: function(val) {
-                    return this.$store.dispatch('setDialogMediaFolder', val)
+                set: function(value) {
+                    this.$emit('close', value)
                 }
             },
             editedItem: {
                 get: function () {
-                    if (this.$store.getters.editedItemMediaFolder === {})
+                    if (this.item === {})
                         return {
                             id: 0,
                             name: '',
@@ -98,10 +91,10 @@
                             created: ''
                         }
                     else
-                        return this.$store.getters.editedItemMediaFolder
+                        return this.item
                 },
-                set: function (val) {
-                    this.$store.dispatch('setEditedItemMediaFolder', val)
+                set: function (value) {
+                    this.$emit('clear', value)
                 }
             }
         }

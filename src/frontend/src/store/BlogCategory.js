@@ -2,8 +2,6 @@ import api from '../common/api'
 
 const initState = {
     Category: [],
-    dialogBlogCategory: false,
-    editedItemBlogCategory: {},
 }
 
 export default {
@@ -23,12 +21,6 @@ export default {
             }
             if (!found)
                 store.Category.push(payload)
-        },
-        setDialogBlogCategory(state, payload) {
-            state.dialogBlogCategory = payload
-        },
-        setEditedItemBlogCategory(state, payload) {
-            state.editedItemBlogCategory = payload
         },
     },
     actions: {
@@ -63,22 +55,10 @@ export default {
                     commit('setLoading', false)
                 })
         },
-        setDialogBlogCategory({commit}, payload) {
-            commit('setDialogBlogCategory', payload)
-        },
-        setEditedItemBlogCategory({commit}, payload) {
-            commit('setEditedItemBlogCategory', payload)
-        },
     },
     getters: {
         Category(state) {
             return state.Category
-        },
-        dialogBlogCategory(state) {
-            return state.dialogBlogCategory
-        },
-        editedItemBlogCategory(state) {
-            return state.editedItemBlogCategory
         },
     }
 }

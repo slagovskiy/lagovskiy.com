@@ -2,8 +2,6 @@ import api from '../common/api'
 
 const initState = {
     MediaFolder: [],
-    dialogMediaFolder: false,
-    editedItemMediaFolder: {},
 }
 
 export default {
@@ -24,12 +22,6 @@ export default {
             if (!found)
                 store.MediaFolder.push(payload)
         },
-        setDialogMediaFolder(state, payload) {
-            state.dialogMediaFolder = payload
-        },
-        setEditedItemMediaFolder(state, payload) {
-            state.editedItemMediaFolder = payload
-        }
     },
     actions: {
         loadMediaFolderList({commit}, payload) {
@@ -63,22 +55,10 @@ export default {
                     commit('setLoading', false)
                 })
         },
-        setDialogMediaFolder({commit}, payload) {
-            commit('setDialogMediaFolder', payload)
-        },
-        setEditedItemMediaFolder({commit}, payload) {
-            commit('setEditedItemMediaFolder', payload)
-        },
     },
     getters: {
         MediaFolder(state) {
             return state.MediaFolder
-        },
-        dialogMediaFolder(state) {
-            return state.dialogMediaFolder
-        },
-        editedItemMediaFolder(state) {
-            return state.editedItemMediaFolder
         },
     }
 }
