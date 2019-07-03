@@ -24,6 +24,15 @@
                             />
                         </v-flex>
                         <v-flex xs12>
+                            <v-select
+                                    v-bind:items="mediaFolders"
+                                    v-model="item.folder"
+                                    item-text="name"
+                                    item-value="id"
+                                    label="folder"
+                            ></v-select>
+                        </v-flex>
+                        <v-flex xs12>
                             <v-text-field
                                     v-model="editedItem.name"
                                     label="name"
@@ -31,14 +40,8 @@
                         </v-flex>
                         <v-flex xs12>
                             <v-text-field
-                                    v-model="editedItem.slug"
-                                    label="slug"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    v-model="editedItem.order"
-                                    label="order"
+                                    v-model="editedItem.description"
+                                    label="description"
                             ></v-text-field>
                         </v-flex>
                         <v-flex xs12>
@@ -74,9 +77,9 @@
                 defaultItem: {
                     id: -1,
                     file: '',
+                    folder: '',
                     name: '',
-                    slug: '',
-                    order: 10,
+                    description: '',
                     deleted: false
                 }
             }
@@ -114,6 +117,8 @@
             },
             close() {
                 this.editedItem = Object.assign({}, this.defaultItem)
+                this.form = new FormData()
+                this.fileName = ''
                 this.show = false
             },
             save() {
@@ -141,9 +146,9 @@
                         return {
                             id: 0,
                             file: '',
+                            folder: '',
                             name: '',
-                            slug: '',
-                            order: 10,
+                            description: '',
                             deleted: false
                         }
                     else
@@ -151,6 +156,13 @@
                 },
                 set: function (value) {
                     this.$emit('clear', value)
+                }
+            },
+            mediaFolders: {
+                get: function () {
+                    return this.$store.getters.MediaFolder
+                },
+                set: function () {
                 }
             }
         }
