@@ -2,6 +2,7 @@ import os
 import uuid
 
 from django.db import models
+from ..settings import SERVER
 
 
 class MediaFolder(models.Model):
@@ -78,6 +79,9 @@ class MediaFile(models.Model):
 
     def __str__(self):
         return '<MediaFile %s>' % self.name
+
+    def url(self):
+        return SERVER + self.file.url
 
     @staticmethod
     def exist(slug=None):

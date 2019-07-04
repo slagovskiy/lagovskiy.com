@@ -21,6 +21,7 @@ const blogCategory =  baseUrl + 'api/v1/blog/category/'
 const blogTag =       baseUrl + 'api/v1/blog/tag/'
 
 const mediaFolder =   baseUrl + 'api/v1/media/folder/'
+const mediaFile =     baseUrl + 'api/v1/media/file/'
 
 export default {
     http,
@@ -37,6 +38,7 @@ export default {
     blogTag,
 
     mediaFolder,
+    mediaFile,
 
     baseUrl
 }

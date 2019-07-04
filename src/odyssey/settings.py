@@ -152,6 +152,8 @@ REST_AUTH_SERIALIZERS = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+SERVER = 'http://127.0.0.1:8000'
+
 STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

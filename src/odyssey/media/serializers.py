@@ -9,7 +9,14 @@ class MediaFolderSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'created')
 
 
-class MediFileSerializer(serializers.Serializer):
+class MediaFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MediaFile
+        fields = ('id', 'file', 'folder', 'name', 'description', 'created', 'deleted', 'url',)
+        read_only_fields = ('id', 'created', 'url')
+
+
+class MediFileUploadSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     file = serializers.FileField()
     folder = serializers.IntegerField()

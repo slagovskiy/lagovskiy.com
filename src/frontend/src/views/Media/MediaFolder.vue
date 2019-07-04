@@ -80,24 +80,20 @@
 
                                                 <v-layout row wrap>
                                                     <v-flex
-                                                            v-for="n in 25"
-                                                            :key="n"
-                                                            xs6
-                                                            sm4
-                                                            md3
-                                                            lg2
-                                                            d-flex
+                                                            v-for="item in MediaFile"
+                                                            :key="item.id"
+                                                            xs6 sm4 md3 lg2 d-flex
                                                     >
                                                         <v-card flat tile class="d-flex">
                                                             <v-img
-                                                                    v-bind:src="`https://picsum.photos/500/300?image=${n * 12}`"
+                                                                    v-bind:src="item.url"
                                                                     aspect-ratio="1"
                                                                     class="grey lighten-2"
                                                             >
                                                                 <p class="image-btns">
                                                                     <v-btn fab class="image-btn">
                                                                         <v-icon class="image-btn-icon"
-                                                                                v-on:click="openImagePreview('https://picsum.photos/1000/700/')">
+                                                                                v-on:click="openImagePreview(item.url)">
                                                                             fa-eye
                                                                         </v-icon>
                                                                     </v-btn>
@@ -107,14 +103,10 @@
                                                                 </p>
                                                                 <template v-slot:placeholder>
                                                                     <v-layout
-                                                                            fill-height
-                                                                            align-center
-                                                                            justify-center
-                                                                            ma-0
+                                                                            fill-height align-center justify-center ma-0
                                                                     >
-                                                                        <v-progress-circular
-                                                                                indeterminate
-                                                                                color="grey lighten-5"
+                                                                        <v-progress-circular indeterminate
+                                                                                             color="grey lighten-5"
                                                                         ></v-progress-circular>
                                                                     </v-layout>
                                                                 </template>
@@ -131,9 +123,8 @@
                                                             <v-img
                                                                     v-bind:src="imagePreview"
                                                                     class="grey lighten-2"
-                                                                    v-bind:max-height="500"
-                                                                    v-bind:max-width="700"
-
+                                                                    height="auto"
+                                                                    width="auto"
                                                             >
                                                                 <template v-slot:placeholder>
                                                                     <v-layout
@@ -216,6 +207,7 @@
         methods: {
             loadData() {
                 this.$store.dispatch('loadMediaFolderList', {})
+                this.$store.dispatch('loadMediaFileList', {})
             },
             selectFolder(folder) {
                 return folder
@@ -252,7 +244,9 @@
             MediaFolder() {
                 return this.$store.getters.MediaFolder
             },
-
+            MediaFile() {
+                return this.$store.getters.MediaFile
+            },
         },
         watch: {}
     }

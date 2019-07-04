@@ -33,7 +33,7 @@ Vue.use(Vuetify, {
 Vue.use(Vuelidate)
 Vue.use(VueAxios, axios)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 Vue.prototype.$config = config
 
 

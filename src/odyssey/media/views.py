@@ -2,9 +2,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
-from .models import MediaFolder
+from .models import MediaFolder, MediaFile
 from ..settings import UPLOAD_DIR
-from .serializers import MediaFolderSerializer
+from .serializers import MediaFolderSerializer, MediaFileSerializer
 from django.http import JsonResponse, HttpResponse
 
 
@@ -51,3 +51,45 @@ class APIMediaFolder(APIView):
             return Response({
                 'status': 'error'
             }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class APIMediaFile(APIView):
+    permission_classes = [permissions.IsAuthenticated,]
+    # permission_classes = [permissions.AllowAny,]
+
+    def get(self, request):
+        id = request.GET.get('id')
+        folder = request.GET.get('folder')
+        if id:
+            items = MediaFile.objects.filter(id=id)
+        elif folder:
+            items = MediaFile.objects.filter(folder=folder)
+        else:
+            items = MediaFile.objects.all()
+        serializer = MediaFileSerializer(items, many=True)
+        return Response({
+            'data': serializer.data
+        })
+
+    def post(self, request):
+        '''
+                data = JSONParser().parse(request)
+                mediafolder = None
+                if 'id' in data:
+                    if data['id'] != -1:
+                        mediafolder = MediaFolder.objects.get(id=data['id'])
+                item = MediaFolderSerializer(mediafolder, data=data)
+                if item.is_valid():
+                    item.save()
+                    return Response({
+                        'data': item.data
+                    }, status=status.HTTP_200_OK)
+                else:
+                    return Response({
+                        'status': 'error'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                '''
+        return Response({
+            'data': ''
+        }, status=status.HTTP_200_OK)
+

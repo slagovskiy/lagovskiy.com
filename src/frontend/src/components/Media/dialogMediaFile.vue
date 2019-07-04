@@ -112,7 +112,7 @@
                 if (confirm('Are you sure you want to restore this item?')) {
                     this.editedItem = Object.assign({}, item)
                     this.editedItem.deleted = false
-                    this.$store.dispatch('saveCategory', this.editedItem)
+                    this.$store.dispatch('saveMediaFile', this.editedItem)
                 }
             },
             close() {
@@ -122,7 +122,7 @@
                 this.show = false
             },
             save() {
-                this.$store.dispatch('saveCategory', this.editedItem)
+                this.$store.dispatch('saveSaveMedia', this.editedItem)
                     .then(() => {
                         if (!this.$store.getters.error)
                             this.close()

@@ -14,7 +14,7 @@
                                 <v-card flat>
                                     <template v-if="user.avatar">
                                         <v-img
-                                                v-bind:src="this.$config.BASE_URL + user.avatar"
+                                                v-bind:src="user.url"
                                                 height="200px"
                                                 contain
                                         ></v-img>

@@ -5,7 +5,7 @@ from django.db import models
 import uuid
 import os
 
-from ..settings import MEDIA_ROOT
+from ..settings import MEDIA_ROOT, SERVER
 
 
 class UserManager(BaseUserManager):
@@ -77,6 +77,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             return '<img src="%s?h=100" border="0"/>' % self.avatar.url
         else:
             return ''
+
+    def url(self):
+        return SERVER + self.avatar.url
+
 
     avatar_preview.short_description = 'Avatar preview'
     avatar_preview.allow_tags = True

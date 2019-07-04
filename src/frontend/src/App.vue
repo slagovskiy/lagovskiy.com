@@ -49,7 +49,7 @@
                     <v-avatar size="36px" class="toolbar-avatar">
                         <img
                                 v-if="user.avatar"
-                                v-bind:src="this.$config.BASE_URL + user.avatar"
+                                v-bind:src="user.url"
                                 v-bind:alt="user.email"
                         >
                     </v-avatar>
