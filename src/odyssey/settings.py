@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'odyssey.userext',
     'odyssey.blog',
     'odyssey.media',
+    'odyssey.toolbox',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
@@ -126,6 +127,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+SENDFILE_BACKEND = 'sendfile.backends.simple'
+
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
@@ -155,6 +158,7 @@ REST_AUTH_SERIALIZERS = {
 SERVER = 'http://127.0.0.1:8000'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

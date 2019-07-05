@@ -42,9 +42,18 @@ class MediaFolder(models.Model):
 
 class MediaFile(models.Model):
     def mediafile_path(instance, filename):
+        if instance.uid == None:
+            instance.uid = str(uuid.uuid1())
         ext = filename.split('.')[-1]
-        filename = '{}.{}'.format(str(uuid.uuid1()), ext)
+        filename = '{}.{}'.format(instance.uid, ext)
         return os.path.join('mediafile', filename)
+        # return os.path.join(os.path.join('mediafile', instance.uid), filename)
+
+    uid = models.TextField(
+        max_length=40,
+        blank=True,
+        null=True
+    )
 
     file = models.ImageField(
         'File',
@@ -92,6 +101,11 @@ class MediaFile(models.Model):
                 return False
             else:
                 return True
+
+    def save(self, *args, **kwargs):
+        if not self.uid:
+            self.uid = str(uuid.uuid1())
+        super(MediaFile, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['created']

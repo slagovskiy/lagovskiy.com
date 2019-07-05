@@ -86,7 +86,7 @@
                                                     >
                                                         <v-card flat tile class="d-flex">
                                                             <v-img
-                                                                    v-bind:src="item.url"
+                                                                    v-bind:src="item.url + '?s=250'"
                                                                     aspect-ratio="1"
                                                                     class="grey lighten-2"
                                                             >

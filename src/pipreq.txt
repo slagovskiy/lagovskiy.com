@@ -1,4 +1,5 @@
 django
+django-sendfile
 django-cors-headers
 djangorestframework
 djangorestframework-jwt

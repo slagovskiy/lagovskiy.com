@@ -19,6 +19,7 @@ from django.urls import path
 from django.conf.urls import include, url
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from .settings import MEDIA_ROOT, MEDIA_URL
+from .media.views import media
 
 urlpatterns = [
     # JWT auth
@@ -31,6 +32,8 @@ urlpatterns = [
     url(r'^api/v1/user/', include('odyssey.userext.urls')),
     url(r'^api/v1/blog/', include('odyssey.blog.urls')),
     url(r'^api/v1/media/', include('odyssey.media.urls')),
+
+    url(r'^media/(?P<path>.*)$', media),
 
     path('admin/', admin.site.urls),
 ]
