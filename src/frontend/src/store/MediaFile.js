@@ -20,14 +20,14 @@ export default {
                 }
             }
             if (!found)
-                store.MediaFile.push(payload)
+                store.MediaFile.unshift(payload)
         },
     },
     actions: {
         loadMediaFileList({commit}, payload) {
             commit('clearMessages')
             commit('setLoading', true)
-            return api.http.get(api.mediaFile, payload)
+            return api.http.get(api.mediaFile, {params: payload})
                 .then(
                     (response) => {
                         commit('setMediaFileList', response.data.data)
@@ -42,7 +42,13 @@ export default {
         saveMediaFile({commit}, payload) {
             commit('clearMessages')
             commit('setLoading', true)
-            return api.http.post(api.mediaFile, payload)
+            return api.http.post(api.mediaFile, payload,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            )
                 .then(
                     (response) => {
                         commit('saveMediaFile', response.data.data)
@@ -60,5 +66,16 @@ export default {
         MediaFile(state) {
             return state.MediaFile
         },
+        MediaFilePreview(state) {
+            let images = []
+            state.MediaFile.forEach(function (item) {
+                images.push({
+                    thumb: item.url + '?s=250',
+                    src: item.url,
+                    caption: item.description
+                })
+            })
+            return images
+        }
     }
 }

@@ -4,9 +4,12 @@ import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueLazyLoad from 'vue-lazyload'
+
 
 import 'vuetify/dist/vuetify.min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
+import 'vue-image-lightbox/dist/vue-image-lightbox.min.css'
 
 import App from './App.vue'
 import store from './store/index'
@@ -36,7 +39,7 @@ Vue.use(VueAxios, axios)
 Vue.config.productionTip = true
 Vue.prototype.$config = config
 
-
+Vue.use(VueLazyLoad)
 
 new Vue({
     render: h => h(App),

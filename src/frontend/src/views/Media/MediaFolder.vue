@@ -13,7 +13,7 @@
                             <v-flex>
 
                                 <template>
-                                    <v-card>
+                                    <v-card flat>
                                         <v-card-title>
                                             <v-btn color="primary" dark class="mb-2" v-on:click="addNewMediaFolder">New
                                                 folder
@@ -29,6 +29,11 @@
                                         <v-layout row wrap>
                                             <v-flex xs12 sm5 md4 lg3 class="pa-2">
                                                 <v-list class="elevation-1">
+                                                    <v-list-tile v-on:click="selectFolder('')">
+                                                        <v-list-tile-content>
+                                                            ...
+                                                        </v-list-tile-content>
+                                                    </v-list-tile>
                                                     <template v-for="item in MediaFolder">
                                                         <v-list-tile
                                                                 v-bind:key="item.id"
@@ -80,7 +85,7 @@
 
                                                 <v-layout row wrap>
                                                     <v-flex
-                                                            v-for="item in MediaFile"
+                                                            v-for="(item, index) in MediaFile"
                                                             :key="item.id"
                                                             xs6 sm4 md3 lg2 d-flex
                                                     >
@@ -93,7 +98,13 @@
                                                                 <p class="image-btns">
                                                                     <v-btn fab class="image-btn">
                                                                         <v-icon class="image-btn-icon"
-                                                                                v-on:click="openImagePreview(item.url)">
+                                                                                v-on:click="editMediaFileItem(item)">
+                                                                            fa-pencil-alt
+                                                                        </v-icon>
+                                                                    </v-btn>
+                                                                    <v-btn fab class="image-btn">
+                                                                        <v-icon class="image-btn-icon"
+                                                                                v-on:click="openImagePreview(index)">
                                                                             fa-eye
                                                                         </v-icon>
                                                                     </v-btn>
@@ -101,6 +112,7 @@
                                                                         <v-icon class="image-btn-icon">fa-link</v-icon>
                                                                     </v-btn>
                                                                 </p>
+                                                                <p v-if="item.deleted" class="deleted-image">deleted</p>
                                                                 <template v-slot:placeholder>
                                                                     <v-layout
                                                                             fill-height align-center justify-center ma-0
@@ -114,39 +126,13 @@
                                                         </v-card>
                                                     </v-flex>
 
-                                                    <v-dialog
-                                                            v-model="dialogPreview"
-                                                            persistent
-                                                            v-bind:max-height="500"
-                                                            v-bind:max-width="700">
-                                                        <v-card>
-                                                            <v-img
-                                                                    v-bind:src="imagePreview"
-                                                                    class="grey lighten-2"
-                                                                    height="auto"
-                                                                    width="auto"
-                                                            >
-                                                                <template v-slot:placeholder>
-                                                                    <v-layout
-                                                                            fill-height
-                                                                            align-center
-                                                                            justify-center
-                                                                            ma-0
-                                                                    >
-                                                                        <v-progress-circular
-                                                                                indeterminate
-                                                                                color="grey lighten-5"
-                                                                        ></v-progress-circular>
-                                                                    </v-layout>
-                                                                </template>
-                                                            </v-img>
-                                                            <v-card-actions>
-                                                                <v-spacer></v-spacer>
-                                                                <v-btn color="" v-on:click="dialogPreview = false">Close
-                                                                </v-btn>
-                                                            </v-card-actions>
-                                                        </v-card>
-                                                    </v-dialog>
+                                                    <LightBox
+                                                            v-bind:images="MediaFilePreview"
+                                                            ref="lightbox"
+                                                            v-bind:show-caption="true"
+                                                            v-bind:show-light-box="false"
+                                                    ></LightBox>
+
                                                 </v-layout>
 
                                                 <app-dialog-media-file
@@ -182,12 +168,14 @@
 <script>
     import DialogMediaFolder from '../../components/Media/dialogMediaFolder'
     import DialogMediaFile from '../../components/Media/dialogMediaFile'
+    import LightBox from 'vue-image-lightbox'
 
     export default {
         name: "Media",
         components: {
             appDialogMediaFolder: DialogMediaFolder,
             appDialogMediaFile: DialogMediaFile,
+            LightBox,
         },
         data() {
             return {
@@ -195,8 +183,7 @@
                 editedMediaFolder: {},
                 dialogMediaFile: false,
                 editedMediaFile: {},
-                dialogPreview: false,
-                imagePreview: '',
+                activeFolder: '',
             }
         },
         mounted() {
@@ -207,18 +194,23 @@
         methods: {
             loadData() {
                 this.$store.dispatch('loadMediaFolderList', {})
-                this.$store.dispatch('loadMediaFileList', {})
+                this.loadFileList()
+            },
+            loadFileList() {
+                this.$store.dispatch('loadMediaFileList', {
+                    'folder': this.activeFolder
+                })
             },
             selectFolder(folder) {
-                return folder
+                this.activeFolder = folder
+                this.loadFileList()
             },
-            openImagePreview(url) {
-                this.imagePreview = url
-                this.dialogPreview = true
+            openImagePreview(index) {
+                this.$refs.lightbox.showImage(index)
             },
-            editMediaFolderItem(item) {
-                this.editedMediaFolder = Object.assign({}, item)
-                this.dialogMediaFolder = true
+            editMediaFileItem(item) {
+                this.editedMediaFile = Object.assign({}, item)
+                this.dialogMediaFile = true
             },
             deleteMediaFolderItem(item) {
                 item.deleted = !item.deleted
@@ -247,6 +239,9 @@
             MediaFile() {
                 return this.$store.getters.MediaFile
             },
+            MediaFilePreview() {
+                return this.$store.getters.MediaFilePreview
+            }
         },
         watch: {}
     }
@@ -273,5 +268,14 @@
 
     .v-list__tile__action {
         min-width: 0px;
+    }
+
+    .deleted-image {
+        text-align: center;
+        text-transform: uppercase;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #FF5252;
+        color: white;
     }
 </style>

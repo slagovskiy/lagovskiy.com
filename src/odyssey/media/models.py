@@ -90,7 +90,10 @@ class MediaFile(models.Model):
         return '<MediaFile %s>' % self.name
 
     def url(self):
-        return SERVER + self.file.url
+        if self.file:
+            return SERVER + self.file.url
+        else:
+            return ''
 
     @staticmethod
     def exist(slug=None):

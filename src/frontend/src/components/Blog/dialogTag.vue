@@ -6,26 +6,30 @@
             </v-card-title>
             <v-card-text>
                 <v-container grid-list-md>
-                    <v-layout wrap>
-                        <v-flex xs12>
-                            <v-text-field
-                                    v-model="editedItem.name"
-                                    label="name"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    v-model="editedItem.slug"
-                                    label="slug"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-checkbox
-                                    v-model="editedItem.deleted"
-                                    label="deleted"
-                            ></v-checkbox>
-                        </v-flex>
-                    </v-layout>
+                    <v-form v-model="valid" ref="form" lazy-validation>
+                        <v-layout wrap>
+                            <v-flex xs12>
+                                <v-text-field
+                                        v-model="editedItem.name"
+                                        label="name"
+                                        v-bind:rules="textRules"
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-text-field
+                                        v-model="editedItem.slug"
+                                        label="slug"
+                                        v-bind:rules="textRules"
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex xs12>
+                                <v-checkbox
+                                        v-model="editedItem.deleted"
+                                        label="deleted"
+                                ></v-checkbox>
+                            </v-flex>
+                        </v-layout>
+                    </v-form>
                 </v-container>
             </v-card-text>
             <v-card-actions>
@@ -52,7 +56,11 @@
                     name: '',
                     slug: '',
                     deleted: false
-                }
+                },
+                valid: false,
+                textRules: [
+                    v => !!v || 'Field is required'
+                ],
             }
         },
         methods: {
@@ -61,13 +69,15 @@
                 this.show = false
             },
             save() {
-                this.$store.dispatch('saveTag', this.editedItem)
-                    .then(() => {
-                        if (!this.$store.getters.error)
-                            this.close()
-                    })
-                    .catch(() => {
-                    })
+                if(this.$refs.form.validate()) {
+                    this.$store.dispatch('saveTag', this.editedItem)
+                        .then(() => {
+                            if (!this.$store.getters.error)
+                                this.close()
+                        })
+                        .catch(() => {
+                        })
+                }
             }
         },
         computed: {

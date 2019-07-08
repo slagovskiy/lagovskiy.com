@@ -1,6 +1,6 @@
 import os
 from sendfile import sendfile
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import FileUploadParser, MultiPartParser, JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
@@ -8,7 +8,6 @@ from .models import MediaFolder, MediaFile
 from ..settings import UPLOAD_DIR
 from .serializers import MediaFolderSerializer, MediaFileSerializer
 from django.http import JsonResponse, HttpResponse
-
 
 from ..settings import MEDIA_ROOT, STATIC_ROOT
 from ..toolbox.image import image_resize, what
@@ -33,7 +32,6 @@ def media(request, path):
     return sendfile(request, file_path)
 
 
-
 class APIMedia(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -44,7 +42,8 @@ class APIMedia(APIView):
 
 
 class APIMediaFolder(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.IsAuthenticated, ]
+
     # permission_classes = [permissions.AllowAny,]
 
     def get(self, request):
@@ -80,42 +79,75 @@ class APIMediaFolder(APIView):
 
 
 class APIMediaFile(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    parser_classes = [MultiPartParser, ]
+    permission_classes = [permissions.IsAuthenticated, ]
+
     # permission_classes = [permissions.AllowAny,]
 
     def get(self, request):
+
         id = request.GET.get('id')
         folder = request.GET.get('folder')
         if id:
-            items = MediaFile.objects.filter(id=id)
+            items = MediaFile.objects.filter(id=id).order_by('-created')
         elif folder:
-            items = MediaFile.objects.filter(folder=folder)
+            folder = MediaFolder.objects.get(id=folder)
+            items = MediaFile.objects.filter(folder=folder).order_by('-created')
         else:
-            items = MediaFile.objects.all()
+            items = MediaFile.objects.all().order_by('-created')
         serializer = MediaFileSerializer(items, many=True)
         return Response({
             'data': serializer.data
         })
 
     def post(self, request):
-        '''
-                data = JSONParser().parse(request)
-                mediafolder = None
-                if 'id' in data:
-                    if data['id'] != -1:
-                        mediafolder = MediaFolder.objects.get(id=data['id'])
-                item = MediaFolderSerializer(mediafolder, data=data)
-                if item.is_valid():
-                    item.save()
-                    return Response({
-                        'data': item.data
-                    }, status=status.HTTP_200_OK)
+        try:
+            id = request.POST.get('id', '-1')
+            # up_file = request.FILES['file']
+            mediafile = None
+            if id:
+                if id != '-1':
+                    mediafile = MediaFile.objects.get(id=id)
                 else:
-                    return Response({
-                        'status': 'error'
-                    }, status=status.HTTP_400_BAD_REQUEST)
-                '''
-        return Response({
-            'data': ''
-        }, status=status.HTTP_200_OK)
+                    mediafile = MediaFile.objects.create()
+                deleted = False
+                if request.POST.get('deleted', 'false') == 'true':
+                    deleted = True
+                folder = request.POST.get('folder', -1)
+                if folder:
+                    if folder == 'null':
+                        folder = None
+                    elif folder != -1:
+                        folder = MediaFolder.objects.get(id=folder)
+                    else:
+                        folder = None
+                else:
+                    folder = None
+                mediafile.folder = folder
+                mediafile.name = request.POST.get('name', '')
+                mediafile.description = request.POST.get('description', '')
+                mediafile.deleted = deleted
+                mediafile.save()
 
+                if 'file' in request.FILES:
+                    up_file = request.FILES['file']
+                    file = os.path.join(UPLOAD_DIR, MediaFile.mediafile_path(mediafile, up_file.name))
+                    filename = os.path.basename(file)
+                    if not os.path.exists(os.path.dirname(file)):
+                        os.makedirs(os.path.dirname(file))
+                    destination = open(file, 'wb+')
+                    for chunk in up_file.chunks():
+                        destination.write(chunk)
+                    mediafile.file.save(filename, destination, save=False)
+                    mediafile.save()
+                    destination.close()
+
+                item = MediaFileSerializer(mediafile)
+
+            return Response({
+                'data': item.data
+            }, status=status.HTTP_200_OK)
+        except():
+            return Response({
+                'data': ''
+            }, status=status.HTTP_400_BAD_REQUEST)
