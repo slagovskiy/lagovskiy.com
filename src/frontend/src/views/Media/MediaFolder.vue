@@ -37,9 +37,11 @@
                                                     <template v-for="item in MediaFolder">
                                                         <v-list-tile
                                                                 v-bind:key="item.id"
-                                                                v-on:click="selectFolder(item.id)"
+                                                                v-on:click="() => {}"
                                                         >
-                                                            <v-list-tile-content>
+                                                            <v-list-tile-content
+                                                                v-on:click="selectFolder(item.id)"
+                                                            >
                                                                 {{item.name}}
                                                             </v-list-tile-content>
                                                             <v-list-tile-action>
@@ -194,7 +196,6 @@
         methods: {
             loadData() {
                 this.$store.dispatch('loadMediaFolderList', {})
-                this.loadFileList()
             },
             loadFileList() {
                 this.$store.dispatch('loadMediaFileList', {
@@ -211,6 +212,10 @@
             editMediaFileItem(item) {
                 this.editedMediaFile = Object.assign({}, item)
                 this.dialogMediaFile = true
+            },
+            editMediaFolderItem(item) {
+                this.editedMediaFolder = Object.assign({}, item)
+                this.dialogMediaFolder = true
             },
             deleteMediaFolderItem(item) {
                 item.deleted = !item.deleted

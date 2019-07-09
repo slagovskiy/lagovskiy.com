@@ -15,6 +15,7 @@
                                         v-model='fileName'
                                         prepend-icon='fa-paperclip'
                                         ref="imageText"
+                                        v-bind:rules="textRules"
                                 ></v-text-field>
                                 <input
                                         name="file"
@@ -22,7 +23,6 @@
                                         style="display: none"
                                         ref="file"
                                         v-on:change="onFilePicked"
-                                        v-bind:rules="fileRules"
                                 />
                             </v-flex>
                             <v-flex xs12>
