@@ -5,6 +5,7 @@ import User from './User'
 import Global from './Global'
 import blogCategory from './BlogCategory'
 import blogTag from './BlogTag'
+import blogPost from './BlogPost'
 import mediaFolder from './MediaFolder'
 import mediaFile from './MediaFile'
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
         user: User,
         blogCategory: blogCategory,
         blogTag: blogTag,
+        blogPost: blogPost,
         mediaFolder: mediaFolder,
         mediaFile: mediaFile,
         global: Global

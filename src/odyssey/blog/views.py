@@ -2,9 +2,9 @@ from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
-from .models import Category, Tag
+from .models import Category, Tag, Post
 from ..settings import UPLOAD_DIR
-from .serializers import CategorySerializer, TagSerializer
+from .serializers import CategorySerializer, TagSerializer, PostSerializer
 from django.http import JsonResponse, HttpResponse
 
 
@@ -16,8 +16,10 @@ class APIBlog(APIView):
 
         }, status=status.HTTP_200_OK)
 
+
 class APICategory(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.IsAuthenticated, ]
+
     # permission_classes = [permissions.AllowAny,]
 
     def get(self, request):
@@ -52,9 +54,9 @@ class APICategory(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class APITag(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.IsAuthenticated, ]
+
     # permission_classes = [permissions.AllowAny,]
 
     def get(self, request):
@@ -89,3 +91,43 @@ class APITag(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
 
+class APIPost(APIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    # permission_classes = [permissions.AllowAny,]
+
+    def get(self, request):
+        id = request.GET.get('id')
+        slug = request.GET.get('slug')
+        if id:
+            items = Post.objects.filter(id=id)
+        elif slug:
+            items = Post.objects.filter(slug=slug)
+        else:
+            items = Post.objects.all().order_by('status', '-created')
+        serializer = PostSerializer(items, many=True)
+        return Response({
+            'data': serializer.data
+        })
+
+    def post(self, request):
+        '''
+                data = JSONParser().parse(request)
+                tag = None
+                if 'id' in data:
+                    if data['id'] != -1:
+                        tag = Tag.objects.get(id=data['id'])
+                item = TagSerializer(tag, data=data)
+                if item.is_valid():
+                    item.save()
+                    return Response({
+                        'data': item.data
+                    }, status=status.HTTP_200_OK)
+                else:
+                    return Response({
+                        'status': 'error'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                '''
+        return Response({
+            'ok': 'ok'
+        }, status=status.HTTP_200_OK)

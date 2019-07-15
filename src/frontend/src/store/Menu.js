@@ -44,7 +44,7 @@ export default {
             {
                 icon: 'fa-edit',
                 title: 'Posts',
-                link: '/blog/post/',
+                link: router.resolve({name: 'blog-post'}).href,
                 auth: true
             },
             {

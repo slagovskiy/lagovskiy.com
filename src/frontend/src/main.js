@@ -5,6 +5,7 @@ import Vuetify from 'vuetify'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyLoad from 'vue-lazyload'
+import VueMoment from 'vue-moment'
 
 
 import 'vuetify/dist/vuetify.min.css'
@@ -40,6 +41,8 @@ Vue.config.productionTip = true
 Vue.prototype.$config = config
 
 Vue.use(VueLazyLoad)
+
+Vue.use(VueMoment)
 
 new Vue({
     render: h => h(App),

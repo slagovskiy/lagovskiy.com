@@ -71,7 +71,7 @@
                 ],
                 numberRules: [
                     v => !!v || 'Field is required',
-                    v => parseInt(v) || 'Required number'
+                    v => parseInt(v) > 0 || 'Required number'
                 ],
             }
         },

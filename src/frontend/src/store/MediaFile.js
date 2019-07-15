@@ -72,7 +72,7 @@ export default {
                 images.push({
                     thumb: item.url + '?s=250',
                     src: item.url,
-                    caption: item.description
+                    caption: '<b>' + item.name + '</b><br>' + item.description
                 })
             })
             return images

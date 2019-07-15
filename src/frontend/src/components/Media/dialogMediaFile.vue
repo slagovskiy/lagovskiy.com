@@ -15,7 +15,6 @@
                                         v-model='fileName'
                                         prepend-icon='fa-paperclip'
                                         ref="imageText"
-                                        v-bind:rules="textRules"
                                 ></v-text-field>
                                 <input
                                         name="file"

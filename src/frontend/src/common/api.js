@@ -19,6 +19,7 @@ const userRestore =   baseUrl + 'api/v1/user/restore/'
 
 const blogCategory =  baseUrl + 'api/v1/blog/category/'
 const blogTag =       baseUrl + 'api/v1/blog/tag/'
+const blogPost =      baseUrl + 'api/v1/blog/post/'
 
 const mediaFolder =   baseUrl + 'api/v1/media/folder/'
 const mediaFile =     baseUrl + 'api/v1/media/file/'
@@ -36,6 +37,7 @@ export default {
 
     blogCategory,
     blogTag,
+    blogPost,
 
     mediaFolder,
     mediaFile,

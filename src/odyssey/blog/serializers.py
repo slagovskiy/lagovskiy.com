@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Tag
+from .models import Category, Tag, Post
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -14,3 +14,12 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'slug', 'name', 'deleted',)
         read_only_fields = ('id',)
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ('uid', 'slug', 'title', 'author', 'description', 'keywords', 'status', 'sticked', 'comments_enabled',
+                  'comments_moderated', 'do_ping', 'created', 'published', 'categories', 'tags', 'teaser', 'content',
+                  'social_image')
+        read_only_fields = ('uid', 'author', 'created')

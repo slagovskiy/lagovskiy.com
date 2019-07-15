@@ -104,10 +104,12 @@ class Post(models.Model):
     )
     description = models.CharField(
         max_length=512,
+        blank=True,
         default=''
     )
     keywords = models.CharField(
         max_length=512,
+        blank=True,
         default=''
     )
     status = models.IntegerField(
@@ -135,24 +137,27 @@ class Post(models.Model):
     )
     categories = models.ManyToManyField(
         Category,
-        on_delete=models.DO_NOTHING,
-        blank=True
+        blank=True,
+        null=True,
     )
     tags = models.ManyToManyField(
         Tag,
-        on_delete=models.DO_NOTHING,
-        blank=True
+        blank=True,
+        null=True,
     )
     teaser = models.TextField(
+        blank=True,
         default=''
     )
     content = models.TextField(
+        blank=True,
         default=''
     )
     social_image = models.ForeignKey(
         MediaFile,
-        on_delete=models.DO_NOTHING,
-        blank=True
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
     )
 
     def __str__(self):
