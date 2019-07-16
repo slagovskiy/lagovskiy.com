@@ -62,14 +62,6 @@
                                         </v-data-table>
                                     </v-card>
                                 </template>
-
-                                <app-dialog-tag
-                                        v-bind:dialog="dialog"
-                                        v-bind:item="editedItem"
-                                        v-on:close="dialog = $event"
-                                        v-on:clear="editedItem = $event"
-                                ></app-dialog-tag>
-
                             </v-flex>
                         </v-layout>
                     </v-card-text>
@@ -90,13 +82,10 @@
 
 <script>
     import debounce from 'debounce'
-    import DialogTag from '../../components/Blog/dialogTag'
 
     export default {
         name: "Tag",
-        components: {
-            appDialogTag: DialogTag,
-        },
+        components: { },
         data() {
             return {
                 pagination: {
@@ -146,15 +135,14 @@
                 }
             },
             editItem(item) {
-                this.editedItem = Object.assign({}, item)
-                this.dialog = true
+                this.$router.push({ name: 'blog-post-edit', params: { id: item.id } })
             },
             deleteItem(item) {
                 item.deleted = !item.deleted
                 this.$store.dispatch('savePost', item)
             },
             addNem() {
-                this.dialog = true
+                this.$router.push({ name: 'blog-post-edit', params: { id: -1 } })
             },
             postStatus(value) {
                 if (value == 0)

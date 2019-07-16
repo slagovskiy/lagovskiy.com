@@ -9,6 +9,7 @@ import RestorePassword from './views/User/RestorePassword'
 import BlogCategory from './views/Blog/Category'
 import BlogTag from './views/Blog/Tag'
 import BlogPost from './views/Blog/Post'
+import BlogPostEdit from './views/Blog/PostEdit'
 import Media from './views/Media/MediaFolder'
 import Error404 from './views/Error'
 
@@ -74,6 +75,13 @@ export default new VueRouter({
             path: '/blog/post',
             component: BlogPost,
             name: 'blog-post',
+            meta: {requiresAuth: true}
+        },
+        {
+            path: '/blog/post/:id',
+            component: BlogPostEdit,
+            name: 'blog-post-edit',
+            props: true,
             meta: {requiresAuth: true}
         },
         {
