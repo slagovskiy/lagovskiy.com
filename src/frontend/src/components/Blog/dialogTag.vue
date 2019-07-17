@@ -65,15 +65,17 @@
         },
         methods: {
             close() {
-                this.editedItem = Object.assign({}, this.defaultItem)
+                //this.editedItem = Object.assign({}, this.defaultItem)
                 this.show = false
             },
             save() {
                 if(this.$refs.form.validate()) {
                     this.$store.dispatch('saveTag', this.editedItem)
-                        .then(() => {
-                            if (!this.$store.getters.error)
+                        .then((response) => {
+                            if (!this.$store.getters.error){
+                                this.editedItem = Object.assign({}, response.data.data)
                                 this.close()
+                            }
                         })
                         .catch(() => {
                         })
@@ -91,9 +93,9 @@
             },
             editedItem: {
                 get: function () {
-                    if (this.item === {})
+                    if (Object.entries(this.item).length === 0 && this.item.constructor === Object)
                         return {
-                            id: 0,
+                            id: -1,
                             name: '',
                             slug: '',
                             deleted: false

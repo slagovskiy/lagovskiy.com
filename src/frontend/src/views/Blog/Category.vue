@@ -171,6 +171,7 @@
                 this.$store.dispatch('saveCategory', item)
             },
             addNem() {
+                this.editedItem = {}
                 this.dialog = true
             }
         },

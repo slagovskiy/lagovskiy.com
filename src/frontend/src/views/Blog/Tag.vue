@@ -169,6 +169,7 @@
                 this.$store.dispatch('saveTag', item)
             },
             addNem() {
+                this.editedItem = {}
                 this.dialog = true
             }
         },

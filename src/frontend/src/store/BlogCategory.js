@@ -48,6 +48,7 @@ export default {
                         commit('saveCategory', response.data.data)
                         commit('setMessage', 'Saved successfully.')
                         commit('setLoading', false)
+                        return response
                     }
                 )
                 .catch((error) => {

@@ -92,9 +92,9 @@
             },
             editedItem: {
                 get: function () {
-                    if (this.item === {})
+                    if (Object.entries(this.item).length === 0 && this.item.constructor === Object)
                         return {
-                            id: 0,
+                            id: -1,
                             name: '',
                             slug: '',
                             deleted: false,

@@ -4,7 +4,7 @@
             <v-flex xs12>
                 <v-card>
                     <v-card-title>
-                        <span class="headline">{{ formTitle }}</span>
+                        <span class="headline">{{ formTitle}}</span>
                     </v-card-title>
                     <v-card-text>
                         <v-tabs fixed-tabs v-bind:model="activeTab">
@@ -17,6 +17,10 @@
                                 <v-text-field
                                         label="title"
                                         v-model="editedItem.title"
+                                ></v-text-field>
+                                <v-text-field
+                                        label="slug"
+                                        v-model="editedItem.slug"
                                 ></v-text-field>
                                 <v-checkbox
                                         v-model="editedItem.sticked"
@@ -35,10 +39,6 @@
                                 ></v-text-field>
                             </v-tab-item>
                             <v-tab-item v-bind:key="2">
-                                <v-text-field
-                                        label="slug"
-                                        v-model="editedItem.slug"
-                                ></v-text-field>
                                 <v-textarea
                                         label="description"
                                         v-model="editedItem.description"
@@ -57,7 +57,13 @@
                                             chips
                                             multiple
                                     ></v-select>
-                                    <v-btn color="primary" dark>Add category</v-btn>
+                                    <v-btn color="primary" dark v-on:click="editedItemCategory = {}; dialogCategory = true">Add category</v-btn>
+                                    <app-dialog-category
+                                            v-bind:dialog="dialogCategory"
+                                            v-bind:item="editedItemCategory"
+                                            v-on:close="dialogCategory = $event"
+                                            v-on:clear="addNewCategory($event)"
+                                    ></app-dialog-category>
                                 </v-input>
                                 <v-input>
                                     <v-select
@@ -69,7 +75,13 @@
                                             chips
                                             multiple
                                     ></v-select>
-                                    <v-btn color="primary" dark>Add tag</v-btn>
+                                    <v-btn color="primary" dark v-on:click="editedItemTag = {}; dialogTag = true">Add tag</v-btn>
+                                    <app-dialog-tag
+                                            v-bind:dialog="dialogTag"
+                                            v-bind:item="editedItemTag"
+                                            v-on:close="dialogTag = $event"
+                                            v-on:clear="addNewTag($event)"
+                                    ></app-dialog-tag>
                                 </v-input>
                                 <v-checkbox
                                         v-model="editedItem.do_ping"
@@ -101,7 +113,6 @@
                     </v-card-text>
                     <v-divider></v-divider>
                     <v-card-actions>
-
                         <v-spacer></v-spacer>
                         <v-btn color="" v-on:click="goBack">Cancel</v-btn>
                         <v-btn color="primary">Save</v-btn>
@@ -121,8 +132,15 @@
     </v-container>
 </template>
 <script>
+    import DialogCategory from '../../components/Blog/dialogCategory'
+    import DialogTag from '../../components/Blog/dialogTag'
+
     export default {
         name: "PostEdit",
+        components: {
+            appDialogCategory: DialogCategory,
+            appDialogTag: DialogTag
+        },
         data() {
             return {
                 defaultItem: {
@@ -143,6 +161,10 @@
                     content: '',
                     social_image: null
                 },
+                dialogCategory: false,
+                editedItemCategory: {},
+                dialogTag: false,
+                editedItemTag: {},
                 activeTab: null,
                 formTitle: 'Post edit',
                 editedItem: {},
@@ -160,7 +182,7 @@
         mounted() {
             this.$store.dispatch('loadCategoryList')
             this.$store.dispatch('loadTagList')
-            if (this.id===-1) {
+            if (this.id === -1) {
                 this.editedItem = Object.assign({}, this.defaultItem)
             } else {
                 for (let i = 0; i < this.Post.length; i++)
@@ -173,7 +195,13 @@
         methods: {
             goBack() {
                 this.$router.push({name: 'blog-post'})
-            }
+            },
+            addNewCategory(item) {
+                this.editedItem.categories.push(item.id)
+            },
+            addNewTag(item) {
+                this.editedItem.tags.push(item.id)
+            },
         },
         computed: {
             isAuthenticated() {
