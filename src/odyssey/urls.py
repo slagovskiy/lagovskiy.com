@@ -17,21 +17,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from .settings import MEDIA_ROOT, MEDIA_URL
 from .media.views import media
 
 urlpatterns = [
-    # JWT auth
-    url(r'^api/v1/auth/obtain_token/', obtain_jwt_token),
-    url(r'^api/v1/auth/refresh_token/', refresh_jwt_token),
-
-    # The rest of the endpoints
-    #url(r'^api/v1/', include('project.api', namespace='apiv1')),
-
-    url(r'^api/v1/user/', include('odyssey.userext.urls')),
-    url(r'^api/v1/blog/', include('odyssey.blog.urls')),
-    url(r'^api/v1/media/', include('odyssey.media.urls')),
 
     url(r'^media/(?P<path>.*)$', media),
 
