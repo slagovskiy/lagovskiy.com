@@ -137,13 +137,11 @@ class Post(models.Model):
     )
     categories = models.ManyToManyField(
         Category,
-        blank=True,
-        null=True,
+        blank=True
     )
     tags = models.ManyToManyField(
         Tag,
-        blank=True,
-        null=True,
+        blank=True
     )
     teaser = models.TextField(
         blank=True,
