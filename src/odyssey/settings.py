@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'odyssey.userext',
     'odyssey.blog',
     'odyssey.media',
+    'odyssey.info',
     'odyssey.toolbox',
 
     #'rest_framework',
@@ -57,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-#    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'odyssey.urls'
@@ -65,7 +66,9 @@ ROOT_URLCONF = 'odyssey.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,10 +162,14 @@ AUTH_USER_MODEL = 'userext.User'
 SERVER = 'http://127.0.0.1:8000'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = ''
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
 
 

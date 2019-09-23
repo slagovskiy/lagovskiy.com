@@ -18,9 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 from .settings import MEDIA_ROOT, MEDIA_URL
+
 from .media.views import media
 
+from .views import index
+
 urlpatterns = [
+
+    url(r'^$', index, name='home'),
 
     url(r'^media/(?P<path>.*)$', media),
 

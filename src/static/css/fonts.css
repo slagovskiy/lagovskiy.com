@@ -1,0 +1,135 @@
+/* font-family: "RobotoRegular"; */
+@font-face {
+    font-family: "RobotoRegular";
+    src: url("../fonts/RobotoRegular/RobotoRegular.eot");
+    src: url("../fonts/RobotoRegular/RobotoRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoRegular/RobotoRegular.woff") format("woff"),
+    url("../fonts/RobotoRegular/RobotoRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoLight"; */
+@font-face {
+    font-family: "RobotoLight";
+    src: url("../fonts/RobotoLight/RobotoLight.eot");
+    src: url("../fonts/RobotoLight/RobotoLight.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoLight/RobotoLight.woff") format("woff"),
+    url("../fonts/RobotoLight/RobotoLight.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoMedium"; */
+@font-face {
+    font-family: "RobotoMedium";
+    src: url("../fonts/RobotoMedium/RobotoMedium.eot");
+    src: url("../fonts/RobotoMedium/RobotoMedium.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoMedium/RobotoMedium.woff") format("woff"),
+    url("../fonts/RobotoMedium/RobotoMedium.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "RobotoBold"; */
+@font-face {
+    font-family: "RobotoBold";
+    src: url("../fonts/RobotoBold/RobotoBold.eot");
+    src: url("../fonts/RobotoBold/RobotoBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/RobotoBold/RobotoBold.woff") format("woff"),
+    url("../fonts/RobotoBold/RobotoBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* font-family: "DroidSerifRegular"; */
+@font-face {
+    font-family: "DroidSerifRegular";
+    src: url("../fonts/DroidSerifRegular/DroidSerifRegular.eot");
+    src: url("../fonts/DroidSerifRegular/DroidSerifRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidSerifRegular/DroidSerifRegular.woff") format("woff"),
+    url("../fonts/DroidSerifRegular/DroidSerifRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "DroidSerifBold"; */
+@font-face {
+    font-family: "DroidSerifBold";
+    src: url("../fonts/DroidSerifBold/DroidSerifBold.eot");
+    src: url("../fonts/DroidSerifBold/DroidSerifBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidSerifBold/DroidSerifBold.woff") format("woff"),
+    url("../fonts/DroidSerifBold/DroidSerifBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "DroidSerifItalic"; */
+@font-face {
+    font-family: "DroidSerifItalic";
+    src: url("../fonts/DroidSerifItalic/DroidSerifItalic.eot");
+    src: url("../fonts/DroidSerifItalic/DroidSerifItalic.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidSerifItalic/DroidSerifItalic.woff") format("woff"),
+    url("../fonts/DroidSerifItalic/DroidSerifItalic.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "DroidSerifBoldItalic"; */
+@font-face {
+    font-family: "DroidSerifBoldItalic";
+    src: url("../fonts/DroidSerifBoldItalic/DroidSerifBoldItalic.eot");
+    src: url("../fonts/DroidSerifBoldItalic/DroidSerifBoldItalic.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidSerifBoldItalic/DroidSerifBoldItalic.woff") format("woff"),
+    url("../fonts/DroidSerifBoldItalic/DroidSerifBoldItalic.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* font-family: "DroidSansRegular"; */
+@font-face {
+    font-family: "DroidSansRegular";
+    src: url("../fonts/DroidSansRegular/DroidSansRegular.eot");
+    src: url("../fonts/DroidSansRegular/DroidSansRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidSansRegular/DroidSansRegular.woff") format("woff"),
+    url("../fonts/DroidSansRegular/DroidSansRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+/* font-family: "DroidSansBold"; */
+@font-face {
+    font-family: "DroidSansBold";
+    src: url("../fonts/DroidSansBold/DroidSansBold.eot");
+    src: url("../fonts/DroidSansBold/DroidSansBold.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidSansBold/DroidSansBold.woff") format("woff"),
+    url("../fonts/DroidSansBold/DroidSansBold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* font-family: "DroidMonoRegular"; */
+@font-face {
+    font-family: "DroidMonoRegular";
+    src: url("../fonts/DroidMonoRegular/DroidMonoRegular.eot");
+    src: url("../fonts/DroidMonoRegular/DroidMonoRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/DroidMonoRegular/DroidMonoRegular.woff") format("woff"),
+    url("../fonts/DroidMonoRegular/DroidMonoRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* font-family: "GabrielaRegular"; */
+@font-face {
+    font-family: "GabrielaRegular";
+    src: url("../fonts/GabrielaRegular/GabrielaRegular.eot");
+    src: url("../fonts/GabrielaRegular/GabrielaRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/GabrielaRegular/GabrielaRegular.woff") format("woff"),
+    url("../fonts/GabrielaRegular/GabrielaRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Saucer BB';
+    src: url('../fonts/SaucerBB/SaucerBB.eot');
+    src: url('../fonts/SaucerBB/SaucerBB.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/SaucerBB/SaucerBB.woff2') format('woff2'),
+        url('../fonts/SaucerBB/SaucerBB.woff') format('woff'),
+        url('../fonts/SaucerBB/SaucerBB.svg#SaucerBB') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

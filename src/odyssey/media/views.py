@@ -4,7 +4,7 @@ from .models import MediaFolder, MediaFile
 from ..settings import UPLOAD_DIR
 from django.http import JsonResponse, HttpResponse
 
-from ..settings import MEDIA_ROOT, STATIC_ROOT
+from ..settings import MEDIA_ROOT
 from ..toolbox.image import image_resize, what
 
 
