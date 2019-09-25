@@ -188,6 +188,46 @@ a.activeBlue {
     transition: 200ms;
 }
 
+.post-footer {
+    font-size: .8em;
+}
+
+.post-comments .post-comments-title {
+    font-size: 1.8em;
+}
+
+.post-comments-form textarea {
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.5em;
+    line-height: 1.9em;
+    height: 2.2em;
+    width: 100%;
+}
+
+.post-comments-form input[type=text] {
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.post-comments-form button {
+    border: 2px solid #CCCCCC;
+    border-radius: 4px;
+    padding: 10px 40px;
+    color: #444444;
+    text-transform: uppercase;
+}
+
+.post-comments-form button:hover {
+    background: #f52a0e; /*#006ED2;*/
+    border: 2px solid #f52a0e; /*#006ED2*/
+    color: #FFFFFF;
+}
 
 /* footer */
 
