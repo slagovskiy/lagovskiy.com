@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% load static from staticfiles %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link href="{% static 'lib/fa/css/all.min.css ' %}" rel="stylesheet">
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">LAGOVSKIY.COM</a></h1>
+{% endblock %}
