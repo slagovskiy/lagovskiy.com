@@ -15,15 +15,15 @@
     <link href="{% static 'lib/fa/css/all.min.css ' %}" rel="stylesheet">
 
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="row align-items-center p-3 px-md-4 mb-3">
-        <h5 class="logo mr-md-auto col-12 col-sm-12 col-md-12 col-lg-6">
-            <span class="logo-red">S</span><span class="logo-black">ERGEY</span><span class="logo-red">L</span><span
-                class="logo-black">AGOVSKIY</span>
-        </h5>
+        <a href="#" class="logo mr-md-auto col-12 col-sm-12 col-md-12 col-lg-6">
+            <span class="logo-red">S</span><span class="logo-black">ERGEY</span><span class="logo-red">L</span><span class="logo-black">AGOVSKIY</span>
+        </a>
         <nav class="main-menu col-12 col-sm-12 col-md-12 col-lg-6 pb-2 px-0 my-2">
             <a class="p-2" href="#">home</a>
             <a class="p-2" href="#">blog</a>
@@ -84,16 +84,21 @@
                              data-services="vkontakte,facebook,odnoklassniki,evernote,whatsapp,telegram"
                              data-size="s"></div>
                     </div>
-                    <div class="post-footer-tag col-md align-center"><i class="fa fa-tags"></i> mikrotik | router os |
-                        how to
+                    <div class="post-footer-tag col-md align-center"><i class="fa fa-tags"></i> <a href="#">mikrotik</a> | <a href="#">router os</a> |
+                        <a href="#">how to</a>
                     </div>
                     <div class="post-footer-author col-md align-right">Sergey Lagovskiy</div>
                 </div>
                 <div class="post-comments pt-4">
-                    <div class="post-comments-title">Comments: 34</div>
-                    <div class="post-comments-form">
-                        <form>
-                            <div class="form-group">
+                    <div class="post-comments-title"><a href="#" onclick="moveReply(0); return false;">Comments: 34</a></div>
+
+                    <div id="reply_0">
+                        <div class="post-comments-form pt-3">
+                            <form>
+                                {% csrf_token %}
+                                <input type="hidden" name="parent" id="comment-parent" value="0">
+                                <input type="hidden" name="post" value="!!!">
+                                <div class="form-group">
                                 <textarea
                                         placeholder="leave commentary"
                                         id="comment-message"
@@ -103,28 +108,70 @@
                                             $('#comment-message').animate({'height': '6em'}, 500);
                                         "
                                 ></textarea>
-                            </div>
-                            <div style="display: none" id="comment-user">
-                                <div class="form-group row">
-                                    <div class="col-3 col-sm-2"><label for="comment-name">Name:</label></div>
-                                    <div class="col-9 col-sm-10"><input type="text" id="comment-name" name="comment-name"></div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-3 col-sm-2"><label for="comment-email">Email:</label></div>
-                                    <div class="col-9 col-sm-10"><input type="text" id="comment-email" name="comment-email"></div>
+                                <div style="display: none" id="comment-user">
+                                    <div class="form-group row">
+                                        <div class="col-3 col-sm-2"><label for="comment-name">Name:</label></div>
+                                        <div class="col-9 col-sm-10"><input type="text" id="comment-name" name="comment-name"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-3 col-sm-2"><label for="comment-email">Email:</label></div>
+                                        <div class="col-9 col-sm-10"><input type="text" id="comment-email" name="comment-email"></div>
+                                    </div>
+                                    <div class="form-group align-right">
+                                        <button>Send <i class="fas fa-arrow-right"></i></button>
+                                    </div>
                                 </div>
-                                <div class="form-group align-right">
-                                    <button>Send <i class="fas fa-arrow-right"></i></button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
+
+                    <div class="comments-tree">
+
+                        <div style="padding-left: 0em;" class="comment py-3">
+                            <header class="row">
+                                <div class="name col-md-6 align-left">Ivanov Ivan</div>
+                                <div class="date col-md-6 align-right">2 day ago&nbsp;&nbsp;<a href="#comment1"
+                                                                                               name="comment1"><i
+                                        class="fa fa-link" aria-hidden="true"></i></a></div>
+                            </header>
+                            <div class="content">
+                                Для возвращения к младшим версиям достаточно иметь пакет обновления нужной версии.
+                                Копируем этот пакет в корень файловой системы устройства, открываем менеджер пакетов,
+                                выбираем корень дерева пакетов и нажимаем на кнопку Downgrade.
+                            </div>
+                            <div>
+                                <button href="#" onclick="moveReply(1); return false;" class="reply mt-2"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                                <div id="reply_1"></div>
+                            </div>
+                        </div>
+
+                        <div style="padding-left: 2em;" class="comment py-3">
+                            <header class="row">
+                                <div class="name col-md-6 align-left">Ivanov Ivan</div>
+                                <div class="date col-md-6 align-right">2 day ago&nbsp;&nbsp;<a href="#comment2" name="comment2"><i class="fa fa-link" aria-hidden="true"></i></a></div>
+                            </header>
+                            <div class="content">
+                                Для возвращения к младшим версиям достаточно иметь пакет обновления нужной версии.
+                                Копируем этот пакет в корень файловой системы устройства, открываем менеджер
+                                пакетов,
+                                выбираем корень дерева пакетов и нажимаем на кнопку Downgrade.
+                            </div>
+                            <div>
+                                <button href="#" onclick="moveReply(2); return false;" class="reply mt-2"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                                <div id="reply_2"></div>
+                            </div>
+                            <div id="comment_reply_2"></div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
             <hr class="py-3">
-
         </div>
+
         <div class="col-12 col-sm-12 col-md-4 col-lg-3 pb-0">
             <div class="sub-menu pb-5">
                 <div class="sub-menu-title"><i class="far fa-folder"></i> Notepads</div>
@@ -164,8 +211,8 @@
                 </ul>
             </div>
         </div>
+        </div>
     </div>
-
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="footer col-12 col-md align-center">
@@ -173,7 +220,6 @@
             </div>
         </div>
     </footer>
-</div>
 
 </body>
 </html>
