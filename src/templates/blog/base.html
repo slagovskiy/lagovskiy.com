@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load widgets %}
+
+{% block ext_title %}Blog - {% endblock %}
+
+{% block body %}{% block content %}{% endblock %}{% endblock %}
+
+{% block right_menu %}
+    {% widget_category active_category %}
+{% endblock %}

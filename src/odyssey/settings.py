@@ -212,3 +212,6 @@ UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
 #    'JWT_EXPIRATION_DELTA': timedelta(hours=1),
 #    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
 #}
+
+
+PAGE_SIZE = 5

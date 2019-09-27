@@ -27,6 +27,8 @@ urlpatterns = [
 
     url(r'^$', index, name='home'),
 
+    url(r'^blog/', include('odyssey.blog.urls')),
+
     url(r'^media/(?P<path>.*)$', media),
 
     path('admin/', admin.site.urls),
