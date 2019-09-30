@@ -20,7 +20,7 @@
 <body>
 
 <div class="container">
-    <div class="row align-items-center p-3 px-md-4 mb-3">
+    <div class="row align-items-center py-3 mb-3">
         <a href="{% url 'home' %}" class="logo mr-md-auto col-12 col-sm-12 col-md-12 col-lg-6">
             <span class="logo-red">S</span><span class="logo-black">ERGEY</span><span class="logo-red">L</span><span class="logo-black">AGOVSKIY</span>
         </a>
@@ -77,17 +77,22 @@
                         вариантов установки обновлений на устройства RouterBOARD.</p>
                 </div>
                 <div class="post-footer row pt-4">
-                    <div class="post-footer-share col-md align-left">
+                    <div class="post-footer-share col-md align-left px-0">
                         <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
                         <script src="https://yastatic.net/share2/share.js"></script>
                         <div class="ya-share2"
                              data-services="vkontakte,facebook,odnoklassniki,evernote,whatsapp,telegram"
                              data-size="s"></div>
                     </div>
-                    <div class="post-footer-tag col-md align-center"><i class="fa fa-tags"></i> <a href="#">mikrotik</a> | <a href="#">router os</a> |
-                        <a href="#">how to</a>
+                    <div class="post-footer-tag col-md align-center px-0">
+                        <i class="fa fa-tags"></i> <a href="#">mikrotik</a> | <a href="#">router os</a> | <a href="#">how to</a>
                     </div>
-                    <div class="post-footer-author col-md align-right">Sergey Lagovskiy</div>
+                    <div class="post-footer-author col-md align-center px-0">
+                        <i class="far fa-clock"></i> 2019/09/23 12:56
+                    </div>
+                    <div class="post-footer-author col-md align-right px-0">
+                        Sergey Lagovskiy
+                    </div>
                 </div>
                 <div class="post-comments pt-4">
                     <div class="post-comments-title"><a href="#" onclick="moveReply(0); return false;">Comments: 34</a></div>
@@ -171,9 +176,10 @@
 
             <hr class="py-3">
         </div>
-
-        {% block right_menu %}
-        {% endblock %}
+        <div class="col-12 col-sm-12 col-md-4 col-lg-3 pb-0">
+            {% block right_menu %}
+            {% endblock %}
+        </div>
 
     </div>
 </div>

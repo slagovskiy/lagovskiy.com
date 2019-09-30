@@ -6,5 +6,7 @@
 {% block body %}{% block content %}{% endblock %}{% endblock %}
 
 {% block right_menu %}
-    {% widget_category active_category %}
+        {% widget_category active_category %}
+        {% widget_tags active_tag %}
+        {% widget_links %}
 {% endblock %}

@@ -2,33 +2,7 @@
 {% load widgets %}
 
 {% block right_menu %}
-    <div class="col-12 col-sm-12 col-md-4 col-lg-3 pb-0">
-        {% widget_category active_category %}
-        <div class="sub-menu pb-5">
-            <div class="sub-menu-title"><i class="fa fa-tags"></i> Tags</div>
-            <ul class="sub-menu-items nav pl-4">
-                <li><a href="#">Antiquities<span>6</span></a></li>
-                <li><a href="#">C#<span>1</span></a></li>
-                <li><a href="#">DOS<span>6</span></a></li>
-                <li><a href="#">How to<span>16</span></a></li>
-                <li><a href="#">Linux<span>1</span></a></li>
-                <li><a href="#">Mikrotik Router OS<span>14</span></a></li>
-                <li><a href="#">Norton Commander<span>2</span></a></li>
-                <li><a href="#">SQL<span>2</span></a></li>
-                <li><a href="#">VirtualBox<span>6</span></a></li>
-                <li><a href="#">Аквариум<span>1</span></a></li>
-            </ul>
-        </div>
-
-        <div class="sub-menu pb-5">
-            <div class="sub-menu-title"><i class="fa fa-link"></i> Links</div>
-            <ul class="sub-menu-items nav flex-column pl-4">
-                <li><a href="#"><i class="fab fa-facebook-square"></i> i'm on facebook</a></li>
-                <li><a href="#"><i class="fab fa-flickr"></i> my photos on flickr</a></li>
-                <li><a href="#"><i class="fab fa-github-square"></i> my code on github</a></li>
-                <li><a href="#"><i class="fas fa-envelope-square"></i> write me email</a></li>
-                <li><a href="#"><i class="fas fa-phone-square-alt"></i> headhunt me</a></li>
-            </ul>
-        </div>
-    </div>
+    {% widget_category active_category %}
+    {% widget_tags active_tag %}
+    {% widget_links %}
 {% endblock %}

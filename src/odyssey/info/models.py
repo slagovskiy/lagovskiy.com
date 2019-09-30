@@ -23,6 +23,9 @@ class Link(models.Model):
         blank=True,
         default=''
     )
+    order = models.IntegerField(
+        default=10
+    )
     deleted = models.BooleanField(
         default=False
     )

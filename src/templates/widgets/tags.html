@@ -1,0 +1,16 @@
+{% if tags %}
+    <div class="sub-menu pb-5">
+        <div class="sub-menu-title"><i class="fa fa-tags"></i> Tags</div>
+        <ul class="sub-menu-items nav pl-4">
+            {% for tag in tags %}
+                {% if tag.post_count >= 0 %}
+                    <li>
+                        <a href="{% url 'blog_post_by_tag' tag.slug %}"{% if active_tag.slug == tag.slug %} class="active"{% endif %}>
+                            {{ tag.name }}<span>{{ tag.post_count }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

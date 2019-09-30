@@ -7,6 +7,7 @@ class LinkAdmin(admin.ModelAdmin):
     list_display = ('name_with_icon', 'deleted')
     list_filter = ('name',)
     readonly_fields = ('name_with_icon',)
+    ordering = ('order',)
 
     def name_with_icon(self, object):
         if object.icon:

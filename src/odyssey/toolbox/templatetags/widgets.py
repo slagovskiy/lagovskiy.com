@@ -13,15 +13,6 @@ def widget_category(active_category=''):
         'active_category': active_category
     }
 
-'''
-@register.inclusion_tag('widgets/category.html')
-def widget_category(active_category=''):
-    categories = Category.objects.all().filter(deleted=False)
-    return {
-        'categories': categories,
-        'active_category': active_category
-    }
-
 
 @register.inclusion_tag('widgets/tags.html')
 def widget_tags(active_tag=''):
@@ -31,7 +22,12 @@ def widget_tags(active_tag=''):
         'active_tag': active_tag
     }
 
+@register.inclusion_tag('widgets/links.html')
+def widget_links():
+    links = Link.objects.all().filter(deleted=False).order_by('order')
+    return {'links': links}
 
+'''
 @register.inclusion_tag('widgets/album.html')
 def widget_albums(active_album=''):
     albums = Album.objects.all().filter(deleted=False)
