@@ -32,8 +32,6 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', media),
 
     path('admin/', admin.site.urls),
-
-    url(r'^tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

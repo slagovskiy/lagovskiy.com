@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'odyssey.info',
     'odyssey.toolbox',
 
+    'ckeditor',
+
     #'rest_framework',
     #'rest_framework.authtoken',
     #'corsheaders',
@@ -162,10 +164,12 @@ AUTH_USER_MODEL = 'userext.User'
 SERVER = 'http://127.0.0.1:8000'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = ''
+STATIC_ROOT = '' # os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 
 MEDIA_URL = '/media/'
