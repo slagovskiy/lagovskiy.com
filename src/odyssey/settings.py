@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -164,13 +166,11 @@ AUTH_USER_MODEL = 'userext.User'
 SERVER = 'http://127.0.0.1:8000'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '' # os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = ''
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
