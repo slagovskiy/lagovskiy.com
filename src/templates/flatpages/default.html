@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load widgets %}
+
+{% block ext_title %}{{ flatpage.title }} - {% endblock %}
+
+{% block body %}
+    {% block content %}
+        <div class="post-body">{{ flatpage.content }}</div>
+    {% endblock %}
+{% endblock %}
+
+{% block right_menu %}
+        {% widget_category active_category %}
+        {% widget_tags active_tag %}
+        {% widget_links %}
+{% endblock %}

@@ -17,6 +17,10 @@ urlpatterns = [
 
     url(r'^media/(?P<path>.*)$', media),
 
+    url(r'^tinymce/', include('tinymce.urls')),
+
+    path('pages/', include('django.contrib.flatpages.urls')),
+
     path('admin/', admin.site.urls),
 ]
 

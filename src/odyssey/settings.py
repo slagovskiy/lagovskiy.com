@@ -27,18 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
-    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 
     'odyssey.userext',
     'odyssey.blog',
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'odyssey.info',
     'odyssey.toolbox',
 
-    'ckeditor',
+    'tinymce',
 
     #'rest_framework',
     #'rest_framework.authtoken',
@@ -61,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 
     # 'corsheaders.middleware.CorsMiddleware',
 ]
@@ -219,3 +222,21 @@ UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
 
 
 PAGE_SIZE = 5
+
+TINYMCE_JS_URL = STATIC_URL + 'lib/tinymce/tinymce.min.js'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "advcode,codesample,table,paste,searchreplace,code,image,imagetools",
+    # 'theme': "advanced",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+# INYMCE_SPELLCHECKER = True
+# TINYMCE_COMPRESSOR = True
+TINYMCE_EXTRA_MEDIA = {
+    'css': {
+        'all': [
+        ],
+    },
+    'js': [
+    ],
+}
