@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
 
+    'filebrowser',
+
     'odyssey.userext',
     'odyssey.blog',
     'odyssey.media',
@@ -224,11 +226,37 @@ UPLOAD_DIR = os.path.join(BASE_DIR, 'media')
 PAGE_SIZE = 5
 
 TINYMCE_JS_URL = STATIC_URL + 'lib/tinymce/tinymce.min.js'
+#TINYMCE_DEFAULT_CONFIG = {
+#    'plugins': "codesample,table,paste,searchreplace,code,advcode,image,imagetools,wordcount,visualchars,visualblocks,toc,quickbars,preview,pageembed,pagebreak,nonbreaking,media,lists,advlist,link,linkchecker,insertdatetime,hr,fullscreen,formatpainter,emoticons,directionality,charmap,casechange,bbcode",
+#    # 'theme': "advanced",
+#    'cleanup_on_startup': True,
+#    'custom_undo_redo_levels': 10,
+#}
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "advcode,codesample,table,paste,searchreplace,code,image,imagetools",
-    # 'theme': "advanced",
+    'height': 800,
+    'width': 1200,
     'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 10,
+    'custom_undo_redo_levels': 20,
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
 }
 # INYMCE_SPELLCHECKER = True
 # TINYMCE_COMPRESSOR = True
@@ -240,3 +268,11 @@ TINYMCE_EXTRA_MEDIA = {
     'js': [
     ],
 }
+TINYMCE_FILEBROWSER = True
+
+FILEBROWSER_DIRECTORY = ''
+FILEBROWSER_URL_FILEBROWSER_MEDIA = '/static/filebrowser/'
+FILEBROWSER_PATH_FILEBROWSER_MEDIA = BASE_DIR
+FILEBROWSER_DEFAULT_SORTING_BY = 'filename_lower'
+FILEBROWSER_DEFAULT_SORTING_ORDER = 'asc'
+FILEBROWSER_MAX_UPLOAD_SIZE = 1024*1024*100
