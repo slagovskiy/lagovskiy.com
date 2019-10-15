@@ -1,9 +1,11 @@
+pillow
 django
 django-sendfile
 django-cors-headers
 djangorestframework
 djangorestframework-jwt
+django-tinymce
+django-filebrowser-no-grappelli
 PyJWT
-pillow
 gunicorn
 mysqlclient
