@@ -12,11 +12,9 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'deleted')
     list_filter = ('name',)
 
-
 '''
 class PostAdminForm(forms.ModelForm):
-    teaser = forms.CharField(widget=CKEditorWidget())
-    content = forms.CharField(widget=CKEditorWidget())
+    content = forms.CharField(widget=MediaLibWidget())
 
     class Meta:
         model = Post
@@ -28,7 +26,8 @@ class PostAdmin(admin.ModelAdmin):
     # form = PostAdminForm
     list_display = ('title', 'status')
     list_filter = ('title',)
-    # content = forms.CharField(widget=CKEditorWidget())
+    readonly_fields = ('media_lib',)
+    # images = forms.CharField(widget=MediaLibWidget())
 
 
 admin.site.register(Category, CategoryAdmin)

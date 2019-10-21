@@ -5,6 +5,7 @@ from django.db import models
 
 from ..userext.models import User
 from ..media.models import MediaFile
+from ..media.widgets import MediaLib
 
 
 class Category(models.Model):
@@ -160,6 +161,9 @@ class Post(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+
+    def media_lib(self):
+        return MediaLib()
 
     def __str__(self):
         return '<Post %s>' % self.title
