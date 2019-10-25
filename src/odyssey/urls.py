@@ -24,6 +24,7 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
 
     path('admin/filebrowser/', site.urls),
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
 ]
 
