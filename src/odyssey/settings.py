@@ -33,7 +33,6 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-
-    'filebrowser',
 
     'odyssey.userext',
     'odyssey.blog',
@@ -271,9 +268,9 @@ TINYMCE_EXTRA_MEDIA = {
 }
 TINYMCE_FILEBROWSER = True
 
-FILEBROWSER_DIRECTORY = ''
-FILEBROWSER_URL_FILEBROWSER_MEDIA = '/static/filebrowser/'
-FILEBROWSER_PATH_FILEBROWSER_MEDIA = BASE_DIR
-FILEBROWSER_DEFAULT_SORTING_BY = 'filename_lower'
-FILEBROWSER_DEFAULT_SORTING_ORDER = 'asc'
-FILEBROWSER_MAX_UPLOAD_SIZE = 1024*1024*100
+# FILEBROWSER_DIRECTORY = ''
+# FILEBROWSER_URL_FILEBROWSER_MEDIA = '/static/filebrowser/'
+# FILEBROWSER_PATH_FILEBROWSER_MEDIA = BASE_DIR
+# FILEBROWSER_DEFAULT_SORTING_BY = 'filename_lower'
+# FILEBROWSER_DEFAULT_SORTING_ORDER = 'asc'
+# FILEBROWSER_MAX_UPLOAD_SIZE = 1024*1024*100

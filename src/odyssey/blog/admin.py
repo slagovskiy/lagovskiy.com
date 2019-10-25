@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django import forms
-from suit.widgets import SuitSplitDateTimeWidget
 
 from .models import Category, Tag, Post
 
@@ -22,9 +21,6 @@ class PostAdminForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        widgets = {
-            'published': SuitSplitDateTimeWidget,
-        }
         fields = '__all__'
 
 

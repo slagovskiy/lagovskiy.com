@@ -5,8 +5,6 @@ django-cors-headers
 djangorestframework
 djangorestframework-jwt
 django-tinymce
-django-filebrowser-no-grappelli
-django-grappelli
 PyJWT
 gunicorn
 mysqlclient

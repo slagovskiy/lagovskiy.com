@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
 
-from filebrowser.sites import site
+# from filebrowser.sites import site
 
 from .settings import MEDIA_ROOT, MEDIA_URL
 
@@ -23,8 +23,9 @@ urlpatterns = [
 
     path('pages/', include('django.contrib.flatpages.urls')),
 
-    path('admin/filebrowser/', site.urls),
-    path('grappelli/', include('grappelli.urls')),
+    # path('admin/filebrowser/', site.urls),
+    # path('grappelli/', include('grappelli.urls')),
+
     path('admin/', admin.site.urls),
 ]
 
