@@ -4,6 +4,7 @@ django-sendfile
 django-cors-headers
 djangorestframework
 djangorestframework-jwt
+django-tabbed-admin
 django-tinymce
 PyJWT
 gunicorn

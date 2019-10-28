@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
 
+    'tabbed_admin',
+
     'odyssey.userext',
     'odyssey.blog',
     'odyssey.media',
@@ -274,3 +276,7 @@ TINYMCE_FILEBROWSER = True
 # FILEBROWSER_DEFAULT_SORTING_BY = 'filename_lower'
 # FILEBROWSER_DEFAULT_SORTING_ORDER = 'asc'
 # FILEBROWSER_MAX_UPLOAD_SIZE = 1024*1024*100
+
+TABBED_ADMIN_USE_JQUERY_UI = True
+TABBED_ADMIN_JQUERY_UI_CSS = '/static/lib/jq-ui/jquery-ui.min.css'
+TABBED_ADMIN_JQUERY_UI_JS = '/static/lib/jq-ui/jquery-ui.min.js'

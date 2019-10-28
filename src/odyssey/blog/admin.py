@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django import forms
+from tabbed_admin import TabbedModelAdmin
 
 from .models import Category, Tag, Post
 
@@ -24,47 +25,78 @@ class PostAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(TabbedModelAdmin):
     form = PostAdminForm
     list_display = ('title', 'status')
     list_filter = ('title',)
     readonly_fields = ('created', 'media_lib',)
 
+    '''
     fieldsets = [
         (None, {
-            'classes': ('suit-tab suit-tab-general',),
+            'classes': ('',),
             'description': '',
             'fields': ['uid', 'slug', 'title', 'author', 'created', 'published']
         }),
         ('SEO', {
-            'classes': ('suit-tab suit-tab-seo',),
+            'classes': ('',),
             'description': '',
             'fields': ['description', 'keywords', 'status', 'sticked', 'do_ping', 'categories', 'tags', 'social_image']
         }),
         ('Comment', {
-            'classes': ('suit-tab suit-tab-comment',),
+            'classes': ('',),
             'description': '',
             'fields': ['comments_enabled', 'comments_moderated']
         }),
         ('Data', {
-            'classes': ('suit-tab suit-tab-data',),
+            'classes': ('',),
             'description': '',
             'fields': ['teaser', 'content']
         }),
         ('Media', {
-            'classes': ('suit-tab suit-tab-media',),
+            'classes': ('',),
             'description': '',
             'fields': ['media_lib']
         }),
     ]
+    '''
 
-    suit_form_tabs = (
-        ('general', 'General'),
-        ('seo', 'SEO'),
-        ('comment', 'Comment'),
-        ('data', 'Data'),
-        ('media', 'Media')
+    tab_general = (
+        (None, {
+            'fields': ('uid', 'slug', 'title', 'author', 'created', 'published')
+        }),
     )
+    tab_seo = (
+        (None,
+         {
+             'fields': ('description', 'keywords', 'status', 'sticked', 'do_ping', 'categories', 'tags', 'social_image')
+         }),
+    )
+    tab_comment = (
+        (None,
+         {
+             'fields': ('comments_enabled', 'comments_moderated')
+         }),
+    )
+    tab_content = (
+        (None, {
+            'fields': ('teaser', 'content')
+        }),
+    )
+    tab_media = (
+        (None,
+         {
+             'fields': ('media_lib',)
+         }),
+    )
+
+    tabs = [
+        ('General', tab_general),
+        ('SEO', tab_seo),
+        ('Comment', tab_comment),
+        ('Content', tab_content),
+        ('Media', tab_media)
+    ]
 
 
 admin.site.register(Category, CategoryAdmin)
