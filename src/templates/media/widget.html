@@ -1,1 +1,11 @@
-<b>!!!media!!!</b>
+{% if folders %}
+    {% for folder in folders %}
+        <i class="fas fa-folder"></i> {{ folder.name }}<br>
+    {% endfor %}
+{% endif %}
+<hr>
+{% if files %}
+    {% for file in files %}
+        <i class="fas fa-file"></i> {{ file.file }}<br>
+    {% endfor %}
+{% endif %}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 from tabbed_admin import TabbedModelAdmin
+from tinymce.widgets import TinyMCE
 
 from .models import Category, Tag, Post
 
@@ -19,6 +20,8 @@ class PostAdminForm(forms.ModelForm):
     uid = forms.CharField()
     slug = forms.CharField()
     title = forms.CharField()
+    teaser = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}, mce_attrs={'height': 400, 'width': 1200}))
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}, mce_attrs={'height': 800, 'width': 1200}))
 
     class Meta:
         model = Post

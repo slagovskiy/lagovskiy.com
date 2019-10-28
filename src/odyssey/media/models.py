@@ -55,7 +55,7 @@ class MediaFile(models.Model):
         null=True
     )
 
-    file = models.ImageField(
+    file = models.FileField(
         'File',
         blank=True,
         null=True,
@@ -96,11 +96,11 @@ class MediaFile(models.Model):
             return ''
 
     @staticmethod
-    def exist(slug=None):
-        if slug is None:
+    def exist(uid=None):
+        if uid is None:
             return False
         else:
-            if MediaFolder.objects.filter(slug=slug).first() is None:
+            if MediaFile.objects.filter(uid=uid).first() is None:
                 return False
             else:
                 return True
@@ -108,6 +108,8 @@ class MediaFile(models.Model):
     def save(self, *args, **kwargs):
         if not self.uid:
             self.uid = str(uuid.uuid1())
+        if not self.name:
+            self.name = self.file
         super(MediaFile, self).save(*args, **kwargs)
 
     class Meta:
