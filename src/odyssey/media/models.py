@@ -46,8 +46,7 @@ class MediaFile(models.Model):
             instance.uid = str(uuid.uuid1())
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(instance.uid, ext)
-        return os.path.join('mediafile', filename)
-        # return os.path.join(os.path.join('mediafile', instance.uid), filename)
+        return os.path.join(os.path.join('mediafile', instance.uid), filename)
 
     uid = models.TextField(
         max_length=40,

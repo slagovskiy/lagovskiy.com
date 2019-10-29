@@ -1,11 +1,161 @@
-{% if folders %}
-    {% for folder in folders %}
-        <i class="fas fa-folder"></i> {{ folder.name }}<br>
-    {% endfor %}
-{% endif %}
-<hr>
-{% if files %}
-    {% for file in files %}
-        <i class="fas fa-file"></i> {{ file.file }}<br>
-    {% endfor %}
-{% endif %}
+<div id="medialib" class="medialib">
+    <div id="action">
+        <button onclick="showFormFolder(); return false;">Add folder</button>
+        <button onclick="showFormFile(); return false;">Upload file</button>
+    </div>
+    <div class="form" id="formFolder">
+        <form method="post" id="fformFolder">
+            <div>
+                <input type="hidden" name="id" value="0">
+                <label for="folderName" class="label">Folder name:</label>
+                <input type="text" name="folder" id="folderName" class="text">
+            </div>
+            <div class="form-action">
+                <button onclick="saveFolder(); return false;" type="button">Save</button>
+                <button onclick="hideForms(); return false;" type="button">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="form" id="formFile">
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <label for="file" class="label">File:</label>
+                <input type="file" name="file" id="folderName" class="text">
+            </div>
+            <div class="form-action">
+                <button onclick="return false;">Save</button>
+                <button onclick="hideForms(); return false;">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div id="folders"></div>
+    <div id="files"></div>
+</div>
+
+<style>
+    .medialib button {
+        padding: 10px;
+        border: 1px solid #79aec8;
+        border-radius: 3px;
+        background: #79aec8;
+        color: white;
+    }
+    .medialib .form {
+        padding: 10px;
+        margin: 10px 0px;
+        background: #e2e2e2;
+        border: 1px solid #c0c0c0;
+        border-radius: 5px;
+        width: 450px;
+    }
+    .medialib .form .label {
+        width: 100px;
+    }
+    .medialib .form .text {
+        width: 320px;
+    }
+    .medialib .form .form-action {
+        padding-top: 10px;
+        text-align: right;
+    }
+    .medialib .form .form-action button {
+        padding: 5px;
+    }
+    .medialib button:hover {
+        cursor: pointer;
+        background: #417690;
+    }
+    .medialib table {
+        width: 100%;
+    }
+    .medialib td {
+        vertical-align: middle;
+    }
+</style>
+
+
+<script>
+    $(document).ready(function () {
+        selectFolder(0);
+        hideForms();
+    });
+
+    function selectFolder(folder = 0) {
+        loadFolders(folder);
+        loadFiles(folder)
+    }
+
+    function hideForms() {
+        $('#formFolder').hide();
+        $('#formFile').hide();
+    }
+
+    function showFormFolder() {
+        hideForms();
+        $('#formFolder').show();
+    }
+
+    function showFormFile() {
+        hideForms();
+        $('#formFile').show();
+    }
+
+    function saveFolder() {
+        $.ajax({
+        type: 'POST',
+        url: '{% url 'api_mediafolder' %}',
+        data: new FormData($('#fformFolder')[0]),
+        processData: false,
+        contentType: false
+    })
+        .done(function (data) {
+            console.log(data)
+        })
+        .fail(function () {
+            console.log('qq')
+        });
+
+    }
+
+    function loadFiles(folder = 0) {
+        var html = '';
+        url = "{% url 'api_mediafile' %}";
+        if (folder != 0)
+            url += "?folder=" + folder;
+        $.getJSON(url, function (data) {
+            try {
+                html += "<table>";
+                data.data.forEach(function(item){
+                    html += "<tr><td width=\"32\"><img src=\"" + item.url + "?s=32&img=1\" /></td><td>" + item.name + "</td></tr>";
+                });
+                html += "</table>";
+                $('#files').html(html);
+            } catch (err) {
+                console.error(err);
+            }
+        });
+    }
+
+    function loadFolders(id = 0) {
+        var html = '';
+        if (id!=0){
+            html += "<table>";
+            html += "<tr><td width=\"32\"><i class=\"fas fa-folder\" style=\"font-size: 32px\"></i></td><td><a href=\"#\" onclick=\"selectFolder(0); return false;\">...</a></td></tr>";
+            html += "</table>";
+            $('#folders').html(html);
+        } else {
+            $.getJSON("{% url 'api_mediafolder' %}", function (data) {
+                try {
+                    html += "<table>";
+                    data.data.forEach(function(item){
+                        html += "<tr><td width=\"32\"><i class=\"fas fa-folder\" style=\"font-size: 32px\"></i></td><td><a href=\"#\" onclick=\"selectFolder(" + item.id + "); return false;\">" + item.name + "</a></td></tr>";
+                    });
+                    html += "</table>";
+                    $('#folders').html(html);
+                } catch (err) {
+                    console.error(err);
+                }
+            });
+        }
+    }
+</script>

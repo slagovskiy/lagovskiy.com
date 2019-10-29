@@ -52,9 +52,9 @@ INSTALLED_APPS = [
 
     'tinymce',
 
-    #'rest_framework',
-    #'rest_framework.authtoken',
-    #'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -171,7 +171,7 @@ AUTH_USER_MODEL = 'userext.User'
 SERVER = 'http://127.0.0.1:8000'
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = ''
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -238,9 +238,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': True,
     'custom_undo_redo_levels': 20,
     'plugins': '''
-            textcolor save link image media preview codesample contextmenu
+            save link image media preview codesample
             table code lists fullscreen  insertdatetime  nonbreaking
-            contextmenu directionality searchreplace wordcount visualblocks
+            directionality searchreplace wordcount visualblocks
             visualchars code fullscreen autolink lists  charmap print  hr
             anchor pagebreak
             ''',
@@ -268,7 +268,8 @@ TINYMCE_EXTRA_MEDIA = {
     'js': [
     ],
 }
-TINYMCE_FILEBROWSER = True
+TINYMCE_FILEBROWSER = False
+TINYMCE_JQUERY_URL = '/static/js/jquery-3.4.1.min.js'
 
 # FILEBROWSER_DIRECTORY = ''
 # FILEBROWSER_URL_FILEBROWSER_MEDIA = '/static/filebrowser/'
