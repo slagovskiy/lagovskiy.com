@@ -1,32 +1,6 @@
 <div id="medialib" class="medialib">
     <div id="action">
-        <button onclick="showFormFolder(); return false;">Add folder</button>
-        <button onclick="showFormFile(); return false;">Upload file</button>
-    </div>
-    <div class="form" id="formFolder">
-        <form method="post" id="fformFolder">
-            <div>
-                <input type="hidden" name="id" value="0">
-                <label for="folderName" class="label">Folder name:</label>
-                <input type="text" name="folder" id="folderName" class="text">
-            </div>
-            <div class="form-action">
-                <button onclick="saveFolder(); return false;" type="button">Save</button>
-                <button onclick="hideForms(); return false;" type="button">Cancel</button>
-            </div>
-        </form>
-    </div>
-    <div class="form" id="formFile">
-        <form method="post" enctype="multipart/form-data">
-            <div>
-                <label for="file" class="label">File:</label>
-                <input type="file" name="file" id="folderName" class="text">
-            </div>
-            <div class="form-action">
-                <button onclick="return false;">Save</button>
-                <button onclick="hideForms(); return false;">Cancel</button>
-            </div>
-        </form>
+        <button onclick="selectFolder(0); return false;" type="button"><i class="fas fa-sync-alt"></i> Reload</button>
     </div>
     <div id="folders"></div>
     <div id="files"></div>
@@ -77,45 +51,14 @@
 <script>
     $(document).ready(function () {
         selectFolder(0);
-        hideForms();
     });
 
     function selectFolder(folder = 0) {
         loadFolders(folder);
-        loadFiles(folder)
+        loadFiles(folder);
+        $('img').fancybox();
     }
 
-    function hideForms() {
-        $('#formFolder').hide();
-        $('#formFile').hide();
-    }
-
-    function showFormFolder() {
-        hideForms();
-        $('#formFolder').show();
-    }
-
-    function showFormFile() {
-        hideForms();
-        $('#formFile').show();
-    }
-
-    function saveFolder() {
-        $.ajax({
-        type: 'POST',
-        url: '{% url 'api_mediafolder' %}',
-        data: new FormData($('#fformFolder')[0]),
-        processData: false,
-        contentType: false
-    })
-        .done(function (data) {
-            console.log(data)
-        })
-        .fail(function () {
-            console.log('qq')
-        });
-
-    }
 
     function loadFiles(folder = 0) {
         var html = '';
@@ -126,7 +69,7 @@
             try {
                 html += "<table>";
                 data.data.forEach(function(item){
-                    html += "<tr><td width=\"32\"><img src=\"" + item.url + "?s=32&img=1\" /></td><td>" + item.name + "</td></tr>";
+                    html += "<tr><td width=\"32\"><a href=\"" + item.url + "\"  data-fancybox=\"gallery\"><img src=\"" + item.url + "?s=32&img=1\" /></a></td><td>" + item.name + "</td></tr>";
                 });
                 html += "</table>";
                 $('#files').html(html);
