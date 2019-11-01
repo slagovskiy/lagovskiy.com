@@ -1,6 +1,7 @@
 from ...blog.models import Category, Tag
+from ...photo.models import Album, Tag as PhotoTag, DeviceType
 from django import template
-from ...info.models import Link
+from ...links.models import MyLink
 
 register = template.Library()
 
@@ -22,12 +23,7 @@ def widget_tags(active_tag=''):
         'active_tag': active_tag
     }
 
-@register.inclusion_tag('widgets/links.html')
-def widget_links():
-    links = Link.objects.all().filter(deleted=False).order_by('order')
-    return {'links': links}
 
-'''
 @register.inclusion_tag('widgets/album.html')
 def widget_albums(active_album=''):
     albums = Album.objects.all().filter(deleted=False)
@@ -64,4 +60,3 @@ def widget_links():
 @register.inclusion_tag('widgets/archive.html')
 def widget_archive():
     return {'archives': ['2016', '2015', '2014', '2013']}
-'''

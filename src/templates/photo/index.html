@@ -1,0 +1,21 @@
+{% extends 'photo/base.html' %}
+{% load md2 %}
+
+{% block content %}
+    <div class="photo-items">
+    {% for photo in photos %}
+        {% include 'photo/photo_teaser.html' %}
+    {% endfor %}
+    </div>
+    {% ifnotequal photos.paginator.num_pages 1 %}
+        <ul class="pager">
+            {% if photos.has_previous %}
+                <li class="previous"><a href="?page={{ photos.previous_page_number }}"><i class="fa fa-arrow-left"></i> Older</a></li>
+            {% endif %}
+            {% if photos.has_next %}
+                <li class="next"><a href="?page={{ photos.next_page_number }}">Newer <i class="fa fa-arrow-right"></i></a></li>
+            {% endif %}
+        </ul>
+    {% endifnotequal %}
+
+{% endblock %}

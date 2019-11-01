@@ -1,0 +1,147 @@
+{% extends 'blog/base.html' %}
+{% load md2 %}
+{% load markup %}
+{% load tags %}
+{% load mptt_tags %}
+
+{% block ext_title %}{{ post.title }} - {% endblock %}
+
+
+{% block ext_meta %}
+    {% if post %}
+        {% url 'blog_post' post.slug as post_url %}
+        <meta name="description" content="{{ post.description }}" />
+
+        <!-- Schema.org markup for Google+ -->
+        <meta itemprop="name" content="{{ post.title }}">
+        <meta itemprop="description" content="{{ post.description }}">
+        <meta itemprop="image" content="{{ post.get_social_image_url }}">
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="{{ post.get_post_url }}">
+        <!--<meta name="twitter:site" content="@publisher_handle">-->
+        <meta name="twitter:title" content="{{ post.title }}">
+        <meta name="twitter:description" content="{{ post.description }}">
+        <!--<meta name="twitter:creator" content="@author_handle">-->
+        <!-- Twitter summary card with large image must be at least 280x150px -->
+        <meta name="twitter:image:src" content="{{ post.get_social_image_url }}">
+
+        <!-- Open Graph data -->
+        <meta property="og:title" content="{{ post.title }}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="{{ post.get_post_url }}" />
+        <meta property="og:image" content="{{ post.get_social_image_url }}" />
+        <meta property="og:description" content="{{ post.description }}" />
+        {% comment %}<meta property="og:site_name" content="{{ request.session.global.site_name }}" />{% endcomment %}
+        <meta property="article:published_time" content="{{ post.published }}" />
+        <meta property="article:modified_time" content="{{ post.published }}" />
+        {% for category in post.categories.all %}<meta property="article:section" content="{{ category.name }}" />{% endfor %}
+        {% for tag in post.tags.all %}<meta property="article:tag" content="{{ tag.name }}" />{% endfor %}
+        <!--<meta property="fb:admins" content="Facebook numberic ID" />-->
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if post %}
+        <article id="post_{{ post.id }}" class="post">
+            <header>
+                <div class="post-header1">
+                    <h2 class="post-category col-md-9">
+                        {% if post.id %}
+                            {% for category in post.categories.all %}<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% if not forloop.last %}&nbsp;&#183;&nbsp;{% endif %}{% endfor %}
+                        {% endif %}
+                    </h2>
+                    <div class="col-md-3 post-date">{{ post.published|date_from_now|safe }}</div>
+                </div>
+                <h1 class="post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+            </header>
+            <div class="post-body clearfix">
+                {{ post.teaser|medial_file|markdown }}
+                <hr>
+                {{ post.content|medial_file|markdown }}
+            </div>
+            {% if post.tags.all %}
+                <div class="post-tags">
+                    <i class="fa fa-tags"></i>&nbsp;
+                    {% for tag in post.tags.all %}
+                        <a href="{% url 'blog_post_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}&nbsp;|&nbsp;{% endif %}
+                    {% endfor %}&nbsp;&nbsp;
+                </div>
+            {% endif %}
+            <ul class="post-info">
+                <li><i class="fa fa-user"></i>&nbsp;{{ post.author.firstname }} {{ post.author.lastname }}&nbsp;&nbsp;</li>
+                <li><i class="fa fa-eye"></i>&nbsp;{{ post.visitor_count }}&nbsp;&nbsp;</li>
+                <li><a href="#"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;--&nbsp;&nbsp;</li>
+                <li><a href="#"><i class="fa fa-thumbs-o-down"></i></a>&nbsp;--&nbsp;&nbsp;</li>
+                <li class="item-right">
+                    <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                    <script src="//yastatic.net/share2/share.js"></script>
+                    <span class="ya-share2" data-services="facebook,twitter,vkontakte,odnoklassniki,moimir,evernote" data-size="s"></span>
+                </li>
+            </ul>
+        </article>
+
+        <section role="comments" class="comments">
+            <h2><a href="#" onclick="moveReply(0); return false;">Comments: {{ post.comment_count }}</a></h2>
+        {% if post.comments_enabled %}
+            <div id="reply_0">
+                <form name="comment-form" class="comment-form" action="{% url 'blog_comment_save' %}" id="comment-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="parent" id="comment-parent" value="0">
+                    <input type="hidden" name="post" value="{{ post.id }}">
+                    <div class="row">
+                        <textarea placeholder="leave commentary" id="comment-message" name="comment-message" onclick="$('#comment-user').css({'display': 'block'}); $('#comment-message').animate({'height': '6em'}, 500);"></textarea>
+                    </div>
+                    <div class="comment-user" id="comment-user">
+                        <div class="row">
+                            <div class="col-md-2"><label for="comment-username">Username</label></div>
+                            <div class="col-md-10"><input type="text" id="comment-username" name="comment-username" placeholder="enter your name here" value="{% if request.user %}{{ request.user.firstname }} {{ request.user.lastname }}{% endif %}"></div>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <div class="row">
+                                <div class="col-md-2"><label for="comment-date">Date</label></div>
+                                <div class="col-md-10"><input type="text" id="comment-date" name="comment-date" placeholder="YYYY/MM/DD"></div>
+                            </div>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-md-2"><label for="comment-email">Email</label></div>
+                            <div class="col-md-10"><input type="text" id="comment-email" name="comment-email" placeholder="if you want to receive updates, enter your email"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><label for="comment-captcha"></label></div>
+                            <div class="col-md-10 comment-code-row">
+                                <span class="comment-code-img"><img src="{% url 'captcha' %}" border="0" id="comment-image"></span>
+                                <span class="comment-code-update"><a href="#" title="update confirmation code" onclick="reloadCaptcha();return false;"><i class="fa fa-refresh" aria-hidden="true"></i></a></span>
+                                <span class="comment-code-text"><input type="text" id="comment-captcha" name="comment-captcha" placeholder="enter confirmation code"><span>
+                            </div>
+                        </div>
+                        <div class="row buttons">
+                            <button onclick="sendComment();return false;">send&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+            <div class="comments-tree">
+                {% recursetree post.comment_set.all %}
+                        {% with node as comment %}
+                        {% if comment.allowed %}
+                            {% include "blog/comment_view.html" %}
+                        {% endif %}
+                        {% if not node.is_leaf_node %}
+                                {{ children }}
+                        {% endif %}
+                        {% endwith %}
+                {% endrecursetree  %}
+                <div id="comment_reply_0"></div>
+            </div>
+        </section>
+        {% if post.comments_enabled %}
+        <script>
+        $(document).ready(function() {
+            moveReply(0);
+        });
+        </script>
+        {% endif %}
+    {% endif %}
+{% endblock %}

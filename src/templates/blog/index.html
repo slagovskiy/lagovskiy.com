@@ -1,2 +1,20 @@
 {% extends 'blog/base.html' %}
+{% load md2 %}
 
+{% block content %}
+    {% for post in posts %}
+        {% include 'blog/post_teaser.html' %}
+        {% if not forloop.last %}<hr>{% endif %}
+    {% endfor %}
+    {% ifnotequal posts.paginator.num_pages 1 %}
+    <ul class="pager">
+        {% if posts.has_previous %}
+            <li class="previous"><a href="?page={{ posts.previous_page_number }}"><i class="fa fa-arrow-left"></i> Older</a></li>
+        {% endif %}
+        {% if posts.has_next %}
+            <li class="next"><a href="?page={{ posts.next_page_number }}">Newer <i class="fa fa-arrow-right"></i></a></li>
+        {% endif %}
+    </ul>
+{% endifnotequal %}
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% if categories %}
+    <div class="sub-menu pb-5">
+        <div class="sub-menu-title"><i class="far fa-folder"></i> Notepads</div>
+        <ul class="sub-menu-items nav flex-column pl-4">
+            {% for category in categories %}
+            <li><a href="{% url 'blog_post_by_category' category.slug %}"{% if active_category.slug == category.slug %} class="active"{% endif %}>{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

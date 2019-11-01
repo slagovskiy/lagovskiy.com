@@ -1,0 +1,22 @@
+{% load tags %}
+
+<div style="padding-left: {{ comment.mptt_level|mul:2 }}em;" class="level">
+    <header>
+        <div class="username{% if comment.user %} username-master{% endif %}">{{ comment.username }}</div>
+        <div class="date">{{ comment.created|date_from_now|safe }}&nbsp;&nbsp;<a href="#comment{{ comment.id }}" name="comment{{ comment.id }}"><i class="fa fa-link" aria-hidden="true"></i></a></div>
+        <div class="clearfix"></div>
+    </header>
+    {% if not comment.allowed %}
+    <h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Your comment will be published after being moderated <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></h4>
+    {% endif %}
+    <div class="content">
+        {{ comment.content|escapebr|safe }}
+    </div>
+{% if comment.post.comments_enabled %}
+    <div class="reply">
+        <a href="#" onclick="moveReply({{ comment.id }}); return false;"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a>
+        <div id="reply_{{ comment.id }}"></div>
+    </div>
+{% endif %}
+</div>
+<div id="comment_reply_{{ comment.id }}"></div>

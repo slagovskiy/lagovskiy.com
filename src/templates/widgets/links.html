@@ -1,12 +1,8 @@
-{% if links %}
-    <div class="sub-menu pb-5">
-        <div class="sub-menu-title"><i class="fa fa-link"></i> Links</div>
-        <ul class="sub-menu-items nav flex-column pl-4">
-            {% for link in links %}
-                {% if not link.deleted %}
-                    <li><a href="{{ link.link }}" target="_blank"><i class="{{ link.icon }}"></i> {{ link.name }}</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
+<section>
+    <h2><i class="fa fa-link"></i> Links</h2>
+    <ul role="menu">
+        {% for mylink in mylinks %}
+        <li><a href="{{ mylink.link }}"{% if mylink.blank %} target="_blank"{% endif %}>{{ mylink.name|safe }}</a></li>
+        {% endfor %}
+    </ul>
+</section>

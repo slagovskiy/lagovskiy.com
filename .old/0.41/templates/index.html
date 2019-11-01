@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load widgets %}
+
+{% block right_menu %}
+    {% widget_category active_category %}
+    {% widget_tags active_tag %}
+    {% widget_links %}
+{% endblock %}

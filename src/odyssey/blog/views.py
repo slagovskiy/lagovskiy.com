@@ -1,9 +1,14 @@
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.utils import timezone
+from django.utils.timezone import get_current_timezone
+from datetime import datetime
 
-from .models import Category, Tag, Post
-from ..settings import PAGE_SIZE
+from ..toolbox.utils import get_ip
+from .models import Post, Category, Tag, Comment
+from .settings import PAGE_SIZE
+
 
 def blog_view(request):
     page = int(request.GET.get('page', 1))
@@ -60,3 +65,60 @@ def blog_post_by_category(request, slug=''):
         'active_category': category
     }
     return render(request, 'blog/index.html', content)
+
+
+def blog_comment(request, id):
+    comment = Comment.objects.get(id=id)
+    content = {
+        'comment': comment
+    }
+    return render(request, 'blog/comment_view.html', content)
+
+
+def blog_comment_save(request):
+    data = None
+    if request.POST:
+        parent = int(request.POST.get('parent', 0))
+        post = int(request.POST.get('post', 0))
+        message = str(request.POST.get('comment-message', ''))
+        username = str(request.POST.get('comment-username', 'guest'))
+        email = str(request.POST.get('comment-email', ''))
+        captcha = str(request.POST.get('comment-captcha', ''))
+        agent = request.META.get('HTTP_USER_AGENT', '')
+        ip = get_ip(request)
+        if request.POST.get('comment-date', '') != '':
+            dt = datetime.strptime(
+                request.POST.get('comment-date', '') + " " + str(datetime.now().hour) + ":" + str(datetime.now().minute), '%Y/%m/%d %H:%M'
+            )
+            created = dt
+        else:
+            created = timezone.now()
+        if request.session['CAPTCHA_CODE'] == str(captcha).upper():
+            post = Post.objects.get(id=post)
+            if post:
+                parent_comment = None
+                if parent > 0:
+                    parent_comment = Comment.objects.get(id=parent)
+                comment = Comment()
+                if request.user.is_authenticated:
+                    if request.user.firstname + ' ' + request.user.lastname == username:
+                        comment.user = request.user
+                comment.allowed = not post.comments_moderated
+                comment.post = post
+                comment.content = message
+                comment.username = username
+                comment.email = email
+                comment.agent = agent
+                comment.ip = ip
+                comment.created = created
+                comment.save()
+                if parent != 0:
+                    comment.parent = parent_comment
+                comment.save()
+                return HttpResponse('ok:' + str(comment.id))
+            else:
+                return HttpResponse('unknown post:0')
+        else:
+            return HttpResponse('wrong captcha:0')
+    else:
+        return HttpResponse('wrong method:0')

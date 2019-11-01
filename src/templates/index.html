@@ -1,8 +1,39 @@
-{% extends 'base.html' %}
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load md2 %}
+{% load tags %}
 {% load widgets %}
+
+{% block content %}
+    {% if posts %}
+        {% first posts as post %}
+        {% include 'blog/post_teaser.html' %}
+    {% endif %}
+    <hr>
+    {% if posts %}
+        <div class="top-posts clearfix">
+        {% for post in posts %}
+            {% if not forloop.first %}
+                {% include 'blog/post_top.html' %}
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    <hr>
+    {% if photos %}
+        <div class="top-posts clearfix">
+        {% for photo in photos %}
+            {% include 'photo/photo_top.html' %}
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}
 
 {% block right_menu %}
     {% widget_category active_category %}
-    {% widget_tags active_tag %}
+    {% widget_albums active_album %}
+    {% widget_device_types active_device_type %}
     {% widget_links %}
 {% endblock %}

@@ -1,0 +1,25 @@
+{% load md2 %}
+{% load markup %}
+{% load tags %}
+{% load static %}
+<div class="col-md-3">
+    <div class="photo-item top-post">
+        <a data-fancybox="gallery" data-fancybox="ajax" data-src="{{ photo.image.url }}" href="{% url 'photo_item_view' photo.slug %}"
+           data-caption="
+        {% if photo.title %}{{ photo.title }}{% else %}* * *{% endif %}<br>
+        {% with albums=photo.albums.all tags=photo.tags.all devices=photo.devices.all %}
+        {% if albums %}<i class='fa fa-folder-o'></i> {% for album in albums %}<a href='{% url 'photo_by_album' album.slug %}'>{{ album.name }}</a>{% if not forloop.last %},{% endif %}&nbsp;{% endfor %}  {% endif %}
+        {% if tags %}<i class='fa fa-tags'></i> {% for tag in tags %}<a href='{% url 'photo_by_tag' tag.slug %}'>{{ tag.name }}</a>{% if not forloop.last %},{% endif %}&nbsp;{% endfor %}{% endif %}
+        {% if albums or tags %}<br>{% endif %}
+        {% if devices %}<i class='fa fa-camera'></i> {% for device in devices %}<a href='{% url 'device_view' device.slug %}'>{{ device.device_type.name }}: {{ device.name }}</a>{% if not forloop.last %},{% endif %}&nbsp;{% endfor %}{% endif %}
+        {% endwith %}
+     ">
+            <img src="{{ photo.image.url }}?w=200&stat=0" border="0" />
+        </a>
+        {% if photo.title %}
+            <div class="photo-title">
+                {{ photo.title }}
+            </div>
+        {% endif %}
+    </div>
+</div>

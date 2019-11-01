@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% load static from staticfiles %}
+{% load static %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+    <link href="{% static 'lib/fa/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/jq-ui/jquery-ui.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+    {{ block.super }}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">LAGOVSKIY.COM</a></h1>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'lib/jq-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'lib/fancybox/jquery.fancybox.min.js' %}"></script>
+{% endblock %}

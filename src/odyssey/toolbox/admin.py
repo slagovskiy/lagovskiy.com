@@ -1,34 +1,21 @@
-from django import forms
 from django.contrib import admin
-from django.contrib.flatpages.admin import FlatPageAdmin
-from django.contrib.flatpages.models import FlatPage
-from django.utils.translation import gettext_lazy as _
-
-from tinymce.widgets import TinyMCE
+from .models import Global, PingServer, PingResult
 
 
-class FlatPageForm(forms.ModelForm):
-    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
-
-    class Meta:
-        model = FlatPage
-        fields = '__all__'
+class GlobalAdmin(admin.ModelAdmin):
+    list_display = ('slug', 'value')
+    ordering = ('slug',)
 
 
-class FlatPageAdmin(FlatPageAdmin):
-    form = FlatPageForm
-    fieldsets = (
-        (None, {'fields': ('url', 'title', 'content', 'sites')}),
-        (_('Advanced options'), {
-            'classes': ('collapse',),
-            'fields': (
-                'enable_comments',
-                'registration_required',
-                'template_name',
-            ),
-        }),
-    )
+class PingServerAdmin(admin.ModelAdmin):
+    list_display = ('address', 'deleted')
+    ordering = ('address',)
 
 
-admin.site.unregister(FlatPage)
-admin.site.register(FlatPage, FlatPageAdmin)
+class PingResultAdmin(admin.ModelAdmin):
+    list_display = ('date', 'pingserver', 'passed')
+    ordering = ('-date',)
+
+admin.site.register(Global, GlobalAdmin)
+admin.site.register(PingServer, PingServerAdmin)
+admin.site.register(PingResult, PingResultAdmin)

@@ -1,107 +1,95 @@
 from django.contrib import admin
-from django import forms
-from tabbed_admin import TabbedModelAdmin
-from tinymce.widgets import TinyMCE
-
-from .models import Category, Tag, Post
+from mptt.admin import MPTTModelAdmin
+from .models import Category, Tag, Post, Comment, Media
+from .forms import PostAdminForm
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'order', 'deleted')
-    list_filter = ('name',)
+    list_display = ('name', 'parent', 'deleted')
+    list_filter = ('name', 'parent')
 
 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'deleted')
-    list_filter = ('name',)
+    list_display = ('name', 'slug', 'deleted')
+    ordering = ['name']
 
 
-class PostAdminForm(forms.ModelForm):
-    uid = forms.CharField()
-    slug = forms.CharField()
-    title = forms.CharField()
-    teaser = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}, mce_attrs={'height': 400, 'width': 1200}))
-    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}, mce_attrs={'height': 800, 'width': 1200}))
-
-    class Meta:
-        model = Post
-        fields = '__all__'
-
-
-class PostAdmin(TabbedModelAdmin):
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'status', 'sticked')
+    ordering = ('status', 'sticked', 'created', 'title')
+    exclude = ('uid',)
     form = PostAdminForm
-    list_display = ('title', 'status')
-    list_filter = ('title',)
-    readonly_fields = ('created', 'media_lib',)
+    readonly_fields = ('created', 'social_image_preview', 'editor_help')
 
-    '''
     fieldsets = [
-        (None, {
-            'classes': ('',),
-            'description': '',
-            'fields': ['uid', 'slug', 'title', 'author', 'created', 'published']
-        }),
-        ('SEO', {
-            'classes': ('',),
-            'description': '',
-            'fields': ['description', 'keywords', 'status', 'sticked', 'do_ping', 'categories', 'tags', 'social_image']
-        }),
-        ('Comment', {
-            'classes': ('',),
-            'description': '',
-            'fields': ['comments_enabled', 'comments_moderated']
-        }),
-        ('Data', {
-            'classes': ('',),
-            'description': '',
-            'fields': ['teaser', 'content']
-        }),
-        ('Media', {
-            'classes': ('',),
-            'description': '',
-            'fields': ['media_lib']
-        }),
+        (
+            'general', {
+                'classes': ('suit-tab suit-tab-general',),
+                'fields': [
+                    'slug',
+                    'title',
+                    'teaser',
+                    'content',
+                    'editor_help'
+                ]
+            }
+        ),
+        (
+            'status', {
+                'classes': ('suit-tab suit-tab-status',),
+                'fields': [
+                    'status',
+                    'created',
+                    'published',
+                    'sticked',
+                    'author',
+                ]
+            }
+        ),
+        (
+            'seo', {
+                'classes': ('suit-tab suit-tab-seo',),
+                'fields': [
+                    'description',
+                    'keywords',
+                    'social_image',
+                    'social_image_preview',
+                    'do_ping',
+                    'categories',
+                    'tags'
+                ]
+            }
+        ),
+        (
+            'comments', {
+                'classes': ('suit-tab suit-tab-comments',),
+                'fields': [
+                    'comments_enabled',
+                    'comments_moderated',
+                ]
+            }
+        )
     ]
-    '''
 
-    tab_general = (
-        (None, {
-            'fields': ('uid', 'slug', 'title', 'author', 'created', 'published')
-        }),
-    )
-    tab_seo = (
-        (None,
-         {
-             'fields': ('description', 'keywords', 'status', 'sticked', 'do_ping', 'categories', 'tags', 'social_image')
-         }),
-    )
-    tab_comment = (
-        (None,
-         {
-             'fields': ('comments_enabled', 'comments_moderated')
-         }),
-    )
-    tab_content = (
-        (None, {
-            'fields': ('teaser', 'content')
-        }),
-    )
-    tab_media = (
-        (None,
-         {
-             'fields': ('media_lib',)
-         }),
-    )
 
-    tabs = [
-        ('General', tab_general),
-        ('SEO', tab_seo),
-        ('Comment', tab_comment),
-        ('Content', tab_content),
-        ('Media', tab_media)
-    ]
+    #def __init__(self, *args, **kwargs):
+    #    super(PostAdmin, self).__init__(*args, **kwargs)
+    #    self.form.admin_site = self.admin_site
+
+class CommentAdmin(MPTTModelAdmin):
+    list_display = ('username', 'content100', 'post100', 'created', 'allowed')
+    mptt_level_indent = 20
+
+
+class MediaAdmin(admin.ModelAdmin):
+    list_display = ('media_file_admin_preview', 'title', 'media_link')
+    ordering = ('-created',)
+    exclude = ('uid', 'media_file_admin_preview')
+    readonly_fields = ('media_file_preview', 'media_link')
 
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(Media, MediaAdmin)

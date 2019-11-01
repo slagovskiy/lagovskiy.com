@@ -1,0 +1,10 @@
+{% if phototags %}
+    <section>
+        <h2><i class="fa fa-tags"></i> Tags</h2>
+        <ul class="tag" role="menu">
+            {% for phototag in phototags %}
+                {% if phototag.photos_count > 0 %}<li><a href="{% url 'photo_by_tag' phototag.slug %}"{% if active_phototag.slug == phototag.slug %}class="active"{% endif %}>{{ phototag.name }}<span>{{ phototag.photos_count }}</span></a></li>{% endif %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}

@@ -1,0 +1,1 @@
+{% if not nolink %}<a href="{% url "media_file" %}{{ uuid}}/image.img" class="fancybox" data-fancybox-group="post_gallery">{% endif %}<img src="{% url "media_file" %}{{ uuid }}/{% if param %}?{{ param }}{% endif %}"{% if align %} class="img-{{ align }}{% if border %} img-border{% endif %}"{% endif %} />{% if not nolink %}</a>{% endif %}

@@ -1,0 +1,27 @@
+#site-name {
+    font-weight: bold;
+}
+select {
+    width: auto;
+    min-width: 200px;
+}
+
+input.width-max {
+    min-width: 500px;
+}
+
+textarea {
+    min-width: 500px;
+}
+#id_teaser {
+    min-width: 500px;
+    width: 1000px;
+    min-height: 150px;
+    height: 200px;
+}
+
+#id_content {
+    min-width: 500px;
+    width: 1000px;
+    min-height: 200px;
+    height: 300px;

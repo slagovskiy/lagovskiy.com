@@ -5,8 +5,6 @@ from django.db import models
 import uuid
 import os
 
-from ..settings import MEDIA_ROOT, SERVER
-
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -33,7 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def avatar_path(instance, filename):
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(str(uuid.uuid1()), ext)
-        return os.path.join(os.path.join('avatar', instance.email), filename)
+        return os.path.join(os.path.join(instance.email, 'avatar'), filename)
 
     email = models.EmailField(
         'Email',
@@ -77,10 +75,6 @@ class User(AbstractBaseUser, PermissionsMixin):
             return '<img src="%s?h=100" border="0"/>' % self.avatar.url
         else:
             return ''
-
-    def url(self):
-        return SERVER + self.avatar.url
-
 
     avatar_preview.short_description = 'Avatar preview'
     avatar_preview.allow_tags = True

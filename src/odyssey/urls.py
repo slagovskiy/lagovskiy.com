@@ -1,31 +1,32 @@
-from django.conf.urls.static import static
+from django.conf.urls import url, include
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include, url
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic.base import RedirectView
 
-# from filebrowser.sites import site
-
-from .settings import MEDIA_ROOT, MEDIA_URL
+from .toolbox.sitemap import BlogSitemap
+from .views import index, captcha, captcha_check
 from .media.views import media
-from .views import index
-from .media.api import APIMediaFile, APIMediaFolder
+
+
+sitemaps = {
+    'pages': BlogSitemap()
+}
+
 
 urlpatterns = [
-
     url(r'^$', index, name='home'),
 
-    url('^api/v1/media/file/', APIMediaFile.as_view(), name='api_mediafile'),
-    url('^api/v1/media/folder/', APIMediaFolder.as_view(), name='api_mediafolder'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico'), name='favicon'),
+
+    url(r'^captcha/$', captcha, name='captcha'),
+    url(r'^captcha_check/(?P<code>[-\w]+)/$', captcha_check, name='captcha_check'),
 
     url(r'^blog/', include('odyssey.blog.urls')),
 
+    url(r'^photo/', include('odyssey.photo.urls')),
+
     url(r'^media/(?P<path>.*)$', media),
 
-    url(r'^tinymce/', include('tinymce.urls')),
-
-    path('pages/', include('django.contrib.flatpages.urls')),
-
-    path('admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='admin'),
 ]
-
-# urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)

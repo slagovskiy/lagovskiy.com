@@ -1,0 +1,10 @@
+{% if albums %}
+    <section>
+        <h2><i class="fa fa-folder-o"></i> Albums</h2>
+        <ul role="menu">
+            {% for album in albums %}
+                <li><a href="{% url 'photo_by_album' album.slug %}"{% if active_album.slug == album.slug %}class="active"{% endif %}>{{ album.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}

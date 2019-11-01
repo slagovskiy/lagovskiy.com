@@ -1,0 +1,10 @@
+{% if device_types %}
+    <section>
+        <h2><i class="fa fa-camera"></i> Devices</h2>
+        <ul role="menu">
+            {% for device_type in device_types %}
+                <li><a href="{% url 'devices_by_type' device_type.slug %}"{% if active_device_type.slug == device_type.slug %}class="active"{% endif %}>{{ device_type.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}

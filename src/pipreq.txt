@@ -1,11 +1,13 @@
 pillow
 django
+django-mptt
+django-markdown2
 django-sendfile
 django-cors-headers
 djangorestframework
 djangorestframework-jwt
 django-tabbed-admin
-django-tinymce
+user_agents
 PyJWT
 gunicorn
 mysqlclient
