@@ -13,6 +13,7 @@ pip-log.txt
 settings_local.py
 config_local.py
 downloads
+node_modules
 
 # Packages #
 ############
